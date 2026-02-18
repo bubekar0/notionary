@@ -1,0 +1,88 @@
+<style>
+   body { background:#eee; }
+   h4 { color:black; }
+   ol { counter-reset:item; }
+   li { display:block; }
+   li:before { content:counters(item, ".") "."; counter-increment:item; padding-right:10px; margin-left:-100px; }
+</style>
+<h4>Politique de confidentialité</h4>
+<p>Cette offre est faite par Notionary ("notionary" ou "nous" ), Notionary.com 01187 Dresden - Allemagne.</p>
+<p>Une manipulation fiable et compétente des données personnelles de nos utilisateurs est importante pour nous. Si nous recueillons, transformons
+   ou utilisons («utiliser») les données personnelles dans le cadre de notre offre, ce qui devrait avoir lieu dans le cadre des lois sur la 
+   protection des données.</p>
+<p>Dans la politique de confidentialité suivante, nous voudrions décrire d'une manière transparente et compréhensible, quelle données des
+   utilisateurs de notre service notionary sont stockés et dans quel but une telle utilisation des données dans chaque cas est nécessaire.</p>
+<h3>Quelles données seront utilisées par notionary?</h3>
+<ol>
+   <li><b>Données des clients</b></li>
+   Si vous utilisez notre site Web sans vous inscrire, comme pour regarder ou lire, nous n'utilisons pas l'un de vos renseignements personnels.
+   Lorsque vous vous inscrivez à utiliser nos services, nous utilisons les informations personnelles que vous fournissez activement. Il s'agit
+   en particulier des informations nécessaire à l'exécution du contrat que vous fournissez lors de l'inscription. Il s'agit, par exemple, votre nom,
+   votre date de naissance, adresse, adresse de courriel, ou d'autres informations que vous avez fournies pendant le processus d'inscription et les
+   données nécessaires à la facturation. Si vous utilisez les services dans le contexte du libre accès aux fonctionnalités limitées, les données
+   recueillies au cours de la processus d'enregistrement, le cas échéant, peut être limité à votre nom, votre adresse du couriel, et l'établissement
+   d'enseignement.
+   <li><b>Informations publiées par l'utilisateur</b></li>
+   En outre, notionary recueille les informations d'utilisateur fourni dans le cadre de notre service. Il s'agit notamment du nom d'utilisateur,
+   et peut-être des commentaires postés par les utilisateurs sur notre site internet. Nous rappelons à nos utilisateurs que la décision quant à ce
+   ils partagent eux-mêmes est entièrement entre vos mains.
+   <li><b>Données au niveau d'apprentissage</b></li>
+   Dans le contexte de l'utilisation de nos services de formation seront recueillis et utilisés ("Données de niveau d'apprentissage») par notionary
+   afin de fournir aux participants une utilisation optimale des services d'apprentissage. Les données de niveau d'apprentissage comprend, par exemple,
+   le nombre de visites pour chaque tâche d'apprentissage, l'état actuel du niveau d'apprentissage, le temps nécessaire pour chaque tâche d'apprentissage
+   et les résultats de chaque tâche d'apprentissage et le sujet. Ces données fournissent aux utilisateurs une meilleure orientation quant à leur
+   progrès dans l'apprentissage et permettre notionary proposer du nouveau contenu pour les utilisateurs en fonction de leurs niveaux de compétences.
+   Les données de niveau d'apprentissage ne sont visibles que pour l'utilisateur respectif ou de la contrepartie au contrat notionary. En aucun cas
+   transmettrons données de niveau d'apprentissage à des tiers sans votre consentement.
+   <li><b>Utilisation des données</b></li>
+   Dans la mesure nécessaire pour fournir nos services dans le contexte de l'accès à notre service, nous pouvons extraire des données d'utilisation,
+   telles comme le nom d'utilisateur, la date et l'heure de chaque accès. Dans le cadre des dispositions légales, nous pouvons évaluer les données pour
+   la publicité , études de marché et d'améliorer nos services par le biais de profils en utilisant des pseudonymes. Vous pouvez contester cette
+   utilisation dans toute temps sans donner de raisons.
+   <li><b>Utilisation de plugins sociaux</b></li>
+   Notre site web utilise des plugins sociaux ("plugins") des réseaux sociaux Facebook, Google+ et Twitter. Ces réseaux sociaux sont exploités
+   respectivement par Facebook Inc., 1601 S. California Ave, Palo Alto, CA 94304 , États-Unis(«Facebook»); Google Inc. 1600 Amphitheatre Parkway,
+   Mountain View, CA 94043, États-Unis ("Google+"), et Twitter, Inc. 1355, Market Street, Suite 900 San Francisco, CA 94103, États-Unis("Twitter").
+   Les plugins sont identifiables comme «f» blanc sur fond bleu ou un signe "pouces vers le haut" pour Facebook, un "g+" sur fond rouge pour Google+;
+   et un petit oiseau blanc sur un fond bleu clair pour Twitter.<br/>
+   Lorsque vous visitez une page de notre site Web qui contient un plugin social, votre navigateur établit une connexion directe aux serveurs de 
+   le réseau social en question. Le contenu du plugin est transmis directement à partir du réseau social de votre navigateur qui est ensuite intégré
+   dans celui-ci site. Nous n'avons absolument aucune influence sur le étendue et la quantité de données recueillies à l'aide de réseaux sociaux
+   utilisant leurs plugins sociaux et nous ne pouvons rapporter sur notre état actuel des connaissances:<br/><br/>
+      <a style='background:#627aac;color:white!important;background-image:none !important;margin:5px; padding:5px;font-size:1.2em;border-radius:10px;box-shadow:0px 4px 14px black;'
+              href="http://www.facebook.com/help/?faq=17512"> Facebook Plugins </a>
+      <a style='background:#DD4B39;color:white!important;background-image:none !important;margin:5px; padding:5px;font-size:1.2em;border-radius:10px;box-shadow:0px 4px 14px black;'
+              href="https://support.google.com/plus/answer/1319578?hl=fr"> Google +1 Button </a>
+      <a style='background:#00ACED;color:white!important;background-image:none !important;margin:5px; padding:5px;font-size:1.2em;border-radius:10px;box-shadow:0px 4px 14px black;'
+              href="https://support.twitter.com/groups/50-welcome-to-twitter#"> Twitter FAQ </a><br/><br/>
+   Lorsque vous interagissez avec les plugins, les réseaux sociaux reçoivent des informations que vous avez accédé à la page correspondante de notre
+   site Web. Si vous êtes connecté à l'un des réseaux sociaux ci-dessus, vous pouvez assigner votre visite sur notre site Web pour votre compte de
+   réseau social.  Si vous interagissez avec les plugins, appuyez sur le J'aime/Tweeter/g+1/Suivre par exemple, ou partager un commentaire, l'information
+   correspondant est transmise à partir de votre navigateur directement sur le réseau social en question et y est stockée. Si vous n'êtes pas un membre
+   du réseau social avec lequel il interagit, il existe la possibilité que le réseau social transmet et recueille votre adresse IP.<br/>
+   Pour plus d'informations sur l'objet et la portée de la collecte des données et le traitement ultérieur et l'utilisation des données par le
+   réseaux sociaux ainsi que vos droits à cet égard et la capacité de définir des options pour protéger votre vie privée s'il vous plaît vérifier 
+   les politiques de confidentialité de leurs propres réseaux sociaux:<br/><br/>
+      <a style='background:#627aac;color:white!important;background-image:none !important;margin:5px; padding:5px;font-size:1.2em;border-radius:10px;box-shadow:0px 4px 14px black;'
+         href="https://www.facebook.com/policy.php"> Facebook Privacy Policy </a>
+      <a style='background:#DD4B39;color:white!important;background-image:none !important;margin:5px; padding:5px;font-size:1.2em;border-radius:10px;box-shadow:0px 4px 14px black;'
+         href="https://www.google.com/policies/privacy/"> Google+ Privacy Policy </a>
+      <a style='background:#00ACED;color:white!important;background-image:none !important;margin:5px; padding:5px;font-size:1.2em;border-radius:10px;box-shadow:0px 4px 14px black;'
+         href="https://www.twitter.com/privacy"> Twitter Privacy Policy </a><br/><br/>
+   <li><b>Aucune collecte ou l'utilisation de vos données personnelles sans l'autorisation</b></li>
+   Notionary cherche à limiter la collecte et l'utilisation de données à caractère personnel à un minimum. Si nous devons utiliser les données à des
+   fins qui nécessite consentir parce que les lois, nous demanderons votre consentement explicite. Une fois que vous acceptez, Vous pouvez révoquer à
+   tout moment avec effet pour l'avenir par une simple communication (par exemple, e-mail, fax, lettre) et/ou de contester l'utilisation future de
+   vos données.
+   <li><b>Aucune divulgation non autorisée de tiers</b></li>
+   Les informations que vous fournissez à des fins comptables seront traitées par notionary avec le plus grand soin. Une communication à des tiers
+   se produisent seulement si nécessaire à des fins de transaction, vous avez donné votre consentement ou lorsque la divulgation ont été autorisées
+   sur la base de dispositions légales pertinentes.
+   <li><b>Contact</b></li>
+   S'il vous plaît contacter si vous avez des questions:<br/>
+   Notionary.com <br/>
+   Politique de confidentialité <br/>
+   Cra 23C #8A-42 Suite 402 <br/>
+   Santiago de Cali, Valle - COLOMBIA. </p>
+   <a style='color:black !important;' class='fa fa-envelope-o' href="mailto:developer@notionary.com">Contactez nous</a>
+</ol>

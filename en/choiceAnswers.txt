@@ -1,0 +1,12 @@
+   <b>Enforce your answer choices</b>
+      <p>
+      <i>Example Question : </i>
+         <span style='color:#FF0000'>Capital of France ?</span><br/>
+      <br/>
+      You can instruct Notionary to use your choices of answers for a question.<br/>
+      Enter the correct answer and the choices separated with the block as shown:
+      <br/>
+       <input style='width:100%;color:green;' value='Paris ￭ Lyon ￭ Marseille ￭ London ￭ Madrid'/>
+      <br/>
+      The block separator is available by clicking this button
+      </p>

@@ -1,0 +1,74 @@
+<ol>
+  <li><b> Che cosa è Notionary ? </b>
+     <p>
+     Notionary è una raccolta di prove corte che aiutano a imparare qualsiasi soggetto per mezzo
+     di Domande e Risposte (p.e. Capitali Europee), o Immagini (p.e. Bandiere Africane),
+     o Suoni (p.e. Inni Famosi) o una combinazione (p.e. Semiografia Musicale).
+
+      <div class='notpad' nname='Capitali Europee' >
+         <span> Capitali Europee </span>
+         <img title='Capitali Europee' src='http://notionary.test/?tun=ibyid&was=7443'>
+      </div>
+
+      <div class='notpad' nname='Bandiere Africane' >
+         <span> Bandiere Africane</span>
+         <img title='Bandiere Africane' src='http://notionary.test/?tun=ibyid&was=2671'>
+      </div>
+
+      <div class='notpad' nname='Inni Famosi' >
+         <span> Inni Famosi</span>
+         <img title='Inni Famosi' src='http://notionary.test/?tun=ibyid&was=10006'>
+      </div>
+
+      <div class='notpad' nname='Semiografia Musicale' >
+         <span> Semiografia Musicale</span>
+         <img title='Semiografia Musicale' src='http://notionary.test/?tun=ibyid&was=8831'>
+      </div>
+
+     <br/>Notionary utilizza le idee dietro il lavoro da Dr. Hermann Ebbinghaus sulla memoria, l'apprendimento e l'oblio.<br/>
+     </p>
+  </li>
+  <li><b> Si impara facendo e si impara dai propri errori. </b>
+
+      <p>
+      Memorizza le schede e fai i test disponibili <br/>
+      <a href='http://notionary.test/?tun=learn&was=Arithmetic Challenge'>
+         <button> <span class='fa fa-graduation-cap'></span> Apprendimento </button>
+      </a>
+      <div id='learnExample'></div>
+      <div style='display:inline-block'>
+         <a href='http://notionary.test/?tun=trial&was=Arithmetic Challenge'>
+            <button> <span class='fa fa-mouse-pointer'></span> Esame </button>
+         </a>
+         <a href='http://notionary.test/?tun=write&was=Arithmetic Challenge'>
+            <button> <span class='fa fa-pencil'></span> Scritto </button>
+         </a>
+         <a href='http://notionary.test/?tun=adept&was=Arithmetic Challenge'>
+            <button> <span class='fa fa-undo'></span> Master </button>
+         </a>
+      </div>
+      <br/> Durante il test, il sistema tiene traccia del punteggio e il tempo trascorso per misurare il progresso
+      dello studente in futuro. Errori dello studente vengono registrati e resi disponibili per la successiva
+      revisione del materiale.
+      </p>
+
+  </li>
+  <li><b> Come posso creare una Notion ? </b>
+      <p>
+      Le Notions possono essere creati manualmente digitando coppie ( Domanda -->> Risposta ) nello editor fornito da Notionary.<br/>
+      In alternativa, Notions possono essere caricati nel sistema se sono in in forma di un file di coppie ( Domanda -->> Risposta ) separati da " -->> ".<br/>
+      Basta usare il vostro editor preferito per creare un file di tipo ".txt" o ".csv " simile all'esempio qui : <br/>
+      <span class='broso'>Domanda 1</span> &nbsp;-->>&nbsp; <span class='bgrun'>Risposta 1</span><br/>
+      <span class='broso'>Domanda 2</span> &nbsp;-->>&nbsp; <span class='bgrun'>Risposta 2</span><br/>
+      <span class='broso'>Domanda 3</span> &nbsp;-->>&nbsp; <span class='bgrun'>Risposta 3</span><br/>
+      <span class='broso'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</span> -->> <span class='bgrun'>...</span><br/>
+      <span class='broso'>Domanda x</span> &nbsp;-->>&nbsp; <span class='bgrun'>Risposta x</span><br/>
+      Dopo aver creato una Notion manualmente o tramite il carico, è possibile modificare la Notion e
+      aggiungere Immagini e Suoni per ogni Domanda. Queste Immagini e Suoni dovrebbero aiutare a formare
+      associazioni di Risposta senza menzionare né mostrare la Risposta. Se credi che il materiale
+      si può imparare più facilmente attraverso un video o mediante la lettura di un documento,
+      è comunque possibile utilizzare Notionary come una piattaforma di test e collegare il vostro video
+      ( YouTube ) o allegare il documento ( PDF ) come materiale preliminare.
+      </p>
+  </li>
+</ol>

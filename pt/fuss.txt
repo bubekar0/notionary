@@ -1,0 +1,49 @@
+<style> a { color:black; font-style:italic; } </style>
+<div id='footerColumns'>
+
+   <div class='footercolumn'>
+      <p> Aprenda com cartões de índice </p>
+      <p> Crie suas próprias Notions ou use aquelas criadas por outras pessoas para
+          aprender idiomas, matemática, história, geografia e muito mais
+      </p>
+      <p> <img src='http://notionary.test/?tun=ibyid&was=50'>
+          <img src='http://notionary.test/?tun=ibyid&was=52'>
+          <img src='http://notionary.test/?tun=ibyid&was=51'>
+          <img src='http://notionary.test/?tun=ibyid&was=53'>
+          <img src='http://notionary.test/?tun=ibyid&was=54'>
+          <img src='http://notionary.test/?tun=ibyid&was=55'>
+          <img src='http://notionary.test/?tun=ibyid&was=68'>
+          <img src='http://notionary.test/?tun=ibyid&was=63'>
+          <img src='http://notionary.test/?tun=ibyid&was=58'>
+      </p>
+   </div>
+
+   <div style='text-align:center' class='footercolumn'>
+      <p> Contact us: </p>
+      <span style='color:#00aeef;font-size:1.5em;' class='fa fa-phone'></span>
+      <span style='color:#00aeef;' id='skfolg'> </span>
+
+      <p>
+          Notionary, Cra 23C #8A-42 Suite 402 <br/> Cali - Valle, COLOMBIA
+      </p>
+      <p><span style='color:black;font-size:1.5em;' class='fa fa-envelope'></span>
+          <a href="mailto:developer@notionary.test">developer@notionary.test</a>
+      </p>
+   </div>
+
+   <div style='text-align:right' class='footercolumn'>
+      <p><a href='http://notionary.test/?tun=guide'> Guia de usuario </a> </p>
+      <p><a href='http://notionary.test/?tun=terms'> Termos de Serviço </a> </p>
+      <p><a href='http://notionary.test/?tun=prvcy'> Política de Privacidade </a> </p>
+      <p><a href='http://notionary.test/?tun=cooks'> Política de Cookies </a> </p>
+      <p><a href='http://notionary.test/?tun=imprs'> Impressum </a> </p>
+   </div>
+   <p></p>
+</div>
+
+<div id='anonFollower'>
+   <a target='_blank' href='https://www.facebook.com/karteikarten'><span class='fa fa-facebook-f'></span></a>
+   <a target='_blank' href='https://www.instagram.com/notionary1/'><span class='fa fa-instagram'></span></a>
+   <a target='_blank' href='https://twitter.com/notionary'><span class='fa fa-twitter'></span></a>
+   <a target='_blank' href='https://www.youtube.com/channel/UConE_1jsXGZkNCRT8-YKZYg'><span class='fa fa-youtube'></span></a>
+</div>

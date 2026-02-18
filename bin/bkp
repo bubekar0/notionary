@@ -1,0 +1,45 @@
+#!/bin/bash
+#set -x
+# BACKUP + MIRROR Utility for all sites and system .. Ensure the /mnt/Soft is available
+PATH="/bin:/usr/bin"
+LOG_FILE="/tmp/bakmir.log"
+MIRR_DIR="/mnt/Soft/Ubuntu_20.04/"
+TIMESTMP=`date +%Y-%m-%d`
+SQL_OPTS=" --opt --lock-tables=false "
+NAR_LANG="en de es fr pt it ru hu"
+NAR_CATS="1 2 3 4 5 20"
+NAR_IMGS="aaimage"
+NAR_SNDS="aasound"
+NAR_PDFS="aapdf"
+NAR_SKEM="aaadmin aaavatar aaconfo aaemail aafname aaformula aaglobe aakname aalast aalogin aanosnd aanotion aaparam aapart aapdfid aaperfid aapiction aaprobs aarating aareview aasperq aasuper aatwo55 aauser aavideo"
+UOZ_HOME="/home/uozon"
+
+uozBKP(){ echo "   * DUMP Begins"; cd; #UOZ_MIRROR=${MIRR_DIR}${1}_Mirror;# mkdir $UOZ_MIRROR;
+
+   # Put a copy of the SQL Notionary DB into the uozon/notionary/ file hierarchy for later tar dumping into posterity
+   echo -n "   * Notion Tables"
+   for lang in $NAR_LANG; do # xargs breaks if table apostrophed, hence grep -ve, ( we aren't backing apostrophed Notions )
+      for gato in $NAR_CATS; do
+         echo -n "."
+         mysql --login-path=notionary notionary_db -e "select notion from aanotion where category=$gato and slang='$lang';" |\
+         grep -v notion |\
+         grep -ve "'" |\
+         sed 's/ /\\ /g' |\
+         xargs --no-run-if-empty mysqldump --login-path=notionary notionary_db $SQL_OPTS >  ${lang}_${gato}.sql 2> /dev/null
+      done
+   done
+   echo " DONE !";                         # Big data dump at start of month.
+   echo -n "   *     -- SCHEMA --      ";  mysqldump --login-path=notionary $SQL_OPTS --single-transaction --no-create-info notionary_db $NAR_SKEM >> notionary_schema.sql 2> /dev/null; echo "       DONE !";
+   echo -n "   *     -- IMAGES --      ";  echo $NAR_IMGS | xargs mysqldump --login-path=notionary notionary_db $SQL_OPTS >  notionary_images.sql 2> /dev/null; echo "       DONE !"
+   echo -n "   *     -- SOUNDS --      ";  echo $NAR_SNDS | xargs mysqldump --login-path=notionary notionary_db $SQL_OPTS >  notionary_sounds.sql 2> /dev/null; echo "       DONE !"
+   echo -n "   *   --  DOCUMENTS --    ";  echo $NAR_PDFS | xargs mysqldump --login-path=notionary notionary_db $SQL_OPTS >  notionary_dokums.sql 2> /dev/null; echo "       DONE !"
+   echo -n "   * Compiling naryDB.targz";  dbase=${1}_notionary_sql.tar.gz; tar -cvpzf $dbase *.sql >> $LOG_FILE 2>&1; echo "       DONE !"
+   echo -n "   * Archiving naryDB.targz";  rm *.sql; rm $UOZ_HOME/notionary/*.gz; mv $dbase $UOZ_HOME/notionary/ && echo "       DONE !";
+   echo -n "   * Archiving uozonDB.sql ";  mysqldump --login-path=uozon uozon $SQL_OPTS > ${1}_uozon.sql 2> /dev/null; echo "             DONE !"
+   echo -n "   * Backup Uozon Doc Tree ";  ucode=${1}_home_uozon.tar.gz; tar -C $UOZ_HOME -cvpzf $ucode --exclude=$ucode . >> $LOG_FILE 2>&1; echo "       DONE !";
+   echo -n "   * Archive 2 Ubuntu_20.04";  mv $ucode $MIRR_DIR; echo "       DONE !";
+}
+
+clear; cat /dev/null > $LOG_FILE;
+memento="${TIMESTMP}";
+uozBKP $memento;

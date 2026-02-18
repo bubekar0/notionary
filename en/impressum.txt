@@ -1,0 +1,27 @@
+<style>
+   body { background:#eee; }
+   h4 { color:black; }
+   ol { counter-reset:item; }
+   li { display:block; }
+   li:before { content:counters(item, ".") "."; counter-increment:item; padding-right:10px; margin-left:-100px; }
+   .impressum-header { width:20%; font-size:1em; text-align:right; }
+   .impressum-texter { font-size:0.8em; text-align:left; }
+</style>
+<h4>Impressum</h4>
+<p>
+   <span class='impressum-texter'> Notionary, Cra 23C #8A-42 Suite 402</span><br/>
+   <span class='impressum-texter'> Santiago de Cali, Valle - COLOMBIA. </span><br/>
+</p>
+<p>
+   <span class='impressum-header'> E-mail: </span>
+   <span class='impressum-texter'> developer@notionary.test </span>
+</p>
+<p>
+   <span class='impressum-header'> Haftungshinweis: </span>
+   <span class='impressum-texter'> Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich. </span>
+</p>
+<p>
+   <span class='impressum-header'> Rechtliches: </span>
+   <span class='impressum-texter'> Im Falle von Domainstreitigkeiten, wettbewerbsrechtlichen oder ähnlichen Problemen bitten wir Sie, zur Vermeidung unnötiger Rechtsstreitigkeiten und Kosten, uns bereits im Vorfeld zu kontaktieren. Die Kostennote einer anwaltlichen Abmahnung ohne vorhergehende Kontaktaufnahme mit der Notionary wird im Sinne der Schadensminderungspflicht als unbegründet angesehen.
+Der Unternehmer setzt den Verbraucher gemäß § 36 Abs. 1 VSBG in Kenntnis, dass er nicht bereit ist, an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen. </span>
+</p>

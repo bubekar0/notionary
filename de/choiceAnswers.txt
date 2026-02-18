@@ -1,0 +1,13 @@
+   <b>Setzen Sie Ihre Antwortmöglichkeiten</b>
+      <p>
+      <i>Beispiel Frage : </i>
+         <span style='color:#FF0000'>Hauptstadt von Frankreich ?</span><br/>
+      <br/>
+      Sie können Notionary anweisen, um die Auswahl von Antworten für eine Frage zu verwenden.
+      Geben Sie die richtige Antwort und die erwünschte Antwortmöglichkeiten, getrennt mit
+      dem Block, wie gezeigt :
+      <br/>
+       <input style='width:100%;color:green;' value='Paris ￭ Lyon ￭ Marseille ￭ London ￭ Madrid'/>
+      <br/>
+      Der Block -Separator ist durch Klicken dieses Buttons erhältlich
+      </p>

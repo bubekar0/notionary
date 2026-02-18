@@ -1,0 +1,73 @@
+<ol>
+  <li><b>What is Notionary ?</b>
+      <p>
+      Notionary is a collection of short tests that help you learn any topic with Questions and Answers (e.g. European Capitals),
+      or Images (e.g. African Flags), or Sounds (e.g. Famous Anthems), or a combination (e.g. Music Notation).
+
+      <div class='notpad' nname='European Capitals' >
+         <span> European Capitals </span>
+         <img title='European Capitals' src='http://notionary.test/?tun=ibyid&was=7443'>
+      </div>
+
+      <div class='notpad' nname='African Flags' >
+         <span> African Flags</span>
+         <img title='African Flags' src='http://notionary.test/?tun=ibyid&was=2671'>
+      </div>
+
+      <div class='notpad' nname='Famous Anthems' >
+         <span> Famous Anthems</span>
+         <img title='Famous Anthems' src='http://notionary.test/?tun=ibyid&was=10006'>
+      </div>
+
+      <div class='notpad' nname='Music Notation' >
+         <span> Music Notation</span>
+         <img title='Music Notation' src='http://notionary.test/?tun=ibyid&was=8831'>
+      </div>
+
+      <br/>Notionary uses the ideas behind Dr. Hermann Ebbinghaus' work on memory, learning, and forgetting.<br/>
+      </p>
+  </li>
+  <li><b>Learn by doing, and learn from your mistakes.</b>
+
+      <p>
+      Memorize the cards and take the tests available<br/>
+      <a href='http://notionary.test/?tun=learn&was=Arithmetic Challenge'>
+         <button> <span class='fa fa-graduation-cap'></span> Learn </button>
+      </a>
+      <div id='learnExample'></div>
+
+      <div style='display:inline-block'>
+         <a href='http://notionary.test/?tun=trial&was=Arithmetic Challenge'>
+            <button> <span class='fa fa-mouse-pointer'></span> Exam </button>
+         </a>
+         <a href='http://notionary.test/?tun=write&was=Arithmetic Challenge'>
+            <button> <span class='fa fa-pencil'></span> Written </button>
+         </a>
+         <a href='http://notionary.test/?tun=adept&was=Arithmetic Challenge'>
+            <button> <span class='fa fa-undo'></span> Master </button>
+         </a>
+      </div>
+      <br/> During testing, the system tracks the student's performance with a score and elapsed time for future
+      gauging of the student's learning progress. Any mistakes are also recorded and made ready in future
+      review of the material.
+      </p>
+
+  </li>
+  <li><b>How can I create a Notion ?</b>
+      <p>
+      Notions can be created manually by writing the ( Question -->> Answer ) pairs in the simple Notion Editor provided by Notionary.<br/>
+      Alternatively, Notions can be uploaded into the system as files with ( Question -->> Answer ) pairs separated by " -->> ".<br/>
+      Simply use your favorite text editor to create a ".txt" or ".csv" file as shown below :<br/>
+      <span class='broso'>Question 1</span> &nbsp;-->>&nbsp; <span class='bgrun'>Answer 1</span><br/>
+      <span class='broso'>Question 2</span> &nbsp;-->>&nbsp; <span class='bgrun'>Answer 2</span><br/>
+      <span class='broso'>Question 3</span> &nbsp;-->>&nbsp; <span class='bgrun'>Answer 3</span><br/>
+      <span class='broso'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</span> -->> <span class='bgrun'>...</span><br/>
+      <span class='broso'>Question x</span> &nbsp;-->>&nbsp; <span class='bgrun'>Answer x</span><br/>
+      After a Notion is created manually or uploaded, it is then possible to edit the Notion to add Images and
+      Sounds to each Question. These Images and Sounds should help the student to make a connection to the
+      Answer without necessarily giving the Answer away. If you feel that the material in a Notion is better
+      learned through watching a video or reading a document, you can still use Notionary as a testing platform
+      and link the ( YouTube ) video as well as attach the ( PDF ) document to the Notion as preliminary study material.
+      </p>
+  </li>
+</ol>

@@ -1,0 +1,32 @@
+The minification process redefines (smaller) versions of all functions and most "id" and "class" elements
+ignoring those whose length is less than 6 characters.
+However, there are two known potential pitfalls
+
+1) Naming a function the same as a class or id (or a substring of) will cause the CSS to be lost as it
+   will then get reminified. Functions are minified first, then ids and then classes
+   So if you have function foople() and class='foopleXXX'
+   The function gets minified as nf_g67 for example via a sed substitution command
+   which  is then applied together with similar substitutions for ids and classes thus
+   turning class foople substring into class nf_g67 which then gets further minified into nc_XXX which of
+   course does not correspond to any part of the CSS image
+   Best practice is to name ids and classes of a module with the module name as prefix e.g.
+   id='examPushButton' class='examRainbowColors' etc because it is guaranteed that no function within
+   the exam module will be named examXXX().
+
+2) Having the server marking up parts of the document it is imperative that none of ids or classes
+   are used by the JavaScript code on the client. Simply because on the server no minifying takes place
+   There is nothing to worry about as far as functions minifying goes. Also ids and classes are safe
+   as long as they are shorter than 6 chars.
+   But if you have for example class='notionary-burbuja' on the server markup while on the client you also
+   make use of the class='notionary-burbuja'. It will be minified at the client only hence missing any
+   CSS intended.
+
+3) The ideal() obfuscator counts on all id= decalrations to be SINGLE QUOTED
+   If you flip quotes so as to handle apostrophes in the included strings, it is imperative to define a variable to handle
+   such situations outside the id line. See naryImage:markupImageUpload() "minifierBUG"
+
+4) Grouping #id's or  .classes styling in the CSS files is dangerous if one of them gets extra CSS e.g.
+   #foople, #goople { x1:y1; x2:y2; }  /* then on the next line */
+   #goople { x3:y3; } /* Causes the minifier to ignore the above CSS of goople as this one is processed last */
+
+In summary, don't collide functions with id/classes name-wise, and ensure any server markup is not reused at client

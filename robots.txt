@@ -1,0 +1,20 @@
+User-agent: *
+Disallow:dev/
+Disallow:php/
+Disallow:js/
+Disallow:css/
+Disallow:fonts/
+Disallow:cache/
+Disallow:en/
+Disallow:de/
+Disallow:es/
+Disallow:fr/
+Disallow:it/
+Disallow:pt/
+Disallow:ru/
+Disallow:hu/
+Disallow:tracker
+Disallow:channel.html
+Disallow:index.php
+Disallow:usrindex.php
+Disallow:admindex.php

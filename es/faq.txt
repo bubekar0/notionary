@@ -1,0 +1,75 @@
+<ol>
+  <li><b>¿ Qué es Notionary ?</b>
+     <p>
+     Notionary es una colección de pruebas cortas que ayudan a aprender un tema cualquiera por medio de
+     Preguntas y Respuestas (p.e. Capitales Americanas), o Imágenes (p.e. Banderas Europeas), o Sonidos (p.e. Himnos Famosos),
+     o una comnbinación (p.e. Notación Musical).
+
+      <div class='notpad' nname='Capitales Americanas' >
+         <span> Capitales Americanas </span>
+         <img title='Capitales Americanas' src='http://notionary.test/?tun=ibyid&was=2672'>
+      </div>
+
+      <div class='notpad' nname='Banderas Europeas' >
+         <span> Banderas Europeas</span>
+         <img title='Banderas Europeas' src='http://notionary.test/?tun=ibyid&was=7443'>
+      </div>
+
+      <div class='notpad' nname='Himnos Famosos' >
+         <span> Himnos Famosos</span>
+         <img title='Himnos Famosos' src='http://notionary.test/?tun=ibyid&was=10006'>
+      </div>
+
+      <div class='notpad' nname='Notación Musical' >
+         <span> Notación Musical</span>
+         <img title='Notación Musical' src='http://notionary.test/?tun=ibyid&was=8831'>
+      </div>
+
+     <br/>Notionary utiliza las ideas detrás del trabajo de el Dr. Hermann Ebbinghaus sobre la memoria, el aprendizaje y el olvido.<br/>
+     </p>
+  </li>
+  <li><b> Se aprende haciendo, y se aprende de errores. </b>
+
+      <p>
+      Memorice las tarjetas y tome las pruebas disponibles <br/>
+      <a href='http://notionary.test/?tun=learn&was=Arithmetic Challenge'>
+         <button> <span class='fa fa-graduation-cap'></span> Aprendizaje </button>
+      </a>
+      <div id='learnExample'></div>
+      <div style='display:inline-block'>
+         <a href='http://notionary.test/?tun=trial&was=Arithmetic Challenge'>
+            <button> <span class='fa fa-mouse-pointer'></span> Examen </button>
+         </a>
+         <a href='http://notionary.test/?tun=write&was=Arithmetic Challenge'>
+            <button> <span class='fa fa-pencil'></span> Escrito </button>
+         </a>
+         <a href='http://notionary.test/?tun=adept&was=Arithmetic Challenge'>
+            <button> <span class='fa fa-undo'></span> Maestría </button>
+         </a>
+      </div>
+      <br/> Durante las pruebas, el sistema hace un seguimiento al rendimiento usando puntaje y tiempo
+      transcurrido para medir el progreso del estudiante en el futuro. Errores del estudiante son registrados
+      y puestos a disposición durante la revisión posterior del material.
+      </p>
+
+  </li>
+  <li><b> ¿ Cómo puedo crear una Notion ? </b>
+      <p>
+      Las Notions se pueden crear manualmente escribiendo los pares de ( Pregunta -->> Respuesta ) en el editor proporcionado por Notionary.<br/>
+      Alternativamente, las Notions pueden ser cargados en el sistema si están en la forma de un archivo con pares
+      de ( Pregunta -->> Respuesta ) separados por " -->> ".<br/>
+      Simplemente use su editor preferido para crear un archivo de tipo ".txt" o ".csv" similar al ejemplo aquí :<br/>
+      <span class='broso'>Pregunta 1</span> &nbsp;-->>&nbsp; <span class='bgrun'>Respuesta 1</span><br/>
+      <span class='broso'>Pregunta 2</span> &nbsp;-->>&nbsp; <span class='bgrun'>Respuesta 2</span><br/>
+      <span class='broso'>Pregunta 3</span> &nbsp;-->>&nbsp; <span class='bgrun'>Respuesta 3</span><br/>
+      <span class='broso'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</span> -->> <span class='bgrun'>...</span><br/>
+      <span class='broso'>Pregunta x</span> &nbsp;-->>&nbsp; <span class='bgrun'>Respuesta x</span><br/>
+      Después de crear una Notion de forma manual o por medio de la carga, es posible modificar la Notion a modo
+      de añadir Imagenes y Sonidos a cada Pregunta. Estas Imagenes y Sonidos deben ayudar al estudiante a formar
+      asociaciones a la Respuesta sin necesidad de mencionar o mostrar la Respuesta. Si usted cree que el material
+      se puede aprender de manera más fácil a través de un video o leyendo un documento, es posible todavía utilizar
+      a Notionary como plataforma de pruebas y enlazar su video ( YouTube ) o adjuntar su documento ( PDF ) como
+      material preliminario.
+      </p>
+  </li>
+</ol>

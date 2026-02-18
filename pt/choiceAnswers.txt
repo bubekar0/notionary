@@ -1,0 +1,12 @@
+   <b>Seus opções de resposta em vez de aleatoriedade</b>
+      <p>
+      <i>Exemplo Questão : </i>
+         <span style='color:#FF0000'> Capital da França ?</span><br/>
+      <br/>
+      Você pode instruir Notionary usar suas opções de respostas para uma pergunta.
+      Digite a resposta correta e as opções separadas com o bloco, como mostrado:
+      <br/>
+       <input style='width:100%;color:green;' value='Paris ￭ Lyon ￭ Marselha ￭ Londres ￭ Madrid'/>
+      <br/>
+      O separador de bloco está disponível clicando neste botã
+      </p>

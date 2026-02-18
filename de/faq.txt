@@ -1,0 +1,78 @@
+<ol>
+  <li><b>Was ist Notionary ?</b>
+      <p>
+      Notionary ist eine Sammlung von Kurztests die dazu dienen etwas zu lernen durch Fragen und Antworten (z.B. Europäische Hauptstädte),
+      oder Bildern (z.B. Afrikanische Flaggen), oder Töne (z.B. Nationalhymnen), oder eine Kombinierung (z.B. Musiknotation).
+
+      <div class='notpad' nname='Europäische Hauptstädte' >
+         <span> Europäische Hauptstädte</span>
+         <img title='Europäische Hauptstädte' src='http://notionary.test/?tun=ibyid&was=7443'>
+      </div>
+
+      <div class='notpad' nname='Afrikanische Flaggen' >
+         <span> Afrikanische Flaggen</span>
+         <img title='Afrikanische Flaggen' src='http://notionary.test/?tun=ibyid&was=2671'>
+      </div>
+
+      <div class='notpad' nname='Nationalhymnen' >
+         <span> Nationalhymnen</span>
+         <img title='Nationalhymnen' src='http://notionary.test/?tun=ibyid&was=10006'>
+      </div>
+
+      <div class='notpad' nname='Musiknotation' >
+         <span> Musiknotation </span>
+         <img title='Musiknotation' src='http://notionary.test/?tun=ibyid&was=8831'>
+      </div>
+
+      <br/>Notionary nutzt die Ideen hinter Dr. Hermann Ebbinghaus' Arbeit über das Gedächtnis, Lernen und Vergessen.<br/>
+      </p>
+  </li>
+
+  <li><b>Lernen durch Tun, und aus eigenen Fehlern lernen.</b>
+
+      <p>
+      Merken Sie sich die Karteikarten und nehmen Sie die verfügbaren Tests<br/>
+      <a href='http://notionary.test/?tun=trial&was=Arithmetic Challenge'>
+         <button> <span class='fa fa-graduation-cap'></span> Lernsitzung </button>
+      </a>
+      <div id='learnExample'></div>
+      <div style='display:inline-block'>
+         <a href='http://notionary.test/?tun=trial&was=Arithmetic Challenge'>
+            <button> <span class='fa fa-mouse-pointer'></span> Prüfung </button>
+         </a>
+         <a href='http://notionary.test/?tun=write&was=Arithmetic Challenge'>
+            <button> <span class='fa fa-pencil'></span> Schriftlich </button>
+         </a>
+         <a href='http://notionary.test/?tun=adept&was=Arithmetic Challenge'>
+            <button> <span class='fa fa-undo'></span> Master </button>
+         </a>
+      </div>
+      <br/> Während des Tests verfolgt das System die Leistung der Schüler mit der Note und verstrichene Zeit für Zukunft
+      Messung von Lernfortschritte. Etwaige Fehler werden ebenfalls erfasst und in Zukunft bereit gestellt wenn der
+      Student die Notion erneut prüft.
+      </p>
+
+  </li>
+
+  <li><b>Wie kann ich eine Notion kreieren ? </b>
+      <p>
+      Notions können manuell in den von Notionary bereitgestellten Editor geschrieben werden.
+      Schreiben Sie einfach die ( Frage -->> Antwort ) Paare in die bereitgestellten Inputfeldern ein.<br/>
+      Alternativ können Sie eine Notion in das System hochladen als Dateien mit " -->> " getrennte ( Frage -->> Antwort ) Paare.<br/>
+      Verwenden Sie einfach Ihren bevorzugten Texteditor, und schreiben Sie eine ".txt" oder ".csv" -Datei, wie unten gezeigt:<br/>
+      <span class='broso'>Frage 1</span> &nbsp;-->>&nbsp; <span class='bgrun'>Antwort 1</span><br/>
+      <span class='broso'>Frage 2</span> &nbsp;-->>&nbsp; <span class='bgrun'>Antwort 2</span><br/>
+      <span class='broso'>Frage 3</span> &nbsp;-->>&nbsp; <span class='bgrun'>Antwort 3</span><br/>
+      <span class='broso'>&nbsp;&nbsp;&nbsp;&nbsp;...</span> -->> <span class='bgrun'>...</span><br/>
+      <span class='broso'>Frage x</span> &nbsp;-->>&nbsp; <span class='bgrun'>Antwort x</span><br/>
+      Nachdem eine Notion manuell oder über das Hochladen erstellt worden ist, ist es dann möglich
+      die Fragen mit Bild-und Ton-Dateien zu verknüpfen. Diese Bilder und Töne sollten dazu dienen den Student
+      eine schneller verbindung zwischen Frage und Antwort zu schaffen ohne dass die Antworte selbst in die Bilder
+      oder Töne zu erkennen sind.
+      Wenn Sie das Gefühl haben, dass das Material in einen Notion besser gelernt werden kann durch ein Video oder
+      durch das Lesen eines Dokuments, können Sie immer noch Notionary als Testplattform anwenden. Das ( YouTube )
+      Video kann mit der Notion als vorläufiges Lernmaterial verknüpft werden. Ebenfalls ist es möglich das ( PDF )
+      Dokument an der Notion einzuschließen.
+      </p>
+  </li>
+</ol>

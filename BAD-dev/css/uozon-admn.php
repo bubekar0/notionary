@@ -1,0 +1,20 @@
+<?php
+   $lastModified=filemtime(__FILE__);
+   $etagFile = md5_file(__FILE__);
+   $ifModifiedSince=(
+      isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ? $_SERVER['HTTP_IF_MODIFIED_SINCE'] : false);
+   $etagHeader=(isset($_SERVER['HTTP_IF_NONE_MATCH']) ? trim($_SERVER['HTTP_IF_NONE_MATCH']) : false);
+   header("Content-type: text/css; charset=UTF-8");
+   header("Last-Modified: ".gmdate("D, d M Y H:i:s", $lastModified)." GMT");
+   header("Etag: $etagFile");
+   header('Cache-Control: public');
+   if ( @strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE'])==$lastModified ||
+       $etagHeader == $etagFile) {
+          header("HTTP/1.1 304 Not Modified");
+          exit(); /*!hack*/
+   }
+   require_once "../php/cssphp.php";
+?>
+.fa-flask, .fa-bug { color:#4D90FE; }
+.fa-trash, .fa-database, .fa-picture-o, .fa-user { color:red !important; }
+#adminToolMenu { position:absolute; width:220px; top:10px; left:10px; font-size:2em; color:white; z-index:9999; }

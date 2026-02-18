@@ -1,0 +1,193 @@
+<style>
+   body { background:#eee; }
+   h4 { color:black; }
+   ol { counter-reset:item; }
+   li { display:block; }
+   li:before { content:counters(item, ".") "."; counter-increment:item; padding-right:10px; margin-left:-100px; }
+</style>
+<h4>Terms of Service</h4>
+<ol>
+  <li><b>Scope</b>
+     <ol>
+        <li>Welcome to Notionary ("Notionary" or "we"), an online learning platform provided by Notionary.com. The Terms of Service
+            shown below apply for any use of the platform, their offers and data, no matter in what form (mobile, online or otherwise).
+        </li>
+        <li>A prerequisite for the use of Notionary is that you are of legal age or that you act with the consent of your legal 
+            authorized representatives (eg parents).
+        </li>
+        <li>Notionary reserves the right to change these Terms of Service in the future. In this case Notionary will announce these 
+            changes to the Terms of Service per email and point out that the amendments shall be deemed accepted if you do not object 
+            to the changes within four weeks, or as soon as you make use of the service again after the notification of the changes 
+            in the Terms of Service.
+        </li>
+     </ol>
+  </li>
+  <li><b>General obligations of the user</b>
+     <ol>
+        <li>You are required to provide information that is truthful, current and complete when presented with the Service's
+            registration form.
+        </li>
+        <li>You are not allowed to use our services or parts thereof for commercial purposes of any kind; for example imitate, sell,
+            rent or advertise for your own or for others without our prior written consent.
+        </li>
+        <li>You are required to ensure that your access to our services is utilized exclusively by you yourself or by your authorized
+            users (see Section 1.2). You further commit to safeguard your access data, particularly your passwords, and to ensure that
+            the users' passwords are kept secret from them. You are also required to inform Notionary immediately should any misuse of
+            passwords or user accounts take place.
+        </li>
+        <li>You must take the appropriate measures to ensure that the users that make use of the services through one of the accounts
+            entrusted by you, observe these Terms of Service, in particular all of the obligations arising from these Terms of Service.
+            You assume responsibility for every action of a user through your access to the services. Parents must accompany and supervise
+            minors through their use of the services. A breach of this obligation may result in a partial or complete ban of your access.
+        </li>
+     </ol >
+  </li>
+  <li><b>Responsibility</b>
+     <ol>
+        <li>The responsibility for all texts, photos, graphics, videos, files, or other materials and contributions ("Content") that can
+            be stored, published or transmitted using the services falls exclusively and fully on the person from whom such Content
+            originates. If you consent to the use of our services by a third party, especially a minor, you are responsible as a 
+            contractual partner for the entirety of all Content that is stored, published or transmitted by the third party through the
+            use of the services.
+        </li>
+        <li>Notionary has absolutely no control over the Content that you or other users save, publish or transmit through the use of our 
+            services and therefore does not guarantee the accuracy, adequacy, completeness and quality of such Content. You are aware that
+            through the use of the services you may be exposed to Content that is offensive, indecent or otherwise objectionable if the
+            user responsible for such Content does not follow the rules stipulated under the Terms of Service or the applicable laws.
+        </li>
+        <li>You or other users may not engage in illegal activities within the context of the use of the services, in particular :
+           <ol>
+            <li>Save, publish and/or transmit Content deemed illegal according to the applicable provisions or in the opinion of Notionary
+            unlawful, harassing , defamatory, obscene, or otherwise inappropriate or that in any way could possibly inflict harm to minors,
+            particularly content that is pornographic, promoting violence or otherwise harmful to minors;
+            </li>
+            <li>Save, publish and/or transmit Content which could infringe on the rights of others, in particular patents, trademark, copyright
+                or performance rights, other proprietary rights or personal rights;
+            </li>
+            <li>Save, publish and/or transmit Content which you are not authorized to disclose, for example, foreign trade secrets;
+            </li>
+            <li>Save, publish and/or transmit Content such as instructions that are likely to result directly or indirectly in bodily or
+                property harm;
+            </li>
+            <li>Impersonate within the services of Notionary someone other than yourself, eg a public official, a representative of Notionary,
+                or in any other way responsible for the services, or pretend to have a not existing relationship with such persons;
+            </li>
+            <li>Fake username or manipulate authentication data in any other way, to disguise the origin of Content transmitted over the service;</li>
+            <li>Save, publish and/or transmit advertising, mass e- mails, chain letters, pyramid schemes, or other commercial communications;</li>
+            <li>Harass, threaten, insult or slander anyone, whether a natural person or legal entity or company, because of gender, race or religion
+                or disparage their beliefs, or discriminate against, or cause in any other way inconveniences or spread false accusations in relation
+                to a natural person or legal entity or company.
+            </li>
+            <li>Collect, save or transmit personal data from another user, unless the person concerned agrees with it;</li>
+            <li>Provide legal advice or make contributions, which are seen as legal advice;</li>
+            <li>Post links to Third Party Content that violates these Terms of Service.</li>
+           </ol>
+        </li>
+        <li>Although we generally do not inspect nor review Content generated by users of the service, we reserve the right to reject, block, erase,
+            abbreviate, amend or relocate to other parts of the service any and all Content accessible through our service, with immediate 
+            effect at our complete discretion and without giving any reasons, especially Content that comes to our attention from users who violate
+            these Terms of Service.
+        </li>
+     </ol>
+  </li>
+  <li><b>Hosting, User-generated Content</b>
+     <ol>
+        <li>We permit you to use our services in accordance with the statutory provisions and the provisions of these Terms of Service to save,
+            publish or transmit Content and to share such Content with other users. Notionary does not supervise this process and makes no claims
+            as to ownership of your content.
+        </li>
+        <li>By using our services you instruct us according to the provisions of these Terms of Service, to store your Content and to make it 
+            publicly accessible as part of our service in its repective present or future design.
+        </li>
+        <li>You are aware that advertising marketed by us can appear in our services and within the context of your Content, and possibly all
+            around it (especially with images, audio and video contributions) and you hereby expressly agree to it. You also agree to allow us to 
+            create reduced size images (thumbnails) of pictures and videos in order to improve our services, in particular the search function.
+            You are also aware that the technical processing and transfer of our services, including your Content, may make necessary the 
+            transmission over various networks and /or edition in order to comply with the technical facilities.
+        </li>
+        <li>You guarantee to us that you or users entrusted by you to use the service, possess all necessary rights with respect to the Content
+            for which our services are used in connection to storage, publication and/or transmission. And that no infringement takes place on 
+            any legal provisions nor on the rules of these Terms of Service, particularly those in Section 3.3, against any and all rights of
+            third parties. If you yourself are not the owner the rights to any Content you have entered, you guarantee that all required transfer
+            rights, licenses, licensing agreements, consents and the like have been validly obtained. In case you infringe upon any rights,
+            or breach any guarantees, you release us from any liabilities against third parties and indemnify us in full.
+        </li>
+        <li>Notionary has the right to store Content and to transfer it to third parties as long as prescribed by law or deemed necessary
+            according to professional judgment and permitted by law in order to (a) comply with legal provisions or judicial or governmental
+            request, (b) enforce the Terms of Service, (c) respond to claims that any Content violates the rights of third parties or (d)
+            preserve the rights, property or personal safety of Notionary, its users or the public.
+        </li>
+     </ol >
+  </li>
+  <li><b>Indications of legal violations</b>
+     <ol>
+        <li>Notionary respects the intellectual property of others, and we ask our users to do the same.</li>
+        <li>If you believe that your copyright or other rights are being infringed upon through Content from another user using our services
+            for storage, publication or transmission, please let us know by sending an 
+                <a style='color:black !important;' class='fa fa-envelope-o' href="mailto:developer@notionary.com">E-Mail</a>
+            with the following information so that we can take action against the abuse of our services and endeavor to protect your rights:<br/>
+           - a description of the copyright protected work that in your opinion has been infringed;<br/>
+           - a description of where the material is located, that in your opinion infringes upon rights of Author - or other rights ;<br/>
+           - your address, telephone number and email address;<br/>
+           - a statement by you that you have a good faith belief that the disputed use is not authorized by the rights holder, its agent,
+             or the law.
+        </li>
+     </ol >
+  </li>
+  <li><b>Warranty, Links</b>
+     <ol>
+        <li>As far as Notionary is not liable under Section 8 below in these Terms of Service, you are using our services at your own risk.
+            This is especially true for the downloading or other use of Content, especially Content of other users of our services. Your are
+            solely responsible for any harm to your computer system or to other technical devices employed in the use of our services, for the 
+            loss of data or for other damages and also for damages to third parties that you may cause in this context. Notionary shall assume
+            no warranty with respect to the results that may be obtained from the use of our services nor for the behavior of users or other
+            third parties nor for Content or statements from users or other third parties transmitted through the use of the services.
+        </li>
+        <li>Our services may contain links to other websites. We endeavor to use only links to websites that have been found to be harmless 
+            at the time of linking. However, Notionary has absolutely no influence over the Content of the linked sites and such Content can
+            change without our knowledge. We point out that we do not control the ongoing Content of linked sites. We do not adopt as ours the
+            Content available on or through such websites or third party sources and exclude any liability or warranty with regard to them.
+        </li>
+     </ol >
+  </li>
+  <li><b>Liability and Limitation of Liability</b>
+     <ol>
+        <li>Claims for damages compensation against Notionary are ruled out, irrespective of the legal basis, unless Notionary, its legal 
+           representatives or agents have acted willfully or with gross negligence. For slight negligence, Notionary is liable only if
+           in achieving a contractual purpose, one of the essential contractual obligations is breached by Notionary, its legal representatives
+           or its executives, or agents. In this case, the claim for damages will be limited to the foreseeable typical contract damages.
+        </li>
+        <li>The above limitation of liability does not apply to claims for damages compensation that result from injury to life, body, health,
+            the assumption of a guarantee or a fraudulent concealment of defects by Notionary.
+        </li>
+        <li>Claims for damages compensation against Notionary expire 12 months after origin, unless based on an unlawful or willful act.</li>
+        <li>As long as Notionary is exonerated from liability, so are companies affiliated with Notionary. This also exonerates personal 
+            liability of the staff, employees, representatives, shareholders and agents of Notionary and/or its affiliated companies.
+        </li>
+     </ol >
+  </li>
+  <li><b>Indemnity</b></li >
+       You agree to release and indemnify Notionary, its affiliated companies as well the staff, employees, workers, representatives,
+       shareholders and agents of Notionary and/or its affiliated companies in respect of demands or claims of whatever kind incurred by
+       third parties due to or arising out of Content you store, publish or transmit as part of the Notionary services, or is due to your
+       use of our services or due to breaches to these Terms of Service or infringement to the rights of third parties. This includes 
+       also appropriate Attorney's fees and court costs.
+  <li><b>Trademarks and other intellectual property rights of Notionary</b></li>
+       You acknowledge that Notionary is entitled to all rights to the services of Notionary and its designation <b>"notionary"</b>
+       including any trademark, patent, copyright or license rights or other rights or comparable legal positions in relation to you. 
+  <li><b>Applicable law, place of performance, place of jurisdiction, other</b>
+     <ol>
+        <li>German law applies under exclusion of the UN Sales Convention.</li>
+        <li>Place of performance and exclusive place of jurisdiction, insofar as legally permissible, Dresden.</li>
+        <li>Collateral oral agreements do not exist. A social relationship or other legal relationship in addition to the relationship 
+            regulated through these Terms of Service does not come into existence by confirmation of our services. Changes to the
+            contractual conditions must be in writing. This also applies to the removal or amendment of this written text clause.
+        </li>
+        <li>Should individual provisions be or become wholly or partially invalid, the rest of the contract remains valid. In case of
+            such invalidity, the parties will endeavor to find a valid replacement provision as economically close as possible.
+            The same applies in the case of a loophole.
+        </li>
+     </ol >
+  </li>
+</ol>
+<br/>

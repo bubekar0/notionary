@@ -1,0 +1,71 @@
+<ol>
+  <li><b>Что такое Notionary ?</b>
+      <p>
+      Notionary является сборник тестов который поможет вам изучить любые темы через вопросами и ответами (например European Capitals),
+      или изображения (например African Flags), или звуки ( например Famous Anthems), или их комбинации ( например Music Notation).
+
+      <div class='notpad' nname='European Capitals' >
+         <span> European Capitals </span>
+         <img title='European Capitals' src='http://notionary.test/?tun=ibyid&was=7443'>
+      </div>
+
+      <div class='notpad' nname='African Flags' >
+         <span> African Flags</span>
+         <img title='African Flags' src='http://notionary.test/?tun=ibyid&was=2671'>
+      </div>
+
+      <div class='notpad' nname='Famous Anthems' >
+         <span> Famous Anthems</span>
+         <img title='Famous Anthems' src='http://notionary.test/?tun=ibyid&was=10006'>
+      </div>
+
+      <div class='notpad' nname='Music Notation' >
+         <span> Music Notation</span>
+         <img title='Music Notation' src='http://notionary.test/?tun=ibyid&was=8831'>
+      </div>
+
+      <br/>Notionary использует идеи доктора H. Ebbinghaus о памяти, обучении и забывании. <br/>
+      </p>
+  </li>
+  <li><b> Учитесь на практике, и учитесь на своих ошибках.</b>
+
+      <p>
+      Запомните карточки и получите доступные тесты <br/>
+      <a href='http://notionary.test/?tun=learn&was=Arithmetic Challenge'>
+         <button> <span class='fa fa-graduation-cap'></span> Учебная </button>
+      </a>
+      <div id='learnExample'></div>
+      <div style='display:inline-block'>
+         <a href='http://notionary.test/?tun=trial&was=Arithmetic Challenge'>
+            <button> <span class='fa fa-mouse-pointer'></span> Экзамен </button>
+         </a>
+         <a href='http://notionary.test/?tun=write&was=Arithmetic Challenge'>
+            <button> <span class='fa fa-pencil'></span> Письменные </button>
+         </a>
+         <a href='http://notionary.test/?tun=adept&was=Arithmetic Challenge'>
+            <button> <span class='fa fa-undo'></span> Мастер- </button>
+         </a>
+      </div>
+      <br/> Во время тестирования, система отслеживает производительность студента со счетом прошедшего
+      времени для будущего замера успеха в учебе студента.
+      Ошибки, также записываются в будущий обзор материалов.
+      </p>
+
+  </li>
+  <li><b>Как я могу создать Notion ?</b>
+      <p>
+      Notions могут быть созданы вручную, написав ( вопрос -->> ответ ) попарно в простом Notion редакторе.<br/>
+      Кроме того, Notion могут быть загружены в систему в виде файлов  ( Вопрос -->> Ответ ) попарно, разделенных з" -->> ".
+      Используйте свой текстовый редактор, чтобы создать ".txt"  или ".csv" файл, как показано ниже : <br/>
+      <span class='broso'> вопрос 1</span> &nbsp;-->>&nbsp; <span class='bgrun'> ответ 1</span><br/>
+      <span class='broso'> вопрос 2</span> &nbsp;-->>&nbsp; <span class='bgrun'> ответ 2</span><br/>
+      <span class='broso'> вопрос 3</span> &nbsp;-->>&nbsp; <span class='bgrun'> ответ 3</span><br/>
+      <span class='broso'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</span> -->> <span class='bgrun'>...</span><br/>
+      <span class='broso'> вопрос x</span> &nbsp;-->>&nbsp; <span class='bgrun'> ответ x</span><br/>
+
+      После создания Notion вручную или загрузки можно связать каждый вопрос с изображением и звуком.
+      Эти изображения и звуки должны помочь студенту восстановить связь между вопросом и ответом.
+      Изучение материала в Notion также возможно через просмотр видео (YouTube) или чтение документа (PDF).
+      </p>
+  </li>
+</ol>

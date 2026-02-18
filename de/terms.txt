@@ -1,0 +1,242 @@
+<style>
+   body { background:#eee; }
+   h4 { color:black; }
+   ol { counter-reset:item; }
+   li { display:block; }
+   li:before { content:counters(item, ".") "."; counter-increment:item; padding-right:10px; margin-left:-100px; }
+</style>
+<h4>Nutzungsbedingungen</h4>
+<ol>
+   <li><b>Geltungsbereich</b>
+      <ol>
+         <li>Willkommen bei Notionary („Notionary“ oder „wir“), einer Online- Lernplattform, bereitgestellt von
+             der Notionary.com. Für jegliche Nutzung der Plattform, deren Angebote und Daten, ganz gleich in
+             welcher Form (mobil, online oder anderweitig) gelten die nachstehend aufgeführten Nutzungsbedingungen.
+         </li>
+         <li>Voraussetzung für die Nutzung von Notionary ist, dass Sie volljährig sind oder mit Zustimmung Ihrer
+             gesetzlichen Vertretungsberechtigten (z.B. Eltern) handeln.
+         </li>
+         <li>Notionary behält sich das Recht vor, diese Nutzungsbedingungen mit Wirkung für die Zukunft zu ändern.
+             In diesem Fall wird Notionary Ihnen vorab die Änderungen an den Nutzungsbedingungen per Email mitteilen
+             und Sie darauf hinweisen, dass die Änderungen als angenommen gelten, wenn Sie nicht binnen vier Wochen
+             den Änderungen widersprechen oder sobald Sie den Dienst nach der Mitteilung über die Änderung der
+             Nutzungsbedingungen erneut nutzen.
+         </li>
+      </ol>
+   </li>
+   <li><b>Allgemeine Pflichten des Nutzers</b>
+      <ol>
+         <li>Sie sind verpflichtet, im Rahmen der Registrierung wahrheitsgemäße, aktuelle und vollständige Angaben
+             nach der Vorgabe des Registrierungsformulars zu machen.
+         </li>
+         <li>Sie dürfen unser Angebot oder Teile davon, den Einsatz unseres Angebots durch Sie als Dienstleistung
+             oder den Zugang zu unserem Angebot nicht ohne unsere vorherige schriftliche Einwilligung für kommerzielle
+             Zwecke gleich welcher Art nutzen; z.B. nachahmen, verkaufen, vermieten oder für eigene oder fremde
+             Werbezwecke nutzen oder anbieten.
+         </li>
+         <li>Sie sind verpflichtet, dafür Sorge zu tragen, dass Ihr Zugang zu unserem Angebot ausschließlich von Ihnen
+             selbst oder von berechtigten Nutzern (siehe Ziffer 1.2) genutzt wird. Sie sind ferner verpflichtet, Ihre
+             Zugangsdaten, insbesondere Passwörter, geheim zu halten und haben dafür Sorge zu tragen, dass auch die
+             Passwörter der Nutzer von diesen geheim gehalten werden. Sie sind ferner verpflichtet, Notionary
+             unverzüglich über jede missbräuchliche Verwendung von Passwörtern oder Nutzerkonten zu informieren.
+         </li>
+         <li>Sie haben durch geeignete Maßnahmen sicherzustellen, dass die Nutzer, die das Angebot über ein von Ihnen
+             überlassenes Nutzerkonto nutzen, diese Nutzungsbedingungen, insbesondere sämtliche sich aus diesen
+             Nutzungsbedingungen ergebenden Verpflichtungen einhalten. Sie sind für sämtliche Handlungen, die ein
+             Nutzer über Ihren Zugang zu unserem Angebot tätigt, verantwortlich. Eltern haben die Nutzung des Angebots
+             durch Minderjährige zu begleiten und zu beaufsichtigen. Ein Verstoß gegen diese Verpflichtung kann zu
+             einer teilweisen oder vollständigen Sperrung Ihres Zugangs führen.
+         </li>
+      </ol>
+   </li>
+   <li><b>Verantwortlichkeit</b>
+      <ol>
+         <li>Die Verantwortung für sämtliche Texte, Fotos, Graphiken, Videos, Dateien oder sonstige Materialien und
+             Beiträge („Inhalt“), die unter Verwendung des Angebots von Nutzern gespeichert, veröffentlicht oder
+             übermittelt werden, liegt ausschließlich und uneingeschränkt bei der Person, von der ein solcher Inhalt
+             stammt.  Sofern Sie die Nutzung unseres Angebots einem Dritten, insbesondere einem Minderjährigen
+             gestatten, sind Sie als Vertragspartner für sämtliche Inhalte verantwortlich, die von dem Dritten unter
+             Verwendung des Angebots gespeichert, veröffentlicht oder übermittelt werden.
+         </li>
+         <li>Notionary kontrolliert Inhalte, die Sie oder andere Nutzer über unsere Dienste speichern, veröffentlichen
+             und/oder übermitteln, grundsätzlich nicht und übernimmt deshalb keine Gewähr für die Richtigkeit,
+             Angemessenheit, Vollständigkeit und Qualität solcher Inhalte. Sie sind sich bewusst, dass Sie durch die
+             Nutzung des Angebots einem Inhalt ausgesetzt sein können, der beleidigend, anstößig oder in sonstiger
+             Weise zu beanstanden ist, wenn der für diesen Inhalt verantwortliche Nutzer sich nicht an die Bestimmungen
+             dieser Nutzungsbedingungen oder der einschlägigen Gesetze hält.
+         </li>
+         <li>Sie oder andere Nutzer dürfen im Rahmen der Nutzung des Angebots keine rechtswidrigen Handlungen vornehmen,
+             insbesondere nicht:
+           <ol>
+             <li>Inhalte speichern, veröffentlichen und /oder übermitteln, die nach den einschlägigen gesetzlichen
+                 Bestimmungen oder nach der Einschätzung von Notionary rechtswidrig, belästigend, beleidigend, obszön,
+                 oder in sonstiger Weise unangemessen sind oder die Minderjährigen in irgendeiner Weise Schaden zufügen
+                 können, insbesondere Inhalte, die pornografisch, gewaltverherrlichend oder sonst jugendgefährdend sind;
+             </li>
+             <li>Inhalte speichern, veröffentlichen und/oder übermitteln, die Rechte Dritter, insbesondere Patente,
+                 Marken, Urheber- oder Leistungsschutzrechte, sonstige Eigentumsrechte oder Persönlichkeitsrechte
+                 verletzen;
+             </li>
+             <li>Inhalte speichern, veröffentlichen und/oder übermitteln, zu deren Weitergabe Sie nicht berechtigt
+                 sind, z.B. fremde Geschäftsgeheimnisse;
+             </li>
+             <li>Inhalte wie z.B. Handlungsanweisungen speichern, veröffentlichen und/oder übermitteln, die geeignet
+                 sind unmittelbar oder mittelbar zu Körper- oder Sachschäden zu führen;
+             </li>
+             <li>Sich innerhalb des Angebots von Notionary als eine andere Person ausgeben, z.B. als ein Amtsträger,
+                 ein Vertreter von Notionary, oder ein in sonstiger Weise für das Angebot Verantwortlicher, oder eine
+                 nicht bestehende Beziehung zu solchen Personen vorgeben;
+             </li>
+             <li>Benutzernamen fälschen oder in sonstiger Weise Erkennungszeichen manipulieren, um die Herkunft eines
+                 Inhalts, der im Rahmen des Angebots übertragen wird, zu verschleiern
+             </li>
+             <li>Werbung, Massen-E-Mails, Kettenbriefe, Schneeballsysteme oder sonstige kommerzielle Kommunikationen
+                 speichern, veröffentlichen und/oder übermitteln;
+             </li>
+             <li>Irgendjemand, sei es eine natürliche oder juristische Person oder ein Unternehmen, belästigen,
+                 bedrohen, beleidigen, verleumden, wegen Geschlecht, Rasse, Religion oder Überzeugungen verächtlich 
+                 machen oder diskriminieren, oder ihr in sonstiger Weise Unannehmlichkeiten verursachen oder in Bezug
+                 auf eine natürliche oder juristische Person oder ein Unternehmen unwahre Tatsachen behaupten oder
+                 verbreiten;
+             </li>
+             <li>Persönliche Daten über andere Benutzer sammeln, speichern oder übermitteln, soweit die Betroffenen 
+                 damit nicht einverstanden sind;
+             </li>
+             <li>Rechtsberatung betreiben bzw. Beiträge einstellen, die als Rechtsberatung verstanden werden; <lip>
+             <li>Links auf Inhalte Dritter einstellen, die gegen Bestimmungen dieser Nutzungsbedingungen verstoßen.</li>
+           </ol>
+         </li>
+         <li>Auch wenn wir Inhalte von Nutzern grundsätzlich nicht überprüfen oder kontrollieren, behalten wir uns das
+             Recht vor, Inhalte, die über unser Angebot zugänglich sind, nach eigenem Ermessen und ohne Angabe von
+             Gründen mit sofortiger Wirkung zurückzuweisen, zu sperren, zu löschen, zu kürzen oder ggf. an einem anderen
+             Ort innerhalb des Angebots zu veröffentlichen, insbesondere uns zur Kenntnis gekommene Inhalte von Nutzern,
+             die gegen diese Nutzungsbedingungen verstoßen.
+         </li>
+      </ol>
+   </li>
+   <li><b>Hosting; von Nutzern eingestellte Inhalte</b>
+      <ol>
+         <li>Wir gestatten Ihnen, unsere Dienste im Einklang mit den gesetzlichen Bestimmungen und den Bestimmungen
+             dieser Nutzungsbedingungen zu verwenden, um Inhalte zu speichern, zu veröffentlichen, zu übermitteln und
+             mit anderen Nutzern zu teilen. Notionary beaufsichtigt Sie dabei nicht und beansprucht keine Inhaberschaft
+             an Ihren Inhalten.
+         </li>
+         <li>Bei Nutzung unseres Angebots beauftragen Sie uns nach den Bestimmungen dieser Nutzungsbedingungen mit der
+             Speicherung und öffentlichen Zugänglichmachung Ihrer Inhalte im Rahmen unseres Angebots in seiner jeweiligen
+             gegenwärtigen oder zukünftigen Gestaltung.
+         </li>
+         <li>Ihnen ist bekannt, dass in unserem Angebot und damit im Umfeld Ihrer Inhalte, ggf auch vor und nach Ihren
+             Inhalten (insbesondere bei Bildern, Audiobeiträgen und Videos) von uns vermarktete Werbung stattfinden kann
+             und sie erklären sich hiermit ausdrücklich einverstanden. Sie gestatten uns ferner, von Bildern und Videos
+             zur besseren Nutzung unseres Angebots, insbesondere durch eine Suchfunktion, verkleinerte Bilder (Thumbnails)
+             herzustellen und in den Notionary-Diensten zu nutzen. Ihnen ist auch bekannt, dass die technische Verarbeitung
+             und Übertragung unseres Angebots, einschließlich der von Ihnen eingegebenen Inhalte, es notwendig machen kann,
+             Übertragungen über verschiedene Netzwerke vorzunehmen und/oder technische Veränderungen vorzunehmen, um den
+             technischen Einrichtungen zu entsprechen.
+         </li>
+         <li>Sie garantieren uns gegenüber, dass Sie bzw. Nutzer, die das Angebot über ein von Ihnen überlassenes
+             Nutzerkonto nutzen, alle erforderlichen Rechte in Bezug auf die Inhalte besitzen, für die Sie unser Angebot
+             zur Speicherung, Veröffentlichung und/oder Übermittlung verwenden und dass damit keine Rechte Dritter, gleich
+             welcher Art, keine gesetzlichen Bestimmungen und auch nicht die Regeln dieser Nutzungsbedingungen,
+             insbesondere nicht die in Ziffer 3.3 niedergelegten Regeln verletzt werden. Falls Sie selbst nicht Inhaber
+             der Rechte an einem von Ihnen eingegebenen Inhalt sind, garantieren Sie, dass Sie alle erforderlichen
+             Rechtsübertragungen, Lizenzen, Gestattungen, Einwilligungen und dergleichen wirksam eingeholt haben. Für den
+             Fall, dass Sie gegen diese Garantien oder eine von Ihnen verstoßen, stellen Sie uns nach Ziffer 8 von jeglicher
+             Haftung Dritten gegenüber frei und halten uns in vollem Umfang schadlos.
+         </li>
+         <li>Notionary ist berechtigt, Inhalte zu speichern und an Dritte weiterzugeben, soweit dies gesetzlich
+             vorgeschrieben oder nach pflichtgemäßen Ermessen notwendig und rechtlich zulässig ist, um (a) gesetzliche
+             Bestimmungen oder richterliche oder behördliche Anordnungen zu erfüllen, (b) diese Nutzungsbedingungen
+             durchzusetzen, (c) auf die Geltendmachung einer Rechtsverletzung durch Dritte zu reagieren oder
+             (d) die Rechte, das Eigentum oder die persönliche Sicherheit von Notionary, seinen Nutzern oder der 
+             Öffentlichkeit zu wahren.
+         </li>
+      </ol>
+   </li>
+   <li><b>Hinweise auf Rechtsverletzungen</b>
+      <ol>
+         <li>Notionary respektiert das geistige Eigentum Dritter und fordert seine Nutzer auf, dies ebenfalls zu tun.</li>
+         <li>Falls Sie der Ansicht sind, dass Ihre Urheberrechte oder andere Ihrer Rechte durch Inhalte eines anderen
+             Nutzers verletzt werden, der unser Angebot zur Speicherung, Veröffentlichung oder Übermittlung seiner 
+             Inhalte nutzt, teilen Sie uns dies bitte per 
+                <a style='color:black !important;' class='fa fa-envelope-o' href="mailto:developer@notionary.com">E-Mail</a>
+             mit folgenden Angaben mit, damit wir gegen den Missbrauch unseres Angebots vorgehen und Ihre Rechte schützen können<br/>
+            - eine Beschreibung des z.B. urheberrechtlich geschützten Werkes, das Ihrer Ansicht nach verletzt wurde;<br/>
+            - eine Beschreibung, wo sich das Material befindet, das Ihrer Ansicht nach Urheber – oder sonstige Rechte verletzt;<br/>
+            - Ihre Anschrift, Telefonnummer und email Adresse;<br/>
+            - eine Erklärung von Ihnen, dass nach Ihrem besten Wissen und Gewissen die beanstandete Benutzung nicht
+                durch den Inhaber der Rechte, durch dessen Bevollmächtigte oder durch Rechtsvorschriften zugelassen ist.
+         </li>
+      </ol>
+   </li>
+   <li><b>Gewährleistung; Links</b>
+      <ol>
+         <li>Soweit Notionary nicht gemäß der nachstehenden Ziffer 8 dieser Nutzungsbedingungen haftet, nutzen Sie unser
+             Angebot auf eigenes Risiko. Dies gilt insbesondere für das Herunterladen oder eine sonstige Nutzung von
+             Inhalten, insbesondere von Inhalten anderer Nutzer, aus unseren Diensten. Sie sind eventuelle Schäden an
+             Ihrem Computersystem, oder sonstigen zur Nutzung verwendeten technischen Geräten, für den Verlust von Daten
+             oder für sonstige Schäden und auch für Schäden Dritter, die Sie in diesem Zusammenhang verursachen, allein
+             verantwortlich. Notionary übernimmt keine Gewährleistung bezüglich der Ergebnisse, die durch die Nutzung des
+             Angebots erzielt werden können, sowie für das Verhalten von Nutzern oder sonstigen Dritten oder für Inhalte
+             oder Erklärungen, die von Nutzern oder sonstigen Dritten im Rahmen des Angebots weitergegeben werden.
+         </li>
+         <li>Unser Angebot kann Links zu anderen Websites enthalten. Dabei bemühen wir uns, nur Links auf Websites 
+             einzustellen, die zum Zeitpunkt der Verlinkung als unbedenklich befunden wurden. Notionary hat auf den
+             Inhalt der verlinkten Seiten jedoch keinen Einfluss und die Inhalte der verlinkten Websites können deshalb 
+             ohne unser Wissen geändert werden. Wir weisen darauf hin, dass wir die Inhalte der verlinkten Websites nicht
+             fortlaufend kontrollieren. Wir machen uns Inhalte, die auf oder über solche Angebote oder Quellen Dritter
+             zugänglich sind, nicht zu Eigen und schließen jegliche Haftung oder Gewährleistung in Bezug auf diese aus.
+         </li>
+      </ol>
+   </li>
+   <li><b>Haftung und Haftungsbeschränkung</b>
+      <ol>
+         <li>Schadensersatzansprüche gegen Notionary sind unabhängig vom Rechtsgrund ausgeschlossen, es sei denn, Notionary,
+             seine gesetzlichen Vertreter oder Erfüllungsgehilfen haben vorsätzlich oder grob fahrlässig gehandelt. Für
+             leichte Fahrlässigkeit haftet Notionary nur, wenn eine für die Erreichung des Vertragszwecks wesentliche
+             Vertragspflicht durch Notionary, seine gesetzlichen Vertreter oder leitende Angestellte oder Erfüllungsgehilfen
+             verletzt wurde. In diesem Fall wird der Schadensersatzanspruch auf den vorhersehbaren, vertragstypischen 
+             Schaden begrenzt.
+         </li>
+         <li>Vorstehende Haftungsbegrenzung gilt nicht für Schadensersatzansprüche, die aus der Verletzung von Leben, Körper,
+             Gesundheit, der Übernahme einer Beschaffenheitsgarantie oder einem arglistigen Verschweigen von Mängeln durch 
+             Notionary resultieren.
+         </li>
+         <li>Schadensersatzansprüche gegen Notionary verjähren nach Ablauf von 12 Monaten seit ihrer Entstehung, es sei denn,
+             sie basieren auf einer unerlaubten oder vorsätzlichen Handlung.
+         </li>
+         <li>Soweit die Haftung von Notionary augeschlossen ist, gilt dies auch für mit Notionary verbundene Unternehmen
+             sowie für eine persönliche Haftung der Angestellten , Arbeitnehmer, Mitarbeiter, Vertreter, Gesellschafter und
+             Erfüllungshilfen von Notionary und/oder der mit Notionary verbundenen Unternehmen.
+         </li>
+      </ol>
+   </li>
+   <li><b>Haftungsfreistellung</b></li>
+       Sie erklären hiermit, dass Sie Notionary, mit Notionary verbundene Unternehmen sowie die Angestellten, Arbeitnehmer,
+       Mitarbeiter, Vertreter Gesellschafter und Erfüllungsgehilfen von Notionary und/ oder von mit Notionary verbundene 
+       Unternehmen in Bezug auf Forderungen oder Ansprüche gleich welcher Art freistellen und schadlos halten, die von Dritten
+       aufgrund von oder in Zusammenhang mit Inhalten, die Sie im Rahmen der Notionary- Dienste speichern, veröffentlichen
+       und/oder übermitteln oder die aufgrund Ihrer Nutzung unseres Angebots oder aufgrund von Verletzungen dieser 
+       Nutzungsbedingungen oder von Rechten Dritter durch Sie erhoben werden. Dies schließt jeweils auch angemessene 
+       Anwalts- und Gerichtskosten ein.
+   <li><b>Marken und sonstige Schutzrechte von Notionary</b></li>
+       Sie erkennen an, dass sämtliche Rechte am Angebot von Notionary und seiner Kennzeichnung <b>„notionary“</b> einschließlich
+       etwaiger Marken-, Patent-, Urheber- oder Lizenzrechte oder sonstiger Rechte oder vergleichbarer Rechtspositionen 
+       im Verhältnis zu Ihnen ausschließlich Notionary zustehen.
+   <li><b>Anwendbares Recht, Erfüllungsort, Gerichtsstand, Sonstiges</b>
+      <ol>
+         <li>Es gilt deutsches Recht unter Ausschluss des UN-Kaufrechts.</li>
+         <li>Erfüllungsort und ausschließlicher Gerichtsstand ist, soweit gesetzlich zulässig, Dresden.</li>
+         <li>Mündliche Nebenabreden bestehen nicht. Ein Gesellschaftsverhältnis oder ein sonstiges Rechtsverhältnis neben
+             dem hier geregelten Nutzungsverhältnis besteht durch die Bestätigung auf unserem Angebot nicht. Änderungen 
+             der Vertragsbedingungen bedürfen der Textform. Dies gilt auch für Aufhebung oder Änderung dieser Textformklausel.
+         </li>
+         <li>Sollten einzelne Vertragsbestimmungen ganz oder teilweise unwirksam sein oder werden, so bleibt der Vertrag im
+             Übrigen wirksam. Im Falle einer solchen Unwirksamkeit werden die Vertragspartner eine der unwirksamen Regelung
+             wirtschaftlich möglichst nahe kommende, rechtswirksame Ersatzregelung treffen. Das Gleiche gilt im Fall einer
+             Regelungslücke.
+         </li>
+      </ol>
+   </li>
+</ol>
+<br/>

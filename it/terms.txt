@@ -1,0 +1,178 @@
+<style>
+   body { background:#eee; }
+   h4 { color:black; }
+   ol { counter-reset:item; }
+   li { display:block; }
+   li:before { content:counters(item, ".") "."; counter-increment:item; padding-right:10px; margin-left:-100px; }
+</style>
+<h4>Termini di Servizio</h4>
+   <ol>
+      <li><b>Area di Azione</b>
+         <ol>
+            <li>Benvenuti a Notionary (" Notionary " o "noi"), una piattaforma di apprendimento online fornito da Notionary.com. i Termini di Servizio di seguito si applicano a
+                qualsiasi uso della piattaforma e servizi dati, non importa in quale forma(mobile, online o in altro modo).
+            </li>
+            <li>Un prerequisito per l'utilizzo di Notionary è che Lei è di età o con il consenso dei (ad esempio i genitori) autorizzati rappresentante legale.</li>
+            <li>Notionary si riserva il diritto di modificare questi Termini di Servizio in futuro. In questo caso Notionary annuncerà questi cambiamenti di Termini di
+                Servizio per e-mail e nota che le modifiche si considerano accettate se Lei non si oppone ai cambiamenti entro quattro settimane, o appena Lei fa uso del
+                servizio dopo la notifica delle modifiche ai Termini di Servizio.
+            </li>
+         </ol>
+      </li>
+      <li><b>Obblighi generali degli utenti</b>
+         <ol>
+           <li>Lei è tenuto a fornire informazioni precise, aggiornate e complete quando presentato con il modulo di registrazione ai servizi.</li>
+           <li>Non è consentito utilizzare i nostri servizi o parti di questi per scopi commerciali di qualsiasi tipo, per esempio imitare, vendere, affittare o pubblicizzare
+               per conto proprio o di terzi, senza il nostro previo consenso scritto.
+           </li>
+           <li>Lei è tenuto a garantire che l'accesso ai nostri servizi è utilizzato esclusivamente da voi stessi o da utenti autorizzati (vedi sezione 1.2). Lei è inoltre 
+               impegnati a proteggere i dati di accesso, incluse le password, e assicurarsi che le password degli utenti autorizzati ad essere tenuto segreto per loro. Lei è 
+               inoltre tenuto ad informare immediatamente Notionary di eventuale uso improprio di password o conti di utenti.
+           </li>
+           <li>Lei è tenuto a prendere misure appropriate per garantire che gli utenti che utilizzano i servizi attraverso uno degli conti assegnati da Lei, osserva questi
+               Termini di Servizio, in particolare, tutti gli obblighi ai sensi delle presenti Termini di Servizio. Lei assume la responsabilità per tutti azioni di un utente
+               attraverso il loro accesso ai servizi. I genitori devono accompagnare e sorvegliare i bambini durante l'utilizzo dei servizi. Un fallimento di tale obbligo può 
+               portare ad un divieto totale o parziale di accesso.
+           </li>
+        </ol>
+     </li>
+     <li><b>Responsabilità</b>
+        <ol>
+           <li>Responsabilità di tutti i testi, le fotografie, grafica, video, file o altri materiali e contributi ("Contenuti"), che possono essere salvati, pubblicati o 
+               trasmessi utilizzando il servizio è solo ed esclusivamente dalla persona da cui tali Contenuti provengono. Se Lei acconsentite al utilizo dei nostri servizi da
+               parte di terzi, soprattutto un bambino, Lei è responsabile come partner contrattuale per tutto il Contenuti salvato, pubblicato o trasmesso da terzi attraverso
+               l'utilizzo di servizi.
+           </li>
+           <li>Notionary non ha assolutamente alcun controllo sul Contenuti che Lei o altri utenti salva, pubblica o trasmette attraverso l'uso del nostro servizio e non
+               garantisce l'accuratezza , adeguatezza, completezza o la qualità di tali Contenuti. Siete consapevoli che utilizzando i servizi si può essere esposto a 
+               Contenuti offensivi, indecenti o discutibili se l'utente responsabile del loro Contenuti non segue le regole stipulate nella Termini di Servizio o leggi 
+               applicabili.
+           </li>
+           <li>Né Lei né altri utenti devono eseguire attività illegali nel contesto di utilizzo dei servizi, tra cui:
+              <ol>
+                 <li>Salvare, pubblicare e/o trasmettere Contenuti considerati illegali secondo le regole o nel parere di Notionary illegale, molesto, diffamatorio, osceno o
+                     altrimenti inappropriati, o che in qualche modo potrebbe forse causare danno ai minori, in particolare il Contenuti che è pornografici, promuove la
+                     violenza o che sia comunque dannoso per i minori;
+                 </li>
+                 <li>Salvare, pubblicare e/o trasmettere qualsiasi Contenuti che possa violare i diritti di terzi, inclusi brevetti, marchi, copyright, diritti di esecuzione
+                     o altri diritti di proprietà o diritti personali;
+                 </li>
+                 <li>Salvare, pubblicare e/o trasmettere qualsiasi Contenuti che non è permesso a Lei di rivelare, per esempio, segreti commerciali di terzi;</li>
+                 <li>Salvare, pubblicare e/o trasmettere Contenuti come istruzioni che possono causare direttamente o indirettamente da lesioni personali o di proprietà;</li>
+                 <li>Impersonare in dentro gli servizi di Notionary a qualcuno diverso da Lei, per esempio, un pubblico ufficiale, un rappresentante di Notionary,
+                     o altrimenti responsabile per i servizi o fingere di avere un rapporto con queste persone;
+                 </li>
+                 <li>Assumere il nome di utente falso o gestire dati di autenticazione, al fine di camuffare l'origine del Contenuti trasmesso attraverso il Servizio;</li>
+                 <li>Salvare, pubblicare e/o trasmettere pubblicità, bulk email, lettere a catena, schemi piramidali, o di altre comunicazioni commerciali;</li>
+                 <li>Molestare, minacciare, insultare o calunniare gli altri, sia una persona fisica o giuridica o società, a causa del loro sesso, razza o religione o 
+                     denigrare la loro credenze, o discriminare, o causare alcun disagio o diffondere false accuse riguardanti una persona o una società fisica o giuridica.
+                 </li>
+                 <li>Raccogliere, conservare o trasmettere dati personali di un altro utente, a meno che il richiedente sia d'accordo</li>
+                 <li>Fornire assistenza legale o versare contributi, che sono visti come consulenza legale;</li>
+                 <li>Fornire collegamenti a Contenuti di terze parti che violi le presenti Termini di Servizio.</li>
+              </ol>
+           </li>
+           <li>Sebbene di solito noi non controlliamo o rivediamo i Contenuti generato dagli utenti del servizio, ci riserviamo il diritto di rifiutare, bloccare,
+               cancellare, abbreviare, modificare o spostare in altre parti del servizio qualsiasi parte o tutti i Contenuti accessibili attraverso il nostro servizio con
+               effetto immediato a nostra esclusiva discrezione e senza fornire spiegazioni, soprattutto i Contenuti che viene alla nostra attenzione da parte degli utenti
+               che violano i Termini di Servizio.
+           </li>
+        </ol>
+     </li>
+     <li><b>Alloggio, contenuti generati dall'utente</b>
+        <ol>
+           <li>Permettiamo di utilizzare i nostri servizi in conformità con le leggi e le disposizioni di questi Termini di Servizio per salvare, pubblicare o trasmettere
+               Contenuti e condividere Contenuti con altri utenti. Notionary non monitora questo processo e non esprime alcuna dichiarazione per quanto riguarda la
+               proprietà di questi Contenuti.
+           </li>
+           <li>Utilizzando i nostri servizi ci date istruzioni, in conformità con le disposizioni di questi Termini di Servizio, per salvare i Contenuti e per fare
+               accessibili al pubblico come parte del nostro servizio ai loro rispettivi progettazione attuali o futuri.
+           </li>
+           <li>Lei è consapevole del fatto che la pubblicità venduta dalla nostra azienda può apparire nei nostri servizi e nel contesto del vostro Contenuti, ed 
+               eventualmente in giro (soprattutto con contributi di immagini, audio e video) e lei accetta espressamente. Lei permette anche creare immagini di 
+               dimensioni ridotte (Thumbnails) di foto e video, al fine di migliorare i nostri servizi, in particolare la funzione di ricerca. Lei è anche consapevole
+               che il trattamento tecnico e la trasmissione dei nostri servizi, compresi i vostro Contenuti, possono richiedere la trasmissione attraverso vari reti
+               e/o modifiche al fine di rispettare gli impianti tecnici.
+           </li>
+           <li>Lei ci garantisce che lei e utenti che lei ha affidato al vostro utilizzo del servizio di avere tutti i diritti necessari al Contenuti per il quale
+               lei utilizza i servizi in relazione allo stoccaggio, pubblicazione e/o trasmissione. E non vi è alcuna violazione contro ogni disposizione giuridica o
+               sulle regole di questi Termini di Servizio, compresa la sezione 3.3, contro tutti i diritti di terzi. Se lei non ha gli propri diritti a qualsiasi
+               Contenuti che lei ha inserito, ci garantisce che tutti i diritti, licenze, accordi di licenze, autorizzazioni e simili sono stati validamente ottenuti.
+               In caso di violazione a eventuali diritti o garanzie, ci rilascia da qualsiasi responsabilità civile e di rimborsare.
+           </li>
+           <li>Notionary ha il diritto di archiviare e trasferire Contenuti a terzi, a condizione che questo è prescritto dalla legge o ritenuto necessario in funzione
+               a giudizio professionale e consentito dalla legge per (a) conformarsi alle leggi o richiesta giudiziaria o governativa, (b) applicare Termini di Servizio,
+              (c) rispondere a contestazioni secondo cui i Contenuti violano diritti di terzi, o (d) proteggere i diritti, la proprietà o la sicurezza personale di
+              Notionary, dei suoi utenti o del pubblico.
+           </li>
+        </ol>
+     </li>
+     <li><b>Indicazioni di violazioni di legge</b>
+        <ol>
+           <li>Notionary rispetta la proprietà intellettuale degli altri e chiede agli utenti di fare lo stesso.</li>
+           <li>Se lei crede che il copyright o altri diritti sono stati violati da un Contenuti da un altro utente che utilizza i nostri servizi per l'archiviazione,
+               pubblicazione o trasmissione, vi preghiamo di farcelo sapere inviando una
+                <a style='color:black !important;' class='fa fa-envelope-o' href="mailto:developer@notionary.com">E-Mail</a>
+               con le seguenti informazioni in modo che possiamo prendere provvedimenti contro gli abusi dei nostri servizi e di proteggere i vostri diritti:<br/>
+               - Una descrizione del lavoro protetto da copyright che lei ritiene sia stato violato al suo parere;<br/>
+               - Una descrizione di dove è il materiale che, a suo parere viola il diritto d'autore - o qualsiasi altro diritto;<br/>
+               - Il vostro indirizzo, numero di telefono e indirizzo di posta elettronica;<br/>
+               - Una dichiarazione da lei che lei crede da buona fede che l'utilizzo contestato non è autorizzato dal titolare dei diritti, dal suo agente o dalla legge</li>.
+        </ol>
+     </li>
+     <li><b>Garanzia, Links</b>
+        <ol>
+           <li>Sempre che Notionary non sia responsabile ai sensi del punto 8 in questi Termini di Servizio, lei utilizza i nostri servizi a proprio rischio. Ciò è
+               particolarmente vero per la scarica o altro uso di Contenuti, in particolare Contenuti di altri utenti dei nostri servizi. Lei è il solo responsabile per
+               eventuali danni al vostro sistema di computer o altri dispositivi tecnici utilizzati per l'utilizzo dei nostri servizi, la perdita di dati o altri danni,
+               e anche danni a terzi che potete causare in questo contesto. Notionary non si assume alcuna responsabilità in rispetto ai risultati che possono essere
+               ottenuti dall'utilizzo dei nostri servizi e il comportamento degli utenti o terzi o da Contenuti o dichiarazioni di utenti o di altri soggetti terzi che
+               si trasmettono attraverso l'uso dei servizi.
+           </li>
+           <li>Nostri Servizi possono contenere links ad altri siti. Ci sforziamo di utilizzare solo links a siti web che sono stati trovati innocuo al tempo di collegare.
+               Tuttavia, Notionary ha assolutamente alcuna influenza sul Contenuti dei siti collegati e tale Contenuti può cambiare a nostra insaputa. Si segnala che
+               noi non controlliamo l'attuale contenuto dei siti collegati. Noi non adotteremo come la nostra proprietà Contenuti disponibili su o tramite tali siti
+               o fonti di terze parti ed escludiamo qualsiasi responsabilità o garanzia in relazione ad essi.
+           </li>
+        </ol>
+     </li>
+     <li><b>Responsabilità e limitazioni di responsabilità</b>
+        <ol>
+           <li>Richieste di risarcimento di danni nei confronti Notionary vengono eliminati, a prescindere dalla base giuridica, a meno che Notionary, i loro 
+               rappresentanti legale o agenti hanno agito con dolo o colpa grave. Per colpa lieve, è responsabile solo se Notionary nel raggiungimento di un scopo 
+               contrattuale, un obbligo contrattuale essenziale è violato da Notionary, dei suoi rappresentanti legali o dei suoi funzionari o agenti. In questo caso,
+               la domanda di risarcimento è limitata ai danni prevedibili tipici del contratto.
+           </li>
+           <li>La suddetta limitazione di responsabilità non si applica ai crediti per i danni che provocano lesioni alla vita, il corpo, la salute, l'assunzione di
+               una garanzia o di un occultamento fraudolento di difetti Notionary.
+           </li>
+           <li>Richieste di risarcimento di danni nei confronti Notionary scadono 12 mesi dopo la sua origine, a meno che sulla base di un atto intenzionale o illegale.</li>
+           <li>Sempre che Notionary sia esonerato da responsabilità, lo stesso vale per le società affiliate a Notionary. Questo esenta anche la responsabilità personale 
+               di funzionari, dipendenti, rappresentanti, gli azionisti e gli agenti di Notionary e/o delle sue affiliate.
+           </li>
+        </ol>
+     </li>
+     <li><b>Indennità</b></li>
+        Lei accetta di rilasciare e tenere indenne Notionary, suoi affiliati e collaboratori, impiegati, lavoratori, rappresentanti, soci e agenti di Notionary e/o 
+        delle sue affiliate in relazione alle azioni o pretese di alcun genere sostenute da terzi derivanti attraverso i Contenuti che lei salva, invia o trasmette
+        come parte dei servizi Notionary, o per l'utilizzo dei nostri servizi o per violazioni questi Termini di Servizio o violazioni dei diritti di terzi.
+        Questo include anche le appropriati spese legali e le spese giudiziare.
+     <li><b>Marchi e altri diritti di proprietà intellettuale di Notionary</b></li>
+        Lei riconosce che Notionary detiene tutti i diritti ai servizi Notionary e la denominazione <b>"notionary"</b>, tra cui marchi, brevetti, copyright o diritti di
+        licenza o di altri diritti o posizioni giuridiche comparabili in relazione a voi.
+     <li><b>Diritto applicabile, luogo di adempimento, giurisdizione, altri</b>
+        <ol>
+           <li>Applica il diritto tedesco con esclusione della Convenzione delle vendite delle Nazioni Unite.</li>
+           <li>Luogo di adempimento e giurisdizione esclusiva in misura legalmente ammissibile, di Dresda.</li>
+           <li>Non esistono accordi verbali collaterali. Un rapporto sociale o di altro rapporto giuridico, o oltre a il rapporto regolato dalle presenti Termini di
+               Servizio non vengono all'esistenza per la conferma dei nostri servizi. Emendamenti a le condizioni contrattuali devono essere in forma scritta.
+               Ciò vale anche a l'eliminazione o la modifica di questa clausola di testo scritto.
+           </li>
+           <li>In caso che una qualsiasi delle singole disposizioni sia o diventa totalmente o parzialmente non valida, il resto del contratto sguirá valido. In caso
+               di tale invalidità, le parti cercheranno di trovare una disposizione di sostituzione valida quanto più possibile finanziariamente vicina. Lo stesso vale
+               in caso di qualche scappatoia.
+           </li>
+        </ol>
+      </li>
+   </ol>
+<br/>

@@ -1,0 +1,26 @@
+#!/bin/bash
+#set -x
+# Notionary Transfer of Necessary Files to the production host server
+PATH="/bin:/usr/bin:."; export PATH
+NY="notionary" FTPX="/usr/bin/lftp" HOST="${NY}.lithium.selfhost.de" USER="${NY}"        PWRD="L626requiem"
+LHDIR="/home/uozon/${NY}/" RHDIR="/httpdocs/" HFLS="tracker robots.txt index.php usrindex.php admindex.php"
+LJDIR="${LHDIR}js/"  RJDIR="${RHDIR}js/"  JFLS="${NY}-core-min.js ${NY}-user-min.js ${NY}-admn-min.js"
+LCDIR="${LHDIR}css/" RCDIR="${RHDIR}css/" CFLS="${NY}-mail.php ${NY}-core-min.php ${NY}-user-min.php ${NY}-admn-min.php"
+LPDIR="${LHDIR}php/" RPDIR="${RHDIR}php/" PFLS="utiles.php asynch.php cssphp.php dbutil.php doneTest.php error_404.php global.php math.php oauth2.php parser.php tools.php upload.php"
+
+$FTPX -u ${NY},$PWRD ${HOST} <<END_OF_FTPX
+set ssl:verify-certificate no
+lcd $LPDIR
+cd $RPDIR
+mput $PFLS
+lcd $LHDIR
+cd $RHDIR
+mput $HFLS
+lcd $LJDIR
+cd $RJDIR
+mput $JFLS
+lcd $LCDIR
+cd $RCDIR
+mput $CFLS
+bye
+END_OF_FTPX

@@ -1,0 +1,73 @@
+<ol>
+  <li><b> O que é Notionary ? </b>
+     <p>
+     Notionary é uma coleção de testes curtos que ajudam a aprender o que quiser por meio
+     de Perguntas e Respostas (p.e. Capitais das Américas), ou Imagens (p.e. Bandeiras Europeias),
+     ou Sons (p.e. Famosos Hinos), ou uma combinação (p.e. Notação Musical).
+
+      <div class='notpad' nname='Capitais das Américas' >
+         <span> Capitais das Américas </span>
+         <img title='Capitais das Américas' src='http://notionary.test/?tun=ibyid&was=2672'>
+      </div>
+
+      <div class='notpad' nname='Bandeiras Europeias' >
+         <span> Bandeiras Europeias</span>
+         <img title='Bandeiras Europeias' src='http://notionary.test/?tun=ibyid&was=7443'>
+      </div>
+
+      <div class='notpad' nname='Famosos Hinos' >
+         <span> Famosos Hinos</span>
+         <img title='Famosos Hinos' src='http://notionary.test/?tun=ibyid&was=10006'>
+      </div>
+
+      <div class='notpad' nname='Notação Musical' >
+         <span> Notação Musical</span>
+         <img title='Notação Musical' src='http://notionary.test/?tun=ibyid&was=8831'>
+      </div>
+
+     <br/>Notionary usa as idéias por trás do trabalho do Dr. Hermann Ebbinghaus na memória, aprendizagem e esquecimento.
+     </p>
+  </li>
+  <li><b> Se aprende fazendo, e se aprende com os erros. </b>
+
+      <p>
+      Memorize as fichas de índice e faça os testes disponíveis <br/>
+      <a href='http://notionary.test/?tun=learn&was=Arithmetic Challenge'>
+         <button> <span class='fa fa-graduation-cap'></span> aprendizagem </button>
+      </a>
+      <div id='learnExample'></div>
+      <div style='display:inline-block'>
+         <a href='http://notionary.test/?tun=trial&was=Arithmetic Challenge'>
+            <button> <span class='fa fa-mouse-pointer'></span> Exame </button>
+         </a>
+         <a href='http://notionary.test/?tun=write&was=Arithmetic Challenge'>
+            <button> <span class='fa fa-pencil'></span> Escrito </button>
+         </a>
+         <a href='http://notionary.test/?tun=adept&was=Arithmetic Challenge'>
+            <button> <span class='fa fa-undo'></span> Mestre </button>
+         </a>
+      </div>
+      <br/> Durante o teste, o sistema rastreia a pontuação e tempo de desempenho para medir o progresso do aluno
+      no futuro. Erros dos estudantes são registrados e disponibilizados para revisão posterior do material.
+      </p>
+
+  </li>
+  <li><b> ¿ Como posso criar uma Notion ? </b>
+      <p>
+      Uma Notion pode ser criada manualmente, digitando pares ( Pergunta -->> Resposta ) no editor fornecido por Notionary.<br/>
+      Alternativamente, uma Notion pode ser carregada no sistema, desde que seja um arquivo de pares ( Pergunta -->> Resposta ) separados por " -->> ".<br/>
+      Basta utilizar seu editor preferido para criar um arquivo do tipo ".txt " ou ".csv " semelhante ao exemplo aqui: <br/>
+      <span class='broso'>Pergunta 1</span> &nbsp;-->>&nbsp; <span class='bgrun'>Resposta 1</span><br/>
+      <span class='broso'>Pergunta 2</span> &nbsp;-->>&nbsp; <span class='bgrun'>Resposta 2</span><br/>
+      <span class='broso'>Pergunta 3</span> &nbsp;-->>&nbsp; <span class='bgrun'>Resposta 3</span><br/>
+      <span class='broso'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</span> -->> <span class='bgrun'>...</span><br/>
+      <span class='broso'>Pergunta x</span> &nbsp;-->>&nbsp; <span class='bgrun'>Resposta x</span><br/>
+      Depois de criar uma Notion manualmente ou por meio da carga, você pode mudar a Notion e
+      adicionar Imagens e Sons para cada Pergunta. Estas Imagens e Sons devem ajudar os alunos a formar
+      associações de Resposta sem mencionar ou mostrar a Resposta. Se você acredita que é mais fácil
+      aprender o material através de um vídeo ou ler um documento, você ainda pode usar Notionary como
+      uma plataforma de teste e ligar o seu vídeo (YouTube) ou anexar o documento (PDF) como material
+      preliminar.
+      </p>
+  </li>
+</ol>

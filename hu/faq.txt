@@ -1,0 +1,72 @@
+<ol>
+  <li><b>Mi Notionary ?</b>
+      <p>
+      Notionary gyűjteménye rövid teszteket segít megtanulni bármely témában Kérdések és válaszok (például European Capitals),
+      vagy képek (például African Flags), vagy a Hangok (például Famous Anthems), vagy a kettő kombinációja (például Music Notation).
+
+      <div class='notpad' nname='European Capitals' >
+         <span> European Capitals </span>
+         <img title='European Capitals' src='http://notionary.test/?tun=ibyid&was=7443'>
+      </div>
+
+      <div class='notpad' nname='African Flags' >
+         <span> African Flags</span>
+         <img title='African Flags' src='http://notionary.test/?tun=ibyid&was=2671'>
+      </div>
+
+      <div class='notpad' nname='Famous Anthems' >
+         <span> Famous Anthems</span>
+         <img title='Famous Anthems' src='http://notionary.test/?tun=ibyid&was=10006'>
+      </div>
+
+      <div class='notpad' nname='Music Notation' >
+         <span> Music Notation</span>
+         <img title='Music Notation' src='http://notionary.test/?tun=ibyid&was=8831'>
+      </div>
+
+      <br/>Notionary használja a gondolatok mögött Dr. Hermann Ebbinghaus munkájának memória, a tanulás és a felejtés.<br/>
+      </p>
+  </li>
+  <li><b>Tanulhatnak, és tanulni a hibákból.</b>
+
+      <p>
+      Jegyezze fel a kártyákat és tegye elérhetővé a teszteket <br/>
+      <a href='http://notionary.test/?tun=learn&was=Arithmetic Challenge'>
+         <button> <span class='fa fa-graduation-cap'></span> Tanulási </button>
+      </a>
+      <div id='learnExample'></div>
+      <div style='display:inline-block'>
+         <a href='http://notionary.test/?tun=trial&was=Arithmetic Challenge'>
+            <button> <span class='fa fa-mouse-pointer'></span> Vizsga </button>
+         </a>
+         <a href='http://notionary.test/?tun=write&was=Arithmetic Challenge'>
+            <button> <span class='fa fa-pencil'></span> Írásbeli </button>
+         </a>
+         <a href='http://notionary.test/?tun=adept&was=Arithmetic Challenge'>
+            <button> <span class='fa fa-undo'></span> Mester </button>
+         </a>
+      </div>
+      <br/> A tesztek során a rendszer követi a hallgató teljesítményét egy pontszámot, és az eltelt idő a jövő
+      szelvényének a diák tanulási folyamatban. Bármilyen hibát is vezetni, és kész a jövőben
+      felülvizsgálata az anyag.
+      </p>
+
+  </li>
+  <li><b>Hogyan tudok létrehozni egy olyan Notion ?</b>
+      <p>
+      Notions hozhatók létre manuálisan megírásával ( Kérdés -->> Válasz ) párok az egyszerű fogalma szerkesztő által biztosított Notionary.<br/>
+      Alternatív, Notions lehet feltölteni a rendszerbe fájlok ( Kérdés -->> Válasz ) párokat, a " -->> " szimbólummal elválasztva.<br/>
+      Egyszerűen használja a kedvenc szövegszerkesztővel létre egy ".txt" vagy ".csv" fájlt az alábbiak szerint:<br/>
+      <span class='broso'>Kérdés 1</span> &nbsp;-->>&nbsp; <span class='bgrun'>Válasz 1</span><br/>
+      <span class='broso'>Kérdés 2</span> &nbsp;-->>&nbsp; <span class='bgrun'>Válasz 2</span><br/>
+      <span class='broso'>Kérdés 3</span> &nbsp;-->>&nbsp; <span class='bgrun'>Válasz 3</span><br/>
+      <span class='broso'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</span> -->> <span class='bgrun'>...</span><br/>
+      <span class='broso'>Kérdés x</span> &nbsp;-->>&nbsp; <span class='bgrun'>Válasz x</span><br/>
+      Miután egy fogalom létre manuálisan vagy feltöltésre, akkor lehet szerkeszteni a fogalmat adjunk Kép és
+      Hangok minden kérdésre. Ezek a képek és hangok segít a hallgató, hogy a kapcsolat a
+      Válasz nélkül amelyek feltétlenül a válasz található. Ha úgy érzi, hogy az anyag egy fogalom jobb
+      megtanulta a videót vagy egy-egy dokumentum, akkor is használhatja Notionary a tesztelési platform
+      és a link a ( YouTube ) videó, valamint csatolja a ( PDF ) dokumentum fogalmára, mint az előzetes tananyag.
+      </p>
+  </li>
+</ol>

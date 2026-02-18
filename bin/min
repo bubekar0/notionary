@@ -1,0 +1,173 @@
+#!/bin/bash
+#set -x
+PATH="/bin:/usr/bin:."; export PATH
+
+# Join the Functionality Modules associated with each of CORE, USER, ADMN, and DEV
+jjoin(){ zusam=$2 clean=$3; echo -n " $1 "; MODS=${1:0:1}JMODS;
+   cat ${!MODS} > $zusam; cat ${!MODS} |\
+   sed "/VERSION_TRACKER/s//${KLOK}/" |\
+   sed /\s*DEBUGGER?/d > $clean;
+}
+
+# Produce a list of SED substitute commands to minimize all Functions in the code
+funky(){ clean=$1 dirty=$2; set "" "" ""; echo -n " Functions ";
+   awk -F'function ' '/^function/{print $2}' $clean |\
+   awk -F'[(]' -v SEED=$RANDOM '
+	BEGIN{srand(SEED);}
+	length($1) > 6 {
+	   printf "s/%s/f_%s%s/g\n",$1,substr("abcdefghijklmnopqrstvwxyz",1+int(rand()*26),1),NR;
+        }' > $FMIN
+   sed -f $FMIN $clean > $dirty;
+}
+
+# Produce a list of SED substitute commands to minimize all IDs in the code
+ideal(){ clean=$1 dirty=$2; set "" "" ""; echo -n " Idents ";
+   awk "/id=/{print $1}" $clean |\
+   awk -F'id=' '{print $2}' |\
+   awk "/^'/{print $1}" |\
+   awk "!/^'\"/{print $1}" |\
+   awk -F"'" '$2 !~/\"/ && length($2) > 6 {print $2}' |\
+   sort -u | awk '{ print length(), $0 }' | sort -rn |\
+   awk -v SEED=$RANDOM '
+        BEGIN{srand(SEED);}
+	{
+	   printf "s/%s/i_%s%s/g\n",$2,substr("abcdefghijklmnopqrstvwxyz",1+int(rand()*26),1),NR;
+	}' > $IMIN;
+}
+
+# Produce a list of SED substitute commands to minimize all Classes in the code
+clasy(){ clean=$1 dirty=$2; set "" "" ""; echo -n " Classes ";
+   awk "/class=/ {print $1}" $clean |\
+   awk -F'class=' '//{print $2}' |\
+   awk -F"'" '{print $2}' |\
+   sed 's/ui-.*//g'| sed 's/animated.*//g'|\
+   sed 's/fa fa-.*//g'|\
+   sed 's/ uozon/\nuozon/g' |\
+   awk '!/"/ && length($1) > 6 {print $1}' |\
+   sort -u | awk '{ print length(), $0 }' | sort -rn |\
+   awk -v SEED=$RANDOM '
+        BEGIN{srand(SEED);}
+	{
+	   printf "s/%s/c_%s%s/g\n",$2,substr("abcdefghijklmnopqrstvwxyz",1+int(rand()*26),1),NR;
+        }' >> $IMIN;
+   sed -f $IMIN $clean > $dirty;
+}
+
+# Minimize the  JS Files for CORE, USER, ADMN, and DEVE
+minjs(){ bloated=$2  klein=$3; echo -n " $1 ";
+   echo "/*! NOTIONARY v${VERS}_${DEPS}_${KLOK}
+ * https://notionary.com
+ * Under Contracted Private License With Restricted Use!
+ * Copyright 2021 notionary.com, Cali - COLOMBIA */" |\
+   cat - $bloated |\
+   $YUI_248 -v --type js -o $klein
+}
+
+# Minimize the CSS Files for CORE, USER, ADMN, and DEVE
+mincs(){ bloated=$2  klein=$3; echo -n " $1 ";
+   VON=${1:0:1}CMODS; ZUM=${1:0:1}CSS; cat ${!VON} > ${!ZUM};
+   sed -f $IMIN $bloated  |\
+   sed "/MY_VERSION_STRING_HERE/s//${VERS}_${DEPS}_${KLOK}/" |\
+   $YUI_248 -v --type css -o $klein
+}
+
+VERS="2.21"                            # Notionary Software Version
+UNX="U_20.04.1"                        # Ubuntu Linux Version
+APA="A_2.4.41"                         # Apache HTTP Server
+PHP="P_7.4.3"                          # PHP CGI
+SQL="8.0.22"                           # MySQL Server
+PMA="PM_4.9.5.2"                       # PhpMyAdmin DBM GUI
+YUI="Y_2.4.8"                          # Yahoo YUI Compressor
+DEPS="$UNX+$APA+$PHP+$SQL+$PMA+$YUI"   # Dependencies with Versions
+KLOK=`date +%a%d%b%Y%H%M%S`            # Current Date and Time
+FMIN="fn`date +%d%b`"                  # List of Functions Minimizing SED instructions
+IMIN="id`date +%d%b`"                  # List of IDs and Classes Minimizing SED instructions
+YUI_248="java -jar /Users/hec/Documents/Code/Sites/notionary/bin/yuicompressor-2.4.8.jar "  # YUI Command
+
+# The Minimizer can handle separate software packages through this switch
+clear; case $1 in
+   n | nary | notionary )           echo " ****** Notionary ****** ";
+       PROD="/Users/hec/Documents/Code/Sites/notionary"; DEVE="$PROD/dev"; PFX="notionary";
+       MYJS="$DEVE/js/$PFX";
+       MYCS="$DEVE/css/$PFX";
+       # CORE JS and CSS Modules for Anonymous Users
+       CJMODS="$MYJS-tops.js   $MYJS-wobj.js  $MYJS-asyn.js  $MYJS-cor0.js
+               $MYJS-auth.js   $MYJS-disp.js  $MYJS-exam.js  $MYJS-perf.js";
+       CCMODS="$MYCS-tops.php  $MYCS-wobj.php $MYCS-mail.php $MYCS-cor0.php
+               $MYCS-auth.php  $MYCS-disp.php $MYCS-exam.php $MYCS-perf.php";
+       # USER JS and CSS Modules for Registered Users
+       UJMODS="$MYJS-use0.js   $MYJS-hoch.js  $MYJS-edit.js  $MYJS-repa.js";
+       UCMODS="$MYCS-use0.php  $MYCS-hoch.php $MYCS-edit.php $MYCS-repa.php";
+       # USER JS and CSS Modules for Administrator Users
+       AJMODS="$MYJS-adm0.js   $MYJS-root.js";
+       ACMODS="$MYCS-adm0.php  $MYCS-root.php"; 
+                         ;;
+   u | uoz | uozon )                echo " ****** Uozon ****** ";
+       PROD="/home/uozon"; DEVE="$PROD/dev"; PFX="uozon";
+       MYJS="$PROD/dev/js/$PFX";
+       MYCS="$PROD/dev/css/$PFX";
+       CJMODS="$MYJS-tops.js   $MYJS-wobj.js     $MYJS-cor0.js    $MYJS-asyn.js    $MYJS-auth.js";
+       CCMODS="$MYCS-tops.php  $MYCS-wobj.php    $MYCS-mail.php   $MYCS-cor0.php   $MYCS-auth.php";
+       UJMODS="$MYJS-use0.js"
+       UCMODS="$MYCS-use0.php"
+       AJMODS="$MYJS-adm0.js   $MYJS-beta.js";
+       ACMODS="$MYCS-adm0.php"; 
+                         ;;
+   * ) echo "No Site specified... exiting"; exit; ;;
+esac
+
+TRAK="${PROD}/tracker";                # A File to read the latest compiled minimized version
+DJMODS="$CJMODS $UJMODS $AJMODS";      # All the  JS Modules: CORE USER ADMN For Developer
+DCMODS="$CCMODS $UCMODS $ACMODS";      # All the CSS Modules: CORE USER ADMN For Developer
+INDEX="$DEVE/index.php"                # CORE PHP Module
+UNDEX="$DEVE/usrindex.php"             # USER PHP Module
+ANDEX="$DEVE/admindex.php"             # ADMN PHP Module
+
+CJSS="$MYJS-core.js"       CBUG="$MYJS-core-bug.js"      # CORE  JS Minimizing Stages
+CFUN="$MYJS-core-fns.js"   CIDS="$MYJS-core-ids.js"
+CMJS="$MYJS-core-min.js"
+CCSS="$MYCS-core.php"      CMCS="$MYCS-core-min.php"     # CORE CSS Minimizing Stages
+
+UJSS="$MYJS-user.js"       UBUG="$MYJS-user-bug.js"      # USER  JS Minimizing Stages
+UFUN="$MYJS-user-fns.js"   UIDS="$MYJS-user-ids.js"
+UMJS="$MYJS-user-min.js"
+UCSS="$MYCS-user.php"      UMCS="$MYCS-user-min.php"     # USER CSS Minimizing Stages
+
+AJSS="$MYJS-admn.js"       ABUG="$MYJS-admn-bug.js"      # ADMN  JS Minimizing Stages
+AFUN="$MYJS-admn-fns.js"   AIDS="$MYJS-admn-ids.js"
+AMJS="$MYJS-admn-min.js"
+ACSS="$MYCS-admn.php"      AMCS="$MYCS-admn-min.php"     # ADMN CSS Minimizing Stages
+
+DJSS="$MYJS-deve.js"       DBUG="$MYJS-deve-bug.js"      # DEVE  JS Minimizing Stages
+DFUN="$MYJS-deve-fns.js"   DIDS="$MYJS-deve-ids.js"
+DMJS="$MYJS-deve-min.js"
+DCSS="$MYCS-deve.php"      DMCS="MYCS-deve-min.php"      # DEVE CSS Minimizing Stages
+
+echo $KLOK > $TRAK;
+
+echo -n "Aggregating JS : ";
+      jjoin Core $CJSS $CBUG; jjoin User $UJSS $UBUG; jjoin Admn $AJSS $ABUG; jjoin Deve $DJSS $DBUG;
+echo "      DONE !";
+
+echo -n "Obfuscating JS : ";
+      funky $DBUG $DFUN;      ideal $DFUN $DIDS;      clasy $DFUN $DIDS;
+echo "  DONE !";
+
+echo -n "Minifying JS   : ";
+      sed -f $FMIN $CBUG > $CFUN; sed -f $IMIN $CFUN > $CIDS;
+      sed -f $FMIN $UBUG > $UFUN; sed -f $IMIN $UFUN > $UIDS;
+      sed -f $FMIN $ABUG > $AFUN; sed -f $IMIN $AFUN > $AIDS;
+      sed -f $FMIN $DBUG > $DFUN; sed -f $IMIN $DFUN > $DIDS;
+      minjs Core $CIDS $CMJS; minjs User $UIDS $UMJS; minjs Admn $AIDS $AMJS; minjs Deve $DIDS $DMJS;
+echo "      DONE !";
+
+echo -n "Minifying CSS  : ";
+      mincs Core $CCSS $CMCS; mincs User $UCSS $UMCS; mincs Admn $ACSS $AMCS; mincs Deve $DCSS $DMCS;
+echo "      DONE !";
+
+echo -n "Producing Sources";
+   cp $CMJS $UMJS $AMJS $DJSS ${PROD}/js/;
+   cp $CMCS $UMCS $AMCS $DCSS $MYCS-mail.php ${PROD}/css/;
+   # Mail styler in core-min.php needs placing in ../css for utiles.php:mailx()
+   cp $INDEX $UNDEX $ANDEX ${PROD}/;
+echo "                              DONE !";

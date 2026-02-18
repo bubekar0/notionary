@@ -1,0 +1,76 @@
+<ol>
+  <li><b> Quel est Notionary ? </b>
+     <p>
+     Notionary est une collection de courts essais pour aider à apprendre tout sujet à travers
+     Questions et Réponses (ex. Capitales Européennes) ou Images (ex. Drapeaux de Afrique),
+     ou Sons (ex. Hymnes Célèbres), ou une combinaison (ex. Notation Musicale).
+
+      <div class='notpad' nname='Capitales Européennes' >
+         <span> Capitales Européennes </span>
+         <img title='Capitales Européennes' src='http://notionary.test/?tun=ibyid&was=7443'>
+      </div>
+
+      <div class='notpad' nname='Drapeaux de Afrique' >
+         <span> Drapeaux de Afrique</span>
+         <img title='Drapeaux de Afrique' src='http://notionary.test/?tun=ibyid&was=2671'>
+      </div>
+
+      <div class='notpad' nname='Hymnes Célèbres' >
+         <span> Hymnes Célèbres</span>
+         <img title='Hymnes Célèbres' src='http://notionary.test/?tun=ibyid&was=10006'>
+      </div>
+
+      <div class='notpad' nname='Notation Musicale' >
+         <span> Notation Musicale</span>
+         <img title='Notation Musicale' src='http://notionary.test/?tun=ibyid&was=8831'>
+      </div>
+
+
+     <br/> Notionary utilise les idées derrière le travail du Dr. Hermann Ebbinghaus sur la mémoire, l'apprentissage et l'oubli.<br/>
+     </p>
+  </li>
+  <li><b> Apprentissage par la pratique, et apprentissage de vos erreurs.</b>
+
+      <p>
+      Mémorisez les fiches et prenez les tests disponibles <br/>
+      <a href='http://notionary.test/?tun=learn&was=Arithmetic Challenge'>
+         <button> <span class='fa fa-graduation-cap'></span> Apprentissage </button>
+      </a>
+      <div id='learnExample'></div>
+      <div style='display:inline-block'>
+         <a href='http://notionary.test/?tun=trial&was=Arithmetic Challenge'>
+            <button> <span class='fa fa-mouse-pointer'></span> Examen </button>
+         </a>
+         <a href='http://notionary.test/?tun=write&was=Arithmetic Challenge'>
+            <button> <span class='fa fa-pencil'></span> Écrit </button>
+         </a>
+         <a href='http://notionary.test/?tun=adept&was=Arithmetic Challenge'>
+            <button> <span class='fa fa-undo'></span> Master </button>
+         </a>
+      </div>
+      <br/> Lors des tests, le système suit la performance de l'étudiant avec un score et le temps écoulé
+      pour mesurer les progrès de l'étudiant dans l'avenir. Les erreurs des élèves sont enregistrées
+      et mis à disposition pour examen ultérieur de la matière.
+      </p>
+
+  </li>
+  <li><b>Comment puis-je créer une Notion ?</b>
+      <p>
+      Notions peuvent être créés manuellement par écrit en tapant paires de ( Questions -->> Réponses ) dans l'éditeur fourni par Notionary.<br/>
+      Alternativement, Notions peuvent être téléchargées dans le système si elles sont sous la forme d'un fichier
+      de paires de ( Question -->> Réponses ) séparées par des " -->> ".<br/>
+      Il suffit d'utiliser votre éditeur préféré pour créer un fichier de type ".txt" ou ".csv " similaire à l'exemple ici : <br/>
+      <span class='broso'>Question 1</span> &nbsp;-->>&nbsp; <span class='bgrun'>Réponse 1</span><br/>
+      <span class='broso'>Question 2</span> &nbsp;-->>&nbsp; <span class='bgrun'>Réponse 2</span><br/>
+      <span class='broso'>Question 3</span> &nbsp;-->>&nbsp; <span class='bgrun'>Réponse 3</span><br/>
+      <span class='broso'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</span> -->> <span class='bgrun'>...</span><br/>
+      <span class='broso'>Question x</span> &nbsp;-->>&nbsp; <span class='bgrun'>Réponse x</span><br/>
+      Après la création de une Notion manuellement ou via le téléchargement, il est alors possible
+      de modifier la Notion et d'ajouter des Images ou des Sons à chaque Question. Ces Images et
+      ces Sons doivent aider les élèves à former associations de Réponse sans mentioner ou montrer
+      la Réponse. Si vous croyez que le matériel pourrait être appris plus facilement à travers une
+      vidéo ou en lisant un document, vous pouvez toujours utiliser Notionary comme une plate-forme
+      de test et lier votre vidéo ( YouTube ) ou joindre votre document ( PDF ) comme matériau préliminaire .
+      </p>
+  </li>
+</ol>
