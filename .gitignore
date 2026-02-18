@@ -1,0 +1,24 @@
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Cache
+cache/*
+!cache/.gitkeep
+
+# PHP credentials (when you rebuild)
+config.php
+
+# Editor/IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+*.log
+
+# Compiled/minified output you don't want tracked
+*.min.js.map
+
