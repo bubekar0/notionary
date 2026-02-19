@@ -3,6 +3,7 @@ session_start();
 if(!ob_start("ob_gzhandler")) ob_start();
 date_default_timezone_set('Europe/Berlin');
 
+require_once "config.php";
 require_once "php/utiles.php";
 require_once "php/dbutil.php";
 require_once "php/asynch.php";
@@ -11,7 +12,6 @@ require_once "php/global.php";
 require_once "php/tools.php";        // Because of smail()
 require_once "php/math.php";         // Because of formx()
 
-// Google APP SDK : https://console.developers.google.com/apis/credentials?project=api-project-181082067736&folder=&organizationId=
 require_once "lib/google-api-php-client/src/Google_Client.php";
 require_once "lib/google-api-php-client/src/contrib/Google_Oauth2Service.php";
 require_once "lib/google-api-php-client/src/contrib/Google_PlusService.php";
@@ -561,11 +561,10 @@ function logfb(){ // First Pass to generate login link
    $PARAM_MYURL = param("myurl");
    $PARAM_FAPID = param("fapid");
    $PARAM_FPAGE = param("fpage");
-   $FBOOK_SKRET = "2f07129a6efb778b026392e0cc9d6ec8";
 
    // Initialize the Facebook SDK
-   FacebookSession::setDefaultApplication($PARAM_FAPID, $FBOOK_SKRET);
-   $fbook = new Facebook\Facebook([ 'app_id' => "$PARAM_FAPID", 'app_secret' => "$FBOOK_SKRET", 'default_graph_version' => 'v2.5', ]);
+   FacebookSession::setDefaultApplication($PARAM_FAPID, FBOOK_SKRET);
+   $fbook = new Facebook\Facebook([ 'app_id' => "$PARAM_FAPID", 'app_secret' => FBOOK_SKRET, 'default_graph_version' => 'v2.5', ]);
    $helper = $fbook->getRedirectLoginHelper();
    $permissions = ['email']; // Optional permissions
    $loginUrl = $helper->getLoginUrl("http://notionary.test/?tun=fbbak", $permissions);
@@ -575,8 +574,7 @@ function fbbak(){ // Second Pass callback to generate access token and graph pbj
    $PARAM_MYURL = param("myurl");
    $PARAM_FAPID = param("fapid");
    $PARAM_FPAGE = param("fpage");
-   $FBOOK_SKRET = "2f07129a6efb778b026392e0cc9d6ec8";
-   $fbook = new Facebook\Facebook([ 'app_id' => "$PARAM_FAPID", 'app_secret' => "$FBOOK_SKRET", 'default_graph_version' => 'v2.5', ]);
+   $fbook = new Facebook\Facebook([ 'app_id' => "$PARAM_FAPID", 'app_secret' => FBOOK_SKRET, 'default_graph_version' => 'v2.5', ]);
    $helper = $fbook->getRedirectLoginHelper();
    // Get Access Token
    try { $accessToken = $helper->getAccessToken(); }
@@ -632,27 +630,25 @@ function fbbak(){ // Second Pass callback to generate access token and graph pbj
       } else header("Location: $PARAM_MYURL?sntqo=".obfus()."&u=FB-".$_SESSION["fbusr"]."&t=".obfus()); // ?t => ?n=terms
    } else {  header("Location: $PARAM_MYURL"); exit; } // Exit gracefully
 }
-function fbweg(){ // GET Facebook deauthorize URL
-   $MY_ARRAYS  = array('_SERVER','_SESSION','_REQUEST','_POST','_GET');
-   $messg="";
-   foreach($MY_ARRAYS as $g){
-      $messg.= '<br/><br/>$'.$g."<br/>";
-      eval("foreach($".$g.' as $x=>$y)
-      $messg.= $x.":[".$y."]<br/> ";');
+function fbweg(){
+   $MY_ARRAYS = ['_SERVER' => $_SERVER, '_SESSION' => $_SESSION,
+                 '_REQUEST' => $_REQUEST, '_POST' => $_POST, '_GET' => $_GET];
+   $messg = "";
+   foreach($MY_ARRAYS as $name => $arr){
+      $messg .= '<br/><br/>$'.$name."<br/>";
+      foreach($arr as $x => $y)
+         $messg .= $x.":[".$y."]<br/> ";
    }
    mailx("FB-deauthorized",$messg,param("admin"));
 }
 function loggg(){ // WINDOW.LOCATION: GP login -> https://code.google.com/apis/console/
    $PARAM_MYURL = param("myurl");
-   $GOOGLE_CLNTID  = "181082067736.apps.googleusercontent.com";
-   $GOOGLE_CLNSEC  = "_48gwXTvB6sQzgwFdiYPSHd1";
-   $GOOGLE_DEVKEY  = "AIzaSyDKPLdr0SOYenVMquLNFUHcmeNtddL38-A";
    $client = new Google_Client();   // Send user for approval get a 'auth_token'
    $client->setApplicationName("notionary");
-   $client->setClientId($GOOGLE_CLNTID);
-   $client->setClientSecret($GOOGLE_CLNSEC);
+   $client->setClientId(GOOGLE_CLNTID);
+   $client->setClientSecret(GOOGLE_CLNSEC);
    $client->setRedirectUri($PARAM_MYURL.'?tun=ggbak'); // hardcoded at g+
-   $client->setDeveloperKey($GOOGLE_DEVKEY);
+   $client->setDeveloperKey(GOOGLE_DEVKEY);
    $client->setApprovalPrompt('auto'); // prevent annoying request for Offline access
    $client->setScopes(array('https://www.googleapis.com/auth/plus.me',
                             'https://www.googleapis.com/auth/userinfo.email',
@@ -661,15 +657,12 @@ function loggg(){ // WINDOW.LOCATION: GP login -> https://code.google.com/apis/c
 }
 function ggbak(){ // with approval exchange auth_token/code for access_token -> user info
    $PARAM_MYURL = param("myurl");
-   $GOOGLE_CLNTID  = "181082067736.apps.googleusercontent.com";
-   $GOOGLE_CLNSEC  = "_48gwXTvB6sQzgwFdiYPSHd1";
-   $GOOGLE_DEVKEY  = "AIzaSyDKPLdr0SOYenVMquLNFUHcmeNtddL38-A";
    $client = new Google_Client();
    $client->setApplicationName("notionary");
-   $client->setClientId($GOOGLE_CLNTID);
-   $client->setClientSecret($GOOGLE_CLNSEC);
+   $client->setClientId(GOOGLE_CLNTID);
+   $client->setClientSecret(GOOGLE_CLNSEC);
    $client->setRedirectUri($PARAM_MYURL.'?tun=ggbak'); // hardcoded at g+
-   $client->setDeveloperKey($GOOGLE_DEVKEY);
+   $client->setDeveloperKey(GOOGLE_DEVKEY);
    $client->setScopes(array('https://www.googleapis.com/auth/plus.me',
                             'https://www.googleapis.com/auth/userinfo.email',
                             'https://www.googleapis.com/auth/userinfo.profile'));
@@ -711,10 +704,8 @@ function ggbak(){ // with approval exchange auth_token/code for access_token -> 
 }
 function logtw(){ // WINDOW.LOCATION: -> https://dev.twitter.com/apps
    $PARAM_MYURL = param("myurl");
-   $TWIT_COKEY = "eUiZ8BmfttWbzpgY94dbA";
-   $TWIT_COSEC = "IDYZXDU5J8C7hJascckkDON9O09dFDsFNmQYHkM";
    //Get twitter credentials -> use later for more permanent token acquisition
-   $oauth=new TwitterOAuth($TWIT_COKEY,$TWIT_COSEC);
+   $oauth=new TwitterOAuth(TWIT_COKEY,TWIT_COSEC);
    $retok=$oauth->getRequestToken($PARAM_MYURL.'?tun=twbak');
    $_SESSION['twtok'] = $retok['oauth_token'];
    $_SESSION['twtos'] = $retok['oauth_token_secret'];
@@ -725,11 +716,9 @@ function logtw(){ // WINDOW.LOCATION: -> https://dev.twitter.com/apps
 }
 function twbak(){ // HTTP: from twitter as callback after approval (or decline)
    $PARAM_MYURL = param("myurl");
-   $TWIT_COKEY = "eUiZ8BmfttWbzpgY94dbA";
-   $TWIT_COSEC = "IDYZXDU5J8C7hJascckkDON9O09dFDsFNmQYHkM";
    if(!empty($_GET['oauth_verifier']) && !empty($_SESSION['twtok']) && !empty($_SESSION['twtos'])){
       // get a permanent token, with two new parameters we got in "logtw"
-      $perma = new TwitterOAuth($TWIT_COKEY,$TWIT_COSEC,$_SESSION['twtok'], $_SESSION['twtos']);
+      $perma = new TwitterOAuth(TWIT_COKEY,TWIT_COSEC,$_SESSION['twtok'], $_SESSION['twtos']);
       $_SESSION['perto'] = $perma->getAccessToken($_GET['oauth_verifier']);
       if($perma->http_code == 200){ $twinf=$perma->get('account/verify_credentials'); // Set limbo account so oauth can create permaccount
          $_SESSION['twusr'] = $twinf->id;
@@ -760,30 +749,52 @@ function twbak(){ // HTTP: from twitter as callback after approval (or decline)
 
 iazik();
 
-if ( isset( $_REQUEST['tun'] ) ) $tun = $_REQUEST['tun']; else $tun = "";
+$tun = $_REQUEST['tun'] ?? '';
 
-switch ( $tun ) {
-   case 'mylan': echo $_SESSION['slang']; break;
+if ( $tun === 'mylan' ) {
+   echo $_SESSION['slang'];
+   exit;
+}
 
-   // -->> SERVER SIDE MARKUP : rentr()
-   case 'terms':case 'prvcy':case 'guide':case 'cooks':case 'imprs':
-   case 'learn':case 'trial':case 'write':case 'adept':
-   case 'micro':case 'lista':case 'lesen':case 'watch':
-   case 'probs':case 'suche':case 'amend':
-         ssmkp(); break;
-   // -->> JSONs FOR SERVER SIDE MARKUP
-   case 'busca':
+$ssmkp_routes = ['terms','prvcy','guide','cooks','imprs','learn','trial','write','adept','micro','lista','lesen','watch','probs','suche','amend'];
+if ( in_array($tun, $ssmkp_routes) ) {
+   ssmkp();
+   exit;
+}
 
-   // -->> NOTIONARY Routines
-   case 'dopdf':case 'cacha':case 'mudoc':case 'ninfo':case 'mixqa':
-   case 'logfb':case 'fbbak':case 'fbweg':case 'logtw':case 'twbak':case 'loggg':case 'ggbak':
-   case 'isusr':case 'login':case 'vrify':case 'i4got':case 'crack':case 'oauth':case 'known':case 'nuser':
-   case 'sinfo':case 'uinfo':case 'linfo':case 'ibyid':case 'sbyid':case 'pbyid':
-         if ( !isset( $_REQUEST['was'] ) ) eval($tun."();");
-         else eval($tun."(\$_REQUEST['was']);"); break;
+$dispatch = [
+   'dopdf' => fn() => dopdf($_REQUEST['was'] ?? null),
+   'cacha' => fn() => cacha($_REQUEST['was'] ?? null),
+   'mudoc' => fn() => mudoc($_REQUEST['was'] ?? null),
+   'ninfo' => fn() => ninfo(),
+   'mixqa' => fn() => mixqa($_REQUEST['was'] ?? null),
+   'busca' => fn() => busca($_REQUEST['was'] ?? null),
+   'logfb' => fn() => logfb(),
+   'fbbak' => fn() => fbbak(),
+   'fbweg' => fn() => fbweg(),
+   'logtw' => fn() => logtw(),
+   'twbak' => fn() => twbak(),
+   'loggg' => fn() => loggg(),
+   'ggbak' => fn() => ggbak(),
+   'isusr' => fn() => isusr(),
+   'login' => fn() => login(),
+   'vrify' => fn() => vrify(),
+   'i4got' => fn() => i4got(),
+   'crack' => fn() => crack(),
+   'oauth' => fn() => oauth(),
+   'known' => fn() => known(),
+   'nuser' => fn() => nuser(),
+   'sinfo' => fn() => sinfo($_REQUEST['was'] ?? null),
+   'uinfo' => fn() => uinfo(),
+   'linfo' => fn() => linfo($_REQUEST['was'] ?? null),
+   'ibyid' => fn() => ibyid($_REQUEST['was'] ?? null),
+   'sbyid' => fn() => sbyid($_REQUEST['was'] ?? null),
+   'pbyid' => fn() => pbyid($_REQUEST['was'] ?? null),
+];
 
-
-   // -->> MAIN ENTRY POINT : nentr()
-   default: porta(); break;
+if ( isset($dispatch[$tun]) ) {
+   $dispatch[$tun]();
+} else {
+   porta();
 }
 ?>
