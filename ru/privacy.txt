@@ -1,0 +1,85 @@
+<style>
+   body { background:#eee; }
+   h4 { color:black; }
+   ol { counter-reset:item; }
+   li { display:block; }
+   li:before { content:counters(item, ".") "."; counter-increment:item; padding-right:10px; margin-left:-100px; }
+</style>
+<h4>Privacy Policy</h4>
+<p>This offer is made by Notionary ("notionary" or "we"), Notionary.com, 01187 Dresden - GERMANY.</p>
+<p>A trustworthy and competent handling of personal data of our users is very important to us. If we collect, process or use("use")
+   personal data as part of our offer, this will take place within the context of the relevant data protection laws.</p>
+<p>With the following privacy policy we would like to portray transparently and understandably which data from users of our service
+   is stored by notionary and for what purposes is such use of the data necessary in each case.</p>
+<h3>What data will be used by notionary?</h3>
+<ol>
+   <li><b>Customer data</b></li>
+   If you use our website without registering, such as just looking or reading, we do not use any of your personal information.
+   When you do register for our services, we then use only such personal information that you actively provide to us. These are
+   in particular the information necessary for contractual execution that you provide when registering. These include, for example,
+   your name, your birth date, your address, your e -mail address, if necessary, further information given by you during the
+   registration process and the necessary data for billing purposes. If you use the services in the context of free access with
+   limited functionality, the data collected during the registration process may optionally be limited to your name, e- mail address
+   and educational institution.
+   <li><b>Information published by the users themselves</b></li>
+   In addition, notionary will store information that users themselves provide as part of our service. These include the username,
+   as well possibly any comments published by users on our website. We remind our users that the decision as to what to share about
+   themselves rests completely in their hands.
+   <li><b>Learning level data</b></li>
+   Within the context of using our learning services, data will be collected and used ("learning level data") by notionary in order
+   to provide the participants with an optimal use of the learning service. The learning level data includes, for example, the number
+   of visits for each learning task, the current learning level status, the time required for each learning task and the scores achieved
+   in each learning task and subject. These data will provide the users with a better orientation in terms of their learning progress
+   and enable notionary to suggest new content to the users based on theirs respective skill level. The learning level data is visible
+   only to the respective user or the contract partner of notionary. In no event will we pass on learning level data to third parties
+   without the consent of the user.
+   <li><b>Usage data</b></li>
+   To the extent necessary to provide our services, and within the context of access to our service, we can extract usage data, such as
+   user name, date and time of each access. Under the law, we can evaluate this data for purposes of advertising, market research and to
+   improve our services using usage profiles pseudonyms. You can dispute this use at any time without giving reasons.
+   <li><b>Use of social plugins</b></li>
+   Our website uses social plugins ("plugins") of the social networks Facebook, Google+ and Twitter. These social networks are operated
+   respectively by Facebook Inc., 1601 S. California Ave, Palo Alto, CA 94304, USA ("Facebook"); Google Inc. 1600 Amphitheatre Parkway,
+   Mountain View, CA 94043, USA ("Google+"); and Twitter, Inc. 1355 Market Street, Suite 900 San Francisco, CA 94103, USA ("Twitter").
+   The plugins are recognizable as a white "f" on blue background or a "thumbs up" sign for Facebook; a "g+" on red background for Google+;
+   and a small white bird on a light blue background for Twitter.<br/>
+   When you visit a page of our website that contains a social plugin, your browser establishes a direct connection to the servers of
+   the social network in question. The content of the plugin is transmitted directly from the social network to your browser which then
+   embeds the latter into the website. We have absolutely no influence on the scope and amount of data collected by the social neetworks
+   using their social pluglins and can only inform you as to our current state of knowledge:<br/><br/>
+      <a style='background:#627aac;color:white!important;background-image:none !important;margin:5px; padding:5px;font-size:1.2em;border-radius:10px;box-shadow:0px 4px 14px black;'
+              href="http://www.facebook.com/help/?faq=17512"> Facebook Plugins </a>
+      <a style='background:#DD4B39;color:white!important;background-image:none !important;margin:5px; padding:5px;font-size:1.2em;border-radius:10px;box-shadow:0px 4px 14px black;'
+              href="https://support.google.com/plus/answer/1319578?hl=ru"> Google +1 Button </a>
+      <a style='background:#00ACED;color:white!important;background-image:none !important;margin:5px; padding:5px;font-size:1.2em;border-radius:10px;box-shadow:0px 4px 14px black;'
+              href="https://support.twitter.com/groups/50-welcome-to-twitter#"> Twitter FAQ </a><br/><br/>
+   By interacting with the plugins, the social networks receive information that you have accessed the corresponding page of our website.
+   If you are logged into one of the social networks above, it can assign your visit to our website to your social network account.
+   If you interact with the plugins, press the Like/Tweet/Plus1/Follow buttons for example, or share a comment, the corresponding
+   information is transmitted from your browser directly to the social network in question and stored there. If you are not a member of
+   the social network with which you interact, there is the possibility that the social network transmits your IP-address and stores it.<br/>
+   For further information regarding the purpose and scope of data collection and the further processing and use of data by the social
+   networks, as well as your rights in this respect and ability to set options for protecting your privacy can be found by reviewing the
+   privacy policies of the social networks themselves:<br/><br/>
+      <a style='background:#627aac;color:white!important;background-image:none !important;margin:5px; padding:5px;font-size:1.2em;border-radius:10px;box-shadow:0px 4px 14px black;'
+         href="https://www.facebook.com/policy.php"> Facebook Privacy Policy </a>
+      <a style='background:#DD4B39;color:white!important;background-image:none !important;margin:5px; padding:5px;font-size:1.2em;border-radius:10px;box-shadow:0px 4px 14px black;'
+         href="https://www.google.com/policies/privacy/"> Google+ Privacy Policy </a>
+      <a style='background:#00ACED;color:white!important;background-image:none !important;margin:5px; padding:5px;font-size:1.2em;border-radius:10px;box-shadow:0px 4px 14px black;'
+         href="https://www.twitter.com/privacy"> Twitter Privacy Policy </a><br/><br/>
+   <li><b>No collection or use of your personal data without permission</b></li>
+   Notionary shall endeavor to limit the collection and use of personal data to a minimum. If we need to use data for a purpose that
+   requires your consent due to the statutory provisions, we will request your explicit consent. Once you give consent, you can revoke
+   it at any time with effect for the future by simple communication (eg email, fax, letter) and/or dispute future use of your data.
+   <li><b>No unauthorized disclosure to third parties</b></li>
+   The information you provide for accounting purposes will be treated by notionary with the utmost care. A disclosure to third parties
+   only if this is required for transactional purposes, you have given your consent or where disclosure is permitted on the basis of
+   relevant statutory provisions.
+   <li><b>Contact</b></li>
+   Please contact with questions:<br/>
+   Notionary.com<br/>
+   Privacy Policy<br/>
+   Cra 23C #8A-42 Suite 402 <br/>
+   Santiago de Cali, Valle - COLOMBIA. </p>
+   <a style='color:black !important;' class='fa fa-envelope-o' href="mailto:developer@notionary.com">свяжитесь с нами</a>
+</ol>

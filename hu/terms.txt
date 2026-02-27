@@ -1,0 +1,205 @@
+<style>
+   body { background:#eee; }
+   h4 { color:black; }
+   ol { counter-reset:item; }
+   li { display:block; }
+   li:before { content:counters(item, ".") "."; counter-increment:item; padding-right:10px; margin-left:-100px; }
+</style>
+<h4>Szolgáltatás feltételei</h4>
+<ol>
+  <li><b>Hatálya</b>
+     <ol>
+        <li>Üdvözöljük a Notionary ( "Notionary" vagy "mi"), az online tanulási platform által biztosított Notionary.com.
+            A szolgáltatási feltételek az alábbiak érvényesek bármilyen használata a platformon, az ajánlatok és az adatok, 
+            nem számít, milyen formában (mobil, online, vagy más módon).
+        </li>
+        <li> Előfeltétele a használata Notionary az, hogy a nagykorú, vagy hogy akkor jár a hozzájárulásával 
+             a törvényes felhatalmazott képviselőinek (szülők).
+        </li>
+        <li>Notionary fenntartja a jogot, hogy a jelen Általános Szerződési Feltételek a jövőben. 
+            Ebben az esetben a Notionary bejelenti ezeket a módosításokat az Általános Szerződési Feltételek egy e-mailt, 
+            és rámutatnak, hogy a módosításokat elfogadottnak kell tekinteni, ha nem ellenzik a változásokat négy héten belül, 
+            vagy amint igénybe a szolgáltatást újra az értesítést a változások a szolgáltatási feltételek.
+        </li>
+     </ol>
+  </li>
+  <li><b>Általános kötelezettségek a felhasználó</b>
+     <ol>
+        <li>Akkor van szükség, hogy adjon tájékoztatást, hogy a valóságnak, aktuális és teljes,
+            amikor bemutatta a Szolgáltatás regisztrációs űrlapot.
+        </li>
+        <li>
+             Ön nem használhatja a szolgáltatásokat, vagy azok részei kereskedelmi célú bármilyen; például utánozni, eladni,
+             bérbe vagy hirdet a saját vagy mások csak előzetes írásos hozzájárulása szükséges.
+        </li>
+        <li>Akkor van szükség annak érdekében, hogy a felhasználó hozzáférését a szolgáltatásokhoz hasznosul kizárólag te magad
+            vagy a jogosult felhasználók (lásd 1.2). Ön továbbá vállalják, hogy őrizzük meg az Ön hozzáférési adatokat, 
+            különösen a jelszavakat, és biztosítsa, hogy a felhasználói jelszavak titokban tartják őket. 
+            Azt is köteles tájékoztatni Notionary azonnal kell semmilyen visszaélés jelszó vagy felhasználói fiók kerül sor.
+        </li>
+        <li>Meg kell tennie a megfelelő intézkedéseket annak biztosítására, hogy a felhasználók számára, 
+            hogy kihasználják a szolgáltatásokat az egyik fiók bízott az Ön által, figyelembe vegyék ezeket a Szolgáltatási feltételek, 
+            különösen az összes eredő kötelezettségek a jelen Szolgáltatási feltételek. 
+            Ön vállalja a felelősséget minden akció a felhasználónak a szolgáltatásokhoz való hozzáférést. 
+            A szülőknek kell kísérnie, és felügyeli a kiskorúak keresztül a szolgáltatások használatát. 
+            A megsérti ezt a kötelezettséget eredményezhet részleges vagy teljes tilalmat a hozzáférést.
+        </li>
+     </ol >
+  </li>
+  <li><b>Felelősség</b>
+     <ol>
+        <li> A felelősség minden szövegek, fotók, grafikák, videók, fájlok vagy egyéb anyagok és hozzájárulások ( "Tartalom") tárolható,
+             közzétett vagy továbbított szolgáltatásait igénybe esik kizárólag és teljes mértékben a személy, akitől az adott tartalom származik. 
+             Ha beleegyezik a szolgáltatásaink egy harmadik fél, különösen a kisebb, akkor a felelős, 
+             mint a szerződéses partner a teljes minden tartalom, amely tárolja, közzétett vagy továbbított 
+             a harmadik fél révén a szolgáltatások használatát.
+        </li>
+        <li> Notionary egyáltalán nincs ráhatása a tartalom, hogy más felhasználók menteni, közzétételére vagy továbbítására 
+             használata révén a szolgáltatások és ezért nem garantálja a pontosságát, megfelelőségét, teljességét és minőségét ilyen tartalom. 
+             Tisztában van vele, hogy a használata a szolgáltatások ki lehet téve a tartalma, hogy sértő, illetlen vagy más módon kifogásolható, 
+             ha a felhasználó felelős az ilyen tartalom nem felel meg a törvény szabályainak értelmében a Szolgáltatási feltételek, illetve a hatályos törvények.
+        </li>
+        <li>Ön vagy más felhasználó nem jogtalan tevékenységek keretében a használata a szolgáltatások, különösen az :
+           <ol>
+            <li> Mentse, közzétételére és/vagy továbbítja tartalom ítélt illegális az alkalmazandó rendelkezések, 
+                 illetve a véleménye Notionary törvénytelen, zaklató, obszcén, vagy más módon nem megfelelő, 
+                 vagy hogy bármilyen módon esetleg kárt okozni a kiskorúakra, különösen, hogy a tartalom pornográf, 
+                 az erőszakot, vagy más módon a kiskorúakra káros;
+            </li>
+            <li>Mentse, közzétételére és / vagy küldi a tartalmat, amely sértheti a mások jogait, különösen a szabadalmak, 
+                védjegyek, szerzői jogok vagy előadói jogokat, egyéb tulajdonosi jogok vagy személyiségi jogokat;
+            </li>
+            <li>Mentse, közzétételére és / vagy küldi tartalom, amit nem jogosult nyilvánosságra, például külföldi kereskedelmi titkok;
+            </li>
+            <li>Mentse, közzétételére és / vagy továbbítja tartalom például a használati utasításokat, 
+                amelyek valószínűleg közvetve vagy közvetlenül a testi vagy vagyoni kárt;
+            </li>
+            <li>Megszemélyesítése belül szolgáltatásait Notionary valaki más mint te, például egy köztisztviselő, 
+                egy képviselője Notionary, vagy bármely más módon felelős a szolgáltatások, vagy úgy, 
+                mintha egy nem létező kapcsolata van az ilyen személyek;
+            </li>
+            <li>Hamis felhasználónév vagy manipulálni hitelesítési adatokat semmilyen más módon, hogy eredetének elfedésére tartalom átvitele a szolgáltatást;</li>
+            <li>Mentse, közzétételére és / vagy küldi a reklám, a tömeges e-mailek, lánclevél, piramisjáték, vagy egyéb kereskedelmi kommunikáció;</li>
+            <li>Zaklat, fenyeget, sértés vagy rágalmazás valaki, hogy egy természetes személy vagy jogi személy vagy társaság,
+                mert a nemi, faji vagy vallási vagy becsmérel hitük, vagy hátrányos megkülönböztetést, illetve ne okozzon más módon kellemetlenséget,
+                vagy elterjedt hamis vádakat vonatkozásában egy természetes, illetve jogi személy vagy társaság.
+            </li>
+            <li>Gyűjtsük össze, mentése vagy személyes adatokat egy másik felhasználó, kivéve, ha az érintett személy beleegyezését vele;</li>
+            <li>Nyújt jogi tanácsadást, hogy a járulékok, amelyek a tapasztalatok szerint a jogi tanácsadás;</li>
+            <li>Post links to Third Party Content that violates these Terms of Service.</li>
+           </ol>
+        </li>
+        <li>Bár mi általában nem vizsgálja sem felülvizsgálat felhasználók által generált tartalom a szolgáltatás, 
+            akkor fenntartjuk a jogot, hogy visszautasítsa, blokk, törölheti, rövidít, módosíthatja vagy áthelyezik más részein 
+            a szolgáltatás minden olyan tartalom keresztül elérhető a szolgáltatás, azonnali hatállyal meg teljes diszkréció és indoklás nélkül, 
+            különösen olyan tartalom, amely felkelti a figyelmet a felhasználók, akik megsértik a jelen Szolgáltatási feltételek.
+        </li>
+     </ol>
+  </li>
+  <li><b>Tárhely, Felhasználó által generált tartalom</b>
+     <ol>
+        <li>Azt teszi, hogy használja a szolgáltatást összhangban a törvényes rendelkezéseket, valamint a jelen Szolgáltatási feltételek menteni, 
+            közzétételére vagy továbbítja a tartalom és megosztani az ilyen tartalom más felhasználókkal. 
+            Notionary nem felügyeli ezt a folyamatot, és nem állítja, hogy tulajdonjogát a tartalmat.
+        </li>
+        <li>Szolgáltatásaink igénybevételével Ön utasíthat bennünket rendelkezései szerint a jelen Szolgáltatási feltételek, 
+            hogy tárolja a tartalom és a nyilvánosság számára hozzáférhetővé, mint a mi szolgáltatási saját repective jelenlegi és jövőbeni kialakítására.
+        </li>
+        <li>Tisztában van vele, hogy a reklám által forgalmazott nekünk jelenhet meg szolgáltatásainkat és a keretében a tartalom, 
+            és esetleg minden körülötte (főleg képek, audio és video hozzájárulást), és Ön ezennel kifejezetten hozzájárulnak. 
+            Kijelenti továbbá, hogy lehetővé teszi számunkra, hogy hozzon létre csökkentett méretű képek (bélyegképek) 
+            képek és videók javítása érdekében a szolgáltatások, különösen a keresés funkciót. 
+            Azt is tudjuk, hogy a technikai feldolgozása és átadása a szolgáltatások, illetve a Tartalom szükségessé teheti az átviteli 
+            különböző hálózatokon keresztül és / vagy kiadás érdekében, hogy megfeleljenek a technikai eszközökkel.
+        </li>
+        <li>
+            Ön garantálja számunkra, hogy vagy a felhasználók által megbízott, hogy használja a szolgáltatást, 
+            rendelkeznek az összes szükséges jog tekintetében a tartalom, amely a szolgáltatásaink kapcsán a tárolás, 
+            közzététel és / vagy átvitele. És hogy nem lehetett megállapítani zajlik olyan jogi rendelkezések, 
+            sem pedig a szabályokat a jelen Szolgáltatási feltételek, különösen a 3.3 fejezetben, ellen, és minden harmadik felek jogait. 
+            Ha te magad nem tulajdonosa a jogot, hogy bármely tartalom beírta, akkor garantálja, hogy az összes szükséges átviteli jog, 
+            licenc, licenciaszerződések, hozzájárulás és hasonlók érvényesen kapunk. Abban az esetben, ha sértik semmilyen jogot, 
+            vagy sérti semmilyen garanciát, akkor engedje meg minket bármely harmadik felekkel szembeni kötelezettségekre és kártalanít minket teljesen.
+        </li>
+        <li>Notionary joga tárolására tartalom és átadni azt harmadik fél számára, amíg a törvény által előírt vagy szükség 
+            szerint szakmai megítélés és a törvény által megengedett, hogy (a) megfelelnek a törvényi előírásoknak megfelelően, 
+            illetve bírósági vagy hatósági kérés, (b) érvényesíteni a Szolgáltatási feltételek, (c) válaszol állítja, 
+            hogy bármely tartalom sérti harmadik személyek jogait vagy (d) megőrzi a jogait, 
+            tulajdonát vagy személyes biztonságának Notionary a felhasználók vagy a nyilvánosság.
+        </li>
+     </ol >
+  </li>
+  <li><b>Megnevezések jogi jogsértések</b>
+     <ol>
+        <li>Notionary tiszteletben tartja mások szellemi tulajdonát, és kéri, hogy a felhasználók, hogy tegyék ugyanezt.</li>
+        <li>Ha úgy gondolja, hogy a szerzői vagy egyéb jogokat is sérti a Content másik felhasználó használja szolgáltatásainkat tárolásra, 
+            kiadványban vagy adásban, kérjük ossza meg velünk, küldjön egy
+                <a style='color:black !important;' class='fa fa-envelope-o' href="mailto:developer@notionary.com">E-Mail</a>
+            a következő információkat, 
+            hogy mi is lépéseket való visszaélés ellen a szolgáltatások és a törekvés, hogy megvédje a jogait:
+            - Egy leírást a szerzői jogi védelem munkáját, hogy Ön szerint megsértették;
+            - Leírása, ahol az anyag található, amely az Ön véleménye sérti jogait Szerző - vagy egyéb jogokat;
+            - Címét, telefonszámát és e-mail címe;
+            - Nyilatkozatot arról, hogy van egy jóhiszemű meggyőződését, hogy a vitatott felhasználás nem engedélyezett a jogtulajdonos, ügynöke, vagy a törvény.
+        </li>
+     </ol >
+  </li>
+  <li><b>Jótállás, linkek</b>
+     <ol>
+        <li>Ami a Notionary alapján nem felelős a 8. pontnál a Szolgáltatási feltételek, akkor használja szolgáltatásainkat a saját felelősségére. 
+            Ez különösen igaz a letöltés vagy más használata során, különösen tartalma a többi felhasználó szolgáltatásainkat. 
+            Ön egyedül felelős a kárért, a számítógépes rendszer vagy más technikai eszközök alkalmazhatók a szolgáltatásaink igénybevételének, 
+            az adatvesztést vagy egyéb károkat, valamint a harmadik félnek okozott kárra, amit okozhat ebben az összefüggésben. 
+            Notionary nem vállal garanciát tekintetében az eredményeket, hogy lehet beszerezni a szolgáltatásaink igénybevételének sem a 
+            felhasználók viselkedését vagy más harmadik felek, sem a tartalom, vagy nyilatkozatok a felhasználóktól vagy más harmadik felek 
+            továbbított használata révén a szolgáltatást.
+        </li>
+        <li>Szolgáltatásaink tartalmazhat linkeket más honlapokra. Törekszünk arra, hogy csak linkeket weboldalak, amelyek megállapították, 
+            hogy ártalmatlan idején összekötő. Azonban Notionary egyáltalán nincs befolyása a tartalma a linkelt oldalak és az ilyen 
+            tartalom lehet változtatni a tudtunk nélkül. Felhívjuk a figyelmet arra, hogy nem ellenőrzik a folyamatos tartalma kapcsolódó oldalak. 
+            Nem fogadja el, mint a miénk a tartalom vagy azon keresztül elérhető, például weboldalak vagy külső forrásokból, 
+            és zárja ki a felelősséget vagy garanciát a velük.
+        </li>
+     </ol >
+  </li>
+  <li><b>Felelősség és a felelősség korlátozása</b>
+     <ol>
+        <li>Kártérítési igények elleni kártérítési Notionary kizárt, függetlenül attól, hogy a jogalap, hacsak Notionary, 
+            jogi vagy ügynökök szándékosan vagy súlyos gondatlansággal. Mert enyhe gondatlanság, Notionary csak akkor felelős, 
+            ha elérésében szerződéses célból egyik lényeges szerződéses kötelezettségek megszegése esetén a Notionary, 
+            a törvényes képviselőinek vagy a vezetők, illetve ügynökök. Ebben az esetben a kártérítési korlátozott lesz a belátható tipikus szerződés károkat.
+        </li>
+        <li>A fenti a felelősség korlátozása nem vonatkozik a kártérítési igények kártérítési eredő sérülés, testi, egészségi, 
+            feltételezve a garancia vagy csalárd eltitkolása hibák által Notionary.
+        </li>
+        <li>Kártérítési igények elleni kártérítési Notionary 12 hónap elteltével szűnjön eredetű, kivéve alapján jogellenes vagy szándékos cselekmény.</li>
+        <li>Amíg Notionary alól mentesül a felelősség, így a vállalatok kapcsolt Notionary. Ez mentesíti személyes felelősségét a munkatársak, 
+            alkalmazottak, képviselők, a részvényesek és ügynökei Notionary és / vagy kapcsolt vállalkozásai.
+        </li>
+     </ol >
+  </li>
+  <li><b>Kártalanítás</b></li >
+       Ön vállalja, hogy kiadja, és kártalanítja Notionary, annak leányvállalatai valamint a munkatársak, alkalmazottak, munkások képviselői, 
+       a részvényesek és ügynökei Notionary és / vagy kapcsolt vállalkozásai vonatkozásában igények vagy követelések bármilyen 
+       jellegű felmerülő harmadik fél által miatt vagy fakadó ki tárolt tartalmat közzétenni, illetve továbbítja részeként Notionary szolgáltatások, 
+       vagy annak köszönhető, hogy Ön használja a szolgáltatást, vagy miatt történő megsértését a jelen Szolgáltatási feltételek, 
+       illetve jogsértést a harmadik személyek jogait. Ez magában foglalja a megfelelő ügyvédi díjakat és bírósági költségeket.
+  <li><b>Minden védjegy és egyéb szellemi tulajdonjogok a Notionary</b></li>
+       Ön tudomásul veszi, hogy a Notionary jogosult minden jogot a szolgáltatás Notionary és megjelölés <b>"notionary"</b> 
+       beleértve bármilyen védjegy, szabadalom, szerzői jog vagy engedély vagy egyéb jog vagy más hasonló jogi helyzetéhez képest az Ön számára.
+  <li><b>Alkalmazandó jog, teljesítés helye, bírói illetékesség helye, egyéb</b>
+     <ol>
+        <li>Német jog érvényes kizárása mellett az ENSZ Kereskedelmi Egyezmény.</li>
+        <li>A teljesítés helye és kizárólagos bírói illetékesség helye, amennyiben a törvény megengedi, Dresden.</li>
+        <li>Collateral szóbeli megállapodások nem léteznek. A társadalmi viszony vagy egyéb jogviszony mellett a kapcsolatot szabályozzák 
+            a jelen Szolgáltatási feltételek nem jön létre, amikor megerősítést szolgáltatásainkat. 
+            Változások a szerződési feltételek írásban kell. Ez vonatkozik a megszüntetése vagy módosítása ezen írott szöveg záradékot.
+        </li>
+        <li>Amennyiben az egyes rendelkezések lenni, vagy teljesen, vagy részben érvénytelen, a többi a szerződés érvényes marad. 
+            Abban az esetben, az ilyen megsemmisítés, a felek törekszenek arra, hogy megtalálja az érvényes helyettesítő rendelkezést 
+            gazdaságilag a lehető legközelebb. Ugyanez vonatkozik abban az esetben, egy kiskaput.
+        </li>
+     </ol >
+  </li>
+</ol>
+<br/>

@@ -1,0 +1,49 @@
+#!/bin/bash
+# Downloads and imports the notionary content bundle (images, sounds, PDFs).
+# Reads DB credentials from config.php.
+set -e
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+CONFIG="$ROOT/config.php"
+BUNDLE_URL="https://uozon.com/downloads/notionary-content.sql.gz"
+BUNDLE_FILE="$ROOT/notionary-content.sql.gz"
+
+if [ ! -f "$CONFIG" ]; then
+    echo "Error: config.php not found. Copy config.example.php to config.php first."
+    exit 1
+fi
+
+# Extract DB credentials from config.php
+DB_HOST=$(php -r "\$c = require '$CONFIG'; echo \$c['DB_HOST'];")
+DB_USER=$(php -r "\$c = require '$CONFIG'; echo \$c['DB_USER'];")
+DB_PASS=$(php -r "\$c = require '$CONFIG'; echo \$c['DB_PASSWORD'];")
+DB_NAME=$(php -r "\$c = require '$CONFIG'; echo \$c['DB_NAME'];")
+
+echo "Notionary Content Installer"
+echo "==========================="
+echo ""
+echo "This will download ~300MB of images, sounds, and PDFs"
+echo "and import them into your '$DB_NAME' database."
+echo ""
+read -p "Continue? [y/N] " confirm
+if [[ "$confirm" != [yY] ]]; then
+    echo "Aborted."
+    exit 0
+fi
+
+# Download
+if [ -f "$BUNDLE_FILE" ]; then
+    echo "Bundle already downloaded. Reusing $BUNDLE_FILE"
+else
+    echo "Downloading content bundle..."
+    curl -L -o "$BUNDLE_FILE" "$BUNDLE_URL"
+fi
+
+# Import
+echo "Importing into database (this may take several minutes)..."
+export MYSQL_PWD="$DB_PASS"
+gunzip -c "$BUNDLE_FILE" | mysql -h "$DB_HOST" -u "$DB_USER" "$DB_NAME"
+
+echo ""
+echo "Content import complete!"
+echo "You can delete $BUNDLE_FILE to free disk space."

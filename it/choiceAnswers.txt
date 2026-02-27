@@ -1,0 +1,13 @@
+   <b>Vostra scelta di risposte</b>
+      <p>
+      <i>Esempio Domanda : </i>
+         <span style='color:#FF0000'> Capitale della Francia ? </span><br/>
+      <br/>
+      È possibile indicare a Notionary di utilizzare le scelte di risposta per
+      una domanda. Inserire la risposta corretta e le scelte separate con il
+      blocco, come mostrato :
+      <br/>
+       <input style='width:100%;color:green;' value='Parigi ￭ Lione ￭ Marsiglia ￭ Londra ￭ Madrid'/>
+      <br/>
+      Il separatore blocco è disponibile cliccando questo pulsante
+      </p>

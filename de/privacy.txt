@@ -1,0 +1,120 @@
+<style>
+   body { background:#eee; }
+   h4 { color:black; }
+   ol { counter-reset:item; }
+   li { display:block; }
+   li:before { content:counters(item, ".") "."; counter-increment:item; padding-right:10px; margin-left:-100px; }
+</style>
+<h4>Datenschutzerklärung</h4>
+<p>Dieses Angebot wird von Notionary, bereitgestellt von Notionary.com,
+   01187 Dresden - Deutschland ("notionary" oder "wir"), betrieben.</p> 
+<p>Ein vertrauensvoller und sicherer Umgang mit den personenbezogenen Daten unserer
+   Nutzer ist uns sehr wichtig. Soweit wir im Rahmen unseres Angebots personenbezogene
+   Daten erheben, verarbeiten oder nutzen ("verwenden"), geschieht das im Rahmen des
+   einschlägigen Datenschutzrechts.</p> 
+<p>Mit der nachstehenden Datenschutzerklärung möchten wir Ihnen transparent und 
+   nachvollziehbar darstellen, welche Daten von notionary über die Nutzer unseres
+   Angebots gespeichert werden und zu welchen Zwecken die Verwendung der Daten jeweils
+   erforderlich ist.</p> 
+<h3>Welche Daten werden von notionary verwendet?</h3>
+<ol> 
+   <li><b>Kundendaten</b></li>
+   Wenn Sie unser Angebot ohne Registrierung nutzen, z.B. nur betrachten bzw. lesen,
+   verwenden wir keine Ihrer personenbezogenen Daten. Wenn Sie sich für unser Angebot
+   registrieren, verwenden wir zunächst nur solche personenbezogenen Daten, die Sie uns
+   aktiv mitteilen. Dies sind insbesondere die von Ihnen bei der Registrierung zur
+   Vertragsdurchführung angegebenen Informationen. Hierzu gehören beispielsweise Ihr Name,
+   Ihr Geburtsdatum, Ihre Anschrift, Ihre e-mail-Adresse, ggf. weitere von Ihnen im Rahmen
+   der Registrierung erteilte Informationen sowie die zu Abrechnungszwecken erforderlichen
+   Daten. Sofern Sie das Angebot im Rahmen eines kostenfreien Zugangs mit beschränktem
+   Funktionsumfang nutzen, können sich die im Rahmen des Registrierungsvorgangs erhobenen
+   Daten ggf. auf Ihren Namen, Ihre E-Mail-Adresse sowie Bildungseinrichtung beschränken.
+
+   <li><b>Von den Nutzern selbst veröffentlichte Informationen</b></li>
+   Ferner werden von notionary diejenigen Informationen gespeichert, die innerhalb des
+   Angebots von den Nutzern selbst veröffentlicht werden. Hierzu zählen der Benutzername,
+   sowie die von den Nutzern ggf. auf unserer Webseite veröffentlichten Kommentare.
+   Wir weisen unsere Nutzer darauf hin, dass die Entscheidung, welche Informationen Sie
+   über sich preisgeben möchten, alleine bei Ihnen liegt.
+
+   <li><b>Lernstandsdaten</b></li>
+   Im Rahmen der Inanspruchnahme unserer Lernangebote werden von notionary bestimmte Daten
+   erhoben und genutzt, um den Teilnehmern eine optimale Nutzung des Lernangebots zu
+   ermöglichen ("Lernstandsdaten"). Zu den Lernstandsdaten gehören beispielsweise die 
+   Anzahl der Besuche je Lernaufgabe, der jeweilige Bearbeitungsstatus, die pro Lernaufgabe
+   benötigte Zeit sowie die erreichte Punktzahl je Lernaufgabe und Fach. Diese Daten sollen
+   den Nutzern eine bessere Orientierung hinsichtlich ihrer Lernfortschritte bieten und
+   notionary ermöglichen, den Nutzern ihrem jeweiligen Lernstand entsprechende Inhalte
+   vorzuschlagen. Die Lernstandsdaten sind jeweils nur für den jeweiligen Nutzer bzw. den
+   Vertragspartner von notionary einsehbar.  In keinem Fall werden wir Lernstandsdaten an
+   Dritte weitergeben.
+
+
+   <li><b>Nutzungsdaten</b></li>
+   Soweit dies zur Durchführung unseres Angebots erforderlich ist, können wir im Rahmen
+   der Zugriffe auf unseren Dienst Nutzungsdaten, wie beispielsweise Nutzername, Datum und
+   Uhrzeit des jeweiligen Zugriffs, erheben. Im Rahmen der gesetzlichen Bestimmungen können
+   wir für Zwecke der Werbung, zur Marktforschung und zur Verbesserung unserer Dienste
+   Nutzungsprofile unter Verwendung von Pseudonymen auswerten. Dieser Nutzung können Sie
+   jederzeit ohne Angabe von Gründen widersprechen.
+
+   <li><b>Nutzung von Social Plugins</b></li>
+   Unser Internetauftritt verwendet Social Plugins ("Plugins") der sozialen Netzwerks
+   Facebook, Google+, und Twitter. Diese werden von Facebook Inc., 1601 S.California Ave,
+   Palo Alto, CA 94304, USA, ("Facebook"); Google Inc. 1600 Amphitheatre Parkway,
+   Mountain View, CA 94043, USA ("Google+"); und Twitter, Inc. 1355 Market Street,
+   Suite 900 San Francisco, CA 94103, USA ("Twitter") betrieben. Die Plugins sind an einem 
+   der Facebook-Logos erkennbar (weißes "f" auf blauer Kachel oder ein "Daumen hoch"-Zeichen);
+   einem "g+" auf rotter Kachel für Google+; und ein klein weißes Vogel auf hell blauer Kachel für Twitter
+   gekennzeichnet.
+   Wenn Sie eine Webseite unseres Internetauftritts aufrufen, die ein solches Plugin enthält,
+   baut Ihr Browser eine direkte Verbindung mit den Servern von Facebook (bzw. Google+/Twitter)
+   auf.  Der Inhalt des Plugins wird von Facebook(bzw. Google+/Twitter) direkt an Ihren Browser
+   übermittelt und von diesem in die Webseite eingebunden. Wir haben daher keinen Einfluss auf
+   den Umfang der Daten, die Facebook(bzw. Google+/Twitter) mit Hilfe dieses Plugins erhebt
+   und informieren Sie daher entsprechend unserem Kenntnisstand:<br/><br/>
+      <a style='background:#627aac;color:white!important;background-image:none !important;margin:5px; padding:5px;font-size:1.2em;border-radius:10px;box-shadow:0px 4px 14px black;'
+              href="http://www.facebook.com/help/?faq=17512"> Facebook Plugins </a>
+      <a style='background:#DD4B39;color:white!important;background-image:none !important;margin:5px; padding:5px;font-size:1.2em;border-radius:10px;box-shadow:0px 4px 14px black;'
+              href="https://support.google.com/plus/answer/1319578?hl=de"> Google +1 Button </a>
+      <a style='background:#00ACED;color:white!important;background-image:none !important;margin:5px; padding:5px;font-size:1.2em;border-radius:10px;box-shadow:0px 4px 14px black;'
+              href="https://support.twitter.com/groups/50-welcome-to-twitter#"> Twitter FAQ </a><br/><br/>
+   Durch die Einbindung des Plugins erhält Facebook(bzw. Google+/Twitter) die Information,
+   dass Sie die entsprechende Seite unseres Internetauftritts aufgerufen haben. Sind Sie bei
+   eine der sozialen Netzwerks eingeloggt, kann diese den Besuch Ihrem sozialen Netzwerk Konto
+   zuordnen. Wenn Sie mit den Plugins interagieren, zum Beispiel den Like-Button betätigen oder
+   einen Kommentar abgeben, wird die entsprechende Information von Ihrem Browser direkt an
+   den sozialen Netzwerk übermittelt und dort gespeichert. Falls Sie kein Mitglied von 
+   Facebook(bzw. Google+/Twitter) sind, besteht trotzdem die Möglichkeit, dass Facebook
+   (bzw. Google+/Twitter) Ihre IP-Adresse in Erfahrung bringt und speichert.<br/>
+   Zweck und Umfang der Datenerhebung und die weitere Verarbeitung und Nutzung der Daten
+   durch sozialen Netwerks sowie Ihre diesbezüglichen Rechte und Einstellungsmöglichkeiten 
+   zum Schutz Ihrer Privatsphäre entnehmen Sie bitte von den sozialen Netzwerks dirket unter:<br/><br/>
+      <a style='background:#627aac;color:white!important;background-image:none !important;margin:5px; padding:5px;font-size:1.2em;border-radius:10px;box-shadow:0px 4px 14px black;'
+         href="https://www.facebook.com/policy.php"> Facebook Privacy Policy </a>
+      <a style='background:#DD4B39;color:white!important;background-image:none !important;margin:5px; padding:5px;font-size:1.2em;border-radius:10px;box-shadow:0px 4px 14px black;'
+         href="https://www.google.com/policies/privacy/"> Google+ Privacy Policy </a>
+      <a style='background:#00ACED;color:white!important;background-image:none !important;margin:5px; padding:5px;font-size:1.2em;border-radius:10px;box-shadow:0px 4px 14px black;'
+         href="https://www.twitter.com/privacy"> Twitter Privacy Policy </a><br/><br/>
+   <li><b>Keine Erhebung oder Nutzung Ihrer persönlichen Daten ohne Erlaubnis</b></li>
+   Notionary ist darum bemüht, die Erhebung und Nutzung von personenbezogenen Daten auf ein
+   Minimum zu beschränken. Soweit wir Daten für einen Zweck nutzen, der nach den gesetzlichen
+   Bestimmungen Ihr Einverständnis erfordert, werden wir Sie jeweils um Ihr ausdrückliches 
+   Einverständnis bitten. Sie können das einmal gegebene Einverständnis jederzeit mit Wirkung 
+   für die Zukunft durch einfache Mitteilung (z.B. E-Mail, Fax, Brief) widerrufen und/oder
+   künftigen Verwendungen Ihrer Daten widersprechen.
+
+   <li><b>Keine unberechtigte Weitergabe an Dritte</b></li>
+   Die von Ihnen zu Abrechnungszwecken übermittelten Daten werden von notionary mit höchster
+   Sorgfalt behandelt. Eine übermittlung an Dritte erfolgt ausschließlich dann, wenn dies –etwa
+   zu Abrechnungszwecken- erforderlich ist, Sie uns hierzu Ihre Einwilligung erteilt haben oder
+   wenn die Weitergabe sonst auf Grund einschlägiger gesetzlicher Bestimmungen zulässig ist.
+
+   <li><b>Kontakt</b></li>
+   Bitte wenden Sie sich mit Fragen an:<br/>
+   Notionary.com<br/>
+   Datenschutz<br/>
+   Cra 23C #8A-42 Suite 402 <br/>
+   Santiago de Cali, Valle - COLOMBIA. </p>
+   <a style='color:black !important;' class='fa fa-envelope-o' href="mailto:developer@notionary.com">Kontaktiere uns</a>
+</ol>

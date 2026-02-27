@@ -1,0 +1,7 @@
+config.php
+CLAUDE.md
+cache/
+*.log
+*.sql.gz
+.DS_Store
+.claude/

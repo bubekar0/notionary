@@ -1,0 +1,32 @@
+#!/bin/bash
+# Build script: concatenates dev JS modules into js/notionary-deve.js
+# and copies dev CSS into css/notionary-deve.php
+set -e
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+DEV="$ROOT/dev"
+PFX="notionary"
+JS="$DEV/js/$PFX"
+CS="$DEV/css/$PFX"
+
+# JS modules in load order: CORE + USER + ADMIN
+JS_MODS="$JS-tops.js   $JS-wobj.js  $JS-asyn.js  $JS-cor0.js
+         $JS-auth.js   $JS-disp.js  $JS-exam.js  $JS-perf.js
+         $JS-use0.js   $JS-hoch.js  $JS-edit.js  $JS-repa.js
+         $JS-adm0.js   $JS-root.js"
+
+# CSS modules in load order: CORE + USER + ADMIN
+CS_MODS="$CS-tops.php  $CS-wobj.php $CS-mail.php $CS-cor0.php
+         $CS-auth.php  $CS-disp.php $CS-exam.php $CS-perf.php
+         $CS-use0.php  $CS-hoch.php $CS-edit.php $CS-repa.php
+         $CS-adm0.php  $CS-root.php"
+
+echo -n "Building JS... "
+cat $JS_MODS > "$ROOT/js/notionary-deve.js"
+echo "done ($(wc -l < "$ROOT/js/notionary-deve.js") lines)"
+
+echo -n "Building CSS... "
+cat $CS_MODS > "$ROOT/css/notionary-deve.php"
+echo "done ($(wc -l < "$ROOT/css/notionary-deve.php") lines)"
+
+echo "Build complete."

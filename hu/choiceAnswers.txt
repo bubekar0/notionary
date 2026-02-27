@@ -1,0 +1,12 @@
+   <b>Érvényesíteni a lehetséges válasz</b>
+      <p>
+      <i>Példa Kérdés : </i>
+         <span style='color:#FF0000'>Franciaország fővárosa ?</span><br/>
+      <br/>
+      Utasíthatja Notionary használni a választási választ a kérdésre. <br/>
+      Adja meg a helyes választ, és a választások elválasztva a blokkot mutatja:
+      <br/>
+       <input style='width:100%;color:green;' value='Paris ￭ Lyon ￭ Marseille ￭ London ￭ Madrid'/>
+      <br/>
+      A blokk elválasztó elérhető a gombra kattintva
+      </p>

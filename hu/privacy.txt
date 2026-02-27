@@ -1,0 +1,91 @@
+<style>
+   body { background:#eee; }
+   h4 { color:black; }
+   ol { counter-reset:item; }
+   li { display:block; }
+   li:before { content:counters(item, ".") "."; counter-increment:item; padding-right:10px; margin-left:-100px; }
+</style>
+<h4>Adatvédelem</h4>
+<p>Ez az ajánlat készül Notionary ("notionary" vagy "mi"), Notionary.com 01187 Dresden - NÉMETORSZÁG.</p>
+<p>Egy megbízható és hozzáértő személyes adatok kezelése Felhasználóink nagyon fontos számunkra.
+   Ha gyűjtésére, feldolgozására vagy használja (a "használat") a személyes adatok részeként kínálatunkban,
+   ez kerül sor keretében a vonatkozó adatvédelmi törvényeket.</p>
+<p>A következő adatvédelmi szeretnénk ábrázolni átláthatóan és érthetően,
+   amely az adatokat a felhasználók a szolgáltatás által tárolt notionary és milyen célra és az ilyen használatot
+   a szükséges adatokat minden esetben.</p>
+<h3>Milyen adatokat fogja használni notionary?</h3>
+<ol>
+   <li><b>Az ügyfelek adatait</b></li>
+   Ha használja honlapunkat alatt, regisztráció nélkül, mint a csak néz, vagy olvas, nem használja fel az Ön személyes adatait.
+   Ha ezt regisztrációs szolgáltatásaink, mi majd csak olyan személyes adatokat, hogy aktívan megadja nekünk.
+   Ezek különösen a szükséges információt szerződéses végrehajtás, hogy adjon a regisztráció során. 
+   Ezek közé tartozik például az Ön neve, születési dátuma, a címét, az e mail címét, ha szükséges, további információkat 
+   az Ön által megadott regisztrációs folyamat során, és a szükséges adatok számlázási célra. 
+   Ha a szolgáltatás keretében szabadon elérhető korlátozott funkcionalitású, az összegyűjtött adatok a regisztráció során
+   adott esetben korlátozni a nevét, e-mail címét és oktatási intézmény.
+   <li><b>Által közzétett információkat a felhasználók saját maguk</b></li>
+   Emellett notionary tárolja információt, hogy a felhasználók maguk is a része a szolgáltatás. 
+   Ezek közé tartozik a felhasználónév, valamint esetleg észrevételeket közzé a felhasználók által a honlapunkon. 
+   Emlékeztetünk a felhasználókat, hogy a döntés, hogy mit, hogy megosszák magukat nyugszik teljesen a kezükben.
+   <li><b>Ismerje szintű adatokat</b></li>
+   Keretében a segítségével a tanulási szolgáltatások, adatok összegyűjtése és használt ( "learning szintű adatok") 
+   által notionary annak érdekében, hogy a résztvevők egy optimális felhasználása a tanulási szolgáltatást. 
+   A tanulási szintű adatok közé tartoznak, például, a látogatók száma az egyes tanulási feladat, a meglévő tanulási szint állapotát, 
+   a szükséges időt az egyes tanulási feladat és a pontszámokat elért egyes tanulási feladat és a tárgyat. 
+   Ezek az adatok biztosítja a felhasználók számára a jobb tájékozódás szempontjából a tanulási folyamatban, 
+   és lehetővé teszik notionary javasolni új tartalmat a felhasználók számára a sajátjukat megfelelő képzettségi szint. 
+   A tanulási szintű adatok csak akkor látható, hogy az adott felhasználó vagy a szerződéses partner a notionary. 
+   Semmilyen körülmények között nem adjuk át a tanulási szint adatokat harmadik fél hozzájárulása nélkül a felhasználó.
+   <li><b>A használati adatok</b></li>
+   A szükséges mértékben igénybe szolgáltatásainkat, és keretében igénybe vegye a szolgáltatást, tudjuk kivonat a használati adatokat, 
+   mint például a felhasználói név, dátum és idő az egyes hozzáférési. A törvény értelmében, tudjuk értékelni az adatokat céljából reklám, 
+   piackutatás és a szolgáltatások tökéletesítése a felhasználói profilt álnéven. Akkor vitatják ezt bármikor használatra indoklás nélkül.
+   <li><b>Használata a társadalmi plugin</b></li>
+   Honlapunk a social plugin ("plugins") a szociális hálózatok Facebook, Google+ és Twitter.
+   Ezek a társadalmi hálózatok működtetik, illetve a Facebook Inc., 1601 S. California Ave, Palo Alto, CA 94304, USA ( "Facebook"); 
+   Google Inc. 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA ( "Google"); 
+   és a Twitter, Inc. 1355 Market Street, Suite 900 San Francisco, CA 94103, USA ( "Twitter"). 
+   A pluginok felismerhető fehér "f" a kék háttér, vagy egy "remek" jel Facebook; 
+   a "g +" piros háttér Google+; és egy kis fehér madár a világoskék háttér Twitterre.
+   Amikor meglátogat egy oldalt, a honlapon, amely tartalmaz egy social plugin, 
+   a böngésző közvetlen kapcsolatot létesít a szerverrel a szociális háló kérdéses. 
+   A tartalom a bővítmény továbbítják közvetlenül a szociális háló, hogy a böngésző, 
+   amely azután beágyazza az utóbbit a honlapon. Van egyáltalán nincs hatással a körét és mennyiségét által gyűjtött adatok a szociális 
+   neetworks segítségével a szociális pluglins és csak tájékoztatja Önt, hogy a tudomány jelenlegi állása: <br/><br/>
+      <a style='background:#627aac;color:white!important;background-image:none !important;margin:5px; padding:5px;font-size:1.2em;border-radius:10px;box-shadow:0px 4px 14px black;'
+              href="http://www.facebook.com/help/?faq=17512"> Facebook Plugins </a>
+      <a style='background:#DD4B39;color:white!important;background-image:none !important;margin:5px; padding:5px;font-size:1.2em;border-radius:10px;box-shadow:0px 4px 14px black;'
+              href="https://support.google.com/plus/answer/1319578?hl=en"> Google +1 Button </a>
+      <a style='background:#00ACED;color:white!important;background-image:none !important;margin:5px; padding:5px;font-size:1.2em;border-radius:10px;box-shadow:0px 4px 14px black;'
+              href="https://support.twitter.com/groups/50-welcome-to-twitter#"> Twitter FAQ </a><br/><br/>
+   Kölcsönhatásban áll a dugó, a szociális hálózatok információt kapni, hogy már elérhető a megfelelő oldal, a honlapon. 
+   Ha be van jelentkezve az egyik társadalmi hálózatok felett, hozzá tud rendelni látogatását honlapunkon, hogy a szociális háló veszi. 
+   Ha lépni a plugin, nyomja meg a Like / Tweet / PLUS1 / Követés gomb például, vagy megosztani egy megjegyzést, 
+   a megfelelő információ továbbítása a böngésző közvetlenül a szociális háló a kérdéses tárolnak. Ha nem tagja a szociális háló, 
+   amellyel kölcsönhatásban van a lehetőség, hogy a szociális hálózat továbbítja az Ön IP-címét és tárolja azt.
+   További információkat a célját és alkalmazási körét az adatgyűjtés és a további feldolgozást és az adatok felhasználása a szociális hálózatok, 
+   valamint a jogait e tekintetben, és képes vonatkozó beállításokat a privát szféra védelme megtalálható áttekintésével 
+   adatvédelmi politikáját a szociális hálózatok maguk:<br/><br/>
+      <a style='background:#627aac;color:white!important;background-image:none !important;margin:5px; padding:5px;font-size:1.2em;border-radius:10px;box-shadow:0px 4px 14px black;'
+         href="https://www.facebook.com/policy.php"> Facebook Privacy Policy </a>
+      <a style='background:#DD4B39;color:white!important;background-image:none !important;margin:5px; padding:5px;font-size:1.2em;border-radius:10px;box-shadow:0px 4px 14px black;'
+         href="https://www.google.com/policies/privacy/"> Google+ Privacy Policy </a>
+      <a style='background:#00ACED;color:white!important;background-image:none !important;margin:5px; padding:5px;font-size:1.2em;border-radius:10px;box-shadow:0px 4px 14px black;'
+         href="https://www.twitter.com/privacy"> Twitter Privacy Policy </a><br/><br/>
+   <li><b>Nem gyűjtése vagy felhasználása a személyes adatok engedély nélküli</b></li>
+   Notionary törekednek arra, hogy korlátozzák a gyűjtése és felhasználása a személyes adatok minimális. 
+   Ha kell használni az adatok olyan célra, amely előírja az Ön beleegyezése miatt a törvényi rendelkezések, 
+   akkor kérheti az Ön kifejezett hozzájárulását. Miután beleegyezésre, visszavonhatja azt bármikor a jövőre egyszerű 
+   kommunikáció (pl email, fax, levél) és / vagy vita a jövőben felhasználja az adatait.
+   <li><b>Jogosulatlan nyilvánosságra hozatalának, illetve harmadik személyek</b></li>
+   Az Ön által megadott adatok elszámolási célokra fogják kezelni notionary a legnagyobb gondossággal. 
+   A harmadik félhez való, ha ez szükséges a tranzakciós célokra, akkor az adott az Ön hozzájárulása, 
+   vagy ha a nyilvánosságra hozatal engedélyezett alapján a vonatkozó törvényi rendelkezések.
+   <li><b>Kapcsolatba lépni</b></li>
+   Kérjük, lépjen kapcsolatba kérdéseket:<br/>
+   Notionary.com<br/>
+   Adatvédelem<br/>
+   Cra 23C #8A-42 Suite 402 <br/>
+   Santiago de Cali, Valle - COLOMBIA. </p>
+   <a style='color:black !important;' class='fa fa-envelope-o' href="mailto:developer@notionary.com">Email Us</a>
+</ol>

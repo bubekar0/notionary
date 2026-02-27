@@ -1,0 +1,179 @@
+<style>
+   body { background:#eee; }
+   h4 { color:black; }
+   ol { counter-reset:item; }
+   li { display:block; }
+   li:before { content:counters(item, ".") "."; counter-increment:item; padding-right:10px; margin-left:-100px; }
+</style>
+<h4>Termos de Serviço </h4>
+<ol>
+  <li><b>área ação></b>
+     <ol>
+        <li>Bem-vindo ao Notionary ("Notionary" ou "nós"), uma plataforma de aprendizagem on-line fornecidos pela Notionary.com. Termos de serviço
+            abaixo se aplicam a qualquer uso da plataforma, e os serviços de dados, não importa de que forma (móvel, online ou não).
+        </li>
+        <li> Um pré-requisito para o uso de Notionary é que é maior de idade ou com o consentimento dos (por exemplo, pais) autorizados representante legal.
+        </li>
+        <li> Notionary reserva-se o direito de modificar estes Termos de Serviço no futuro. Neste caso Notionary anunciar essas mudanças nos Termos de Serviço
+            E-mail e notas que as alterações serão consideradas aceites se não contestar as mudanças dentro de quatro semanas, ou assim que
+            você faz uso do novo serviço após a notificação de alterações nos Termos de Serviço.
+        </li>
+     </ol>
+  </li>
+  <li><b>Obrigações gerais do usuário </b>
+     <ol>
+        <li> Você é obrigado a fornecer informações precisas, atuais e completas quando apresentados com o formulário de inscrição para serviços.</li>
+        <li> Não está autorizado a utilizar os nossos serviços ou partes para fins comerciais de qualquer tipo, por exemplo imitar, vender, alugar ou anunciar
+            por conta própria ou de outrem, sem o nosso consentimento prévio por escrito.
+        </li>
+        <li> Você é obrigado a garantir que o seu acesso aos nossos serviços é utilizado apenas por si mesmo ou por usuários autorizados
+            (Veja a seção 1.2). Também estamos comprometidos em proteger suas informações de login, incluindo senhas e certifique-se de senhas de seus usuários
+            autorizada a ser mantido em segredo para eles. Também é obrigado a informar Notionary imediatamente se qualquer uso indevido de senhas ou contas
+            utilizador tenha ocorrido.
+        </li>
+        <li> Você deve tomar as medidas adequadas para garantir que os usuários que utilizam os serviços através de uma das contas atribuídas por você,
+            observar estes Termos de Serviço, em particular, todas as obrigações sob estes Termos de Serviço. Você assume a responsabilidade por todas
+            ações de um usuário através de seu acesso aos serviços. Os pais devem acompanhar e supervisionar as crianças durante o seu uso dos serviços. falha
+            esta obrigação pode levar a uma proibição total ou parcial, de acesso.
+        </li>
+     </ol>
+  </li>
+  <li> <b> Responsabilidade </b>
+     <ol>
+        <li> Responsabilidade para todos os textos, fotografias, gráficos, vídeos, arquivos ou outros materiais e contribuições ("Conteúdo") que podem ser armazenados,
+            publicado ou serviços transmitidos usando resto única e exclusivamente sobre a pessoa da qual esse conteúdo foi originado. Se você concorda com a
+            dos nossos serviços por um terceiro, especialmente uma criança, você é responsável como um parceiro contratual para todos todo
+            conteúdo que é armazenado, transmitido ou publicado por terceiros através do uso de serviços.
+        </li>
+        <li> Notionary não tem absolutamente nenhum controle sobre o conteúdo que você ou outros usuários para armazenar, publicar ou transmitir através do uso de nossa
+            serviços e não garante a precisão, adequação, integridade ou qualidade de tal Conteúdo. Você está ciente de que, ao utilizar os serviços
+            você poderá ser exposto a Conteúdo ofensivo, imoral ou censurável se o usuário responsável por esse conteúdo não segue as regras estipuladas no
+            Termos de Serviço ou leis aplicáveis.
+        </li>
+        <li> Você e outros usuários precisam realizar atividades ilegais no contexto da utilização de serviços, incluindo:
+           <ol>
+            <li> Armazenar, publicar e/ou transmitir conteúdo considerado ilegal de acordo com as regras ou na opinião do Notionary ilegal, ofensivo,
+                difamatório, obsceno ou inapropriado ou que de alguma forma poderia causar danos a menores, especialmente o conteúdo que é
+                pornográfico, promove a violência ou que seja prejudicial a menores de idade;
+            </li>
+            <li> Armazenar, publicar e/ou transmitir qualquer conteúdo que possa infringir os direitos dos outros, incluindo patentes, marcas, direitos autorais
+                direitos de execução ou outros direitos de propriedade ou direitos pessoais;
+            </li>
+            <li> Armazenar, publicar e/ou transmitir qualquer conteúdo que você não estão autorizados a revelar, por exemplo, segredos comerciais de outros; </li>
+            <li> Armazenar, publicar e/ou transmitir conteúdo como instruções pode resultar direta ou indiretamente, de lesões corporais ou a propriedade; </li>
+            Representar serviços <li> dentro Notionary alguém que não seja você, por exemplo, um funcionário público, um representante da Notionary,
+                ou não responsável pelos serviços ou não fingir ter um relacionamento com essas pessoas;
+            </li>
+            <li> Suponha nome de usuário falso ou lidar com quaisquer dados de autenticação, a fim de disfarçar a origem do Conteúdo transmitido através do Serviço; </li>
+            <li> Armazenar, publicar e/ou emitir publicidade, e-mail em massa, correntes, esquemas de pirâmide ou outras comunicações comerciais;</li>
+            <li> Assediar, ameaçar, insultar ou caluniar os outros, se uma pessoa singular ou colectiva ou uma empresa, por causa de seu sexo, raça ou religião ou depreciar sua
+                crenças, ou discriminar, ou causar qualquer inconveniente ou espalhar falsas acusações relativas a uma pessoa singular ou colectiva ou empresa.
+            </li>
+            <li> Coletar, armazenar ou transmitir dados pessoais de outro usuário, a menos que o requerente concorda,</li>
+            <li> Prestar aconselhamento jurídico ou de fazer contribuições, que são vistos como aconselhamento jurídico; </li>
+            <li> Fornecer links para Terceiros Conteúdo que viole os Termos de Serviço.</li>
+           </ol>
+        </li>
+        <li> Embora geralmente não inspecionar ou rever o conteúdo gerado pelos usuários do serviço, nos reservamos o direito de rejeitar, bloquear, apagar,
+            abreviar, modificar ou mover-se para outras partes do serviço de qualquer parte ou de todo o conteúdo acessível através do nosso serviço, com efeito imediato
+            a nosso exclusivo critério e sem dar razões, especialmente o conteúdo que vem à nossa atenção por usuários que violem estes Termos de Serviço.
+        </li>
+     </ol>
+  </li>
+ <li><b> Alojamento, conteúdo gerado pelo usuário </b>
+     <ol>
+        <li> permitem que você use os nossos serviços de acordo com as leis e disposições destes Termos de Serviço para o serviço
+            armazenar, publicar ou transmitir esse conteúdo e compartilhar conteúdo com outros usuários. Não Notionary acompanhar este processo e não se responsabiliza
+            quanto à propriedade deste conteúdo.
+        </li>
+        <li> Ao utilizar nossos serviços você nos dá instruções, em conformidade com as disposições destes Termos de Serviço, para armazenar seu conteúdo como
+            acessível ao público como parte de nosso serviço pelo respectivo projeto atual ou futuro.
+        </li>
+        <li> Você está ciente de que a publicidade vendido pela nossa empresa pode aparecer em nossos serviços e no âmbito do seu conteúdo, e, possivelmente,
+            ao redor (especialmente com contribuições de imagens, áudio e vídeo ) e você concorda expressamente. Ele também concordou em permitir -nos criar
+            Imagens de tamanho reduzido (thumbnails) de fotos e vídeos, a fim de melhorar os nossos serviços, em particular a função de pesquisa. Você também é
+            ciente de que o processamento técnico ea transmissão de nossos serviços, incluindo o seu conteúdo, pode exigir a transmissão através de vários
+            redes e/ou alterações, a fim de cumprir com as instalações técnicas.
+        </li>
+        <li> Você garante que confiou a você ou seu uso do serviço, os usuários têm todos os direitos necessários para o conteúdo para o qual
+            utilizar os nossos serviços em relação ao armazenamento, publicação e/ou transmissão. E não há infracção contra qualquer disposição legal ou
+            sobre as regras destes Termos de Serviço, incluindo a Seção 3.3, contra todas e quaisquer direitos de terceiros. Se você não é o
+            direitos próprios a qualquer Conteúdo que você entrou, você garante que a transferência de todos os direitos, licenças, acordos
+            licenças , autorizações e similares foram validamente obtida. Se você violar quaisquer direitos ou garantias, nos libera de qualquer
+            responsabilidade civil e totalmente nos indenizar.
+        </li>
+        <li> Notionary tem o direito de armazenar e transferir conteúdos a terceiros, desde que prescrito por lei ou considerado necessário, dependendo
+            julgamento profissional e permitido por lei para (a) cumprir com as leis ou solicitação judicial ou governamental, (b) fazer cumprir
+            Termos de Serviço, (c) para responder reclamações de que tal Conteúdo viole os direitos de terceiros, ou (d) proteger os direitos, a propriedade ou a segurança
+            Notionary pessoal, seus usuários ou do público.
+        </li>
+     </ol>
+  </li>
+  <li><b> Directions violações legais </b>
+     <ol>
+        <li> Notionary respeita a propriedade intelectual dos outros e pede aos usuários que façam o mesmo. </li>
+        <li> Se você acredita que seus direitos autorais ou outros direitos estão sendo violados por outro conteúdo do usuário utilizar os nossos serviços para a
+            armazenamento, publicação ou transmissão, por favor deixe-nos saber enviando um
+                <a style='color:black !important;' class='fa fa-envelope-o' href="mailto:developer@notionary.com">E-Mail</a>
+            com as seguintes informações para que possamos tomar medidas contra o abuso dos nossos serviços e proteger seus direitos :<br/>
+           - Uma descrição do trabalho com direitos autorais que alega ter sido violada a sua opinião; <br/>
+           - Uma descrição de onde o material que, na sua opinião viola o direito autoral é - ou qualquer outro direito; <br/>
+           - Seu endereço , número de telefone e endereço eletrônico; <br/>
+           - Um por que você tem uma crença de boa fé que o uso contestado não está autorizado pelo detentor dos direitos, pelo seu agente ou a lei </li> .
+     </ol>
+  </li>
+  <li> <b> Garantia, links </b>
+     <ol>
+        <li> Como Notionary não responsável sob o ponto 8 abaixo nestes Termos de Serviço, você está usando nossos serviços
+            por sua conta e risco. Isto é especialmente verdadeiro para download ou outro uso do conteúdo, especialmente conteúdo de outros usuários de nossos serviços.
+            Você é o único responsável por qualquer dano ao seu sistema de computador ou outros dispositivos técnicos utilizados para a utilização dos nossos serviços, a
+            perda de dados ou outros danos, e também danos a terceiros que possam causar neste contexto. Notionary não assume qualquer responsabilidade com
+            relação aos resultados que podem ser obtidos com a utilização dos nossos serviços e pelo comportamento dos usuários ou de terceiros, ou por
+            Conteúdo ou declarações de usuários ou outros terceiros que são transmitidas através da utilização de serviços.
+        </li>
+        <li> Nossos Serviços podem conter links para outros websites. Nós nos esforçamos para usar apenas links para web sites que foram encontrados em inofensivo
+            ligação tempo. No entanto, Notionary não tem absolutamente nenhuma influência sobre o conteúdo dos sites ligados e tal Conteúdo
+            podem ser alterados sem o nosso conhecimento. Note que nós não controlamos o conteúdo real dos sites vinculados. Não iremos adotar como nosso o
+            Conteúdo disponível no ou através de tais sites ou fontes de terceiros e excluir qualquer responsabilidade ou garantia com relação a eles.
+        </li>
+     </ol>
+  </li>
+  <li><b> Responsabilidade e limitação de responsabilidade </b>
+     <ol> <li> Reivindicações de danos de indemnização contra Notionary são descartados, independentemente da base legal, a menos que Notionary, os seus representantes
+            legal ou agentes tenham agido com dolo ou negligência grave. Por negligência, apenas é responsável se Notionary na realização de um
+            finalidade contratual, uma obrigação contratual essencial é violado por Notionary, seus representantes legais ou de seus funcionários ou agentes.
+            Neste caso, o pedido de indemnização é limitado a danos previsíveis típicos do contrato.
+        </li>
+        <li> A limitação de responsabilidade acima não se aplica aos pedidos de indemnização que resultam em lesão à vida, corpo, saúde,
+            a assunção de uma garantia ou uma ocultação fraudulenta de defeitos Notionary.
+        </li>
+        <li> Reivindicações de danos de indemnização contra Notionary expiram 12 meses após a sua origem, a não ser com base em um ato intencional ou ilegal.</li>
+        <li> Enquanto Notionary ser isento de responsabilidade, o mesmo se aplica a empresas afiliadas Notionary. Isso também isenta a responsabilidade pessoal
+            funcionários, colaboradores, representantes, acionistas e agentes Notionary e/ou suas afiliadas.
+        </li>
+     </ol>
+  </li>
+ <li> <b> Indenização </b></li>
+       Você concorda em liberar e indenizar Notionary, suas afiliadas e de pessoal, empregados, trabalhadores, representantes, acionistas e
+       agentes Notionary e/ou de suas afiliadas nos conexão com as ações ou reclamações de qualquer tipo incorridos por terceiros decorrentes através
+       Conteúdo que você armazenar, publicar ou transmitir como parte dos serviços Notionary, ou devido ao seu uso de nossos serviços ou por violações de
+       estes Termos de Serviço ou violações dos direitos de terceiros. Isto inclui também os honorários advocatícios e custas judiciais apropriadas.
+  <li> <b> Marcas registradas e outros direitos de propriedade intelectual de Notionary </b> </li>
+       Você reconhece que Notionary detém todos os direitos aos serviços de Notionary e seu designação <b>"notionary"</b>, incluindo marcas, patentes,
+       direitos de autor ou direitos de licença ou outros direitos ou posições jurídicas comparáveis em relação a você.
+  <li> <b> Lei aplicável, local de atuação, local de jurisdição, outros </b>
+     <ol>
+        <li> Lei alemã é aplicável sob exclusão da Convenção de Vendas das Nações Unidas. </li>
+        <li> Local de execução e jurisdição exclusiva na medida legalmente admissível, de Dresden. </li>
+        <li> Não há acordos verbais colaterais. A relação social ou outra relação jurídica, além de relações reguladas por estes Termos de Serviço
+            não vir a existir com a confirmação dos nossos serviços. Mudanças nas cláusulas contratuais devem ser por escrito. Isto também se aplica
+            a eliminação ou modificação desta cláusula texto escrito.
+        </li>
+        <li> Caso que qualquer das disposições individuais ser ou tornar-se total ou parcialmente inválida, o restante do contrato permanecerá válido. Em caso de
+            tal nulidade, as partes tentarão encontrar uma disposição de substituição válida, tanto quanto possível financeiramente. O mesmo se aplica no caso de
+            alguma brecha.
+        </li>
+     </ol>
+  </li>
+</ol>
+<br/>

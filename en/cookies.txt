@@ -1,0 +1,14 @@
+<style>
+   body { background:#eee; }
+   h4 { color:black; }
+   ol { counter-reset:item; }
+   li { display:block; }
+   li:before { content:counters(item, ".") "."; counter-increment:item; padding-right:10px; margin-left:-100px; }
+</style>
+
+<li><b>Cookies</b></li>
+   Part of our services requires that we use so-called cookies. Cookies are small pieces of information stored by your internet browser
+   on your computer. Cookies are able to store information about your visit to our site. Most browsers are set by default to accept
+   cookies. However, you can reconfigure your browser to reject cookies or to request confirmation by you before using them. If you
+   choose to decline cookies, however, it can have as consequence that not all of our service functions free of trouble for you.
+   Notionary uses cookies that are session-based and permanent.
