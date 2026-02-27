@@ -22,7 +22,7 @@ DB_NAME=$(php -r "\$c = require '$CONFIG'; echo \$c['DB_NAME'];")
 echo "Notionary Content Installer"
 echo "==========================="
 echo ""
-echo "This will download ~300MB of images, sounds, and PDFs"
+echo "This will download ~1.5GB of images, sounds, and PDFs"
 echo "and import them into your '$DB_NAME' database."
 echo ""
 read -p "Continue? [y/N] " confirm
