@@ -72,7 +72,6 @@ function insiduous(){
       einblenden( settings, 10, "inline-block" );
       turnOn.apply(this,[ thumbler ]);
       if ( !SMARTFON ) einblenden( escritor, 10, "inline-block" );
-      if ( ROOTUSER ) bindAdminTools();
    }
 }
 function rentr(){

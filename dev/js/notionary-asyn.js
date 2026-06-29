@@ -100,15 +100,8 @@ function loadUserAdminSources(cback){
    LOGGEDIN = ROOTUSER = false;
    httpget("?tun=isusr").then(
       function(response){
-         if ( response === "true" ) {
-            LOGGEDIN = true;
-            httpget("?tun=isadm").then(
-               function(r){ if ( r === "true" ) ROOTUSER = true; },
-               function()  {}
-            ).then( cback );
-         } else {
-            cback();
-         }
+         if ( response === "true" ) LOGGEDIN = true;
+         cback();
       },
       function(){ cback(); }
    );

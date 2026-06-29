@@ -1,36 +1,35 @@
 # Notionary
 
-A self-hosted spaced repetition flashcard web app built on Ebbinghaus' forgetting curve research. Supports text, images, and native-speaker audio recordings across 8 languages.
+A self-hosted spaced-repetition flashcard web app built on Hermann Ebbinghaus' forgetting-curve research. It supports text, images, and native-speaker audio across eight interface languages, and runs on a plain LAMP stack.
+
+> **Status — donated as-is.** Notionary is a working but deliberately kludgey app with over a decade of history behind it. It has been repaired and confirmed running on a LAMP stack (Linux + Apache + MySQL/MariaDB + PHP) in production. It is shared here for anyone who wants a real, clone-and-run learning app to study, fork, or play with. It is **not** an actively developed product and is offered without support. The code is old-school procedural PHP with `mysqli`; treat it as a working artifact, not a style reference.
 
 ## Motivation
 
-The app was inspired by the work of German psychologist Hermann Ebbinghaus,
-who in the late 19th century systematically studied memory and forgetting.
-His research produced the **forgetting curve** — a mathematical description
-of how quickly learned material fades from memory over time — and, crucially,
-a method to counteract it: **spaced repetition**. By reviewing material at
-carefully timed intervals, and adjusting those intervals based on performance,
-it is possible to move information efficiently into long-term memory.
+The app was inspired by the work of German psychologist Hermann Ebbinghaus, who in the late 19th century systematically studied memory and forgetting. His research produced the **forgetting curve** — a description of how quickly learned material fades from memory over time — and, crucially, a way to counteract it: **spaced repetition**. By reviewing material at timed intervals and adjusting those intervals based on performance, information can be moved efficiently into long-term memory.
 
 ## What is a Notion?
 
-A notion is a list of question-and-answer pairs. Notions can cover
-any subject: vocabulary, world capitals, historical dates, music
-recognition, math facts — anything that can be expressed as Q&A.
+A notion is a list of question-and-answer pairs. Notions can cover any subject: vocabulary, world capitals, historical dates, music recognition, math facts — anything that can be expressed as Q&A. The shipped seed data includes a large multilingual set of ready-made notions (language vocabulary, geography, music, math, and more).
 
 ## Learning Modes
 
-- **Flashcards** — Cards that flip on click to reveal the answer.
-- **Multiple Choice** — Select the correct answer from a menu of options.
-- **Written Answer** — Type the answer from memory.
-- **Reverse Test** — The answer is shown first; recall the question.
+- **Flashcards** — cards that flip on click to reveal the answer.
+- **Multiple Choice** — pick the correct answer from a menu.
+- **Written Answer** — type the answer from memory.
+- **Reverse Test** — the answer is shown first; recall the question.
 
 ## Requirements
 
-- PHP 8.2+
-- MySQL 8.0+
+- **PHP 8.2+** (developed and tested on 8.5; the production instance also runs on older PHP, but 8.2+ is the supported floor for a fresh setup).
+- **MySQL 8.0+ or MariaDB 10.4+** (production runs MariaDB 10.11).
+- The PHP `mysqli`, `gd`, and `zlib` extensions (all standard on a typical LAMP install).
+
+That's it — no Composer, no Node, no build step required to run the app. The served JS/CSS bundles are already committed.
 
 ## Quick Start
+
+This gets you a fully working **text-based** app with the bundled seed notions. Images and audio are an optional extra step (see [Optional: media content](#optional-media-content-images--audio)).
 
 ### 1. Clone
 
@@ -39,21 +38,29 @@ git clone https://github.com/bubekar0/notionary.git
 cd notionary
 ```
 
-### 2. Create database and user
+### 2. Create the database and a user
+
+Open a MySQL/MariaDB shell as an admin user and run:
 
 ```sql
 CREATE DATABASE notionary_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE USER 'notio_nary'@'localhost' IDENTIFIED BY 'your_password_here';
+CREATE USER 'notio_nary'@'localhost' IDENTIFIED BY 'choose_a_password';
 GRANT ALL PRIVILEGES ON notionary_db.* TO 'notio_nary'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
-### 3. Import schema and seed data
+Use any database name, user, and password you like — just match them in `config.php` in step 4.
+
+### 3. Import the schema and seed data
+
+Import the structure first, then the seed content (order matters):
 
 ```bash
 mysql -u notio_nary -p notionary_db < db/schema.sql
 mysql -u notio_nary -p notionary_db < db/data.sql
 ```
+
+`schema.sql` creates the core `aa*` tables and the per-notion content tables; `data.sql` fills them with the seed notions plus one starter account, `owner@notionary`, which is also the admin.
 
 ### 4. Configure
 
@@ -61,7 +68,9 @@ mysql -u notio_nary -p notionary_db < db/data.sql
 cp config.example.php config.php
 ```
 
-Edit `config.php` with your database password and settings.
+Edit `config.php` and set `DB_PASSWORD` (and `DB_NAME` / `DB_USER` if you changed them in step 2). Leave `APP_ENV` as `local` for a local run. `config.php` is git-ignored and is never committed — each machine keeps its own.
+
+> **Local mode auto-login.** With `APP_ENV = 'local'`, the app auto-logs you in as the seeded `owner@notionary` account, so you immediately see the user and admin tools. For a real deployment set `APP_ENV = 'prod'`, which makes the app anonymous-by-default and logs errors instead of displaying them.
 
 ### 5. Run
 
@@ -69,50 +78,64 @@ Edit `config.php` with your database password and settings.
 php -S localhost:8080 router.php
 ```
 
-Open http://localhost:8080/notionary.php
+Then open **http://localhost:8080/notionary.php**
 
-### 6. (Optional) Import content
+> **Use port 8080.** The seed data pins the app's base URL and media URLs to `http://localhost:8080/`. Running on a different port or host will work for browsing, but image/audio URLs in the seed content won't resolve until you update the `aaparam` table (`myurl`, `image`, `sound`) to match. For a quick local try-out, just use 8080.
 
-The flashcard content (1600+ images, 9400+ native-speaker audio recordings) is distributed separately due to size.
+`router.php` is a tiny shim that lets PHP's built-in server mimic the production Apache routing (requests carrying a `?tun=` parameter are dispatched through `notionary.php`; everything else is served as a static file).
+
+### Optional: media content (images & audio)
+
+The flashcard media — roughly 1,600 images and 9,400+ native-speaker audio recordings — is **not** stored in git. It is distributed as a single gzipped SQL bundle and imported into your database.
+
+The bundle lives on the project's server, in its `downloads/` folder:
+
+```
+https://uozon.com/downloads/notionary-content.sql.gz   (~1.5 GB)
+```
+
+The helper script reads your `config.php`, downloads the bundle, and imports it:
 
 ```bash
 bin/install-content
 ```
 
+It will prompt before downloading ~1.5 GB. After it finishes, pictions (image notions) and soundtions (audio notions) will render; without it, those notions still work as text but show no media. You can delete the downloaded `.gz` afterward to reclaim disk space.
+
 ## Features
 
-- Create and edit notion sets (upload CSV, type directly, or import)
-- Spaced repetition engine tracks performance and recommends review timing
-- Native-speaker sound recordings for language learning
-- Image support for visual flashcards
-- Multilingual interface (English, German, Spanish, French, Italian, Portuguese, Hungarian, Russian)
-- Math formula generators (arithmetic, fractions, GCD/LCM, percentages)
-- PDF generation for printable flashcards
-- Admin tools for content curation and database management
+- Create and edit notion sets (type directly, paste, or import).
+- Spaced-repetition engine that tracks performance and recommends review timing.
+- Native-speaker sound recordings for language learning.
+- Image support for visual flashcards.
+- Multilingual interface: English, German, Spanish, French, Italian, Portuguese, Hungarian, Russian.
+- Math-problem generators (arithmetic, fractions, GCD/LCM, percentages).
+- PDF generation for printable flashcards.
+- Admin tools for content curation and database housekeeping.
 
 ## Project Structure
 
 ```
-notionary.php          Main entry point and router
-usrindex.php           User features (upload, edit, review)
+notionary.php          Main entry point and front controller (routes on ?tun=)
+usrindex.php           Logged-in user features (create, edit, review)
 admindex.php           Admin features
-router.php             PHP built-in server router
-config.example.php     Configuration template
+router.php             Dev-server router for `php -S`
+config.example.php     Configuration template (copy to config.php)
 
-php/                   Server-side PHP
-dev/js/                JavaScript source modules (14 modules)
+php/                   Server-side PHP includes
+dev/js/                JavaScript source modules
 dev/css/               CSS source modules (PHP-generated)
-js/                    Built JS (generated by bin/build)
-css/                   Built CSS (generated by bin/build)
-db/                    Database schema and seed data
-bin/                   Build and install scripts
-lib/tfpdf/             PDF generation library
-{en,de,es,fr,it,pt,hu,ru}/   Localized content
+js/                    Built JS bundle (generated by bin/build, committed)
+css/                   Built CSS bundle (generated by bin/build, committed)
+db/                    schema.sql (structure) + data.sql (seed content)
+bin/                   build and install-content scripts
+lib/tfpdf/             PDF-generation library
+{en,de,es,fr,it,pt,hu,ru}/   Localized interface strings
 ```
 
-## Building
+## Rebuilding the bundles (only if you edit sources)
 
-After editing files in `dev/js/` or `dev/css/`, rebuild the served bundles:
+The app ships with the built `js/` and `css/` bundles already committed, so you do **not** need this to run it. If you modify anything under `dev/js/` or `dev/css/`, regenerate the served bundles with:
 
 ```bash
 bin/build
@@ -120,4 +143,4 @@ bin/build
 
 ## License
 
-MIT
+MIT — see [LICENSE](LICENSE).

@@ -6,3 +6,4 @@ cache/*
 *.sql.gz
 .DS_Store
 .claude/
+PENDING.md

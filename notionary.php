@@ -7,7 +7,7 @@ ini_set('log_errors', '1');
 error_reporting(E_ALL & ~E_DEPRECATED);
 
 session_start();
-if ($_DEV && !isset($_SESSION['uname'])) { $_SESSION['uname'] = 'hec@uozon.com'; }
+if ($_DEV && !isset($_SESSION['uname'])) { $_SESSION['uname'] = 'owner@notionary'; }
 if(!ob_start("ob_gzhandler")) ob_start();
 date_default_timezone_set($_CONFIG['TIMEZONE']);
 
@@ -437,7 +437,6 @@ elseif ( $tun === 'ninfo' ) { ninfo(); }
 elseif ( $tun === 'mixqa' ) { mixqa($was); }
 elseif ( $tun === 'busca' ) { busca($was); }
 elseif ( $tun === 'isusr' ) { isusr(); }
-elseif ( $tun === 'isadm' ) { isadm(); }
 elseif ( $tun === 'outen' ) { outen(); }
 elseif ( $tun === 'login' ) { login($was); }
 elseif ( $tun === 'vrify' ) { vrify($was); }
