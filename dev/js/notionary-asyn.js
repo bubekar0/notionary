@@ -59,6 +59,12 @@ function jasonSINFO(lan2L,cback){
       function(response) { SERVINFO = JSON.parse( response );
          for ( i = 0; i < SERVINFO[2].param.length; i++ )
             for (x in SERVINFO[2].param[i]) HARDCODE[x] = SERVINFO[2].param[i][x];
+         // Override env-specific values with browser-derived URLs so the app
+         // works on any host without touching the database.
+         var _base = window.location.origin + "/";
+         HARDCODE.myurl = _base;
+         HARDCODE.image = _base + "?tun=ibyid&was=";
+         HARDCODE.sound = _base + "?tun=sbyid&was=";
       },
       function( error ) { clickNotiz( error ); }
    ).then( cback );
@@ -91,22 +97,21 @@ function jasonXLATE(lan2L,cback){
 }
 function loadUserAdminSources(cback){
    DEBUGGER?console.log("[loadUserAdminSources]"):0;
-   var usrCssLink, admCssLink;
-   LOGGEDIN = true;
-   ROOTUSER = true;
-   loadJS("js/" + HARDCODE.mynom + "-user-min.js?version=VERSION_TRACKER").then(function(){
-      usrCssLink = document.createElement( "link" );
-      usrCssLink.rel  = "stylesheet"; usrCssLink.type = "text/css";
-      usrCssLink.href = "css/" + HARDCODE.mynom + "-user-min.php?version=VERSION_TRACKER";
-      document.head.appendChild( usrCssLink );
-   }).then(function(){
-      loadJS("js/" + HARDCODE.mynom + "-admn-min.js?version=VERSION_TRACKER").then(function(){
-         admCssLink = document.createElement( "link" );
-         admCssLink.rel  = "stylesheet"; admCssLink.type = "text/css";
-         admCssLink.href = "css/" + HARDCODE.mynom + "-admn-min.php?version=VERSION_TRACKER";
-         document.head.appendChild( admCssLink );
-      }).then(cback);
-   });
+   LOGGEDIN = ROOTUSER = false;
+   httpget("?tun=isusr").then(
+      function(response){
+         if ( response === "true" ) {
+            LOGGEDIN = true;
+            httpget("?tun=isadm").then(
+               function(r){ if ( r === "true" ) ROOTUSER = true; },
+               function()  {}
+            ).then( cback );
+         } else {
+            cback();
+         }
+      },
+      function(){ cback(); }
+   );
 }
 function fbookButton(){ return ""; }
 function gplusButton(){ return ""; }
@@ -123,5 +128,6 @@ function displayPDFFile(server,tuwas,ancho,alto){
       "</iframe>");
 }
 function killLoginSession(){
-   // Stubbed — no logout in single-user mode
+   DEBUGGER?console.log("[killLoginSession]"):0;
+   httpget("?tun=outen").then( function(){ LOGGEDIN = ROOTUSER = false; window.location.reload(); }, function(){} );
 }

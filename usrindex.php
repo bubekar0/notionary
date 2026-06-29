@@ -1,8 +1,7 @@
 <?php
 $_CONFIG = require __DIR__ . '/config.php';
 session_start();
-if (!isset($_SESSION['uname'])) { $_SESSION['uname'] = 'owner@notionary'; }
-if(!ob_start("ob_gzhandler")) ob_start();   // if browser doesn't gzip, normal
+if(!ob_start("ob_gzhandler")) ob_start();
 date_default_timezone_set($_CONFIG['TIMEZONE']);
 require_once "php/utiles.php";
 require_once "php/dbutil.php";

@@ -48,7 +48,7 @@ function anonimize(){
        settings = document.getElementById( "userSettings" ),
        escritor = document.getElementById( "userEscritor" ),
        thumbler = document.getElementById( "mobiThumbler" );
-   mainlogo.onclick = function(e) { window.location.href = HARDCODE.myurl; }
+   mainlogo.onclick = function(e) { if ( LOGGEDIN ) window.location.href = HARDCODE.myurl; else showSigninZentral(null,null); }
    turnOff.apply(this,[ settings, escritor, thumbler ]);
 
    if ( cookieReader("coook") != "true" )
@@ -139,8 +139,6 @@ function adminMarkup(){
              "<div id='rootSoundprg' class='notionary-toolitem'><span class='fa fa-music'></span>        Sound Purger  </div>" +
              "<div id='rootUseredit' class='notionary-toolitem'><span class='fa fa-user'></span>         User Editor   </div>" +
              "<div id='rootRecorder' class='notionary-toolitem'><span class='fa fa-microphone'></span>   Microphone    </div>" +
-             "<div id='rootGmapstat' class='notionary-toolitem'><span class='fa fa-map'></span>          Static GMaps  </div>" +
-             "<div id='rootGmapdyna' class='notionary-toolitem'><span class='fa fa-map-marker'></span>   Dynamic GMaps </div>" +
           "</div>");
 }
 function markupSkeleton(){
@@ -158,7 +156,7 @@ function markupSkeleton(){
 
    return("<div          id='anonHeadroom' onclick='function doNothing(){}'>" +
              "<div       id='anonHeadtops'>" +
-                "<div    id='anonMainlogo' class='notionary-logo0815'>" + HARDCODE.myenv + "</div>" +  deskhtml +
+                "<div    id='anonMainlogo' class='notionary-logo0815'>" + HARDCODE.mynom + "</div>" +  deskhtml +
              "</div>" +
              "<fieldset  id='anonSuchenom' class='notionary-fieldset'>" +
                "<legend  id='anonSucheleg' class='notionary-legendas'></legend>" +

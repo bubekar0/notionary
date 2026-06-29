@@ -274,12 +274,12 @@ if( isset($uidno) ){
    }
 }
 $brstr .=    "<div id='perfNotionSocial'>\r\n" .
-                $_RECO . "<br/> $fbook $tweet " .
+                $_RECO . "<br/><span id='copyLinkBtn' class='fa fa-link notionary-copylink' data-url='" . htmlspecialchars($nnurl, ENT_QUOTES) . "' title='Copy link to this test'></span>" .
              "</div>\r\n" .
           "</div>\r\n" .  // Close the main brstr DIV open atop
           "<div id='perfPanela2'></div>\r\n";
 $mostr .=    "<div id='perfNotionSocial'>" .
-                $_RECO . "<br/> $fbook $tweet " .
+                $_RECO . "<br/><span id='copyLinkBtn' class='fa fa-link notionary-copylink' data-url='" . htmlspecialchars($nnurl, ENT_QUOTES) . "' title='Copy link to this test'></span>" .
              "</div>" .
           "</div>" .
           "<div id='perfPanela2'></div>";

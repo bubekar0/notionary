@@ -935,6 +935,12 @@ function jasonSINFO(lan2L,cback){
       function(response) { SERVINFO = JSON.parse( response );
          for ( i = 0; i < SERVINFO[2].param.length; i++ )
             for (x in SERVINFO[2].param[i]) HARDCODE[x] = SERVINFO[2].param[i][x];
+         // Override env-specific values with browser-derived URLs so the app
+         // works on any host without touching the database.
+         var _base = window.location.origin + "/";
+         HARDCODE.myurl = _base;
+         HARDCODE.image = _base + "?tun=ibyid&was=";
+         HARDCODE.sound = _base + "?tun=sbyid&was=";
       },
       function( error ) { clickNotiz( error ); }
    ).then( cback );
@@ -967,22 +973,21 @@ function jasonXLATE(lan2L,cback){
 }
 function loadUserAdminSources(cback){
    DEBUGGER?console.log("[loadUserAdminSources]"):0;
-   var usrCssLink, admCssLink;
-   LOGGEDIN = true;
-   ROOTUSER = true;
-   loadJS("js/" + HARDCODE.mynom + "-user-min.js?version=VERSION_TRACKER").then(function(){
-      usrCssLink = document.createElement( "link" );
-      usrCssLink.rel  = "stylesheet"; usrCssLink.type = "text/css";
-      usrCssLink.href = "css/" + HARDCODE.mynom + "-user-min.php?version=VERSION_TRACKER";
-      document.head.appendChild( usrCssLink );
-   }).then(function(){
-      loadJS("js/" + HARDCODE.mynom + "-admn-min.js?version=VERSION_TRACKER").then(function(){
-         admCssLink = document.createElement( "link" );
-         admCssLink.rel  = "stylesheet"; admCssLink.type = "text/css";
-         admCssLink.href = "css/" + HARDCODE.mynom + "-admn-min.php?version=VERSION_TRACKER";
-         document.head.appendChild( admCssLink );
-      }).then(cback);
-   });
+   LOGGEDIN = ROOTUSER = false;
+   httpget("?tun=isusr").then(
+      function(response){
+         if ( response === "true" ) {
+            LOGGEDIN = true;
+            httpget("?tun=isadm").then(
+               function(r){ if ( r === "true" ) ROOTUSER = true; },
+               function()  {}
+            ).then( cback );
+         } else {
+            cback();
+         }
+      },
+      function(){ cback(); }
+   );
 }
 function fbookButton(){ return ""; }
 function gplusButton(){ return ""; }
@@ -999,7 +1004,8 @@ function displayPDFFile(server,tuwas,ancho,alto){
       "</iframe>");
 }
 function killLoginSession(){
-   // Stubbed — no logout in single-user mode
+   DEBUGGER?console.log("[killLoginSession]"):0;
+   httpget("?tun=outen").then( function(){ LOGGEDIN = ROOTUSER = false; window.location.reload(); }, function(){} );
 }
 function nentr(){ onNAJAX("enter");
    httpget("?tun=mylan").then(
@@ -1051,7 +1057,7 @@ function anonimize(){
        settings = document.getElementById( "userSettings" ),
        escritor = document.getElementById( "userEscritor" ),
        thumbler = document.getElementById( "mobiThumbler" );
-   mainlogo.onclick = function(e) { window.location.href = HARDCODE.myurl; }
+   mainlogo.onclick = function(e) { if ( LOGGEDIN ) window.location.href = HARDCODE.myurl; else showSigninZentral(null,null); }
    turnOff.apply(this,[ settings, escritor, thumbler ]);
 
    if ( cookieReader("coook") != "true" )
@@ -1142,8 +1148,6 @@ function adminMarkup(){
              "<div id='rootSoundprg' class='notionary-toolitem'><span class='fa fa-music'></span>        Sound Purger  </div>" +
              "<div id='rootUseredit' class='notionary-toolitem'><span class='fa fa-user'></span>         User Editor   </div>" +
              "<div id='rootRecorder' class='notionary-toolitem'><span class='fa fa-microphone'></span>   Microphone    </div>" +
-             "<div id='rootGmapstat' class='notionary-toolitem'><span class='fa fa-map'></span>          Static GMaps  </div>" +
-             "<div id='rootGmapdyna' class='notionary-toolitem'><span class='fa fa-map-marker'></span>   Dynamic GMaps </div>" +
           "</div>");
 }
 function markupSkeleton(){
@@ -1161,7 +1165,7 @@ function markupSkeleton(){
 
    return("<div          id='anonHeadroom' onclick='function doNothing(){}'>" +
              "<div       id='anonHeadtops'>" +
-                "<div    id='anonMainlogo' class='notionary-logo0815'>" + HARDCODE.myenv + "</div>" +  deskhtml +
+                "<div    id='anonMainlogo' class='notionary-logo0815'>" + HARDCODE.mynom + "</div>" +  deskhtml +
              "</div>" +
              "<fieldset  id='anonSuchenom' class='notionary-fieldset'>" +
                "<legend  id='anonSucheleg' class='notionary-legendas'></legend>" +
@@ -1447,9 +1451,239 @@ function showSoundContribution(){ // Placed here to give outsiders a chance to a
       }).then( function(){ offNAJAX("recorder"); });
    }
 }
-// Auth module — stubbed out for single-user mode
-function agreeToTermsOfUse(cback){ if (cback) cback(); }
-function showSigninZentral(loginCBK,loginals){ if (loginCBK) loginCBK(); }
+function agreeToTermsOfUse(cback){
+   DEBUGGER?console.log("[agreeToTermsOfUse]"):0;
+   var agreeButton;
+   httpget("?tun=mudoc&was=terms").then(
+      function( response ) {
+         document.body.innerHTML = "<div style='width:80%;margin:0 auto;'>" + response +
+                                      "<button id='termsAgreeButton'>" + TRANSLAT.agree + "</button>" +
+                                   "</div>";
+         agreeButton = document.getElementById( "termsAgreeButton" );
+         agreeButton.onclick = cback;
+      },
+      function( error ) { clickNotiz ( error ); }
+   );
+}
+function showSigninZentral(loginCBK,loginals){
+   DEBUGGER?console.log("[showSigninZentral]"):0;
+   var COOKDAYS = 365,
+       CHEKMAIL = 5000,
+       advisory, username, userajax, mailname, mailajax, welcomer, minombre, password, clavedos, newpword,
+       contibtn, confobtn, siginbtn, sigupbtn, register, stickers, autologs, vergesen;
+   zentraller("signIn",
+      markupSmartInput("un",TRANSLAT.untxt,true,"") +
+      markupSmartInput("em",TRANSLAT.emtxt,true,"") +
+      markupSmartInput("pw",TRANSLAT.pwtxt,true,"") +
+      markupSmartInput("p2",TRANSLAT.p2txt,true,"") +
+      "<button   id='contiKnopf'>" + TRANSLAT.conti + "</button>" +
+      "<button   id='siginKnopf'>" + TRANSLAT.sigin + "</button>" +
+      "<button   id='confoKnopf'>" + TRANSLAT.p2txt + "</button>" +
+      "<button   id='sigupKnopf'>" + TRANSLAT.savit + "</button>" +
+      "<a        id='signupLink'>" + TRANSLAT.sigup + "</a>" +
+      "<a        id='forgotPwrd'>" + TRANSLAT.i4got + "</a>" +
+      "<div      id='stickyArea'>" + "<input id='stickyChbx' type='checkbox'/>" + TRANSLAT.kenne + "</div>",
+      function(){ // Bind Callback()
+         advisory = document.getElementById( "signInZentralInfo" );     welcomer = document.getElementById( "signInZentralUser" );
+         username = document.getElementById( "uninp" );                 userajax = document.getElementById( "unajx" );
+         mailname = document.getElementById( "eminp" );                 mailajax = document.getElementById( "emajx" );
+         password = document.getElementById( "pwinp" );                 clavedos = document.getElementById( "p2inp" );
+         contibtn = document.getElementById( "contiKnopf" );            confobtn = document.getElementById( "confoKnopf" );
+         siginbtn = document.getElementById( "siginKnopf" );            sigupbtn = document.getElementById( "sigupKnopf" );
+         vergesen = document.getElementById( "forgotPwrd" );            register = document.getElementById( "signupLink" );
+         stickers = document.getElementById( "stickyArea" );            autologs = document.getElementById( "stickyChbx" );
+
+         turnOff.apply(this,[ username.parentNode.firstChild,
+            mailname.parentNode, password.parentNode, clavedos.parentNode,
+            welcomer, siginbtn, confobtn, sigupbtn, vergesen, stickers ]);
+
+         instruct(advisory,TRANSLAT.track,"black");
+
+         // Handle Create Account (Sign Up)
+         register.onclick = function() {
+            turnOff.apply(this,[ mailname.parentNode.firstChild,
+               username.parentNode, register ]);
+            einblenden(mailname.parentNode,100);
+            instruct(advisory,TRANSLAT.sigut,"black");
+            mailname.onkeyup   = killMetas;
+            mailname.onkeydown = function(e){
+               if ( this.value == TRANSLAT.emtxt ) this.value = "";
+               var cette = this, k = ( event.keyCode ? event.keyCode : event.which );
+               if ( k == "13" )
+                  if ( this.value && sanitized( this.value, EMAILREG ) ) { onNAJAX("known");
+                     mailajax.style.visibility = "visible";
+                     httpget("?tun=known&was=" + this.value ).then(
+                        function( response ) {
+                           if ( response ) instruct(advisory,TRANSLAT.taken,"red");
+                           else {
+                              instruct(advisory,TRANSLAT.pwpls,"black");
+                              turnOff.apply(this,[ password.parentNode.firstChild, mailname.parentNode]);
+                              einblenden(password.parentNode);
+                              einblenden(welcomer,10,"table");
+                              minombre = cette.value;
+                              welcomer.innerHTML = minombre;
+                              password.value = TRANSLAT.pwpls;
+                              password.parentNode.firstChild.innerHTML = TRANSLAT.pwpls;
+                              password.onkeydown = function(e){
+                                 var k = (e.keyCode ? e.keyCode : e.which);
+                                 if ( this.value == TRANSLAT.pwpls ){ this.setAttribute("type","password"); this.value = ""; }
+                                 if ( k == "13" )
+                                    if ( this.value && sanitized( this.value, PWORDREG ) ) { newpword = this.value;
+                                       turnOff.apply(this,[ clavedos.parentNode.firstChild, password.parentNode, contibtn ]);
+                                       turnOn.apply(this,[ clavedos.parentNode, confobtn ]);
+                                       instruct(advisory,TRANSLAT.p2txt,"black");
+                                       clavedos.onkeydown = function(e){
+                                          var k = (e.keyCode ? e.keyCode : e.which);
+                                          if ( this.value == TRANSLAT.p2txt ){ this.value = ""; this.setAttribute("type","password"); }
+                                          if ( k == "13" )
+                                             if ( this.value && sanitized( this.value, PWORDREG ) ) {
+                                                if ( this.value == newpword ) {
+                                                   agreeToTermsOfUse(function(){
+                                                      httpost("notionary.php","tun=vrify&was=" +
+                                                         JSON.stringify({ "quien":minombre, "pword":newpword, "razon":"crack" })
+                                                      ).then(function(response){
+                                                            if ( response ) clickNotiz( response );
+                                                            else { timedNotiz(TRANSLAT.emchk);
+                                                               turnOff.apply(this,[ clavedos.parentNode, welcomer, confobtn ]); }
+                                                            setTimeout(function(){ landingPage(); showSupers(); }, CHEKMAIL);
+                                                         },function( error ) { clickNotiz( error ); }
+                                                      );
+                                                   });
+                                                } else instruct(advisory,TRANSLAT.pmiss,"red");
+                                             } else instruct(advisory,TRANSLAT.pwbad,"red");
+                                       }
+                                       clavedos.onfocus = function(){ refocusSmartInput(this,TRANSLAT.p2txt); this.setAttribute("type","password"); }
+                                       clavedos.onblur  = function(){ unfocusSmartInput(this,TRANSLAT.p2txt);
+                                          if ( getStyleProp(this,"visibility") == "visible" ) instruct(advisory,TRANSLAT.p2txt,"black"); }
+                                       clavedos.focus();
+                                       confobtn.onclick = function() { fireKey(clavedos,13); }
+                                    } else instruct(advisory,TRANSLAT.pwbad,"red");
+                              }
+                              password.onfocus = function(){ refocusSmartInput(this,TRANSLAT.pwpls); this.setAttribute("type","password"); }
+                              password.onblur  = function(){ unfocusSmartInput(this,TRANSLAT.pwpls);
+                                 if ( getStyleProp(this,"visibility") == "visible" ) instruct(advisory,TRANSLAT.pwpls,"black"); }
+                              password.focus();
+                              contibtn.onclick = function() { fireKey(password,13); }
+                           }
+                        }, function( error ) { clickNotiz( error); }
+                     ).then ( function(){ offNAJAX("known"); mailajax.style.visibility = "hidden"; } );
+                  } else instruct(advisory,TRANSLAT.eapls,"red");
+            }
+            mailname.onfocus = function(){ refocusSmartInput(this,TRANSLAT.emtxt); }
+            mailname.onblur  = function(){ unfocusSmartInput(this,TRANSLAT.emtxt);
+               if ( getStyleProp(this,"visibility") == "visible" ) instruct(advisory,TRANSLAT.sigut,"black");
+            }
+            mailname.focus(); if ( SMARTFON ) mailname.blur();
+            contibtn.onclick = function() { fireKey(mailname,13); }
+         }
+
+         // Handle Regular Login Session
+         username.onkeyup   = killMetas;
+         username.onkeydown = function(e){
+            if ( this.value == TRANSLAT.untxt ) this.value = "";
+            var cette = this, k = ( event.keyCode ? event.keyCode : event.which );
+            if ( k == "13" )
+               if ( this.value && sanitized( this.value, EMAILREG ) ) { onNAJAX("known");
+                  userajax.style.visibility = "visible";
+                  httpget("?tun=known&was=" + this.value ).then(
+                     function( response ) {
+                        if ( response ) {
+                           turnOff.apply(this,[ password.parentNode.firstChild, username.parentNode,
+                              contibtn, register ]);
+                           turnOn.apply(this,[ password.parentNode, siginbtn, vergesen, stickers ]);
+                           einblenden(welcomer,10,"table");
+                           instruct(advisory,"Welcome","black");
+                           welcomer.innerHTML = cette.value;
+                           password.onkeydown = function(e){
+                              var k = (e.keyCode ? e.keyCode : e.which);
+                              if ( this.value == TRANSLAT.pwtxt ){ this.value = ""; this.setAttribute("type","password"); }
+                              if ( k == "13" )
+                                 if ( this.value && sanitized( this.value, PWORDREG ) ) { onNAJAX("login");
+                                    httpost("notionary.php","tun=login&was=" +
+                                       JSON.stringify({ "uname":username.value, "pword":password.value })
+                                    ).then(
+                                       function(response){
+                                          if ( response == "true" ){
+                                             jasonUINFO(function(){
+                                                loadUserAdminSources(function(){ jasonXLATE( BROWSLAN, function(){
+                                                   if ( loginCBK ) loginCBK(); else { landingPage(); showSupers(); }
+                                                }); });
+                                             });
+                                          } else instruct(advisory,TRANSLAT.nolog,"red");
+                                       }, function( error ){ clickNotiz( error ); }
+                                    ).then(function(){ offNAJAX("login"); });
+                                 } else instruct(advisory,TRANSLAT.pwbad,"red");
+                           }
+                           password.onfocus = function(){ refocusSmartInput(this,TRANSLAT.pwtxt); this.setAttribute("type","password"); }
+                           password.onblur  = function(){ unfocusSmartInput(this,TRANSLAT.pwtxt);
+                              if ( getStyleProp(this,"visibility") == "visible" ) instruct(advisory,"Welcome","black"); }
+                           siginbtn.onclick = function() { fireKey(password,13); }
+                           password.focus();
+
+                           // Handle Password Reset (Forgot Password)
+                           vergesen.onclick = function() {
+                              turnOff.apply(this,[ password.parentNode.firstChild, siginbtn, vergesen, stickers ]);
+                              einblenden(contibtn,100);
+                              instruct(advisory,TRANSLAT.chpas,"black");
+                              password.value = TRANSLAT.pwpls;
+                              password.parentNode.firstChild.innerHTML = TRANSLAT.pwpls;
+                              password.onkeydown = function(e){
+                                 var k = (e.keyCode ? e.keyCode : e.which);
+                                 if ( this.value == TRANSLAT.pwpls ){ this.setAttribute("type","password"); this.value = ""; }
+                                 if ( k == "13" )
+                                    if ( this.value && sanitized( this.value, PWORDREG ) ) { newpword = this.value;
+                                       turnOff.apply(this,[ clavedos.parentNode.firstChild, password.parentNode, contibtn ]);
+                                       turnOn.apply(this,[ clavedos.parentNode, confobtn ]);
+                                       instruct(advisory,TRANSLAT.chpas,"black");
+                                       clavedos.onkeydown = function(e){
+                                          var k = (e.keyCode ? e.keyCode : e.which);
+                                          if ( this.value == TRANSLAT.p2txt ){ this.value = ""; this.setAttribute("type","password"); }
+                                          if ( k == "13" )
+                                             if ( this.value && sanitized( this.value, PWORDREG ) ) {
+                                                if ( this.value == newpword ) {
+                                                   httpost("notionary.php","tun=vrify&was=" +
+                                                      JSON.stringify({ "quien":welcomer.innerHTML, "pword":this.value, "razon":"i4got" })
+                                                   ).then(function(response){
+                                                         if ( response ) clickNotiz( response );
+                                                         else { timedNotiz(TRANSLAT.emchk);
+                                                            turnOff.apply(this,[ clavedos.parentNode, welcomer, confobtn ]); }
+                                                         setTimeout(function(){ landingPage(); showSupers(); }, CHEKMAIL);
+                                                      },function( error ) { clickNotiz( error ); }
+                                                   );
+                                                } else instruct(advisory,TRANSLAT.pmiss,"red");
+                                             } else instruct(advisory,TRANSLAT.pwbad,"red");
+                                       }
+                                       clavedos.onfocus = function(){ refocusSmartInput(this,TRANSLAT.p2txt); this.setAttribute("type","password"); }
+                                       clavedos.onblur  = function(){ unfocusSmartInput(this,TRANSLAT.p2txt);
+                                          if ( getStyleProp(this,"visibility") == "visible" ) instruct(advisory,TRANSLAT.p2txt,"black"); }
+                                       clavedos.focus();
+                                    } else instruct(advisory,TRANSLAT.pwbad,"red");
+                                 confobtn.onclick = function() { fireKey(clavedos,13); }
+                              }
+                              password.onfocus = function(){ refocusSmartInput(this,TRANSLAT.pwpls); this.setAttribute("type","password"); }
+                              password.onblur  = function(){ unfocusSmartInput(this,TRANSLAT.pwpls);
+                                 if ( getStyleProp(this,"visibility") == "visible" ) instruct(advisory,TRANSLAT.chpas,"black"); }
+                              password.focus();
+                              contibtn.onclick = function() { fireKey(password,13); }
+                           }
+                        } else instruct(advisory,TRANSLAT.emunk,"red");
+                     }, function( error ) { clickNotiz( error); }
+                  ).then ( function(){ offNAJAX("known"); userajax.style.visibility = "hidden"; password.focus(); } );
+               } else instruct(advisory,TRANSLAT.eapls,"red");
+         }
+         username.onfocus = function(e){ refocusSmartInput(this,TRANSLAT.untxt); }
+         username.onblur  = function(e){ unfocusSmartInput(this,TRANSLAT.untxt); }
+         username.focus(); if ( SMARTFON ) username.blur();
+
+         contibtn.onclick = function() { fireKey(username,13); }
+         if ( autologs ) autologs.onchange = function(){
+            if ( this.checked  ) cookieWriter("rememberme","true",COOKDAYS);
+            else cookieWriter("rememberme","false",COOKDAYS);
+         }
+
+         if ( loginals ) { username.value = loginals; fireKey(username,13); }
+      } , function(){ landingPage(); showSupers(); });
+}
 function markupIdempotentButtons(){
    DEBUGGER?console.log("[markupIdempotentButtons]"):0;
    return("<div class='notionary-idempotent'>" +
@@ -2152,6 +2386,7 @@ function showMultipleChoices(testtype){ // Watch out for "￭" Block separator
    xoibtns = document.getElementsByClassName( "notionary-examwahl" );
    for ( i = 0; i < xoibtns.length; i++ )
       xoibtns[i].onclick = function(e){
+         if ( THEINDEX >= WORKDATA.length ) return;
          // Button's text(), or html() of the <span>'s inner for Formulations
          var clickedText, clickedHTML, clickedChoice;
          clickedText = this.innerHTML;
@@ -2175,6 +2410,7 @@ function showStandardizedTests(testtype){
    xoibtns = document.getElementsByClassName( "notionary-examwahl" );
    for ( i = 0; i < xoibtns.length; i++ )
       xoibtns[i].onclick = function(e){
+      if ( THEINDEX >= WORKDATA.length ) return;
       computeScoreAndContinue( WORKDATA[ THEINDEX ].a.toLowerCase(), this.innerHTML.toLowerCase(), testtype);
    }
 }
@@ -2332,6 +2568,23 @@ function concludeTest(testtype,right,score,dauer,probs){
             xamresoffer.classList.add("class","notionary-exbutton");
             xamresoffer.onclick = function(e) { landingPage(); showSupers(); }
 
+            var copyLinkBtn = document.getElementById( "copyLinkBtn" );
+            if ( copyLinkBtn ) {
+               copyLinkBtn.onclick = function(e) {
+                  var url = this.getAttribute("data-url");
+                  if ( navigator.clipboard ) {
+                     navigator.clipboard.writeText(url).then(function(){
+                        popupFAI("fa-check","#4D90FE","1em");
+                     });
+                  } else {
+                     var ta = document.createElement("textarea");
+                     ta.value = url; document.body.appendChild(ta);
+                     ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
+                     popupFAI("fa-check","#4D90FE","1em");
+                  }
+               };
+            }
+
             if ( LOGGEDIN && !SMARTFON ) {
                holdsTest1  = document.getElementById( "ones" );
                              if ( holdsTest1 ) testsTaken1 = holdsTest1.getAttribute("count1");
@@ -2400,21 +2653,7 @@ function concludeTest(testtype,right,score,dauer,probs){
          }
       },function( error ){ clickNotiz( error ); }
    ).then(function(){ offNAJAX("doneTest");
-      var nimag, nlink;
-      nimag = NINFDATA[0].nimag ? NINFDATA[0].nimag : "101";
-      nlink = HARDCODE.myurl + "?tun=trial&amp;was=" + NINFDATA[0].nname.escapo();
-      FB.ui({
-          method:         "feed",
-          app_id:         "'" + HARDCODE.fapid + "'",
-          link:           nlink,
-          picture:        HARDCODE.image + nimag,
-          description:    score + "% " + convertSecondsToTime(dauer) + TRANSLAT.using,
-          caption:        "'[ " + NINFDATA[0].nname + " ] " + NINFDATA[0].ndesc + "'" },
-          function(response) {
-             if (response && !response.error_message) console.log('Posting completed.');
-             else console.log('Error while posting.');
-          }
-      );
+      // FB.ui share stub — Facebook SDK removed; no-op.
    });
 }
 function showProfileFlags(){
@@ -4093,7 +4332,6 @@ function bindAdminTools(){
 
    bindMediaCloner();         bindImagePurger();
    bindSoundPurger();         bindSoundEditor();
-   bindGoogleStaticMapsAPI(); bindGoogleDynamicMapsAPI();
 }
 function markupUserGallery(userData){
    DEBUGGER?console.log("[markupUserGallery]"):0;
@@ -4568,133 +4806,6 @@ function bindImagePurger(){
          }, function(error) { clickNotiz( error ); }
       ).then(function(){ offNAJAX("pimag"); });
    }
-}
-function bindGoogleStaticMapsAPI(){
-   DEBUGGER?console.log("[bindGoogleStaticMapsAPI]"):0;
-   var staticBtn, realarea, radio1, radio2, radio3, radio4, mapAddress, mapArea, zoomFactor = 5;
-   staticBtn  = document.getElementById( "rootGmapstat" );
-   realarea   = document.getElementById( "anonRealarea" );
-   staticBtn.onclick = function(){
-      realarea.innerHTML = 
-         "<div id='adminGoogleMapsTool'>" +
-            "<div id='radio'>" +
-               "<input type='radio' id='radio1' name='radio'><label for='radio1'>Zoom 4</label>" +
-               "<input type='radio' id='radio2' name='radio' checked='checked'><label for='radio2'>Zoom 5</label>" +
-               "<input type='radio' id='radio3' name='radio'><label for='radio3'>Zoom 6</label>" +
-               "<input type='radio' id='radio4' name='radio'><label for='radio4'>Zoom 7</label>" +
-            "</div>" +
-            "<div id='adminMapArea'></div>" +
-            "<input id='adminMapAddress' class='notionary-edit-qaInput' value='Berlin'>" +
-         "</div>";
-      mapAddress = document.getElementById( "adminMapAddress" );
-      mapArea    = document.getElementById( "adminMapArea" );
-      radio1     = document.getElementById( "radio1" );
-      radio2     = document.getElementById( "radio2" );
-      radio3     = document.getElementById( "radio3" );
-      radio4     = document.getElementById( "radio4" );
-      radio1.onclick = function(e) { zoomFactor = 4; mapAddress.onchange(); }
-      radio2.onclick = function(e) { zoomFactor = 5; mapAddress.onchange(); }
-      radio3.onclick = function(e) { zoomFactor = 6; mapAddress.onchange(); }
-      radio4.onclick = function(e) { zoomFactor = 7; mapAddress.onchange(); }
-      mapAddress.onchange = function(e) { // hardcode non SSL URL
-         var address = mapAddress.value,
-             gmapurl = "https://maps.googleapis.com/maps/api/staticmap?center=",
-             gmaparg = "&zoom=" + zoomFactor + "&format=jpg&size=700x432" +
-                       "&maptype=terrain&language=" + USERINFO[0].ulang +
-                       "&style=feature:all|" +
-                              "element:labels.text|" +
-                              "visibility:off" +
-                       "&style=feature:road|" +
-                              "element:geometry|" +
-                              "visibility:off" +
-                       "&style=feature:landscape|" +
-                              "element:geometry.fill|" +
-                              "color:0x627AAC" +    // Notionary standard background color!!!!!
-                       "&style=feature:administrative.country|" +
-                              "element:geometry.stroke|" +
-                              "color:0xFFFFFF|weight:6" +
-                       "&style=feature:administrative.province|" +
-                              "element:geometry.stroke|" +
-                              "color:0x000000|weight:6|visibility:on" +
-                       "&style=feature:administrative.country|" +
-                              "element:labels.text|" +
-                              "color:0xFFFFFF|weight:1|visibility:on" +
-                        // Notionary image marker!!!!!
-                       "&markers=icon:https://notionary.com?tun=ibyid%26was=102|" + address +
-                       "&sensor=false";
-         mapArea.innerHTML = "<img src='" + gmapurl + address + gmaparg + "'/>";
-      }
-   }
-}
-function bindGoogleDynamicMapsAPI(){
-   DEBUGGER?console.log("[bindGoogleDynamicMapsAPI]"):0;
-   var GMPASSRC = "https://maps.googleapis.com/maps/api/js",
-       GMAPSKEY = "AIzaSyDKPLdr0SOYenVMquLNFUHcmeNtddL38-A", // Loads Google Maps API Assynchronously and with a callback
-       GMAPSURI = GMPASSRC + "?key=" + GMAPSKEY + "&sensor=false&callback=runGoogleDynamicMapsAPI",
-       gmapiScript   = document.createElement("script"),
-       dynamicBtn;
-       gmapiScript.type = "text/javascript";
-       gmapiScript.src  = GMAPSURI;
-   dynamicBtn = document.getElementById( "rootGmapdyna" );
-   dynamicBtn.onclick = function(e) { document.body.appendChild(gmapiScript); }
-}
-function runGoogleDynamicMapsAPI(){
-   DEBUGGER?console.log("[runGoogleDynamicMapsAPI]"):0;
-   var realarea, geoEncode, geocoder, mapOptions, styles, styledMap, map;
-   realarea   = document.getElementById( "anonRealarea" );
-   realarea.innerHTML = "<div id='adminGoogleMapsTool'>" +
-                           "<div id='adminMapArea'></div>" +
-                           "<input id='adminMapAddress' value='Berlin'>" +
-                           "<button id='geoEncode'>Encode</button>" +
-                        "</div>";
-   geoEncode  = document.getElementById( "geoEncode" );
-   geoEncode.onclick = function(){
-      var address = document.getElementById("adminMapAddress").value;
-      geocoder.geocode( { 'address': address}, function(results, status) {
-         if (status == google.maps.GeocoderStatus.OK) {
-           map.setCenter(results[0].geometry.location);
-         } else alert("Geocode ERROR: " + status);
-      });
-   }
-   styles = [{ "elementType":"labels.text",
-         "stylers": [{ "visibility":"off" }]},
-       { "featureType": "administrative.country",
-         "elementType": "geometry.stroke",
-         "stylers": [ { "weight": 8 },
-                      { "color": "#666666" },
-                      { "visibility": "on" }
-                     ]},
-       { "featureType": "administrative.country",
-         "elementType": "labels.text",
-         "stylers": [ { "weight": 1 },
-                      { "color": "#627AAC" },
-                      { "visibility": "on" }
-                     ]},
-      ];
-  styledMap = new google.maps.StyledMapType(styles, {name: "Styled Map"});
-  geocoder = new google.maps.Geocoder();
-  mapOptions = { center: new google.maps.LatLng(-34.397, 150.644),
-           panControl: true,
-           zoomControl: true,
-           zoomControlOptions: {
-               style: google.maps.ZoomControlStyle.SMALL
-             },
-           mapTypeControl: true,
-           mapTypeControlOptions: {
-               style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
-             },
-           scaleControl: true,
-           streetViewControl: true,
-           overviewMapControl: true,
-           disableDoubleClickZoom: true,
-           //disableDefaultUI: true,  This disables the controls
-           mapTypeControlOptions: {
-              mapTypeIds: [google.maps.MapTypeId.TERRAIN, 'map_style']
-              },
-           zoom: 6 };
-  map=new google.maps.Map( document.getElementById("adminMapArea"), mapOptions);
-  map.mapTypes.set('map_style', styledMap);
-  map.setMapTypeId('map_style');
 }
 function bindBetaTest( cback ){
    DEBUGGER?console.log("[bindBetaTest]"):0;

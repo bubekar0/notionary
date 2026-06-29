@@ -579,6 +579,8 @@ nclues { display:block; margin:20px 0px; <?php echo $radWeis; ?>; }
 .frecom { width:230px !important; height:21px; }
 .trecom { height:21px; }
 .trecom body div .btn-o { min-width:60px;}
+.notionary-copylink { font-size:1.4em; cursor:pointer; color:#4D90FE; margin-left:6px; }
+.notionary-copylink:hover { color:#1a5fcc; }
 .grecom { width:230px !important;height:21px;display:inline; }
 .grecom div, .grecom div iframe { width:230px !important; }
 

@@ -77,6 +77,23 @@ function concludeTest(testtype,right,score,dauer,probs){
             xamresoffer.classList.add("class","notionary-exbutton");
             xamresoffer.onclick = function(e) { landingPage(); showSupers(); }
 
+            var copyLinkBtn = document.getElementById( "copyLinkBtn" );
+            if ( copyLinkBtn ) {
+               copyLinkBtn.onclick = function(e) {
+                  var url = this.getAttribute("data-url");
+                  if ( navigator.clipboard ) {
+                     navigator.clipboard.writeText(url).then(function(){
+                        popupFAI("fa-check","#4D90FE","1em");
+                     });
+                  } else {
+                     var ta = document.createElement("textarea");
+                     ta.value = url; document.body.appendChild(ta);
+                     ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
+                     popupFAI("fa-check","#4D90FE","1em");
+                  }
+               };
+            }
+
             if ( LOGGEDIN && !SMARTFON ) {
                holdsTest1  = document.getElementById( "ones" );
                              if ( holdsTest1 ) testsTaken1 = holdsTest1.getAttribute("count1");
@@ -145,20 +162,6 @@ function concludeTest(testtype,right,score,dauer,probs){
          }
       },function( error ){ clickNotiz( error ); }
    ).then(function(){ offNAJAX("doneTest");
-      var nimag, nlink;
-      nimag = NINFDATA[0].nimag ? NINFDATA[0].nimag : "101";
-      nlink = HARDCODE.myurl + "?tun=trial&amp;was=" + NINFDATA[0].nname.escapo();
-      FB.ui({
-          method:         "feed",
-          app_id:         "'" + HARDCODE.fapid + "'",
-          link:           nlink,
-          picture:        HARDCODE.image + nimag,
-          description:    score + "% " + convertSecondsToTime(dauer) + TRANSLAT.using,
-          caption:        "'[ " + NINFDATA[0].nname + " ] " + NINFDATA[0].ndesc + "'" },
-          function(response) {
-             if (response && !response.error_message) console.log('Posting completed.');
-             else console.log('Error while posting.');
-          }
-      );
+      // FB.ui share stub — Facebook SDK removed; no-op.
    });
 }

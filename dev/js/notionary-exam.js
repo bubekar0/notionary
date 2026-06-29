@@ -460,6 +460,7 @@ function showMultipleChoices(testtype){ // Watch out for "￭" Block separator
    xoibtns = document.getElementsByClassName( "notionary-examwahl" );
    for ( i = 0; i < xoibtns.length; i++ )
       xoibtns[i].onclick = function(e){
+         if ( THEINDEX >= WORKDATA.length ) return;
          // Button's text(), or html() of the <span>'s inner for Formulations
          var clickedText, clickedHTML, clickedChoice;
          clickedText = this.innerHTML;
@@ -483,6 +484,7 @@ function showStandardizedTests(testtype){
    xoibtns = document.getElementsByClassName( "notionary-examwahl" );
    for ( i = 0; i < xoibtns.length; i++ )
       xoibtns[i].onclick = function(e){
+      if ( THEINDEX >= WORKDATA.length ) return;
       computeScoreAndContinue( WORKDATA[ THEINDEX ].a.toLowerCase(), this.innerHTML.toLowerCase(), testtype);
    }
 }
