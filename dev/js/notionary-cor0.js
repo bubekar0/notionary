@@ -21,9 +21,7 @@ function linfoThenParseURL(){ // URL tokens (nname,level,uname) from Server dire
                   switch ( level ) { case "0": level = "learn"; break; case "1": level = "trial"; break;
                                      case "2": level = "write"; break; case "3": level = "adept"; break;
                                      case "4": level = "micro"; break; default : level = "trial"; break; }
-                  if ( typeof uname == "string" && uname.length ) // handle "uname" &u=xyz directive => Authenticate()
-                     showSigninZentral( function(){ landingPage(); showSupers(); },uname);
-                  else { landingPage(); go4it(nname,level); }
+                  landingPage(); go4it(nname,level);
                }, function( error ) { searchResults( nname ); } // This failure is treated as a search!!
             ).then(function(){ offNAJAX("ninfo"); });
          } else { landingPage(); showSupers(); }   // No directive nor Notion, so let's paint a page
@@ -48,7 +46,7 @@ function anonimize(){
        settings = document.getElementById( "userSettings" ),
        escritor = document.getElementById( "userEscritor" ),
        thumbler = document.getElementById( "mobiThumbler" );
-   mainlogo.onclick = function(e) { if ( LOGGEDIN ) window.location.href = HARDCODE.myurl; else showSigninZentral(null,null); }
+   mainlogo.onclick = function(e) { window.location.href = HARDCODE.myurl; }
    turnOff.apply(this,[ settings, escritor, thumbler ]);
 
    if ( cookieReader("coook") != "true" )

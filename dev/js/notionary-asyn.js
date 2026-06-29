@@ -97,14 +97,8 @@ function jasonXLATE(lan2L,cback){
 }
 function loadUserAdminSources(cback){
    DEBUGGER?console.log("[loadUserAdminSources]"):0;
-   LOGGEDIN = ROOTUSER = false;
-   httpget("?tun=isusr").then(
-      function(response){
-         if ( response === "true" ) LOGGEDIN = true;
-         cback();
-      },
-      function(){ cback(); }
-   );
+   LOGGEDIN = true; ROOTUSER = false;
+   cback();
 }
 function fbookButton(){ return ""; }
 function gplusButton(){ return ""; }
@@ -120,7 +114,4 @@ function displayPDFFile(server,tuwas,ancho,alto){
          " frameborder='0'>"+
       "</iframe>");
 }
-function killLoginSession(){
-   DEBUGGER?console.log("[killLoginSession]"):0;
-   httpget("?tun=outen").then( function(){ LOGGEDIN = ROOTUSER = false; window.location.reload(); }, function(){} );
-}
+
