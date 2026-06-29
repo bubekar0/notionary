@@ -1,6 +1,6 @@
 function nentr(){ onNAJAX("enter");
    httpget("?tun=mylan").then(
-      function( response ){ BROWSLAN = response; }
+      function( response ){ BROWSLAN = "en"; }
    ).then(function(){
       jasonSINFO( BROWSLAN, function(){
          jasonUINFO(function(){ if ( USERINFO[0].nosnd ) PLAYABLE = false;
@@ -43,11 +43,10 @@ function handleServerDirectives(nnameArg){
 function anonimize(){
    DEBUGGER?console.log("[anonimize]"):0;
    var mainlogo = document.getElementById( "anonMainlogo" ),
-       settings = document.getElementById( "userSettings" ),
        escritor = document.getElementById( "userEscritor" ),
        thumbler = document.getElementById( "mobiThumbler" );
    mainlogo.onclick = function(e) { window.location.href = HARDCODE.myurl; }
-   turnOff.apply(this,[ settings, escritor, thumbler ]);
+   turnOff.apply(this,[ escritor, thumbler ]);
 
    if ( cookieReader("coook") != "true" )
       disruptPopup(
@@ -60,14 +59,11 @@ function anonimize(){
 }
 function insiduous(){
    DEBUGGER?console.log("[insiduous]"):0;
-   var settings = document.getElementById( "userSettings" ),
-       escritor = document.getElementById( "userEscritor" ),
+   var escritor = document.getElementById( "userEscritor" ),
        thumbler = document.getElementById( "mobiThumbler" );
    if ( LOGGEDIN ) {
-      if ( USERINFO[0].kenne || USERINFO[0].wrote || USERINFO[0].meist || countProblemsInUINFO() ) showUserProgress();
-      settings.onclick = showProfilePopup;
+      if ( countProblemsInUINFO() ) showUserProgress();
       escritor.onclick = createNotionManually;
-      einblenden( settings, 10, "inline-block" );
       turnOn.apply(this,[ thumbler ]);
       if ( !SMARTFON ) einblenden( escritor, 10, "inline-block" );
    }
@@ -79,7 +75,7 @@ function rentr(){
        tokens = document.location.search.split("&");
        tuner = tokens[0].substr(5,tokens[0].length);
        if ( tokens.length > 1 ) { waser = tokens[1].substr(4,tokens[1].length); }
-   httpget("?tun=mylan").then(function( response ){ BROWSLAN = response; })
+   httpget("?tun=mylan").then(function( response ){ BROWSLAN = "en"; })
     .then(function(){
       jasonSINFO( BROWSLAN, function(){
          jasonUINFO(function(){ if( USERINFO[0].nosnd ) PLAYABLE = false;
@@ -143,12 +139,10 @@ function markupSkeleton(){
    var deskhtml = mobihtml = "";
    
    if ( SMARTFON )
-                 mobihtml = "<div id='userSettings' class='fa fa-cog'></div>" + 
-                            "<div id='userEscritor' class='fa fa-pencil-square-o' title='" + TRANSLAT.creak + "'></div>" +
+                 mobihtml = "<div id='userEscritor' class='fa fa-pencil-square-o' title='" + TRANSLAT.creak + "'></div>" +
                             adminMarkup();
 
-   else          deskhtml = "<div id='userSettings' class='fa fa-cog' title='" + TRANSLAT.prefs + "'></div>" +
-                            "<div id='userEscritor' class='fa fa-pencil-square-o' title='" + TRANSLAT.creak + "'></div>" +
+   else          deskhtml = "<div id='userEscritor' class='fa fa-pencil-square-o' title='" + TRANSLAT.creak + "'></div>" +
                             adminMarkup();
 
    return("<div          id='anonHeadroom' onclick='function doNothing(){}'>" +

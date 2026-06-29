@@ -31,7 +31,7 @@ function superSchreiber(supid){
 function ninfoSchreiber(nobj){
    DEBUGGER?console.log("[ninfoSchreiber]"):0;
    // A decent looking summary info about the Notion as a tooltip on Accordion
-   var imag0, pacar = champ = myone = mytwo = mytre = myall ="";
+   var imag0, pacar = myone = mytwo = mytre = myall ="";
    if(nobj.piece)
       pacar = "<div class='notionary-groupie'>" +
                  "<span class='bnero'>" + TRANSLAT.teile +
@@ -46,14 +46,6 @@ function ninfoSchreiber(nobj){
       myall = "<div class='notionary-myscores'>" +
                  "<span class='bnero'>" + TRANSLAT.perfo + "</span>" +
                   myone + mytwo + mytre +
-              "</div>";
-   if (nobj.chmp1 ) // Don't render Champion info unles there is one
-      champ = "<div class='notionary-champion'>"+
-                 "<span class='bnero'>"  + TRANSLAT.rekor + "</span>" +
-                 "<span class='bnero'>[" + nobj.chmp1.kurzen( CHAMPMAX ) + "]</span> " +
-                 "<span class='bnero'>"  + nobj.scor1 +
-                        "%(" + convertSecondsToTime(nobj.time1) + ")" +
-                 "</span>" +
               "</div>";
    return(nobj.nname + "<div class='notionary-creavatar'>" +
              "<span class='nnero'>" + TRANSLAT.creby + "</span>" +
@@ -129,15 +121,6 @@ function markupNotionsSummary(keyAR,titular,trailer){
                   "<img class='notionary-thumbnail' src='" + nisrc + "'/>" +
                   "<div class='notionary-howmany'>" + TRANSLAT.total + keyAR[x].nsize + "</div>" +
                   sterne  + percnt ;
-
-           if ( keyAR[x].chmp1 ) mu +=
-                    "<div class='notionary-topscore'>" +
-                       "<span>"  + TRANSLAT.rekor + "</span>" +
-                       "<span>[" + keyAR[x].chmp1.kurzen( CHAMPMAX ) + "]</span> " +
-                       "<span>"  + keyAR[x].scor1 +
-                              "%(" + convertSecondsToTime(keyAR[x].time1) + ")" +
-                       "</span>" +
-                    "</div>";
 
 
       mu += "</div>";

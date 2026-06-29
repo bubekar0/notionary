@@ -100,9 +100,6 @@ function loadUserAdminSources(cback){
    LOGGEDIN = true; ROOTUSER = false;
    cback();
 }
-function fbookButton(){ return ""; }
-function gplusButton(){ return ""; }
-function tweetButton(){ return ""; }
 function displayPDFFile(server,tuwas,ancho,alto){
    DEBUGGER?console.log("[displayPDFFile]"):0;
    onNAJAX("displayPDFFile");

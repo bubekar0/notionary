@@ -302,6 +302,16 @@ nclues { display:block; margin:20px 0px; <?php echo $radWeis; ?>; }
       #anonSucheajx { top:15px; right:50px; }
       #anonSuchbttn,
       #anonSuchbttn:hover { position:absolute; top:3px; right:-3px; border:none; <?php makeimg("105",30,30,"none"); ?>; }
+
+/* SHARED INPUT CONTROLS (restored from the removed auth module; used by the search box + editor) */
+.notionary-thelabel { width:30%; display:inline-block; text-align:right; }
+.notionary-loadings { position:absolute; top:25px; right:5px; width:50px; height:16px; visibility:hidden; }
+.notionary-fieldset { padding:0px; <?php myrad("5px") ?>; }
+.notionary-contents { outline:none; }
+.notionary-legendas { text-align:left; margin-left:30px; color:<?php echo $normBlau; ?>; }
+.notionary-enfocado { color:<?php echo $hardGrau; ?>; <?php opaque("1"); ?>; }
+.notionary-exfocado { color:<?php echo $normGrau; ?>; <?php opaque("0.5"); ?>; }
+.notionary-chekmark { position:absolute; display:none; top:20px; right:5px; width:25px; height:25px; }
 #anonRealarea { position:relative; width:99%; margin:0 auto; text-align:center; }
   #privacyContents, #termsContents { text-align:left; }
   #anonFootings { bottom:0px; left:0px; width:100%; margin-top:500px; padding:20px 0px; }

@@ -38,6 +38,7 @@ function par2s($probAR,$nname,$pikja,$slang){ // Convert a Problems Array into a
          $p=scapo($praw);
          $q=sql("select $felde from `$nname` where question='$p'");
          $r=mysqli_fetch_assoc($q);
+         if( !$r ) continue;
          $anser = getGoodChoice($r['answer']);
          if( $visual ) $imgid = $r['imageID'];
          if( $sonora ) $sndid = $r['soundID'];
@@ -197,7 +198,7 @@ $XLATE_ALTXT = xlate("altxt",$slang); $XLATE_LEVEL = xlate("level",$slang);
 $XLATE_PERFO = xlate("perfo",$slang); $_PERF = "[ notionary ] $XLATE_PERFO";
 $PARAM_IMAGE = param("image"); $PARAM_MYURL = param("myurl"); $PARAM_TPAGE = param("tpage");
 $TW_TIMELINE_ID = "343329091325415425"; $KURZ_MAXLEN = 25;  // Shorten long Notion names for the Button
-$exart = xlate($ttype,$slang);
+$exart = xlate($ttype,$slang); if( empty($exart) ) $exart = "Mixed";
 $query = mysqli_fetch_assoc(sql("select * from aanotion where notionID=$nidno"));
 $nname = $query['notion']; $ndesc = $query['description']; $catno = $query['category'];
 $nimag = $query['imageID']; $nslan = $query['slang'];
@@ -221,17 +222,10 @@ switch($ttype){ // Eggon/Nexto + Loben/Tadeln logic
 $nrall = nrall($nidno); // Notion Record Scores
 $noten = getNoten($nname,date('Y/m/d - g:i A'),$exart,$score,$elaps);      // The type, score and elapsed
 $prstr = par2s($probs,$nname,$pikja,$slang);  // Any exam problems nicely marked up as string
-$fbook = fbfrm("frecom",flang($slang),urlencode($PARAM_MYURL . "?tun=trial&was=" . $nname),"recommend");
-$tweet = twfrm("trecom",$slang,"",rawurlencode($_LERN.$score."%(".$elaps.") ☛  "));
-//$gplus = gpfrm("grecom","g-plus",glang($slang),$nnurl,"share");
 if ( isset($_SESSION['uname']) ) $uidno = uidno();
 if ( $lobta && isset($uidno) ){ // Loben / Tadeln für Insiders Tests 1, 2, and 3
    $marks = lobenTadeln($uidno,$nidno,$ptype,$score,$dauer,$nrall);
    $prfid = updateServer($uidno,$nidno,$ptype,$score,$dauer,$probs);
-   if( isset($prfid) ){ // Let the reviews be also available IFF conditions for mail2 are met
-      $buble = "<div id='reviewStandaloneButton' class='fa fa-comment'></div>\r\n";
-      $mail2 = "<div id='mail2' class='fa fa-envelope' title='".$_SHAM."' prfid='".$prfid."'>\r\n</div>\r\n";
-   }
    $myall = getPerformance($uidno,$nidno);    // Dispersion and Central Tendency
    $prior = getPriorResults($uidno,$nidno,$nname,$pikja,$slang); // The long list
 }
@@ -240,48 +234,19 @@ $brstr = $mostr = "<div id='perfArea' class='papier'>\r\n" . $_DONE .
                      markupBlogHeader($nname,$ndesc,$nimag,$nhtml,$mixed,$noten,$marks) .
                      $prstr;
 if( isset($uidno) ){
-   $emgut = checkEmail($uidno); // Whether Email can/may be sent
-   $sujet = getEmailSubject($exart,$nname,$mixed,$score,$elaps);
-   $emstr = "<div class='exares'>\r\n" .
-               markupBlogHeader($nname,$ndesc,$nimag,$nhtml,$mixed,$noten,$marks) .
-               $prstr ."<br/>\r\n". $myall ."<br/>\r\n". $prior['one23'] .
-            "</div>\r\n";
-   $brstr.= "<div class='notionary-completed'>\r\n" .
+   if( is_array($prior) )
+      $brstr.= "<div class='notionary-completed'>\r\n" .
                "<span id='ones' count1='" . $prior['count1'] . "'>[[" . implode(",",$prior['ones']) . "]]</span>\r\n" .
                "<span id='twos' count2='" . $prior['count2'] . "'>[[" . implode(",",$prior['twos']) . "]]</span>\r\n" .
                "<span id='tris' count3='" . $prior['count3'] . "'>[[" . implode(",",$prior['tris']) . "]]</span>\r\n" .
                $myall . $prior['allData'] .
             "</div>\r\n";
-   if( $emgut ){ mailx($sujet,$emstr,$emgut); $esent=$_SENT . " $emgut <br/>"; }
-   // Email Forwarding as well as Ratings / Reviews / Recommends should not be
-   // made available on Mixes to avoid ambiguity
-   if ( $ptype < 4 ){
-      if ( $emgut ) $fward = $_FOWD ." $mail2 <br/>";
-      $brstr .= "<div id='perfNotionSharing'>$esent $fward</div>\r\n<br/>\r\n" . // Close the perfNotionSharing DIV
-                "<div id='perfTemporaHolder'></div>\r\n<br/>\r\n" .
-                "<div id='perfNotionRating'>" . $_GOOD . " &nbsp;&nbsp;\r\n" .
-                   "<span id='perfRatingsBar'>\r\n" .
-                      "<span class='fa fa-star notionary-ratings' title='1'></span>\r\n" .
-                      "<span class='fa fa-star notionary-ratings' title='2'></span>\r\n" .
-                      "<span class='fa fa-star notionary-ratings' title='3'></span>\r\n" .
-                      "<span class='fa fa-star notionary-ratings' title='4'></span>\r\n" .
-                      "<span class='fa fa-star notionary-ratings' title='5'></span>\r\n" .
-                   "</span><br/>\r\n" .
-                "</div>\r\n" .
-                "<div id='perfNotionReview'>" . $_FEED . $buble .
-                "<div id='perfCommentBox'></div>" .
-                "</div>\r\n" ;
-   }
+   else
+      $brstr.= "<div class='notionary-completed'><span class='ngrun'>" . $XLATE_PERFO . "</span><br/><span class='notionary-perftrial'>✔" . $score . "%(" . $elaps . ")</span></div>\r\n";
 }
-$brstr .=    "<div id='perfNotionSocial'>\r\n" .
-                $_RECO . "<br/><span id='copyLinkBtn' class='fa fa-link notionary-copylink' data-url='" . htmlspecialchars($nnurl, ENT_QUOTES) . "' title='Copy link to this test'></span>" .
-             "</div>\r\n" .
-          "</div>\r\n" .  // Close the main brstr DIV open atop
+$brstr .= "</div>\r\n" .  // Close the main perfArea DIV
           "<div id='perfPanela2'></div>\r\n";
-$mostr .=    "<div id='perfNotionSocial'>" .
-                $_RECO . "<br/><span id='copyLinkBtn' class='fa fa-link notionary-copylink' data-url='" . htmlspecialchars($nnurl, ENT_QUOTES) . "' title='Copy link to this test'></span>" .
-             "</div>" .
-          "</div>" .
+$mostr .= "</div>" .
           "<div id='perfPanela2'></div>";
 if( isMobile() ) echo $mostr; else echo $brstr;
 ?>

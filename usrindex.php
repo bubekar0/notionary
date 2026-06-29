@@ -427,12 +427,10 @@ switch ( $tun ) {
    case 'schaf':case 'ander':case 'nodel':case 'raupd':case 'reupd':case 'prdel': // NOTIONS
    case 'slang':case 'mail2':case 'prefs': // USERS
    case 'txget':
-   case 'outen':case 'taken':case 'geter':case 'getme':case 'seter':case 'pfupd':
-   case 'isadm':case 'fupld':case 'qiupd':case 'niupd':case 'ieupd':case 'qsupd':case 'uload':
+   case 'geter':case 'getme':case 'seter':
+   case 'fupld':case 'qiupd':case 'niupd':case 'ieupd':case 'qsupd':case 'uload':
          legal();
          if ( !isset( $_REQUEST['was'] ) ) eval($tun."();");
          else eval($tun."(\$_REQUEST['was']);"); break;
-   case 'chusr': chusr($_REQUEST['was'],$_REQUEST['wer']); break; // VERIFY (2) args
-   case 'chema': chema($_REQUEST['was'],$_REQUEST['wer']); break; // VERIFY (2) args
 }
 ?>

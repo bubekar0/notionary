@@ -268,21 +268,7 @@ function showUserProgress(){
    DEBUGGER?console.log("[showUserProgress]"):0;
    var trophies = document.getElementById( "userTrophies" );
 
-   if ( USERINFO[0].kenne )
-      trophies.innerHTML += "<div id='userClikdata' class='notionary-trophies'>" +
-                               "<span class='fa fa-shield'></span>" +
-                               "<div class='notionary-counters'>" + USERINFO[0].kenne + "</div>" +
-                            "</div>";
-   if ( USERINFO[0].wrote )
-      trophies.innerHTML += "<div id='userWritdata' class='notionary-trophies'>" +
-                               "<span class='fa fa-trophy'></span>" +
-                               "<div class='notionary-counters'>" + USERINFO[0].wrote + "</div>" +
-                            "</div>";
-   if ( USERINFO[0].meist )
-      trophies.innerHTML += "<div id='userMastdata' class='notionary-trophies'>" +
-                               "<span class='fa fa-star'></span>" +
-                               "<div class='notionary-counters'>" + USERINFO[0].meist + "</div>" +
-                            "</div>";
+
 
    if ( countProblemsInUINFO() ) {
       trophies.innerHTML += "<div id='userProblems' class='notionary-trophies' title='" + TRANSLAT.repas + "'>" +

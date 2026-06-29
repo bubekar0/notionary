@@ -976,9 +976,6 @@ function loadUserAdminSources(cback){
    LOGGEDIN = true; ROOTUSER = false;
    cback();
 }
-function fbookButton(){ return ""; }
-function gplusButton(){ return ""; }
-function tweetButton(){ return ""; }
 function displayPDFFile(server,tuwas,ancho,alto){
    DEBUGGER?console.log("[displayPDFFile]"):0;
    onNAJAX("displayPDFFile");
@@ -993,7 +990,7 @@ function displayPDFFile(server,tuwas,ancho,alto){
 
 function nentr(){ onNAJAX("enter");
    httpget("?tun=mylan").then(
-      function( response ){ BROWSLAN = response; }
+      function( response ){ BROWSLAN = "en"; }
    ).then(function(){
       jasonSINFO( BROWSLAN, function(){
          jasonUINFO(function(){ if ( USERINFO[0].nosnd ) PLAYABLE = false;
@@ -1036,11 +1033,10 @@ function handleServerDirectives(nnameArg){
 function anonimize(){
    DEBUGGER?console.log("[anonimize]"):0;
    var mainlogo = document.getElementById( "anonMainlogo" ),
-       settings = document.getElementById( "userSettings" ),
        escritor = document.getElementById( "userEscritor" ),
        thumbler = document.getElementById( "mobiThumbler" );
    mainlogo.onclick = function(e) { window.location.href = HARDCODE.myurl; }
-   turnOff.apply(this,[ settings, escritor, thumbler ]);
+   turnOff.apply(this,[ escritor, thumbler ]);
 
    if ( cookieReader("coook") != "true" )
       disruptPopup(
@@ -1053,14 +1049,11 @@ function anonimize(){
 }
 function insiduous(){
    DEBUGGER?console.log("[insiduous]"):0;
-   var settings = document.getElementById( "userSettings" ),
-       escritor = document.getElementById( "userEscritor" ),
+   var escritor = document.getElementById( "userEscritor" ),
        thumbler = document.getElementById( "mobiThumbler" );
    if ( LOGGEDIN ) {
-      if ( USERINFO[0].kenne || USERINFO[0].wrote || USERINFO[0].meist || countProblemsInUINFO() ) showUserProgress();
-      settings.onclick = showProfilePopup;
+      if ( countProblemsInUINFO() ) showUserProgress();
       escritor.onclick = createNotionManually;
-      einblenden( settings, 10, "inline-block" );
       turnOn.apply(this,[ thumbler ]);
       if ( !SMARTFON ) einblenden( escritor, 10, "inline-block" );
    }
@@ -1072,7 +1065,7 @@ function rentr(){
        tokens = document.location.search.split("&");
        tuner = tokens[0].substr(5,tokens[0].length);
        if ( tokens.length > 1 ) { waser = tokens[1].substr(4,tokens[1].length); }
-   httpget("?tun=mylan").then(function( response ){ BROWSLAN = response; })
+   httpget("?tun=mylan").then(function( response ){ BROWSLAN = "en"; })
     .then(function(){
       jasonSINFO( BROWSLAN, function(){
          jasonUINFO(function(){ if( USERINFO[0].nosnd ) PLAYABLE = false;
@@ -1136,12 +1129,10 @@ function markupSkeleton(){
    var deskhtml = mobihtml = "";
    
    if ( SMARTFON )
-                 mobihtml = "<div id='userSettings' class='fa fa-cog'></div>" + 
-                            "<div id='userEscritor' class='fa fa-pencil-square-o' title='" + TRANSLAT.creak + "'></div>" +
+                 mobihtml = "<div id='userEscritor' class='fa fa-pencil-square-o' title='" + TRANSLAT.creak + "'></div>" +
                             adminMarkup();
 
-   else          deskhtml = "<div id='userSettings' class='fa fa-cog' title='" + TRANSLAT.prefs + "'></div>" +
-                            "<div id='userEscritor' class='fa fa-pencil-square-o' title='" + TRANSLAT.creak + "'></div>" +
+   else          deskhtml = "<div id='userEscritor' class='fa fa-pencil-square-o' title='" + TRANSLAT.creak + "'></div>" +
                             adminMarkup();
 
    return("<div          id='anonHeadroom' onclick='function doNothing(){}'>" +
@@ -1465,7 +1456,7 @@ function superSchreiber(supid){
 function ninfoSchreiber(nobj){
    DEBUGGER?console.log("[ninfoSchreiber]"):0;
    // A decent looking summary info about the Notion as a tooltip on Accordion
-   var imag0, pacar = champ = myone = mytwo = mytre = myall ="";
+   var imag0, pacar = myone = mytwo = mytre = myall ="";
    if(nobj.piece)
       pacar = "<div class='notionary-groupie'>" +
                  "<span class='bnero'>" + TRANSLAT.teile +
@@ -1480,14 +1471,6 @@ function ninfoSchreiber(nobj){
       myall = "<div class='notionary-myscores'>" +
                  "<span class='bnero'>" + TRANSLAT.perfo + "</span>" +
                   myone + mytwo + mytre +
-              "</div>";
-   if (nobj.chmp1 ) // Don't render Champion info unles there is one
-      champ = "<div class='notionary-champion'>"+
-                 "<span class='bnero'>"  + TRANSLAT.rekor + "</span>" +
-                 "<span class='bnero'>[" + nobj.chmp1.kurzen( CHAMPMAX ) + "]</span> " +
-                 "<span class='bnero'>"  + nobj.scor1 +
-                        "%(" + convertSecondsToTime(nobj.time1) + ")" +
-                 "</span>" +
               "</div>";
    return(nobj.nname + "<div class='notionary-creavatar'>" +
              "<span class='nnero'>" + TRANSLAT.creby + "</span>" +
@@ -1563,15 +1546,6 @@ function markupNotionsSummary(keyAR,titular,trailer){
                   "<img class='notionary-thumbnail' src='" + nisrc + "'/>" +
                   "<div class='notionary-howmany'>" + TRANSLAT.total + keyAR[x].nsize + "</div>" +
                   sterne  + percnt ;
-
-           if ( keyAR[x].chmp1 ) mu +=
-                    "<div class='notionary-topscore'>" +
-                       "<span>"  + TRANSLAT.rekor + "</span>" +
-                       "<span>[" + keyAR[x].chmp1.kurzen( CHAMPMAX ) + "]</span> " +
-                       "<span>"  + keyAR[x].scor1 +
-                              "%(" + convertSecondsToTime(keyAR[x].time1) + ")" +
-                       "</span>" +
-                    "</div>";
 
 
       mu += "</div>";
@@ -2674,21 +2648,7 @@ function showUserProgress(){
    DEBUGGER?console.log("[showUserProgress]"):0;
    var trophies = document.getElementById( "userTrophies" );
 
-   if ( USERINFO[0].kenne )
-      trophies.innerHTML += "<div id='userClikdata' class='notionary-trophies'>" +
-                               "<span class='fa fa-shield'></span>" +
-                               "<div class='notionary-counters'>" + USERINFO[0].kenne + "</div>" +
-                            "</div>";
-   if ( USERINFO[0].wrote )
-      trophies.innerHTML += "<div id='userWritdata' class='notionary-trophies'>" +
-                               "<span class='fa fa-trophy'></span>" +
-                               "<div class='notionary-counters'>" + USERINFO[0].wrote + "</div>" +
-                            "</div>";
-   if ( USERINFO[0].meist )
-      trophies.innerHTML += "<div id='userMastdata' class='notionary-trophies'>" +
-                               "<span class='fa fa-star'></span>" +
-                               "<div class='notionary-counters'>" + USERINFO[0].meist + "</div>" +
-                            "</div>";
+
 
    if ( countProblemsInUINFO() ) {
       trophies.innerHTML += "<div id='userProblems' class='notionary-trophies' title='" + TRANSLAT.repas + "'>" +

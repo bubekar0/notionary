@@ -436,14 +436,6 @@ elseif ( $tun === 'mudoc' ) { mudoc($was); }
 elseif ( $tun === 'ninfo' ) { ninfo(); }
 elseif ( $tun === 'mixqa' ) { mixqa($was); }
 elseif ( $tun === 'busca' ) { busca($was); }
-elseif ( $tun === 'isusr' ) { isusr(); }
-elseif ( $tun === 'outen' ) { outen(); }
-elseif ( $tun === 'login' ) { login($was); }
-elseif ( $tun === 'vrify' ) { vrify($was); }
-elseif ( $tun === 'i4got' ) { i4got($was); }
-elseif ( $tun === 'crack' ) { crack($was); }
-elseif ( $tun === 'known' ) { known($was); }
-elseif ( $tun === 'nuser' ) { nuser($was); }
 elseif ( $tun === 'sinfo' ) { sinfo($was); }
 elseif ( $tun === 'uinfo' ) { uinfo(); }
 elseif ( $tun === 'linfo' ) { linfo($was); }

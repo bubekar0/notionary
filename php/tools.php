@@ -21,10 +21,6 @@ function markupBlogHeader($nname,$ndesc,$nimag,$nhtml,$mixed,$noten,$marks){
    global $BLG_IMG_H, $BLG_IMG_W;
    $MYURL = param("myurl");
    $eggon = "";
-   if( isset( $_SESSION['uname'] ) )
-      $eggon = "<a id='eggon' href='$MYURL?n=" . $nname . "&l=1&u=" . $_SESSION['uname'] . "'>" .
-                  "<img src='$MYURL?tun=ibyid&was=162' width=150 height=35 />" .
-               "</a>\r\n";
    $IMAGE = param("image");
    $ndsty = "margin:10px 0px 15px 0px; font: normal normal 400 1em/1 Futura, Calibri, sans-serif,monospace !important;".
             "color:#000; max-width:480px !important;";
@@ -33,9 +29,6 @@ function markupBlogHeader($nname,$ndesc,$nimag,$nhtml,$mixed,$noten,$marks){
                   "vertical-align:top;max-width:400px!important;";
 $BLOG=<<<END_OF_BLOG
 <div style='display:inline-block'>
-  <div style="display:inline-block; margin-top:35px;">
-     <img style='border:1px solid black;' height="$BLG_IMG_H" width="$BLG_IMG_W" src="{$IMAGE}{$nimag}"/>
-  </div>
   <div style="$BLOG_TEXT">
       <a class="bhony" href="$nhtml"> $nname </a> $mixed <br/>
       <div style="$ndsty"> $ndesc </div>
