@@ -632,9 +632,6 @@ function markupLanguagesDropdown(snode,lanAR,defla){
            "</option>\n";
      }
   m+=   "</select>"+
-        "<img id='" + snode + "LanguageImage' "+
-           " class='notionary-langimag' src='"+
-           HARDCODE.image + languageToImage(defla)+"'/>"+
      "</div>";
    return(m);
 }

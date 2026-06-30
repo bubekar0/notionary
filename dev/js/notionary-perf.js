@@ -20,39 +20,6 @@ function bindRatingsButtons(){
          ).then( function(){ offNAJAX("raupd"); } );
       }
 }
-function bindShareByMailButton(){
-   DEBUGGER?console.log("[bindShareByMailButton]"):0;
-   var msend, whoto, whstg, temporaNode, my_OFF, my_FB;
-   msend = document.getElementById( "mail2" );
-   if ( msend ) msend.onclick = function(){
-      temporaNode = document.getElementById( "perfTemporaHolder" );
-      temporaNode.innerHTML = "<span  class='notionary-exbutton fa fa-times'></span>"+
-                              "<div   class='notionary-feedback'></div>" +
-                              markupSmartInput("sh",TRANSLAT.emtxt,true,"");
-      einblenden( temporaNode, 1000);
-      my_OFF = temporaNode.firstChild; my_OFF.onclick = function(e){ ausblenden(temporaNode,1000,false); }
-      my_FB  = my_OFF.nextSibling;    announce(my_FB,msend.getAttribute("title"),"radTang");
-      whoto = document.getElementById( "shinp" ); whstg = document.getElementById( "shstg" );
-      whoto.onfocus = function(e){ this.value = ""; activateInput( this ); }
-      whoto.onkeydown = function(e){ k =  (e.keyCode ? e.keyCode : e.which );
-         clearInput( this );
-         if ( k == "13" || k == "9" ){
-            if ( sanitized( this.value, EMAILREG ) ) {
-               colorById( this,"radGrun");
-               deactivateInput( this );
-               shstg.style.width = shstg.style.height = "34px";
-               onNAJAX("mail2");
-               httpost("usrindex.php","tun=mail2&was=" + JSON.stringify({
-                        "whoto": this.value, "prfid": msend.getAttribute("prfid") })).then(
-                     function( response ){ },
-                     function( error ){ announce(my_FB,error,"radRojo"); }
-                  ).then(function(){ ausblenden(temporaNode,1000,false); offNAJAX("mail2"); });
-            } else { announce(my_FB,TRANSLAT.eapls,"radRojo"); colorById( this,"radRojo"); }
-         }
-      }
-      whoto.style.visibility = "visible";
-   }
-}
 function concludeTest(testtype,right,score,dauer,probs){
    DEBUGGER?console.log("[concludeTest]"):0;
    var s, performance, xamrestitle, xamresoffer,
@@ -143,7 +110,7 @@ function concludeTest(testtype,right,score,dauer,probs){
                            function( error ){ clickNotiz( error ); }
                         ).then(function(){ offNAJAX("getme"); });
                      }
-                     bindRatingsButtons(); bindShareByMailButton();
+                     bindRatingsButtons();
                   }
                   if ( s = isInSuperNotions( NINFDATA[0].nidno ) ) showSuperNotion(s,panelaZwote);
                   playables = document.getElementsByClassName( "playme" );

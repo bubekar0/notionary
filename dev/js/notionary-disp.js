@@ -16,29 +16,25 @@ function markupIdempotentButtons(){
 }
 function superSchreiber(supid){
    DEBUGGER?console.log("[superSchreiber]"):0;
-   var i, creimg, sidx;
-   creimg = HARDCODE.image + "101";
+   var i, sidx;
    for ( i = 0; i < SERVINFO[3].supers.length; i++ )
       if ( SERVINFO[3].supers[i].supid == supid ) sidx = i;
-   if ( SERVINFO[3].supers[sidx].ownav ) creimg = HARDCODE.image + SERVINFO[3].supers[sidx].ownav;
    return( SERVINFO[3].supers[sidx].sname + 
       "<div class='notionary-creavatar'>" + TRANSLAT.creby +
             SERVINFO[3].supers[sidx].owner.kurzen( OWNERMAX ) +
-         "<img src='" + creimg + "'/>" +
       "</div>" +
       "<span class='notionary-call2act'>" + SERVINFO[3].supers[sidx].sdesc + "</span>");
 }
 function ninfoSchreiber(nobj){
    DEBUGGER?console.log("[ninfoSchreiber]"):0;
    // A decent looking summary info about the Notion as a tooltip on Accordion
-   var imag0, pacar = myone = mytwo = mytre = myall ="";
+   var pacar = myone = mytwo = mytre = myall ="";
    if(nobj.piece)
       pacar = "<div class='notionary-groupie'>" +
                  "<span class='bnero'>" + TRANSLAT.teile +
                          nobj.piece + "&nbsp;" + TRANSLAT.outof + nobj.parts +
                  "</span>" +
               "</div>";
-   nobj.ownav ? imag0 = HARDCODE.image + nobj.ownav : imag0 = HARDCODE.image + "101";
    if ( nobj.mysc1 ) myone = "<br/>[➊]✔" + nobj.mysc1 + "%(" + convertSecondsToTime(nobj.mybt1) + ")<br/>";
    if ( nobj.mysc2 ) mytwo = "[➋]✍" + nobj.mysc2 + "%(" + convertSecondsToTime( nobj.mybt2 ) + ")<br/>";
    if ( nobj.mysc3 ) mytre = "[❸]☜" + nobj.mysc3 + "%(" + convertSecondsToTime( nobj.mybt3 ) + ")<br/>";
@@ -50,7 +46,6 @@ function ninfoSchreiber(nobj){
    return(nobj.nname + "<div class='notionary-creavatar'>" +
              "<span class='nnero'>" + TRANSLAT.creby + "</span>" +
              nobj.owner.kurzen( OWNERMAX ) + 
-             "<img src='"+ imag0+"'/>"+
           "</div>" +
           pacar + myall +
           "<span class='notionary-call2act'>" + nobj.ndesc + "</span>" +
@@ -87,11 +82,10 @@ function computeLearnedPercent(keyAR,title,trailer){
 function markupNotionsSummary(keyAR,titular,trailer){
    DEBUGGER?console.log("[markupNotionsSummary]"):0;
    // Source used to be one of : (found|meine|npops|rcent|nrels)
-   var mu = mobMU = "", x, autor, title, sterne, nenco, nquot, nisrc; 
+   var mu = mobMU = "", x, autor, title, sterne, nenco, nquot; 
    mu += markupIdempotentButtons() + "<h2>" + titular + "</h2>";
    for ( x=0; x < keyAR.length; x++ ) {
       percnt = "<div class='notionary-prozent'></div>";
-      keyAR[x].nimag ? nisrc = HARDCODE.image + keyAR[x].nimag : nisrc = HARDCODE.image + "101";
       nquot = keyAR[x].nname.sauber();  // good enough for HTML markup
 
       try { // For user records see UNIFO[1]; other cached files are empty or unreliable
@@ -118,7 +112,6 @@ function markupNotionsSummary(keyAR,titular,trailer){
                   " class='notionary-checkbox' title='" + TRANSLAT.multi + "' "+
                   ' nname="' + nquot + '"/>'+
                "<div class='notionary-notioname'>" + nquot + "</div>" +
-                  "<img class='notionary-thumbnail' src='" + nisrc + "'/>" +
                   "<div class='notionary-howmany'>" + TRANSLAT.total + keyAR[x].nsize + "</div>" +
                   sterne  + percnt ;
 

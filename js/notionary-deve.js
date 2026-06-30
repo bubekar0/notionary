@@ -868,9 +868,6 @@ function markupLanguagesDropdown(snode,lanAR,defla){
            "</option>\n";
      }
   m+=   "</select>"+
-        "<img id='" + snode + "LanguageImage' "+
-           " class='notionary-langimag' src='"+
-           HARDCODE.image + languageToImage(defla)+"'/>"+
      "</div>";
    return(m);
 }
@@ -1076,7 +1073,7 @@ function rentr(){
                            ).then(function(){ offNAJAX("suche"); bindNotionDisplayWidgets(); });
                            break;
                      case 'learn':case 'trial':case 'write':case 'adept':case 'micro':
-                     case 'lista':case 'lesen':case 'watch':case 'amend': go4it(waser,tuner); break;
+                     case 'lista':case 'amend': go4it(waser,tuner); break;
                      case 'probs':  repasoSession(); break; 
                      case 'guide':  showGuideAtBottom(); break; 
                      default: showSearchEngine(); break;
@@ -1379,29 +1376,25 @@ function markupIdempotentButtons(){
 }
 function superSchreiber(supid){
    DEBUGGER?console.log("[superSchreiber]"):0;
-   var i, creimg, sidx;
-   creimg = HARDCODE.image + "101";
+   var i, sidx;
    for ( i = 0; i < SERVINFO[3].supers.length; i++ )
       if ( SERVINFO[3].supers[i].supid == supid ) sidx = i;
-   if ( SERVINFO[3].supers[sidx].ownav ) creimg = HARDCODE.image + SERVINFO[3].supers[sidx].ownav;
    return( SERVINFO[3].supers[sidx].sname + 
       "<div class='notionary-creavatar'>" + TRANSLAT.creby +
             SERVINFO[3].supers[sidx].owner.kurzen( OWNERMAX ) +
-         "<img src='" + creimg + "'/>" +
       "</div>" +
       "<span class='notionary-call2act'>" + SERVINFO[3].supers[sidx].sdesc + "</span>");
 }
 function ninfoSchreiber(nobj){
    DEBUGGER?console.log("[ninfoSchreiber]"):0;
    // A decent looking summary info about the Notion as a tooltip on Accordion
-   var imag0, pacar = myone = mytwo = mytre = myall ="";
+   var pacar = myone = mytwo = mytre = myall ="";
    if(nobj.piece)
       pacar = "<div class='notionary-groupie'>" +
                  "<span class='bnero'>" + TRANSLAT.teile +
                          nobj.piece + "&nbsp;" + TRANSLAT.outof + nobj.parts +
                  "</span>" +
               "</div>";
-   nobj.ownav ? imag0 = HARDCODE.image + nobj.ownav : imag0 = HARDCODE.image + "101";
    if ( nobj.mysc1 ) myone = "<br/>[➊]✔" + nobj.mysc1 + "%(" + convertSecondsToTime(nobj.mybt1) + ")<br/>";
    if ( nobj.mysc2 ) mytwo = "[➋]✍" + nobj.mysc2 + "%(" + convertSecondsToTime( nobj.mybt2 ) + ")<br/>";
    if ( nobj.mysc3 ) mytre = "[❸]☜" + nobj.mysc3 + "%(" + convertSecondsToTime( nobj.mybt3 ) + ")<br/>";
@@ -1413,7 +1406,6 @@ function ninfoSchreiber(nobj){
    return(nobj.nname + "<div class='notionary-creavatar'>" +
              "<span class='nnero'>" + TRANSLAT.creby + "</span>" +
              nobj.owner.kurzen( OWNERMAX ) + 
-             "<img src='"+ imag0+"'/>"+
           "</div>" +
           pacar + myall +
           "<span class='notionary-call2act'>" + nobj.ndesc + "</span>" +
@@ -1450,11 +1442,10 @@ function computeLearnedPercent(keyAR,title,trailer){
 function markupNotionsSummary(keyAR,titular,trailer){
    DEBUGGER?console.log("[markupNotionsSummary]"):0;
    // Source used to be one of : (found|meine|npops|rcent|nrels)
-   var mu = mobMU = "", x, autor, title, sterne, nenco, nquot, nisrc; 
+   var mu = mobMU = "", x, autor, title, sterne, nenco, nquot; 
    mu += markupIdempotentButtons() + "<h2>" + titular + "</h2>";
    for ( x=0; x < keyAR.length; x++ ) {
       percnt = "<div class='notionary-prozent'></div>";
-      keyAR[x].nimag ? nisrc = HARDCODE.image + keyAR[x].nimag : nisrc = HARDCODE.image + "101";
       nquot = keyAR[x].nname.sauber();  // good enough for HTML markup
 
       try { // For user records see UNIFO[1]; other cached files are empty or unreliable
@@ -1481,7 +1472,6 @@ function markupNotionsSummary(keyAR,titular,trailer){
                   " class='notionary-checkbox' title='" + TRANSLAT.multi + "' "+
                   ' nname="' + nquot + '"/>'+
                "<div class='notionary-notioname'>" + nquot + "</div>" +
-                  "<img class='notionary-thumbnail' src='" + nisrc + "'/>" +
                   "<div class='notionary-howmany'>" + TRANSLAT.total + keyAR[x].nsize + "</div>" +
                   sterne  + percnt ;
 
@@ -1613,26 +1603,6 @@ function levenshtein(a, b) {
    }
    return matrix[b.length][a.length];
 }
-function showYouTube(){
-   DEBUGGER?console.log("[showYouTube]"):0;
-   var VIDOPTNS = "?start=5;?rel=0&amp;fs=1&amp;autoplay=1&amp;autohide=1"+
-                       "&amp;modestbranding=1&amp;showsearch=0&amp;showinfo=0",
-       VIDWIDTH = "100%",
-       VIDHOEHE = 400,
-       mu = "", vlink, xampic;
-   xampic = document.getElementById( "examPantalla" );
-   vlink = NINFDATA[0].video.replace("watch?v=","v/") + VIDOPTNS;
-   mu += "<object " +
-          "type='application/x-shockwave-flash' " +
-          "width='" + VIDWIDTH + "' " +
-          "height='" + VIDHOEHE + "' " +
-          "data='" + vlink + "'>" +
-          "<param name='movie' value='" + vlink + "' />" +
-          "<param name='allowNetworking' value='internal' />" +
-          "<param name='allowFullScreen' value='true' />" +
-       "</object>"; // Disable click-through to YouTube site
-      xampic.innerHTML = mu;
-}
 function anchorButton( whattodo, safename, awesomei ){
    DEBUGGER?console.log("[anchorButton]"):0;
    return("<a href='" + HARDCODE.myurl + "?tun=" + whattodo + "&was=" + safename + "'>" +
@@ -1679,10 +1649,10 @@ function bindExamWidgets( testtype ){
 
    if ( NINFDATA[0].catno == "19" || NINFDATA[0].picto )  ausblenden( xamqtext );       // Standard + Pictions -->> No Question Text
    if ( NINFDATA[0].catno ==  "2" || NINFDATA[0].catno == "3" )  lenguaje = "scimath";  // FKeys use tlang or "scimath" (Math|Science)
-   if ( testtype == "lesen" || testtype == "lista" || testtype == "watch" ) ausblenden( barrotes );
-   if ( testtype == "lesen" || testtype == "lista" || testtype == "watch" || testtype == "learn" ) ausblenden( timeleft );
+   if ( testtype == "lista" ) ausblenden( barrotes );
+   if ( testtype == "lista" || testtype == "learn" ) ausblenden( timeleft );
    if ( testtype == "learn" || testtype == "trial" || testtype == "mix1b" ||            // Non Written tests hide Write Widgets
-        testtype == "lesen" || testtype == "lista" || testtype == "watch" || SMARTFON ) ausblenden(writings,10,true);
+        testtype == "lista" || SMARTFON ) ausblenden(writings,10,true);
    else if ( lenguaje != "en" ) {                                                       // Written tests in foreign tongue use FKeys
       showEditForeignButtons( keyboard, lenguaje, function(){
          xamanser.value = xamanser.value + this.innerHTML; xamanser.focus();
@@ -1699,7 +1669,7 @@ function bindExamWidgets( testtype ){
 }
 function examWidgets( testtype, bindCBK ){
    DEBUGGER?console.log("[examWidgets]"):0;
-   var safename, kurzname, learnbtn = trialbtn = writebtn = adeptbtn = listabtn = lesenbtn = watchbtn = amendbtn = "";
+   var safename, kurzname, learnbtn = trialbtn = writebtn = adeptbtn = listabtn = amendbtn = "";
 
    if ( testtype == "probs" ) safename = kurzname = TRANSLAT.repas;
    else {
@@ -1712,8 +1682,6 @@ function examWidgets( testtype, bindCBK ){
       if ( testtype != "write" )                                       writebtn = anchorButton("write",safename,"fa-pencil");
       if ( testtype != "adept" )                                       adeptbtn = anchorButton("adept",safename,"fa-undo");
       if ( testtype != "lista" && !SMARTFON )                          listabtn = anchorButton("lista",safename,"fa-file-text");
-      if ( NINFDATA[0].dokum && ( testtype != "lesen" ) && !SMARTFON ) lesenbtn = anchorButton("lesen",safename,"fa-file-pdf-o");
-      if ( NINFDATA[0].video && testtype != "watch" )               watchbtn = anchorButton("watch",safename,"fa-youtube");
       if ( ( ( NINFDATA[0].ownid == USERINFO[0].uidno ) || ROOTUSER ) && testtype != "amend" )
                                                                     amendbtn = anchorButton("amend",safename,"fa-cogs");
 
@@ -1727,7 +1695,7 @@ function examWidgets( testtype, bindCBK ){
       "<div          id='examControls'>" +
          "<div       id='examTitulare'>" + kurzname + "</div>" +
                      learnbtn + trialbtn + writebtn + adeptbtn +
-                     listabtn + lesenbtn + watchbtn + amendbtn +
+                     listabtn + amendbtn +
          "<div       id='examExitante' class='fa fa-times'></div>" +
          "<div       id='examBarrotes'>" +
             "<div    id='examFeedback'></div>" +
@@ -1775,15 +1743,10 @@ function renderExam(testtype){
                        document.getElementById( "examContents" ).innerHTML = markupTheCards( NINFDATA, "" );
                        bindTheCards();
                     }); break;
-      case "lesen": examWidgets( testtype, function(){ bindExamWidgets( testtype );
-                       document.getElementById( "examPantalla" ).innerHTML =
-                          displayPDFFile( HARDCODE.myurl, "pbyid&was=" + NINFDATA[0].dokum, DOCWIDTH, DOCHOEHE );
-                    }); break;
       case "lista": examWidgets( testtype, function(){ bindExamWidgets( testtype );
                        document.getElementById( "examPantalla" ).innerHTML =
                           displayPDFFile( HARDCODE.myurl, "dopdf&was=" + NINFDATA[0].nidno, DOCWIDTH, DOCHOEHE );
                     }); break;
-      case "watch": examWidgets( testtype, function(){ bindExamWidgets( testtype ); showYouTube(); }); break;
       case "mix1b":
       case "mix2b": WORKDATA = shuffleArray( VIELDATA ); SELECTED = 0, VIELDATA = {}, WAHLLIST = new Array();
                     examWidgets( testtype, function(){ bindExamWidgets( testtype ); getNextPair( testtype ); }); break;
@@ -2171,39 +2134,6 @@ function bindRatingsButtons(){
          ).then( function(){ offNAJAX("raupd"); } );
       }
 }
-function bindShareByMailButton(){
-   DEBUGGER?console.log("[bindShareByMailButton]"):0;
-   var msend, whoto, whstg, temporaNode, my_OFF, my_FB;
-   msend = document.getElementById( "mail2" );
-   if ( msend ) msend.onclick = function(){
-      temporaNode = document.getElementById( "perfTemporaHolder" );
-      temporaNode.innerHTML = "<span  class='notionary-exbutton fa fa-times'></span>"+
-                              "<div   class='notionary-feedback'></div>" +
-                              markupSmartInput("sh",TRANSLAT.emtxt,true,"");
-      einblenden( temporaNode, 1000);
-      my_OFF = temporaNode.firstChild; my_OFF.onclick = function(e){ ausblenden(temporaNode,1000,false); }
-      my_FB  = my_OFF.nextSibling;    announce(my_FB,msend.getAttribute("title"),"radTang");
-      whoto = document.getElementById( "shinp" ); whstg = document.getElementById( "shstg" );
-      whoto.onfocus = function(e){ this.value = ""; activateInput( this ); }
-      whoto.onkeydown = function(e){ k =  (e.keyCode ? e.keyCode : e.which );
-         clearInput( this );
-         if ( k == "13" || k == "9" ){
-            if ( sanitized( this.value, EMAILREG ) ) {
-               colorById( this,"radGrun");
-               deactivateInput( this );
-               shstg.style.width = shstg.style.height = "34px";
-               onNAJAX("mail2");
-               httpost("usrindex.php","tun=mail2&was=" + JSON.stringify({
-                        "whoto": this.value, "prfid": msend.getAttribute("prfid") })).then(
-                     function( response ){ },
-                     function( error ){ announce(my_FB,error,"radRojo"); }
-                  ).then(function(){ ausblenden(temporaNode,1000,false); offNAJAX("mail2"); });
-            } else { announce(my_FB,TRANSLAT.eapls,"radRojo"); colorById( this,"radRojo"); }
-         }
-      }
-      whoto.style.visibility = "visible";
-   }
-}
 function concludeTest(testtype,right,score,dauer,probs){
    DEBUGGER?console.log("[concludeTest]"):0;
    var s, performance, xamrestitle, xamresoffer,
@@ -2294,7 +2224,7 @@ function concludeTest(testtype,right,score,dauer,probs){
                            function( error ){ clickNotiz( error ); }
                         ).then(function(){ offNAJAX("getme"); });
                      }
-                     bindRatingsButtons(); bindShareByMailButton();
+                     bindRatingsButtons();
                   }
                   if ( s = isInSuperNotions( NINFDATA[0].nidno ) ) showSuperNotion(s,panelaZwote);
                   playables = document.getElementsByClassName( "playme" );
@@ -3010,168 +2940,6 @@ function showEditInputDiv(nname,ndesc,namedesc,bindCBK){
 
    bindCBK();
 }
-function showDokumCheckbox(nname,bindCBK){
-   DEBUGGER?console.log("[showDokumCheckbox]"):0;
-   var cbmarkup = "";
-   cbmarkup += "<span id='editDokumLabel'>" + TRANSLAT.dokum + "</span>" +
-               "<input type='checkbox' id='editDokumCbx'";
-                  try { if ( NINFDATA[0].dokum ) cbmarkup += " checked "; } catch(err){}
-   cbmarkup += "/>" +
-               "<label id='editDokumLabel' for='editDokumCbx'>" + TRANSLAT.yeses + "</label>"+
-               "<span id='editDokumGui'></span>";
-
-   document.getElementById( "editDokumDiv" ).innerHTML = cbmarkup;
-   bindCBK();
-}
-function bindDokumCheckbox(){
-   DEBUGGER?console.log("[bindDokumCheckbox]"):0;
-   var dokumbox, dokumgui;
-   dokumbox = document.getElementById( "editDokumCbx" );
-   dokumgui = document.getElementById( "editDokumGui" );
-
-   if ( !dokumbox || !dokumgui ) return;
-
-   handleDokum = function(){
-      dokumgui.innerHTML = "<button id='editAmendPDF'>" +
-                              "<span class='fa fa-file-pdf-o'></span>" + TRANSLAT.uload +
-                           "</button>";
-      document.getElementById( "editAmendPDF" ).onclick = function(e){
-         zentraller("uploadPDF","<div class='notionary-phpUpload' id='pdphp'></div>",
-            function(){ 
-               ausblenden( document.getElementById( "uploadPDFZentralUser" ), 10, true );
-               bindUploader("pd",NINFDATA[0].nname,"","","uploadPDFModalHold");
-            },
-            function(){ landingPage(); showSupers(); });
-      }
-   }
-
-   if ( dokumbox.checked ) handleDokum();
-
-   dokumbox.onchange = function(e){
-      if ( this.checked ) handleDokum();
-      else { dokumgui.innerHTML = "";
-         if ( NINFDATA[0].dokum ) {
-            seter("aapdf","","DELETE","pdfID",NINFDATA[0].dokum,function(){ 
-               seter("aapdfid","","DELETE","notionID",NINFDATA[0].nidno,function(){
-                  offNAJAX("seter"); NINFDATA[0].dokum = null; });
-            });
-         }
-      }
-   }
-}
-function showVideoCheckbox(nname,bindCBK){
-   DEBUGGER?console.log("[showVideoCheckbox]"):0;
-   var cbmarkup = "";
-   cbmarkup += "<span id='editVideoLabel'>" + TRANSLAT.video + "</span>" +
-               "<input type='checkbox' id='editVideoCbx'";
-                  try { if ( NINFDATA[0].video ) cbmarkup += " checked "; } catch(err){}
-   cbmarkup += "/>" +
-               "<label id='editVideoLabel' for='editVideoCbx'>" + TRANSLAT.yeses + "</label>"+
-               "<span id='editVideoGui'></span>";
-
-   document.getElementById( "editVideoDiv" ).innerHTML = cbmarkup;
-   bindCBK();
-}
-function bindVideoCheckbox(){
-   DEBUGGER?console.log("[bindVideoCheckbox]"):0;
-   var VIDEOURL = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/,
-       DEFYTUBE ="YouTube URL ↵",
-       videobox, videogui, ytubeurl;
-   videobox = document.getElementById( "editVideoCbx" );
-   videogui = document.getElementById( "editVideoGui" );
-
-   if ( !videobox || !videogui ) return;
-
-   handleVideo = function(){
-      videogui.innerHTML = "<input id='editYTubeURL' value='" + (NINFDATA[0].video ? NINFDATA[0].video : DEFYTUBE) + "'>";
-      einblenden( videogui,10,"inline-block" );
-
-      ytubeurl = document.getElementById( "editYTubeURL" );
-      ytubeurl.addEventListener("focus",function enfoque(){ 
-         if ( this.value == DEFYTUBE ) this.value = "";        // clear default values
-         this.removeEventListener("focus",enfoque, false);     // Prevent multiple firings
-      },false);
-      ytubeurl.onblur = function(e){ fireKey(this,13); }
-      ytubeurl.onkeydown = function(e){ var typed, k = (e.keyCode ? e.keyCode : e.which); clearInput(this);
-         if ( k == "13" || k == "9" ) {                        // process tab or enter keys only
-            ytubeurl.onblur = null;                            // Prevent the Blur event being handled after hitting enter
-            typed = this.value;                                // Video URL sanity
-            if ( typed.issane( VIDEOURL ) && this.value != NINFDATA[0].video ) { //deactivateInput( this );
-               seter("aavideo","video", this.value.replace('http:','https:'),"notionID",NINFDATA[0].nidno, function(){
-                  popupFAI("fa-check","#4D90FE","1em");
-                  onNAJAX("geter");
-                  httpost("usrindex.php","tun=geter&was=" + JSON.stringify({
-                     "secol": "video", "vonta": "aavideo",
-                     "wocol": "notionID", "valis": NINFDATA[0].nidno })
-                  ).then( function(response) {
-                        NINFDATA[0].video = response;
-                        ytubeurl.innerHTML = NINFDATA[0].video;
-                     },function(error) { clickNotiz( error ); }
-                  ).then( function(){ offNAJAX("geter"); } );
-               });
-            } else 
-               videogui.innerHTML = "<input id='editYTubeURL' value='" + (NINFDATA[0].video ? NINFDATA[0].video : DEFYTUBE) + "'>";
-         }
-      }
-   }
-
-   if ( videobox.checked )  handleVideo(); 
-
-   videobox.onchange = function(){
-      if ( this.checked ) handleVideo();
-      else { ausblenden(videogui);
-         if ( NINFDATA[0].video ) seter("aavideo","","DELETE","notionID",NINFDATA[0].nidno,
-               function(){ offNAJAX("seter"); NINFDATA[0].video = null; });
-      }
-   }
-}
-function showPictoCheckbox(nname,bindCBK){
-   DEBUGGER?console.log("[showPictoCheckbox]"):0;
-   var cbmarkup = "";
-   cbmarkup += "<span id='editPictoLabel'>" + TRANSLAT.picto + "</span>" +
-               "<input type='checkbox' id='editPictoCbx'";
-                  try { if ( NINFDATA[0].picto ) cbmarkup += " checked "; } catch(err){}
-   cbmarkup += "/>" +
-               "<label id='editPictoLabel' for='editPictoCbx'>" + TRANSLAT.yeses + "</label>"+
-               "<span id='editPictoGui'></span>";
-
-   document.getElementById( "editPictoDiv" ).innerHTML = cbmarkup;
-   bindCBK();
-}
-function bindPictoCheckbox(){
-   DEBUGGER?console.log("[bindPictoCheckbox]"):0;
-   var i, pictobox, pictogui, camerons, imagenes, questext;
-
-   pictobox = document.getElementById( "editPictoCbx" );
-   pictogui = document.getElementById( "editPictoGui" );
-   camerons = document.getElementsByClassName("notionary-camarita");
-   imagenes = document.getElementsByClassName("notionary-pictimag");
-   questext = document.getElementsByClassName("notionary-pregunta");
-
-   if ( !pictobox || !pictogui ) return;
-
-   handlePicto = function(){
-      pictogui.innerHTML = TRANSLAT.pikme;
-      for ( i = 0; i < questext.length; i++ ) ausblenden( questext[i], 100, false );
-      for ( i = 0; i < imagenes.length; i++ ) einblenden( imagenes[i], 100 );
-      for ( i = 0; i < camerons.length; i++ ) einblenden( camerons[i], 100 );
-   }
-
-   if ( pictobox.checked ) handlePicto();
-
-   try { if ( NINFDATA[0].picto ) handlePicto();
-         else for ( i = 0; i < camerons.length; i++ ) ausblenden( camerons[i] , 100, false );
-   } catch( err ){}
-
-   pictobox.onchange = function(e){
-      if ( this.checked ) handlePicto();
-      else { pictogui.innerHTML = "";
-         for ( i = 0; i < questext.length; i++ ) einblenden( questext[i], 100, "inline-block" );
-         for ( i = 0; i < imagenes.length; i++ ) ausblenden( imagenes[i], 100, false );
-         for ( i = 0; i < camerons.length; i++ ) ausblenden( camerons[i], 100, false );
-      }
-   }
-}
 function showPieceCheckbox(nname,bindCBK){
    DEBUGGER?console.log("[showPieceCheckbox]"):0;
    var cbmarkup = "";
@@ -3262,27 +3030,26 @@ function showTargetFlags( deflingo ){
    var enoption = deoption = esoption = froption = itoption = ptoption = ruoption = huoption = "",
        langhtml, flagclik, flagmenu, vanderas;
 
-   enoption = "<div class='notionary-toolitem' language='en'><span class='notionary-englisch'></span> English   </div>";
-   deoption = "<div class='notionary-toolitem' language='de'><span class='notionary-tedeschi'></span> Deutsch   </div>";
-   esoption = "<div class='notionary-toolitem' language='es'><span class='notionary-spanisch'></span> Español   </div>";
-   froption = "<div class='notionary-toolitem' language='fr'><span class='notionary-francais'></span> Français  </div>";
-   itoption = "<div class='notionary-toolitem' language='it'><span class='notionary-italiano'></span> Italiano  </div>";
-   ptoption = "<div class='notionary-toolitem' language='pt'><span class='notionary-portuges'></span> Português </div>";
-   ruoption = "<div class='notionary-toolitem' language='ru'><span class='notionary-russians'></span> Pусский   </div>";
-   huoption = "<div class='notionary-toolitem' language='hu'><span class='notionary-magyarul'></span> Magyar    </div>";
+   enoption = "<div class='notionary-toolitem' language='en'>English  </div>";
+   deoption = "<div class='notionary-toolitem' language='de'>Deutsch  </div>";
+   esoption = "<div class='notionary-toolitem' language='es'>Español  </div>";
+   froption = "<div class='notionary-toolitem' language='fr'>Français </div>";
+   itoption = "<div class='notionary-toolitem' language='it'>Italiano </div>";
+   ptoption = "<div class='notionary-toolitem' language='pt'>Português</div>";
+   ruoption = "<div class='notionary-toolitem' language='ru'>Pусский  </div>";
+   huoption = "<div class='notionary-toolitem' language='hu'>Magyar   </div>";
 
    langhtml = document.getElementById( "editLanghtml" );
-   langhtml.innerHTML = "<img id='editLangflag' title='" + TRANSLAT.tarla + "' " +
-                           " tgetlang='"+ deflingo + "' " +
-                           " src='"+ HARDCODE.image + languageToImage( deflingo ) +
-                        "'/>" +
+   langhtml.innerHTML = "<div id='editLangflag' class='notionary-langtext' title='" + TRANSLAT.tarla + "' " +
+                           " tgetlang='"+ deflingo + "'>" + deflingo.toUpperCase() +
+                        "</div>" +
                         "<div id='editLangmenu' class='notionary-tooltips'>" +
                            enoption + deoption + esoption + froption + 
                            itoption + ptoption + ruoption + huoption +
                         "</div>";
 
-   flagclik = document.getElementById( "editLangflag" ); // Clickable to shide or show the Menu
-   flagmenu = document.getElementById( "editLangmenu" ); // Container of Flag Menu HTML
+   flagclik = document.getElementById( "editLangflag" ); // Clickable to hide or show the Menu
+   flagmenu = document.getElementById( "editLangmenu" ); // Container of Lang Menu HTML
    flagclik.onclick = function(e){ if ( flagmenu.style.display == "block" ) ausblenden(flagmenu,10,true); else einblenden(flagmenu); }
 
    vanderas = document.getElementsByClassName( "notionary-toolitem" );
@@ -3290,7 +3057,7 @@ function showTargetFlags( deflingo ){
       vanderas[i].onclick = function( e ){
          e.preventDefault();
          ausblenden(flagmenu,10,true);
-         document.getElementById( "editLangflag" ).setAttribute("src", HARDCODE.image + languageToImage( this.getAttribute("language") ) );
+         document.getElementById( "editLangflag" ).innerHTML = this.getAttribute("language").toUpperCase();
          document.getElementById( "editLangflag" ).setAttribute("tgetlang",this.getAttribute("language") );
       }
 }
@@ -3298,10 +3065,8 @@ function showAddOneMoreButton(qaiAR){
    DEBUGGER?console.log("[showAddOneMoreButton]"):0;
    var addonebtn = document.getElementById( "editExtrarow" ),
        qandafeld = document.getElementById( "editContents" ),
-       pictobox  = document.getElementById( "editPictoCbx" ),
        basurita = "<div class='notionary-basurero fa fa-trash' title='" + TRANSLAT.dcard + "'></div>",
-       contador, questext, resptext, ellipsis,
-       camarita = cardimag = parlante = "";
+       contador, questext, resptext, ellipsis;
 
    addonebtn.onclick = function() {
       contador = "<div class='notionary-cardzahl'>" + parseInt( THEINDEX + 1 ) + "/" + parseInt( THEINDEX + 1 ) + "</div>",
@@ -3310,50 +3075,32 @@ function showAddOneMoreButton(qaiAR){
       ellipsis = "<div class='fa fa-ellipsis-h'  id='" + THEINDEX + "x'></div>",
       qaiAR[THEINDEX] = new Object(); qaiAR[THEINDEX].q = ""; qaiAR[THEINDEX].a = "";
 
-      if ( ISEXTANT ) {
-         // SOUNDS -->> All Notions ( Piction or not ) can sound
-         cardimag = "<img class='notionary-pictimag' src='" + HARDCODE.image + 166 + "'>";
-         parlante = "<div style='color:#E78F08' class='notionary-speakers fa fa-play' id='" +
-                        THEINDEX + "s' title='" + TRANSLAT.rcord + "'>" +
-                     "</div>";
-         // IMAGES -->> Only Pictions can show images -- Make icons available in case Piction is desired
-         camarita = "<div style='color:#E78F08' class='notionary-camarita fa fa-camera' id='" +
-                        THEINDEX + "i' title='" + TRANSLAT.qitxt + "'>" +
-                     "</div>";
-      }
-
       qandafeld.innerHTML += "<section class='notionary-cardhold' id='" + THEINDEX + "'>" +
                                 "<div  class='notionary-flipcard' qaIndex='" + THEINDEX + "'>" +
                                    "<figure class='notionary-cardface'>" +
-                                      //contador + camarita + parlante + questext + basurita +
-                                      questext + contador + camarita + parlante + basurita +
+                                      questext + contador + basurita +
                                    "</figure>" +
                                    "<figure class='notionary-cardback'>" +
-                                      //contador + ellipsis + resptext +
                                       resptext + contador + ellipsis +
                                    "</figure>" +
                                 "</div>" +
                              "</section>";
 
-      if ( ISEXTANT ) { NINFDATA[1].qaimg[THEINDEX] = {};         // Need a dummy new entry for proper Media rebinding
-         NINFDATA[1].qaimg[THEINDEX].q = TRANSLAT.qkopf;
-         NINFDATA[1].qaimg[THEINDEX].a = TRANSLAT.akopf;
-      }
-
-      if ( pictobox.checked ) ausblenden( document.getElementById( THEINDEX + "q" ), 100, false);
-      else ausblenden( document.getElementById( THEINDEX + "i" ), 100, false);
       bindTextAreas( qaiAR, THEINDEX++ );
-      if ( ISEXTANT ) { bindSpeakerButtons(); handleImageUploads("qi"); } // Bump THEINDEX before rebinding Media
       bindChoicesButtons();
    }
    return(qaiAR);
 }
 function showNotionContents(categ,nname,ndesc,tlang,qandatxt){
    DEBUGGER?console.log("[showNotionContents]"):0;
-   var contador, questext, resptext, ellipsis, nimgzahl, deletion,
+   var contador, questext, resptext, ellipsis, deletion,
        defqtime = DEFSPERQ,
-       cartinas = cardimag = camarita = parlante = imaginer = nodelbtn = "",
-       uploader = "<div id='csphp' class='notionary-phpUpload'></div>",
+       cartinas = nodelbtn = "",
+       uploader = "<div id='editPasteWrap'>" +
+                     "<textarea id='editPasteBulk' rows='6' style='display:block;width:90%;max-width:640px;min-height:120px;margin:0.6em auto;' " +
+                        "placeholder='Paste one pair per line:  question &#8677; answer   (separated by Tab,  |,  &#8212;  or  ; )'></textarea>" +
+                     "<button id='editPasteParse'><span class='fa fa-list'></span> Add pasted pairs</button>" +
+                  "</div>",
        basurita = "<div class='notionary-basurero fa fa-trash' title='" + TRANSLAT.dcard + "'></div>",
        qainhalt = new Array(),
        qalength = qandatxt.length ? qandatxt.length : CARDSMIN;
@@ -3363,34 +3110,6 @@ function showNotionContents(categ,nname,ndesc,tlang,qandatxt){
       if ( qandatxt ) { // Ammending or Uploaded -->> Walk through QA list preparing each camera, speaker and image.
          qainhalt[THEINDEX].q = qandatxt[THEINDEX].q.sauber();
          qainhalt[THEINDEX].a = qandatxt[THEINDEX].a.sauber();
-         cardimag = "";
-
-         if ( ISEXTANT ) {
-            // SOUNDS -->> All Notions ( Piction or not ) can sound
-            parlante = "<div style='color:#E78F08' class='notionary-speakers fa fa-play' id='" +
-                          THEINDEX + "s' title='" + TRANSLAT.rcord + "'>" +
-                       "</div>";
-            if ( qandatxt[THEINDEX].s ) { // A sound is extant -->> show image of speaker and blue icon
-               cardimag = "<img class='notionary-pictimag' src='" + HARDCODE.image + 166 + "'>";
-               parlante = "<div style='color:#4D90FE' class='notionary-speakers fa fa-play' id='" +
-                             THEINDEX + "s' title='" + TRANSLAT.rcord + "'>" +
-                          "</div>";
-            }
-
-            // IMAGES -->> Only Pictions can show images -- Make icons available in case Piction is desired
-            camarita = "<div style='color:#E78F08' class='notionary-camarita fa fa-camera' id='" +
-                          THEINDEX + "i' title='" + TRANSLAT.qitxt + "'>" +
-                       "</div>";
-
-            if ( qandatxt[THEINDEX].i ) { // An image is extant -->> show it and blue icon
-               camarita = "<div style='color:#4D90FE' class='notionary-camarita fa fa-camera' id='" +
-                             THEINDEX + "i' title='" + TRANSLAT.qitxt + "'>" +
-                          "</div>";
-               cardimag = "<img class='notionary-pictimag' " +  // Randomize source for easy image editing
-                             " src='" + HARDCODE.image + qandatxt[THEINDEX].i + "&r=" + Math.random( )* 100 +
-                          "'>";
-            } 
-         }
       } else qainhalt[THEINDEX].q = qainhalt[THEINDEX].a = "";   // Manualy Writing
 
       contador = "<div class='notionary-cardzahl'>" + parseInt( THEINDEX + 1 ) + "/" + qalength + "</div>";
@@ -3401,11 +3120,9 @@ function showNotionContents(categ,nname,ndesc,tlang,qandatxt){
       cartinas += "<section class='notionary-cardhold' id='" + THEINDEX + "'>" +
                      "<div  class='notionary-flipcard' qaIndex='" + THEINDEX + "'>" +
                         "<figure class='notionary-cardface'>" +
-                           //contador + camarita + cardimag + parlante + questext + basurita +
-                           questext + contador + camarita + cardimag + parlante + basurita +
+                           questext + contador + basurita +
                         "</figure>" +
                         "<figure class='notionary-cardback'>" +
-                           //contador + ellipsis + resptext +
                            resptext + contador + ellipsis +
                         "</figure>" +
                      "</div>" +
@@ -3413,24 +3130,19 @@ function showNotionContents(categ,nname,ndesc,tlang,qandatxt){
    }
 
    if ( ISEXTANT ) {
-      nimgzahl = NINFDATA[0].nimag ? NINFDATA[0].nimag : 101 + "&r=" + Math.random() * 100;  
-      imaginer = "<img id='editHauptImg' notimage='" + nimgzahl + "' src='" + HARDCODE.image + nimgzahl + "'/>";
       nodelbtn = "<button id='editDeletion'><span class='fa fa-check'></span>" + TRANSLAT.delek + "</button>";
       defqtime = NINFDATA[0].sperq ? NINFDATA[0].sperq : DEFSPERQ;
    }
 
    document.body.innerHTML = 
       "<div id='editControls'>" +
-            "<div id='editExitante' class='notionary-exbutton fa fa-times'></div>" + imaginer +
+            "<div id='editExitante' class='notionary-exbutton fa fa-times'></div>" +
             "<div id='editNnameDiv'></div>" +
             "<div id='editNdescDiv'></div>" +
             "<div id='editMetadata'>" +
                "<div id='editKatseDiv'></div>" +
                "<div id='editSperqDiv'></div>" +
-               "<div id='editDokumDiv'></div>" +
-               "<div id='editVideoDiv'></div>" +
                "<div id='editPieceDiv'></div>" +
-               "<div id='editPictoDiv'></div>" +
                "<div id='editTracking' class='notionary-tracking'>0q</div>" +
             "</div>" +
             "<div id='editLanghtml'></div>" + uploader +
@@ -3442,11 +3154,10 @@ function showNotionContents(categ,nname,ndesc,tlang,qandatxt){
 
    showTargetFlags( tlang );
 
-   if ( !qandatxt ) bindUploader("cs","","","","");  // Manually Writing or will Upload
+   if ( !qandatxt ) bindPasteBulk( qainhalt );  // Manually Writing -- client-side paste-bulk import
 
    document.getElementById( "editExitante" ).onclick = function(e){ ISEXTANT = false; landingPage(); showSupers(); }
 
-   if ( imaginer ) document.getElementById( "editHauptImg" ).onclick = function(e){ handleImageUploads("ni"); }
    showEditInputDiv(nname,ndesc,"name",function(){ 
       document.getElementById( "editNnameTxt" ).onkeydown = function(e){ activateInput(this);
          if ( this.value.match( TRANSLAT.nndef ) ) this.value = "";
@@ -3465,12 +3176,8 @@ function showNotionContents(categ,nname,ndesc,tlang,qandatxt){
    showEditSelector(nname,"katse",SERVINFO[0].katse,categ,function(){ });
 
    if ( ISEXTANT ) {
-      showDokumCheckbox(nname,bindDokumCheckbox);
-      showVideoCheckbox(nname,bindVideoCheckbox);
       showPieceCheckbox(nname,bindPieceCheckbox);
-      bindSpeakerButtons();
-      handleImageUploads("qi");
-       
+
       deletion = document.getElementById( "editDeletion" );
       deletion.onclick = function(e){ 
          notindx  = NINFDATA[0].nidno;
@@ -3489,15 +3196,40 @@ function showNotionContents(categ,nname,ndesc,tlang,qandatxt){
             }
          );
       }
-       
    }
-   showPictoCheckbox(nname,bindPictoCheckbox);
-
-
 
    bindTextAreas( qainhalt, 0 );
    bindChoicesButtons();
    return(qainhalt);
+}
+function bindPasteBulk( qaiAR ){
+   DEBUGGER?console.log("[bindPasteBulk]"):0;
+   var box = document.getElementById( "editPasteBulk" ),
+       btn = document.getElementById( "editPasteParse" );
+   if ( !box || !btn ) return;
+   btn.onclick = function(e){
+      var raw = box.value.split( /\r?\n/ ),
+          parsed = [], i, s, line, sep, q, a, at,
+          seps = [ "\t", " | ", " \u2014 ", " - ", ";" ];
+      for ( i = 0; i < raw.length; i++ ) {
+         line = raw[i]; if ( !line.trim() ) continue;
+         sep = null;
+         for ( s = 0; s < seps.length; s++ ) if ( line.indexOf( seps[s] ) > 0 ) { sep = seps[s]; break; }
+         if ( !sep ) continue;                                  // no separator on this line -> skip
+         at = line.indexOf( sep );
+         q  = line.substring( 0, at ).trim();
+         a  = line.substring( at + sep.length ).trim();
+         if ( q && a ) parsed.push( { "q": q, "a": a } );
+      }
+      if ( !parsed.length ) { clickNotiz( "No  question \u21e5 answer  pairs found to add." ); return; }
+      var nn = document.getElementById( "editNnameTxt" ).value,
+          nd = document.getElementById( "editNdescTxt" ).value,
+          cc = document.getElementById( "editKatseSel" ).value,
+          tl = document.getElementById( "editLangflag" ).getAttribute("tgetlang");
+      MOREDATA = showNotionContents( cc, nn, nd, tl, parsed );    // re-render the editor populated
+      MOREDATA = showAddOneMoreButton( MOREDATA );
+      showSubmitButton( "", MOREDATA, MOREDATA, "schaf" );
+   }
 }
 function bindTextAreas( qainhalt, highlite ){
    DEBUGGER?console.log("[bindTextAreas]"):0;
@@ -3586,49 +3318,20 @@ function bindChoicesButtons(){
       }
    }).then(function(){ offNAJAX("mudoc"); });
 }
-function bindSpeakerButtons(){
-   DEBUGGER?console.log("[bindSpeakerButtons]"):0;
-   var r, opiid, speaker;
-   for ( r = 0; r < THEINDEX; r++ ) {
-      speaker = document.getElementById( r + "s" );
-      speaker.onmouseover = function( e ){
-         opiid = this.parentNode.parentNode.parentNode.id;
-         if ( !SOUNDHOV ) SOUNDHOV = setTimeout(function(){ SOUNDHOV = null;
-         if ( NINFDATA[1].qaimg[opiid].s ) playByID( NINFDATA[1].qaimg[ opiid ].s + "&r=" + Math.random() * 100 ); },1000);
-      }
-      speaker.onmouseout = function( e ){ if ( SOUNDHOV ){ clearTimeout( SOUNDHOV ); SOUNDHOV = null; } }
-      speaker.onclick = function( e ){
-         e.stopPropagation();
-         opiid = this.parentNode.parentNode.parentNode.id;
-         zentraller("soundHoch", markupRecorder("qs") +
-            "<span id='recordedIndex' monindex='" + opiid + "'></span>" +
-            "<div id='qsphp' class='notionary-phpUpload'></div>",
-            function(){
-               ausblenden( document.getElementById( "soundHochZentralUser" ), 10, true );
-               bindRecorder("qs",NINFDATA[0].nname,NINFDATA[1].qaimg[opiid].q,NINFDATA[1].qaimg[opiid].s);
-               bindUploader("qs",NINFDATA[0].nname,NINFDATA[1].qaimg[opiid].q,opiid,"");
-            },
-            function(){ landingPage(); showSupers(); });
-      }
-      speaker.style.visibility = "visible";
-   }
-}
 function thereAreChanges(ncold,spold,npold,nnold,ndold,newAR,oldAR,tlold){
    DEBUGGER?console.log("[thereAreChanges]"):0;
-   var nccur = "", npcur = false, nncur = "", ndcur = "", gaton = "", tlnew, gibts = "",
-       catsele, spqsele, notname, notdesc, pictobox;
+   var nccur = "", nncur = "", ndcur = "", gaton = "", tlnew, gibts = "",
+       catsele, spqsele, notname, notdesc;
    catsele  = document.getElementById( "editKatseSel" );
    spqsele  = document.getElementById( "editSperqSel" );
    notname  = document.getElementById( "editNnameTxt" );
    notdesc  = document.getElementById( "editNdescTxt" );
-   pictobox = document.getElementById( "editPictoCbx" );
 
    if ( catsele ) nccur = catsele.value;
    if ( spqsele ) spcur = spqsele.value;
    if ( notname ) nncur = notname.value;
    if ( notdesc ) ndcur = notdesc.value;
    try { gaton = katxy( ncold ); } catch(err){};
-   if ( pictobox.checked ) npcur = true;
    tlnew = document.getElementById( "editLangflag" ).getAttribute("tgetlang");
 
 
@@ -3636,7 +3339,7 @@ function thereAreChanges(ncold,spold,npold,nnold,ndold,newAR,oldAR,tlold){
    if ( oldAR ) for ( x in oldAR ) if ( ( newAR[x].q != oldAR[x].q ) || ( newAR[x].a != oldAR[x].a ) ) { gibts = true; break; }
    if ( !oldAR && newAR ) for( x in newAR ) if ( newAR[x].q || newAR[x].a ){ gibts = true; break; } // any new QA ?
    if ( oldAR && ( newAR.length > oldAR.length ) ) gibts = true; // check if old Array was augmented
-   if ( ( nccur != gaton ) || ( spcur != spold ) || ( npcur != npold ) ||
+   if ( ( nccur != gaton ) || ( spcur != spold ) ||
         ( nncur != nnold ) || ( ndcur != ndold ) || ( tlnew != tlold ) ) gibts = true;
 
    if ( gibts ) return true; else return false;
@@ -3658,14 +3361,11 @@ function sendToDB(nncur,nccur,spcur,ndcur,newAR,oldAR,slang,testtype){
    DEBUGGER?console.log("[sendToDB]"):0;
    var CHOIXMIN =  5,
        i, j, tlang,
-       edit_NN, edit_ND, problema, problemq, pictobox, 
+       edit_NN, edit_ND, problema, problemq, 
        picto = false, sizeOfNewAR = 0;
 
    edit_NN  = document.getElementById( "editNnameTxt" );
    edit_ND  = document.getElementById( "editNdescTxt" );
-   pictobox = document.getElementById( "editPictoCbx" );
-
-   if ( pictobox.checked ) { picto = true; for ( i = 0; i < THEINDEX; i++ ) newAR[i].q = newAR[i].a; }
 
    tlang = document.getElementById( "editLangflag" ).getAttribute("tgetlang");
 
