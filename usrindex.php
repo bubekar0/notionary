@@ -195,51 +195,6 @@ function parseZip($filename){ // extract text of a .docx file (really a Zip XML 
    if( count($retAR) < $QANDA_MIN ) return parseNone();
    else return json_encode($retAR);
 }
-function mail2($getar){ // Clicking on the blue envelope at end of a test 0-3
-   global $hardBlue, $softRed;
-   $PARAM_MYURL = param("myurl");
-   $jason=json_decode($getar,true);
-   $whoto=$jason['whoto']; $prfid=$jason['prfid'];
-   list($_SHRK, $_SNDR, $_SNAG) = pglot(["_SHRK", "_SNDR", "_SNAG"]);
-   $stilo="color:$hardBlue;font-weight:bold;";
-   // Construct a useful sender string
-   $uidno=uidno();
-   switch ( substr($_SESSION['uname'],0,3) ){
-      case 'FB-': $desde="Facebook user ( "; break;
-      case 'TW-': $desde="Twitter user ( "; break;
-      case 'GP-': $desde="Google Plus user ( "; break;
-      default:    $desde=$_SESSION['uname']." ( "; break;
-   }
-   if( $nicki =holen("kname","aakname","userID","$uidno") ); $desde.=$nicki;
-   if( $desde.=holen("fname","aafname","userID","$uidno") ); $desde.=" ";
-   $q=sql("select * from aaperfid where perfID='$prfid'");
-   if(mysqli_num_rows($q)) {
-      $query=mysqli_fetch_assoc($q);
-      switch($query['ptype']){
-         case '0': $exart=speak("learn","","",""); break;
-         case '1': $exart=speak("trial","","",""); break;
-         case '2': $exart=speak("write","","",""); break;
-         case '3': $exart=speak("adept","","",""); break;
-      }
-      $nrall = nrall($query['notionID']);
-      $marks = lobenTadeln($query['userID'],$query['notionID'],$query['ptype'],$query['score'],$query['elapsed'],$nrall);
-      $quest = mysqli_fetch_assoc(sql("select * from aanotion where notionID=$query[notionID]"));
-      $nname = $quest['notion']; $ndesc = $quest['description']; $catno = $quest['category'];
-      $nimag = $quest['imageID']; $nslan = $quest['slang'];
-      $nhtml = $PARAM_MYURL . "?tun=trial&amp;was=" . $nname;
-      $sujet ="[notionary] $_SNDR $desde";
-      $noten = getNoten($nname,$query['dtime']." CET",$exart,$query['score'],$query['elapsed']);
-      $coreo = $_SHRK . markupBlogHeader($nname,$ndesc,$nimag,$nhtml,false,$noten,$marks);
-      $q=sql("select probs from aaprobs where perfID='$prfid'");
-      if(mysqli_num_rows($q)>0){ // Some problems encountered in this session
-         $coreo .= "<br/>$_SNAG<br/>";
-         for($i=0;$i<mysqli_num_rows($q);$i++)
-            $coreo .= "&nbsp;&nbsp;&nbsp;".getGoodChoice(mysqli_fetch_assoc($q)['probs'])."<br/>";
-      }
-      mailx($sujet,$coreo,$whoto); // use server side mail to report results
-   }
-   echo $coreo;
-}
 function prefs($getar){ // AJAX: update user preferences -> emails, pics, sounds
    $jason = json_decode(stripslashes($getar),true);
    $tafel = $jason['tafel']; $enabl = $jason['value'];
@@ -425,10 +380,10 @@ switch ( $tun ) {
    case 'ercan':ercan($_REQUEST['was']); break; // In case nimag changed or such
    // REQUIRE LOGIN BUT NOT SITE-DRIVEN
    case 'schaf':case 'ander':case 'nodel':case 'raupd':case 'reupd':case 'prdel': // NOTIONS
-   case 'slang':case 'mail2':case 'prefs': // USERS
+   case 'slang':case 'prefs': // USERS
    case 'txget':
    case 'geter':case 'getme':case 'seter':
-   case 'fupld':case 'qiupd':case 'niupd':case 'ieupd':case 'qsupd':case 'uload':
+   case 'fupld':case 'uload':
          legal();
          if ( !isset( $_REQUEST['was'] ) ) eval($tun."();");
          else eval($tun."(\$_REQUEST['was']);"); break;

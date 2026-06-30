@@ -29,7 +29,7 @@ That's it — no Composer, no Node, no build step required to run the app. The s
 
 ## Quick Start
 
-This gets you a fully working **text-based** app with the bundled seed notions. Images and audio are an optional extra step (see [Optional: media content](#optional-media-content-images--audio)).
+This gets you a fully working app with the bundled seed notions.
 
 ### 1. Clone
 
@@ -80,7 +80,7 @@ php -S localhost:8080 router.php
 
 Then open **http://localhost:8080/notionary.php**
 
-> **Use port 8080.** The seed data pins the app's base URL and media URLs to `http://localhost:8080/`. Running on a different port or host will work for browsing, but image/audio URLs in the seed content won't resolve until you update the `aaparam` table (`myurl`, `image`, `sound`) to match. For a quick local try-out, just use 8080.
+> **Use port 8080.** The seed data pins the app's base URL to `http://localhost:8080/`. Running on a different port or host will still work for browsing. For a quick local try-out, just use 8080.
 
 `router.php` is a tiny shim that lets PHP's built-in server mimic the production Apache routing (requests carrying a `?tun=` parameter are dispatched through `notionary.php`; everything else is served as a static file).
 
@@ -94,30 +94,10 @@ UPDATE aauser SET ulang='es' WHERE user='owner@notionary';
 
 This selects both the interface strings and which language's notion catalog you browse.
 
-### Optional: media content (images & audio)
-
-The flashcard media — roughly 1,600 images and 9,400+ native-speaker audio recordings — is **not** stored in git. It is distributed as a single gzipped SQL bundle and imported into your database.
-
-The bundle lives on the project's server, in its `downloads/` folder:
-
-```
-https://uozon.com/downloads/notionary-content.sql.gz   (~1.5 GB)
-```
-
-The helper script reads your `config.php`, downloads the bundle, and imports it:
-
-```bash
-bin/install-content
-```
-
-It will prompt before downloading ~1.5 GB. After it finishes, pictions (image notions) and soundtions (audio notions) will render; without it, those notions still work as text but show no media. You can delete the downloaded `.gz` afterward to reclaim disk space.
-
 ## Features
 
 - Create and edit notion sets (type directly, paste, or import).
 - Spaced-repetition engine that tracks performance and recommends review timing.
-- Native-speaker sound recordings for language learning.
-- Image support for visual flashcards.
 - Multilingual interface: English, German, Spanish, French, Italian, Portuguese, Hungarian, Russian.
 - Math-problem generators (arithmetic, fractions, GCD/LCM, percentages).
 - PDF generation for printable flashcards.

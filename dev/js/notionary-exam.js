@@ -27,26 +27,6 @@ function levenshtein(a, b) {
    }
    return matrix[b.length][a.length];
 }
-function showYouTube(){
-   DEBUGGER?console.log("[showYouTube]"):0;
-   var VIDOPTNS = "?start=5;?rel=0&amp;fs=1&amp;autoplay=1&amp;autohide=1"+
-                       "&amp;modestbranding=1&amp;showsearch=0&amp;showinfo=0",
-       VIDWIDTH = "100%",
-       VIDHOEHE = 400,
-       mu = "", vlink, xampic;
-   xampic = document.getElementById( "examPantalla" );
-   vlink = NINFDATA[0].video.replace("watch?v=","v/") + VIDOPTNS;
-   mu += "<object " +
-          "type='application/x-shockwave-flash' " +
-          "width='" + VIDWIDTH + "' " +
-          "height='" + VIDHOEHE + "' " +
-          "data='" + vlink + "'>" +
-          "<param name='movie' value='" + vlink + "' />" +
-          "<param name='allowNetworking' value='internal' />" +
-          "<param name='allowFullScreen' value='true' />" +
-       "</object>"; // Disable click-through to YouTube site
-      xampic.innerHTML = mu;
-}
 function anchorButton( whattodo, safename, awesomei ){
    DEBUGGER?console.log("[anchorButton]"):0;
    return("<a href='" + HARDCODE.myurl + "?tun=" + whattodo + "&was=" + safename + "'>" +
@@ -93,10 +73,10 @@ function bindExamWidgets( testtype ){
 
    if ( NINFDATA[0].catno == "19" || NINFDATA[0].picto )  ausblenden( xamqtext );       // Standard + Pictions -->> No Question Text
    if ( NINFDATA[0].catno ==  "2" || NINFDATA[0].catno == "3" )  lenguaje = "scimath";  // FKeys use tlang or "scimath" (Math|Science)
-   if ( testtype == "lesen" || testtype == "lista" || testtype == "watch" ) ausblenden( barrotes );
-   if ( testtype == "lesen" || testtype == "lista" || testtype == "watch" || testtype == "learn" ) ausblenden( timeleft );
+   if ( testtype == "lista" ) ausblenden( barrotes );
+   if ( testtype == "lista" || testtype == "learn" ) ausblenden( timeleft );
    if ( testtype == "learn" || testtype == "trial" || testtype == "mix1b" ||            // Non Written tests hide Write Widgets
-        testtype == "lesen" || testtype == "lista" || testtype == "watch" || SMARTFON ) ausblenden(writings,10,true);
+        testtype == "lista" || SMARTFON ) ausblenden(writings,10,true);
    else if ( lenguaje != "en" ) {                                                       // Written tests in foreign tongue use FKeys
       showEditForeignButtons( keyboard, lenguaje, function(){
          xamanser.value = xamanser.value + this.innerHTML; xamanser.focus();
@@ -113,7 +93,7 @@ function bindExamWidgets( testtype ){
 }
 function examWidgets( testtype, bindCBK ){
    DEBUGGER?console.log("[examWidgets]"):0;
-   var safename, kurzname, learnbtn = trialbtn = writebtn = adeptbtn = listabtn = lesenbtn = watchbtn = amendbtn = "";
+   var safename, kurzname, learnbtn = trialbtn = writebtn = adeptbtn = listabtn = amendbtn = "";
 
    if ( testtype == "probs" ) safename = kurzname = TRANSLAT.repas;
    else {
@@ -126,8 +106,6 @@ function examWidgets( testtype, bindCBK ){
       if ( testtype != "write" )                                       writebtn = anchorButton("write",safename,"fa-pencil");
       if ( testtype != "adept" )                                       adeptbtn = anchorButton("adept",safename,"fa-undo");
       if ( testtype != "lista" && !SMARTFON )                          listabtn = anchorButton("lista",safename,"fa-file-text");
-      if ( NINFDATA[0].dokum && ( testtype != "lesen" ) && !SMARTFON ) lesenbtn = anchorButton("lesen",safename,"fa-file-pdf-o");
-      if ( NINFDATA[0].video && testtype != "watch" )               watchbtn = anchorButton("watch",safename,"fa-youtube");
       if ( ( ( NINFDATA[0].ownid == USERINFO[0].uidno ) || ROOTUSER ) && testtype != "amend" )
                                                                     amendbtn = anchorButton("amend",safename,"fa-cogs");
 
@@ -141,7 +119,7 @@ function examWidgets( testtype, bindCBK ){
       "<div          id='examControls'>" +
          "<div       id='examTitulare'>" + kurzname + "</div>" +
                      learnbtn + trialbtn + writebtn + adeptbtn +
-                     listabtn + lesenbtn + watchbtn + amendbtn +
+                     listabtn + amendbtn +
          "<div       id='examExitante' class='fa fa-times'></div>" +
          "<div       id='examBarrotes'>" +
             "<div    id='examFeedback'></div>" +
@@ -189,15 +167,10 @@ function renderExam(testtype){
                        document.getElementById( "examContents" ).innerHTML = markupTheCards( NINFDATA, "" );
                        bindTheCards();
                     }); break;
-      case "lesen": examWidgets( testtype, function(){ bindExamWidgets( testtype );
-                       document.getElementById( "examPantalla" ).innerHTML =
-                          displayPDFFile( HARDCODE.myurl, "pbyid&was=" + NINFDATA[0].dokum, DOCWIDTH, DOCHOEHE );
-                    }); break;
       case "lista": examWidgets( testtype, function(){ bindExamWidgets( testtype );
                        document.getElementById( "examPantalla" ).innerHTML =
                           displayPDFFile( HARDCODE.myurl, "dopdf&was=" + NINFDATA[0].nidno, DOCWIDTH, DOCHOEHE );
                     }); break;
-      case "watch": examWidgets( testtype, function(){ bindExamWidgets( testtype ); showYouTube(); }); break;
       case "mix1b":
       case "mix2b": WORKDATA = shuffleArray( VIELDATA ); SELECTED = 0, VIELDATA = {}, WAHLLIST = new Array();
                     examWidgets( testtype, function(){ bindExamWidgets( testtype ); getNextPair( testtype ); }); break;

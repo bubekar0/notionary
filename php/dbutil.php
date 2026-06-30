@@ -87,24 +87,6 @@ function speak($parol,$style,$trail,$lenth){
                  .$texto ."</span>".$trail);
    else return($texto.$trail);
 }
-function idata($getar){
-   $jason = json_decode(stripslashes($getar),true);
-   $fromi = mysqli_real_escape_string(lsql(),$jason['fromi']);
-   $xmany = mysqli_real_escape_string(lsql(),$jason['xmany']);
-   unset($retAR);
-   $q = sql("select imageID, name from aaimage where imageID > $fromi limit $xmany");
-   while ( $r = mysqli_fetch_assoc($q)) $retAR[] = array( "idx" => $r['imageID'], "nom" => $r['name']);
-   echo json_encode($retAR);
-}
-function sdata($getar){
-   $jason = json_decode(stripslashes($getar),true);
-   $fromi = mysqli_real_escape_string(lsql(),$jason['fromi']);
-   $xmany = mysqli_real_escape_string(lsql(),$jason['xmany']);
-   unset($retAR);
-   $q = sql("select soundID, name from aasound where soundID > $fromi limit $xmany");
-   while ( $r = mysqli_fetch_assoc($q)) $retAR[] = array( "idx" => $r['soundID'], "nom" => $r['name']);
-   echo json_encode($retAR);
-}
 function blobbInsert($quelle,$media,$medix,$name){
    $table = "aa".$media; $index = $media."ID"; $dbnom = $name;
    $bdata = addslashes( file_get_contents( $quelle ) );
@@ -138,25 +120,6 @@ function blobbUpdate($quelle,$media,$medix,$name){
                 $media='{$bdata}', name='{$dbnom}' where $index='$medix'");
    if ( $sqlStatus ) $_SESSION['uload']['status'] = 0;
    else $_SESSION['uload']['status'] = 4;
-}
-function ibyid($imgno){
-   $NOIMGID = 101;
-   if ( !isset( $imgno ) || !is_numeric( $imgid = mysqli_real_escape_string( lsql(),$imgno ) ) )
-      $imgid = $NOIMGID;
-   $q = sql("select image,type from aaimage where imageID='$imgid'");
-   if ( mysqli_num_rows( $q ) == 0 )
-      $q = sql("select image,type from aaimage where imageID='$NOIMGID'");
-   $r = mysqli_fetch_assoc( $q );
-   ccach( $r['type'],$r['image'] );
-}
-function sbyid($sndno){
-   $NOSNDID = 1;
-   if(!is_numeric($sndid=mysqli_real_escape_string(lsql(),$sndno))) $sndid=$NOSNDID;
-   $q=sql("select sound,type from aasound where soundID='$sndid'");
-   if(mysqli_num_rows($q)==0)
-      $q=sql("select sound,type from aasound where soundID='$NOSNDID'");
-   $r=mysqli_fetch_assoc($q);
-   ccach($r['type'],$r['sound']);
 }
 function pbyid($pdfno){
    if(!is_numeric($pdfid=mysqli_real_escape_string(lsql(),$pdfno))) rjekt();

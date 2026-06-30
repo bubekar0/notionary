@@ -86,7 +86,7 @@ function rentr(){
                            ).then(function(){ offNAJAX("suche"); bindNotionDisplayWidgets(); });
                            break;
                      case 'learn':case 'trial':case 'write':case 'adept':case 'micro':
-                     case 'lista':case 'lesen':case 'watch':case 'amend': go4it(waser,tuner); break;
+                     case 'lista':case 'amend': go4it(waser,tuner); break;
                      case 'probs':  repasoSession(); break; 
                      case 'guide':  showGuideAtBottom(); break; 
                      default: showSearchEngine(); break;

@@ -425,7 +425,7 @@ $tun = isset($_REQUEST['tun']) ? $_REQUEST['tun'] : '';
 
 if ( $tun === 'mylan' ) { echo $_SESSION['slang']; exit; }
 
-$ssmkp_routes = array('guide','learn','trial','write','adept','micro','lista','lesen','watch','probs','suche','amend');
+$ssmkp_routes = array('guide','learn','trial','write','adept','micro','lista','probs','suche','amend');
 if ( in_array($tun, $ssmkp_routes) ) { ssmkp(); exit; }
 
 $was = isset($_REQUEST['was']) ? $_REQUEST['was'] : null;
@@ -439,8 +439,6 @@ elseif ( $tun === 'busca' ) { busca($was); }
 elseif ( $tun === 'sinfo' ) { sinfo($was); }
 elseif ( $tun === 'uinfo' ) { uinfo(); }
 elseif ( $tun === 'linfo' ) { linfo($was); }
-elseif ( $tun === 'ibyid' ) { ibyid($was); }
-elseif ( $tun === 'sbyid' ) { sbyid($was); }
 elseif ( $tun === 'pbyid' ) { pbyid($was); }
 else                        { porta(); }
 ?>
