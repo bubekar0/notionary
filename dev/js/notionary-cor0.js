@@ -1,6 +1,6 @@
 function nentr(){ onNAJAX("enter");
    httpget("?tun=mylan").then(
-      function( response ){ BROWSLAN = "en"; }
+      function( response ){ BROWSLAN = response; }
    ).then(function(){
       jasonSINFO( BROWSLAN, function(){
          jasonUINFO(function(){ if ( USERINFO[0].nosnd ) PLAYABLE = false;
@@ -13,7 +13,7 @@ function linfoThenParseURL(){ // URL tokens (nname,level,uname) from Server dire
    DEBUGGER?console.log("[linfoThenParseURL]"):0;
    jasonXLATE( BROWSLAN, function(){ // TRANSLAT loaded, pssibly default 'en', now this
       NAMESREG[4] = TRANSLAT.notre;
-      if ( nname == "prvcy" || nname == "condi" || nname == "terms" || nname == "okdok" ) handleServerDirectives(nname);
+      if ( nname == "okdok" ) handleServerDirectives(nname);
       else {
          if ( typeof nname == "string" && nname.length ) {// got ?n=xyz, if fake treat as search
             onNAJAX("ninfo"); // Here special fail treatment so avoid shelf jasonNINFO()
@@ -30,9 +30,6 @@ function linfoThenParseURL(){ // URL tokens (nname,level,uname) from Server dire
 }
 function handleServerDirectives(nnameArg){
    DEBUGGER?console.log("[handleServerDirectives]"):0;
-   if ( nnameArg == "prvcy" ) { landingPage(); showPrivacyPolicy(); }
-   if ( nnameArg == "condi" ) { landingPage(); showTermsOfUse(); }
-   if ( nnameArg == "terms" ) { landingPage(); showTermsOfUse(); }
    if ( nnameArg == "okdok" ) { landingPage(); showSupers();
                                 onNAJAX("dbhome");
                                 setTimeout( function(){ clickNotiz( TRANSLAT.dbhom ); },
@@ -47,15 +44,6 @@ function anonimize(){
        thumbler = document.getElementById( "mobiThumbler" );
    mainlogo.onclick = function(e) { window.location.href = HARDCODE.myurl; }
    turnOff.apply(this,[ escritor, thumbler ]);
-
-   if ( cookieReader("coook") != "true" )
-      disruptPopup(
-         "<div>" +
-            "<span id='acceptAdvice'>" + TRANSLAT.cooky + "</span> " +
-            "<span id='acceptExiter'><span class='fa fa-check'></span>" + TRANSLAT.ackno + "</span> " +
-         "</div>",
-         function(){ cookieWriter("coook","true",365); }
-      );
 }
 function insiduous(){
    DEBUGGER?console.log("[insiduous]"):0;
@@ -75,7 +63,7 @@ function rentr(){
        tokens = document.location.search.split("&");
        tuner = tokens[0].substr(5,tokens[0].length);
        if ( tokens.length > 1 ) { waser = tokens[1].substr(4,tokens[1].length); }
-   httpget("?tun=mylan").then(function( response ){ BROWSLAN = "en"; })
+   httpget("?tun=mylan").then(function( response ){ BROWSLAN = response; })
     .then(function(){
       jasonSINFO( BROWSLAN, function(){
          jasonUINFO(function(){ if( USERINFO[0].nosnd ) PLAYABLE = false;
@@ -100,11 +88,7 @@ function rentr(){
                      case 'learn':case 'trial':case 'write':case 'adept':case 'micro':
                      case 'lista':case 'lesen':case 'watch':case 'amend': go4it(waser,tuner); break;
                      case 'probs':  repasoSession(); break; 
-                     case 'prvcy':  showPrivacyPolicy(); break; 
-                     case 'terms':  showTermsOfUse(); break; 
                      case 'guide':  showGuideAtBottom(); break; 
-                     case 'cooks':  showCookiesPolicy(); break; 
-                     case 'imprs':  showImpressum(); break; 
                      default: showSearchEngine(); break;
                   }
                   renderFuss();
@@ -231,28 +215,6 @@ function renderFuss(){
    httpget("?tun=mudoc&was=fuss")
       .then(function( response ){ footer.innerHTML = response; });
 }
-function showPrivacyPolicy(){
-   DEBUGGER?console.log("[showPrivacyPolicy]"):0;
-   var shower, privacy;
-   shower  = document.getElementById( "anonRealarea" );
-             shower.innerHTML = "<div class='mudocu'><div id='privacyContents'></div></div>";
-   privacy = document.getElementById( "privacyContents" );
-   onNAJAX("mudoc");
-   httpget("?tun=mudoc&was=privacy").then(function( response ){
-      privacy.innerHTML = response;
-   }).then(function(){ offNAJAX("mudoc"); });
-}
-function showTermsOfUse(){  // As opposed to agreeToTermsOfUse() for account creation
-   DEBUGGER?console.log("[showTermsOfUse]"):0;
-   var shower, terminos;
-   shower  = document.getElementById( "anonRealarea" );
-             shower.innerHTML = "<div class='mudocu'><div id='termsContents'></div></div>";
-   terminos = document.getElementById( "termsContents" );
-   onNAJAX("mudoc");
-   httpget("?tun=mudoc&was=terms").then(function( response ){
-      terminos.innerHTML = response;
-   }).then(function(){ offNAJAX("mudoc"); });
-}
 function showGuideAtBottom(){
    DEBUGGER?console.log("[showGuideAtBottom]"):0;
    var shower, guider, learnNode, learnObj;
@@ -274,30 +236,6 @@ function showGuideAtBottom(){
       learnNode.innerHTML = TRANSLAT.fover + "<br/>" + markupTheCards( learnObj,"" );
       bindTheCards();
    }).then(function(){ offNAJAX("mudoc"); bindNotionDisplayWidgets(); });
-}
-function showCookiesPolicy(){
-   DEBUGGER?console.log("[showCookiesPolicy]"):0;
-   var shower, cooker;
-   shower  = document.getElementById( "anonRealarea" );
-             shower.innerHTML = "<div class='mudocu'><div id='cookieContents'></div></div>";
-   cooker = document.getElementById( "cookieContents" );
-   onNAJAX("mudoc");
-   httpget("?tun=mudoc&was=cookies").then(function( response ){
-      cooker.innerHTML = response;
-      bindNotionDisplayWidgets();
-   }).then(function(){ offNAJAX("mudoc"); });
-}
-function showImpressum(){
-   DEBUGGER?console.log("[showImpressum]"):0;
-   var shower, presser;
-   shower  = document.getElementById( "anonRealarea" );
-             shower.innerHTML = "<div class='mudocu'><div id='impressumContents'></div></div>";
-   presser = document.getElementById( "impressumContents" );
-   onNAJAX("mudoc");
-   httpget("?tun=mudoc&was=impressum").then(function( response ){
-      presser.innerHTML = response;
-      bindNotionDisplayWidgets();
-   }).then(function(){ offNAJAX("mudoc"); });
 }
 
 /* SEARCH FUNCTIONALITY */

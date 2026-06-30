@@ -28,13 +28,7 @@ function mfoot(){
              or kodex='igram' or kodex='ychan' or kodex='myurl' or kodex='mynom' or kodex='blogr'");
    $params = []; while( $r = mysqli_fetch_assoc($q)) $params[strtoupper($r['kodex'])] = $r['value'];
    $NOTIM = $params['IMAGE'];
-   $PVACY   = "{$params['MYURL']}?sntqo=".obfus()."&n=prvcy&cated=".obfus();
-   $TERMS   = "{$params['MYURL']}?sntqo=".obfus()."&n=condi&cated=".obfus();
-   $XLATE_PRVCY = xlate("prvcy",$_SESSION['slang']);
-   $XLATE_TERMS = xlate("terms",$_SESSION['slang']);
    $XLATE_CRITE = xlate("crite",$_SESSION['slang']);
-   $PRVCY_ANCHOR = "<a class='nroso' href='$PVACY'>$XLATE_PRVCY</a> &nbsp;&nbsp;&nbsp;";
-   $TERMS_ANCHOR = "<a class='nroso' href='$TERMS'>$XLATE_TERMS</a>\r\n";
    $MYURL_ANCHOR = "<a style='text-decoration:none;' href='{$params['MYURL']}'/><img src='{$NOTIM}235'/> </a>\r\n";
    $YCHAN_ANCHOR = "<a style='text-decoration:none;' href='{$params['YCHAN']}'/><img src='{$NOTIM}123'/> </a>\r\n";
    $BLOGR_ANCHOR = "<a style='text-decoration:none;' href='{$params['BLOGR']}'/><img src='{$NOTIM}124'/> </a>\r\n";
@@ -42,7 +36,6 @@ function mfoot(){
    $CRITE_ANCHOR = "<div class='copyrighter'> $XLATE_CRITE </div>\r\n";
 $retString =<<<END_OF_MAILFOOTER
    <div id='bottomFooter'>
-      <span id='footerLinks'> $PRVCY_ANCHOR $TERMS_ANCHOR </span>
       <span style='position:relative;top:5px;font-size:8px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
          $MYURL_ANCHOR $YCHAN_ANCHOR $BLOGR_ANCHOR
          $IGRAM_ANCHOR &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $CRITE_ANCHOR

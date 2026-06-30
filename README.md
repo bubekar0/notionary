@@ -84,6 +84,16 @@ Then open **http://localhost:8080/notionary.php**
 
 `router.php` is a tiny shim that lets PHP's built-in server mimic the production Apache routing (requests carrying a `?tun=` parameter are dispatched through `notionary.php`; everything else is served as a static file).
 
+### Choose the interface language
+
+The app serves **one interface language per install** (English by default). The seed ships notions in eight languages — including sets aimed at speakers of each language who are learning English — and the browse catalog you see is the one matching the active language. To switch, set the owner account's language to one of `en`, `de`, `es`, `fr`, `it`, `pt`, `hu`, `ru`:
+
+```sql
+UPDATE aauser SET ulang='es' WHERE user='owner@notionary';
+```
+
+This selects both the interface strings and which language's notion catalog you browse.
+
 ### Optional: media content (images & audio)
 
 The flashcard media — roughly 1,600 images and 9,400+ native-speaker audio recordings — is **not** stored in git. It is distributed as a single gzipped SQL bundle and imported into your database.
