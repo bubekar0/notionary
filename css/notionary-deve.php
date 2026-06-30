@@ -505,7 +505,7 @@ nclues { display:block; margin:20px 0px; <?php echo $radWeis; ?>; }
 
 .notionary-opaque { cursor:none; <?php opaque(".2"); ?>; }
 
-#perfArea { position:relative; width:50%; min-width:700px; margin:0 auto;
+#perfArea { position:relative; width:50%; min-width:700px; margin:40px auto;
     border:1px solid <?php echo $hardGrau; ?>; padding:20px;
     <?php fontana("normal","300","1","1"); ?>; <?php mozart("box-shadow","4px 4px 2px $hardGrau") ?>;  }
 #perfArea h4 { margin-top:-15px; }
@@ -695,10 +695,31 @@ nclues { display:block; margin:20px 0px; <?php echo $radWeis; ?>; }
 .notionary-cardback .fa-ellipsis-h { font-size:5em; }
 .notionary-qaInput { height:<?php echo $MOB_ICONS;?>px; border:none; padding:0px;
     border-bottom:1px solid #91d1d3; outline:none; <?php fontana("normal","600","1.5","1.5"); ?>; }
-.notionary-textarea { position:absolute; top:100px; left:3px; height:100px;
-    width:96%; overflow:hidden; outline:white; resize:none; <?php opaque("0.5"); ?>;
+.notionary-textarea { display:block; box-sizing:border-box; width:100%; min-height:54px; height:auto;
+    overflow:hidden; outline:none; resize:vertical; <?php opaque("1"); ?>;
     border:1px solid <?php echo $normBlau; ?>; text-align:center;
-    <?php fontana("normal","900","2","1"); ?>; <?php mozart("text-shadow","1px 1px black !important"); ?>; }
+    <?php fontana("normal","500","1","1.35"); ?>; }
+
+/* FLAT Q/A EDITOR ROWS  (the flashcards TEST mode keeps its own flip-card CSS — do not touch that) */
+.notionary-qarow { display:grid; grid-template-columns:54px 1fr 1fr 28px 28px; align-items:start;
+    gap:6px; width:96%; max-width:900px; margin:8px auto; padding:6px;
+    border:1px solid #e0e0e0; <?php myrad("6px"); ?>; }
+.notionary-qarow:hover { border-color:<?php echo $normBlau; ?>; }
+.notionary-qanum { font-size:11px; color:<?php echo $hardGrau; ?>; text-align:center; padding-top:6px; }
+.notionary-optlabel { display:block; margin-top:3px; font-size:9px; font-style:italic; color:<?php echo $hardTang; ?>; }
+.notionary-qaopt { opacity:0.85; }
+.notionary-qadots { cursor:pointer; font-size:1.4em; color:<?php echo $hardGrau; ?>; text-align:center; padding-top:6px; }
+.notionary-qadots:hover { color:<?php echo $normBlau; ?>; }
+.notionary-qarow .notionary-basurero { cursor:pointer; font-size:1.1em; color:<?php echo $softRojo; ?>; text-align:center; padding-top:6px; }
+.notionary-qarow .notionary-pregunta { color:<?php echo $hardRojo; ?>; }
+.notionary-qarow .notionary-risposta { color:<?php echo $hardGrun; ?>; }
+/* MOBILE: stack question above answer */
+@media( max-width:<?php echo $MOB_WIDTH;?>px ) {
+   .notionary-qarow { display:block; }
+   .notionary-qarow .notionary-textarea { width:100%; margin:4px 0; }
+   .notionary-qanum, .notionary-qadots, .notionary-qarow .notionary-basurero {
+      display:inline-block; vertical-align:middle; margin-right:12px; padding-top:0; }
+}
 
 .notionary-caption { color: <?php echo $hardTang; ?>; <?php fontana("normal","400","0.7","200%"); ?>; }
 .notionary-label { display:inline-block; min-width:12%; }
@@ -708,52 +729,38 @@ nclues { display:block; margin:20px 0px; <?php echo $radWeis; ?>; }
 .notionary-speakers.fa-play   { position:absolute; top:3px; left:180px; font-size:3em; }
 
 
-/* NOTION EDITOR */
-#editControls { position:fixed; top:0px; width:100%; height:165px; padding:5px 0px 0px 5px; border:1px solid #ddd;
-                background:white; <?php fontana("normal","900","1.2","100%"); ?>; z-index:888; }
-   #editControls input { <?php fontana("normal","600","1","1"); ?>; }
-   #editExitante { position:absolute; right:15px; font-size:30px; color:#666; z-index:999; }
-   #editHauptImg { position:absolute; right:280px; width:80px; height:50px; <?php myrad("5%"); ?>; cursor:pointer; }
-   #editNnameDiv, #editNdescDiv { width:calc( 100% - 280px ); }
-      #editNnameTit, #editNdescTit { width:145px; display:inline-block; }
-      #editNnameTxt, #editNdescTxt { width:calc( 100% - 250px); }
-      #editNdescLen { font-size:8px; color:<?php echo $softRojo; ?>; }
-   #editMetadata { }
-      #editKatseDiv, #editSperqDiv { display:inline-block; margin-right:20px; }
-      #editPieceDiv, #editPictoDiv { min-width:85%; display:inline-block; }
-      #editDokumCbx, #editVideoCbx, #editPieceCbx, #editPictoCbx { font-size:30px !important; cursor:pointer; }
-         #editAmendPDF { margin:0px; padding:1px 7px 2px; font-size:12px; }
-      #editDokumGui, #editVideoGui, #editPieceGui, #editPictoGui { margin-left:15px; }
-      #editPictoGui { font-size:smaller; }
+/* NOTION EDITOR — header chrome (rebuilt: one consistent flow layout, app tokens) */
+#editControls { position:sticky; top:0px; left:0px; width:100%; box-sizing:border-box;
+                padding:12px 44px 14px 18px; background:#fff; border-bottom:1px solid #ddd; z-index:888;
+                <?php fontana("normal","500","0.95","1.45"); ?>; }
+   #editExitante { position:absolute; top:8px; right:14px; font-size:24px; color:#888; cursor:pointer; z-index:999; }
+   #editExitante:hover { color:#444; }
 
+   #editNnameDiv, #editNdescDiv { display:flex; align-items:center; gap:10px; margin:3px 0px; }
+      #editNnameTit, #editNdescTit { flex:0 0 140px; text-align:right; white-space:nowrap; color:#444; <?php fontana("normal","600","0.95","1.3"); ?>; }
+      #editNnameTxt, #editNdescTxt { flex:1 1 auto; min-width:0px; padding:5px 9px; box-sizing:border-box; outline:none;
+            border:1px solid <?php echo $softGrau; ?>; <?php myrad("6px"); ?>; <?php fontana("normal","500","0.95","1.3"); ?>; }
+      #editNnameTxt:focus, #editNdescTxt:focus { border-color:<?php echo $normBlau; ?>; }
+      #editNdescLen { font-size:9px; color:<?php echo $softRojo; ?>; margin-left:4px; }
 
-#editCatsmenu { <?php fontana("normal","700","0.8","1"); ?>; }
+   #editMetadata { display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px; margin-top:8px; }
+      #editKatseDiv, #editSperqDiv, #editPieceDiv { display:inline-flex; align-items:center; gap:6px; color:#444; }
+      #editLanghtml { position:relative; display:inline-flex; align-items:center; gap:6px; color:#444; }
+      #editLangtit { white-space:nowrap; }
+      #editPieceCbx { font-size:18px; cursor:pointer; }
+      #editPieceGui { margin-left:10px; }
+      #editTracking { display:none; }
 
-            #targeterLanguageContainer { float:right; height:32px; margin:0px; }
-            #targeterLanguageSelect { <?php fontana("normal","400","0.9","1"); ?>; }
-            #editMapsZooms { display:inline;margin:0px 20px; }
-            #editMapsOverride { width:95%; margin:5px; text-align:center; border:3px solid <?php echo $hardGrau; ?>; }
-
-            #editYTubeURL { width:320px; text-align:center; font-size:10px !important; }
-         #pikja { width:12px; height:12px; margin:0px 0px 0px 20px; }
-         #editMapsArea img { width:100%; }
-
-         #editLangflag { position:absolute; top:60px; right:480px; width:50px; height:35px; cursor:pointer; border:1px solid black; }
-         #editLangflag:hover { <?php mozart("box-shadow","0px 3px 3px 0px #000"); ?>; }
-         #editLangmenu { top:130px; right:200px; width:500px; display:none; <?php fontana("normal","900","1.2","2"); ?>; }
-         #editLangmenu.notionary-tooltips:before { right:290px; }
-         #editLangmenu.notionary-tooltips:after  { right:290px; }
-
-      #editExtrarow { position:absolute; top:60px; right:250px; }
-      #editSubmiter { position:absolute; top:60px; right:80px; }
-      #editDeletion { position:absolute; top: 5px; right:80px; background:red; color:black !important; }
-      #editDeletion span { color:black; }
+   #editActions { display:inline-flex; align-items:center; gap:12px; margin-left:auto; }
+      #editExtrarow, #editSubmiter, #editDeletion { position:static; margin:0px; }
+      #editDeletion { background:<?php echo $softRojo; ?>; color:#fff !important; }
+      #editDeletion span { color:#fff; }
 
       #editChoosing { position:absolute; top:0px; width:100%; height:170px; margin:0 auto; z-index:9999;
                       text-align:center; <?php echo $radWeis; ?>; <?php fontana("normal","500","1.2","1"); ?>; }
       #editQAandGallery { max-height:<?php echo $PAD_WIDTH; ?>px; }
 
-#editContents { text-align:center; max-width:100%; margin-top:190px; overflow:hidden; }
+#editContents { text-align:center; max-width:100%; margin-top:12px; overflow:hidden; }
 #editContents .notionary-exbutton { font-size:35px !important; }
 
       .notionary-pregunta { color:<?php echo $hardRojo; ?>; }

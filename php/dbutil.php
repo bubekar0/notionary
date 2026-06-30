@@ -7,17 +7,18 @@ function creds() {
    return [ $cfg['DB_HOST'], $cfg['DB_USER'], $cfg['DB_PASSWORD'], $cfg['DB_NAME'] ];
 }
 function lsql(){
-   list( $server, $user, $pword, $dbase ) = creds();
-   $link = mysqli_connect( "p:".$server, $user, $pword, $dbase);
+   static $link = null;
+   if ( $link === null ) {
+      list( $server, $user, $pword, $dbase ) = creds();
+      $link = mysqli_connect( $server, $user, $pword, $dbase );
+      mysqli_set_charset( $link, 'utf8' );
+   }
    return( $link );
 }
-function sql( $query ) {
-   list( $server, $user, $pword, $dbase ) = creds();
-   $link = mysqli_connect( "p:".$server, $user, $pword, $dbase );
-   mysqli_set_charset( $link, 'utf8' );
-
-   if ( $rets = mysqli_query( $link, $query ) ) { mysqli_close( $link ); return( $rets ); }
-   //else throw new Exception( mysqli_error( $link )."[ $sql]" );
+function sql( $query ) { // reuse one connection per request -- no reconnect/close per query
+   $link = lsql();
+   if ( $rets = mysqli_query( $link, $query ) ) return( $rets );
+   //else throw new Exception( mysqli_error( $link )."[ $query]" );
 }
 function konto( $was, $von, $das, $val ) { return( mysqli_num_rows( sql( "select $was from `$von` where $das='$val'" ) ) ); }
 function holen( $was, $von, $das, $val ) {
@@ -120,13 +121,6 @@ function blobbUpdate($quelle,$media,$medix,$name){
                 $media='{$bdata}', name='{$dbnom}' where $index='$medix'");
    if ( $sqlStatus ) $_SESSION['uload']['status'] = 0;
    else $_SESSION['uload']['status'] = 4;
-}
-function pbyid($pdfno){
-   if(!is_numeric($pdfid=mysqli_real_escape_string(lsql(),$pdfno))) rjekt();
-   if($r=mysqli_fetch_assoc(sql("select pdf,type from aapdf where pdfID='$pdfid'"))) {
-      header("X-Frame-Options: GOFORIT");
-      ccach($r['type'],$r['pdf']);
-   }
 }
 function holif($was,$von,$das,$val){
    $columnQuery  = sql("show columns from `$von` like '$was'");

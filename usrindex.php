@@ -11,7 +11,6 @@ require_once "php/global.php";
 require_once "php/tools.php";
 
 
-function txget(){ if( isset( $_SESSION['csvJSON'] ) ) echo $_SESSION['csvJSON']; }
 function parseNone(){ // For when all else fails
    $qhead = speak("qkopf","","","");
    $ahead = speak("akopf","","","");
@@ -229,8 +228,9 @@ function reupd($getar){ // AJAX: multicol update notion review -> Can't use sete
 function nodel( $nidno ) {
    // Ensure the User owns the Notion before deleting!
    $uidno = uidno();           ercau(); ercas(); // erase the user's and system's cache files
-   $query = mysqli_fetch_assoc( sql( "select userID from aanotion where notionID='$nidno'" ) );
+   $query = mysqli_fetch_assoc( sql( "select userID, notion from aanotion where notionID='$nidno'" ) );
    if ( $query['userID'] == $uidno ) {
+      $ntabl = $query['notion'];
       sql("delete from aanotion where notionID='$nidno'");
       sql("delete from aaformula where notionID='$nidno'");
       sql("delete from aapart where notionID='$nidno'");
@@ -241,6 +241,7 @@ function nodel( $nidno ) {
       sql("delete from aareview where notionID='$nidno'");
       sql("delete from aasperq where notionID='$nidno'");
       sql("delete from aavideo where notionID='$nidno'");
+      sql("drop table `$ntabl`");
    }
 }
 function schaf( $getar ) { // AJAX: create a notion
@@ -381,7 +382,6 @@ switch ( $tun ) {
    // REQUIRE LOGIN BUT NOT SITE-DRIVEN
    case 'schaf':case 'ander':case 'nodel':case 'raupd':case 'reupd':case 'prdel': // NOTIONS
    case 'slang':case 'prefs': // USERS
-   case 'txget':
    case 'geter':case 'getme':case 'seter':
    case 'fupld':case 'uload':
          legal();

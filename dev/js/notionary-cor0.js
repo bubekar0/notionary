@@ -20,7 +20,7 @@ function linfoThenParseURL(){ // URL tokens (nname,level,uname) from Server dire
             httpget("?tun=ninfo&was=" + nname).then( function( response ) { NINFDATA = JSON.parse( response );
                   switch ( level ) { case "0": level = "learn"; break; case "1": level = "trial"; break;
                                      case "2": level = "write"; break; case "3": level = "adept"; break;
-                                     case "4": level = "micro"; break; default : level = "trial"; break; }
+                                     default : level = "trial"; break; }
                   landingPage(); go4it(nname,level);
                }, function( error ) { searchResults( nname ); } // This failure is treated as a search!!
             ).then(function(){ offNAJAX("ninfo"); });
@@ -85,7 +85,7 @@ function rentr(){
                               }, function ( error ) { clickNotiz( error ); }
                            ).then(function(){ offNAJAX("suche"); bindNotionDisplayWidgets(); });
                            break;
-                     case 'learn':case 'trial':case 'write':case 'adept':case 'micro':
+                     case 'learn':case 'trial':case 'write':case 'adept':
                      case 'lista':case 'amend': go4it(waser,tuner); break;
                      case 'probs':  repasoSession(); break; 
                      case 'guide':  showGuideAtBottom(); break; 

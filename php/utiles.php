@@ -237,6 +237,13 @@ function ccach($ctype,$cdata){
    echo $cdata;
    ob_end_flush();
 }
+function nocach($ctype,$cdata){ // dynamic, never-cache responses (e.g. live search)
+   header("Content-Type: $ctype");
+   header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+   header("Pragma: no-cache");
+   header("Expires: 0");
+   echo $cdata;
+}
 function xcach(){ foreach( glob("cache/_notionary_*INFO_*_cache.php" ) as $fname ) unlink( $fname ); }
 function ercas(){ foreach( glob("cache/_notionary_SINFO_*_cache.php" ) as $fname ) unlink( $fname ); }
 function ercal($lan2L){

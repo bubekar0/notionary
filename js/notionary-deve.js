@@ -2,7 +2,7 @@ var USERBILD, THEINDEX, TESTTIME, DECILEFT, TIMEOUTS, QUESTIME, KORREKTE, FALSCH
     ENERGIZE, ACTIVITY, BROWSLAN, SMARTFON, CHOIXHOV, IMAGEHOV, SOUNDHOV, FBAKTOUT,
     LVTARGET, LVPRCENT, LVLENGTH = 12, LVMINPCT = 0.9,
     SELECTED = PROBZAHL = 0, PENANCES = 2, CHOIXMIN = 5, CHOIXSEP = "￭", DEFSPERQ = 30,
-    OWNERMAX = CHAMPMAX = REVUEMAX = CARDSMIN = MAXTOUTS = 10, DESKNMAX = 35, MOBINMAX = 18,
+    OWNERMAX = CHAMPMAX = REVUEMAX = MAXTOUTS = 10, CARDSMIN = 5, CARDSPREFILL = 10, DESKNMAX = 35, MOBINMAX = 18,
     DEBUGGER = PLAYABLE = true,
     LOGGEDIN = ROOTUSER = ISEXTANT = false,
     WORKDATA = WAHLLIST = PROBLEMS = new Array(),
@@ -925,10 +925,10 @@ function seter(tafel,chcol,nuval,wocol,olval,cback){
       function( error ) { clickNotiz( error ); }
    );
 }
-function jasonSINFO(lan2L,cback){
+function jasonSINFO(lan2L,cback,bust){
    DEBUGGER?console.log("[jasonSINFO]"):0;
    var url = "?tun=sinfo&was=" + lan2L;
-   httpget(url).then(
+   httpget( url, bust?"Cache-Control":0, bust?"no-cache":0 ).then(
       function(response) { SERVINFO = JSON.parse( response );
          for ( i = 0; i < SERVINFO[2].param.length; i++ )
             for (x in SERVINFO[2].param[i]) HARDCODE[x] = SERVINFO[2].param[i][x];
@@ -942,10 +942,10 @@ function jasonSINFO(lan2L,cback){
       function( error ) { clickNotiz( error ); }
    ).then( cback );
 }
-function jasonUINFO(cback){
+function jasonUINFO(cback,bust){
    DEBUGGER?console.log("[jasonUINFO]"):0;
    var url = "?tun=uinfo";
-   httpget(url).then(
+   httpget( url, bust?"Cache-Control":0, bust?"no-cache":0 ).then(
       function(response) {
          if ( response.length ) {
             USERINFO = JSON.parse( response );
@@ -2470,7 +2470,7 @@ function showProfilePopup(){
                      else {
                         if ( undif || emdif ) clickNotiz(TRANSLAT.emchk);
                         else timedNotiz(TRANSLAT.pfcok);
-                        jasonUINFO();
+                        jasonUINFO( 0, true );
                      }
                   }, function( error ){ clickNotiz( error ); }
                ).then(function(){ offNAJAX("pfupd"); });
@@ -3027,39 +3027,27 @@ function showEditSelector(nname,which,optslist,opchosen,bindCBK){
 }
 function showTargetFlags( deflingo ){
    DEBUGGER?console.log("[showTargetFlags]"):0;
-   var enoption = deoption = esoption = froption = itoption = ptoption = ruoption = huoption = "",
-       langhtml, flagclik, flagmenu, vanderas;
-
-   enoption = "<div class='notionary-toolitem' language='en'>English  </div>";
-   deoption = "<div class='notionary-toolitem' language='de'>Deutsch  </div>";
-   esoption = "<div class='notionary-toolitem' language='es'>Español  </div>";
-   froption = "<div class='notionary-toolitem' language='fr'>Français </div>";
-   itoption = "<div class='notionary-toolitem' language='it'>Italiano </div>";
-   ptoption = "<div class='notionary-toolitem' language='pt'>Português</div>";
-   ruoption = "<div class='notionary-toolitem' language='ru'>Pусский  </div>";
-   huoption = "<div class='notionary-toolitem' language='hu'>Magyar   </div>";
-
-   langhtml = document.getElementById( "editLanghtml" );
-   langhtml.innerHTML = "<div id='editLangflag' class='notionary-langtext' title='" + TRANSLAT.tarla + "' " +
-                           " tgetlang='"+ deflingo + "'>" + deflingo.toUpperCase() +
-                        "</div>" +
-                        "<div id='editLangmenu' class='notionary-tooltips'>" +
-                           enoption + deoption + esoption + froption + 
-                           itoption + ptoption + ruoption + huoption +
-                        "</div>";
-
-   flagclik = document.getElementById( "editLangflag" ); // Clickable to hide or show the Menu
-   flagmenu = document.getElementById( "editLangmenu" ); // Container of Lang Menu HTML
-   flagclik.onclick = function(e){ if ( flagmenu.style.display == "block" ) ausblenden(flagmenu,10,true); else einblenden(flagmenu); }
-
-   vanderas = document.getElementsByClassName( "notionary-toolitem" );
-   for ( i = 0; i < vanderas.length; i++ )
-      vanderas[i].onclick = function( e ){
-         e.preventDefault();
-         ausblenden(flagmenu,10,true);
-         document.getElementById( "editLangflag" ).innerHTML = this.getAttribute("language").toUpperCase();
-         document.getElementById( "editLangflag" ).setAttribute("tgetlang",this.getAttribute("language") );
-      }
+   var langs = [["en","English"],["de","Deutsch"],["es","Español"],["fr","Français"],
+                ["it","Italiano"],["pt","Português"],["ru","Русский"],["hu","Magyar"]],
+       i, menumkup;
+   menumkup = "<span id='editLangtit' title='" + TRANSLAT.tarla + "'>Answer language:</span>" +
+              "<select id='editLangSel' title='" + TRANSLAT.tarla + "'>";
+   for ( i = 0; i < langs.length; i++ )
+      menumkup += "<option value='" + langs[i][0] + "'" + ( langs[i][0] == deflingo ? " selected" : "" ) + ">" + langs[i][1] + "</option>";
+   menumkup += "</select>";
+   document.getElementById( "editLanghtml" ).innerHTML = menumkup;
+}
+function flatCardRow( idx, total, q, a ){
+   var isopt = ( idx >= CARDSMIN ),
+       rowcls = isopt ? "notionary-qarow notionary-qaopt" : "notionary-qarow",
+       optag  = isopt ? "<div class='notionary-optlabel'>optional</div>" : "";
+   return( "<section class='" + rowcls + "' id='" + idx + "'>" +
+              "<div class='notionary-qanum'>" + parseInt( idx + 1 ) + "/" + total + optag + "</div>" +
+              "<textarea class='notionary-textarea notionary-pregunta' id='" + idx + "q'>" + ( q ? q : "" ) + "</textarea>" +
+              "<textarea class='notionary-textarea notionary-risposta' id='" + idx + "a'>" + ( a ? a : "" ) + "</textarea>" +
+              "<div class='fa fa-ellipsis-h notionary-qadots' id='" + idx + "x'></div>" +
+              "<div class='notionary-basurero fa fa-trash' title='" + TRANSLAT.dcard + "'></div>" +
+           "</section>" );
 }
 function showAddOneMoreButton(qaiAR){
    DEBUGGER?console.log("[showAddOneMoreButton]"):0;
@@ -3069,22 +3057,9 @@ function showAddOneMoreButton(qaiAR){
        contador, questext, resptext, ellipsis;
 
    addonebtn.onclick = function() {
-      contador = "<div class='notionary-cardzahl'>" + parseInt( THEINDEX + 1 ) + "/" + parseInt( THEINDEX + 1 ) + "</div>",
-      questext = "<textarea class='notionary-textarea notionary-pregunta' id='" + THEINDEX + "q'></textarea>",
-      resptext = "<textarea class='notionary-textarea notionary-risposta' id='" + THEINDEX + "a'></textarea>",
-      ellipsis = "<div class='fa fa-ellipsis-h'  id='" + THEINDEX + "x'></div>",
       qaiAR[THEINDEX] = new Object(); qaiAR[THEINDEX].q = ""; qaiAR[THEINDEX].a = "";
 
-      qandafeld.innerHTML += "<section class='notionary-cardhold' id='" + THEINDEX + "'>" +
-                                "<div  class='notionary-flipcard' qaIndex='" + THEINDEX + "'>" +
-                                   "<figure class='notionary-cardface'>" +
-                                      questext + contador + basurita +
-                                   "</figure>" +
-                                   "<figure class='notionary-cardback'>" +
-                                      resptext + contador + ellipsis +
-                                   "</figure>" +
-                                "</div>" +
-                             "</section>";
+      qandafeld.innerHTML += flatCardRow( THEINDEX, THEINDEX + 1, "", "" );
 
       bindTextAreas( qaiAR, THEINDEX++ );
       bindChoicesButtons();
@@ -3096,14 +3071,13 @@ function showNotionContents(categ,nname,ndesc,tlang,qandatxt){
    var contador, questext, resptext, ellipsis, deletion,
        defqtime = DEFSPERQ,
        cartinas = nodelbtn = "",
-       uploader = "<div id='editPasteWrap'>" +
-                     "<textarea id='editPasteBulk' rows='6' style='display:block;width:90%;max-width:640px;min-height:120px;margin:0.6em auto;' " +
-                        "placeholder='Paste one pair per line:  question &#8677; answer   (separated by Tab,  |,  &#8212;  or  ; )'></textarea>" +
-                     "<button id='editPasteParse'><span class='fa fa-list'></span> Add pasted pairs</button>" +
+       uploader = "<div id='editPasteWrap' style='text-align:center;'>" +
+                     "<textarea id='editPasteBulk' rows='4' style='display:block;width:90%;max-width:640px;min-height:90px;margin:0.6em auto;' " +
+                        "placeholder='Paste your list here, one pair per line:  question , answer   (or Tab / | / ; / &#8212;).  Pairs fill in automatically.'></textarea>" +
                   "</div>",
        basurita = "<div class='notionary-basurero fa fa-trash' title='" + TRANSLAT.dcard + "'></div>",
        qainhalt = new Array(),
-       qalength = qandatxt.length ? qandatxt.length : CARDSMIN;
+       qalength = qandatxt.length ? qandatxt.length : CARDSPREFILL;
 
    for ( THEINDEX = 0; THEINDEX < qalength; THEINDEX++ ) { qainhalt[THEINDEX] = new Object();
 
@@ -3112,21 +3086,7 @@ function showNotionContents(categ,nname,ndesc,tlang,qandatxt){
          qainhalt[THEINDEX].a = qandatxt[THEINDEX].a.sauber();
       } else qainhalt[THEINDEX].q = qainhalt[THEINDEX].a = "";   // Manualy Writing
 
-      contador = "<div class='notionary-cardzahl'>" + parseInt( THEINDEX + 1 ) + "/" + qalength + "</div>";
-      questext = "<textarea class='notionary-textarea notionary-pregunta' id='" + THEINDEX + "q'>" + qainhalt[THEINDEX].q + "</textarea>";
-      resptext = "<textarea class='notionary-textarea notionary-risposta' id='" + THEINDEX + "a'>" + qainhalt[THEINDEX].a + "</textarea>";
-      ellipsis = "<div class='fa fa-ellipsis-h'  id='" + THEINDEX + "x'></div>";
-
-      cartinas += "<section class='notionary-cardhold' id='" + THEINDEX + "'>" +
-                     "<div  class='notionary-flipcard' qaIndex='" + THEINDEX + "'>" +
-                        "<figure class='notionary-cardface'>" +
-                           questext + contador + basurita +
-                        "</figure>" +
-                        "<figure class='notionary-cardback'>" +
-                           resptext + contador + ellipsis +
-                        "</figure>" +
-                     "</div>" +
-                  "</section>";
+      cartinas += flatCardRow( THEINDEX, qalength, qainhalt[THEINDEX].q, qainhalt[THEINDEX].a );
    }
 
    if ( ISEXTANT ) {
@@ -3142,15 +3102,17 @@ function showNotionContents(categ,nname,ndesc,tlang,qandatxt){
             "<div id='editMetadata'>" +
                "<div id='editKatseDiv'></div>" +
                "<div id='editSperqDiv'></div>" +
+               "<div id='editLanghtml'></div>" +
                "<div id='editPieceDiv'></div>" +
                "<div id='editTracking' class='notionary-tracking'>0q</div>" +
+               "<div id='editActions'>" +
+                  "<button id='editExtrarow'><span class='fa fa-plus'> </span>" + TRANSLAT.nocht + "</button>" +
+                  "<button id='editSubmiter'><span class='fa fa-check'></span>" + TRANSLAT.savit + "</button>" + nodelbtn +
+               "</div>" +
             "</div>" +
-            "<div id='editLanghtml'></div>" + uploader +
-            "<button id='editExtrarow'><span class='fa fa-plus'> </span>" + TRANSLAT.nocht + "</button>" +
-            "<button id='editSubmiter'><span class='fa fa-check'></span>" + TRANSLAT.savit + "</button>" + nodelbtn +
       "</div>" +
       "<div id='editChoosing'></div>" +
-      "<div id='editContents'>" + cartinas + "</div>";
+      "<div id='editContents'>" + uploader + cartinas + "</div>";
 
    showTargetFlags( tlang );
 
@@ -3187,8 +3149,8 @@ function showNotionContents(categ,nname,ndesc,tlang,qandatxt){
                onNAJAX("nodel");
                httpost("usrindex.php","tun=nodel&was=" + notindx ).then(
                   function( response ){ NINFDATA = {};
-                     jasonUINFO( function(){ landingPage(); showSupers(); } );
-                     jasonSINFO( USERINFO[0].ulang, 0 );
+                     jasonUINFO( function(){ landingPage(); showSupers(); }, true );
+                     jasonSINFO( USERINFO[0].ulang, 0, true );
                      offNAJAX("nodel");
                   },
                   function( error ) { clickNotiz( error ); }
@@ -3204,67 +3166,59 @@ function showNotionContents(categ,nname,ndesc,tlang,qandatxt){
 }
 function bindPasteBulk( qaiAR ){
    DEBUGGER?console.log("[bindPasteBulk]"):0;
-   var box = document.getElementById( "editPasteBulk" ),
-       btn = document.getElementById( "editPasteParse" );
-   if ( !box || !btn ) return;
-   btn.onclick = function(e){
-      var raw = box.value.split( /\r?\n/ ),
-          parsed = [], i, s, line, sep, q, a, at,
-          seps = [ "\t", " | ", " \u2014 ", " - ", ";" ];
-      for ( i = 0; i < raw.length; i++ ) {
-         line = raw[i]; if ( !line.trim() ) continue;
-         sep = null;
-         for ( s = 0; s < seps.length; s++ ) if ( line.indexOf( seps[s] ) > 0 ) { sep = seps[s]; break; }
-         if ( !sep ) continue;                                  // no separator on this line -> skip
-         at = line.indexOf( sep );
-         q  = line.substring( 0, at ).trim();
-         a  = line.substring( at + sep.length ).trim();
-         if ( q && a ) parsed.push( { "q": q, "a": a } );
-      }
-      if ( !parsed.length ) { clickNotiz( "No  question \u21e5 answer  pairs found to add." ); return; }
-      var nn = document.getElementById( "editNnameTxt" ).value,
-          nd = document.getElementById( "editNdescTxt" ).value,
-          cc = document.getElementById( "editKatseSel" ).value,
-          tl = document.getElementById( "editLangflag" ).getAttribute("tgetlang");
-      MOREDATA = showNotionContents( cc, nn, nd, tl, parsed );    // re-render the editor populated
-      MOREDATA = showAddOneMoreButton( MOREDATA );
-      showSubmitButton( "", MOREDATA, MOREDATA, "schaf" );
+   var box = document.getElementById( "editPasteBulk" );
+   if ( !box ) return;
+   box.onpaste = function(e){
+      setTimeout( function(){                                   // let the browser drop the pasted text in first
+         var raw = box.value.split( /\r?\n/ ),
+             parsed = [], i, s, line, sep, q, a, at,
+             seps = [ "\t", " | ", " \u2014 ", " - ", ";", ", ", "," ];
+         for ( i = 0; i < raw.length; i++ ) {
+            line = raw[i]; if ( !line.trim() ) continue;
+            sep = null;
+            for ( s = 0; s < seps.length; s++ ) if ( line.indexOf( seps[s] ) > 0 ) { sep = seps[s]; break; }
+            if ( !sep ) continue;                               // no recognizable separator -> skip line
+            at = line.indexOf( sep );
+            q  = line.substring( 0, at ).trim();
+            a  = line.substring( at + sep.length ).trim();
+            if ( q && a ) parsed.push( { "q": q, "a": a } );
+         }
+         if ( !parsed.length ) return;                          // nothing parseable; leave the box for the user
+         var nn = document.getElementById( "editNnameTxt" ).value,
+             nd = document.getElementById( "editNdescTxt" ).value,
+             cc = document.getElementById( "editKatseSel" ).value,
+             tl = document.getElementById( "editLangSel" ).value;
+         MOREDATA = showNotionContents( cc, nn, nd, tl, parsed );   // re-render the editor populated
+         MOREDATA = showAddOneMoreButton( MOREDATA );
+         showSubmitButton( "", MOREDATA, MOREDATA, "schaf" );
+      }, 0 );
    }
 }
 function bindTextAreas( qainhalt, highlite ){
    DEBUGGER?console.log("[bindTextAreas]"):0;
-   var i, editrack, 
-       garbages, textares, tripdots, caras, backs;
+   var i, editrack, garbages, textares;
    editrack = document.getElementById( "editTracking" );
-   tripdots = document.getElementsByClassName( "fa-ellipsis-h" );
    textares = document.getElementsByClassName( "notionary-textarea" );
 
    for ( i = 0; i < textares.length; i++ ) textares[i].onkeyup = function(e){ var typed = this.value;
       if ( typed.substr( typed.length - 1, 1 ).issane( QANDAREG[0] ) ) { // reject problem metachars
-         this.value = typed.match( QANDAREG[1] ); 
+         this.value = typed.match( QANDAREG[1] );
       }
    } // Capture changes to either Q or A
    for ( i = 0; i < textares.length; i++ ) textares[i].oninput = function(e){
-      var currentq, currenta, nagyoppa, quesnode, rispnode, meinzahl;
-      meinzahl = this.parentNode.parentNode.parentNode.id;             // -cardhold
-
-      nagyoppa = this.parentNode.parentNode;                           // -flipcard
-      quesnode = nagyoppa.firstChild.firstChild;
-      rispnode = nagyoppa.firstChild.nextSibling.firstChild;
+      var currentq, currenta, quesnode, rispnode, meinzahl;
+      meinzahl = this.parentNode.id;                                  // -qarow
+      quesnode = document.getElementById( meinzahl + "q" );
+      rispnode = document.getElementById( meinzahl + "a" );
       currentq = quesnode.value; currenta = rispnode.value;
 
       try { if ( NINFDATA[0].picto ) currentq = currenta; } catch(err){}          // pictions Qs slaves to As. try fails if new notion
       if ( qainhalt[meinzahl].q != currentq ) { qainhalt[meinzahl].q = currentq; }
       if ( qainhalt[meinzahl].a != currenta ) { qainhalt[meinzahl].a = currenta; }
       colorById( this, "radTang" );
-   }  // Highlight focused card
+   }  // Track focused row for the accented-char keyboard
    for ( i = 0; i < textares.length; i++ ) textares[i].onfocus = function(){
-      editrack.innerHTML = this.id; activeta = document.getElementById( this.id );
-      activeta.style.opacity = 1; activeta.style.filter  = "alpha(opacity=100)";
-   } // Lowlight blurred cards
-   for ( i = 0; i < textares.length; i++ ) textares[i].onblur = function(){
-      activeta = document.getElementById( this.id );
-      activeta.style.opacity = 0.4; activeta.style.filter  = "alpha(opacity=40)";
+      editrack.innerHTML = this.id;
    }
    document.getElementById( highlite + "q" ).focus();
 
@@ -3273,29 +3227,11 @@ function bindTextAreas( qainhalt, highlite ){
       e.stopPropagation();   cette = this;
       confoNotiz( TRANSLAT.qudel, TRANSLAT.delek, TRANSLAT.deldn,
          function() { },
-         function() { var myparent = cette.parentNode.parentNode.parentNode; 
+         function() { var myparent = cette.parentNode;
             ausblenden(myparent,1000,true); qainhalt[myparent.id].q = qainhalt[myparent.id].a = "";
          }
       );
    }
-
-   caras = document.getElementsByClassName( "notionary-cardface" );
-   for ( i = 0; i < caras.length; i++ )
-      caras[i].onclick = function( e ){
-         cssTransform(this,"rotateY(180deg)");
-         cssTransform(this.parentNode.firstChild.nextSibling,"rotateY(0deg)");
-      }
-
-   backs = document.getElementsByClassName( "notionary-cardback" );
-   for ( i = 0; i < backs.length; i++ )
-      backs[i].onclick = function( e ){
-         cssTransform(this,"rotateY(180deg)");
-         cssTransform(this.parentNode.firstChild,"rotateY(0deg)");
-      }
-
-   // Prevent the flipping of cards by actioning card icons
-   for ( i = 0; i < textares.length; i++ ) textares[i].onclick = function(e){ e.stopPropagation(); }
-   for ( i = 0; i < tripdots.length; i++ ) tripdots[i].onclick = function(e){ e.stopPropagation(); }
 }
 function bindChoicesButtons(){
    DEBUGGER?console.log("[bindChoicesButtons]"):0;
@@ -3314,7 +3250,7 @@ function bindChoicesButtons(){
          tripdots[i].onmouseout = function( e ){
             if ( CHOIXHOV ){ clearTimeout( CHOIXHOV ); CHOIXHOV = null; } else ausblenden( xoipopup,200,true);
          }
-         tripdots[i].onclick = function( e ){ e.stopPropagation();  this.parentNode.firstChild.value = TRANSLAT.xosen; }
+         tripdots[i].onclick = function( e ){ e.stopPropagation();  document.getElementById( this.id.slice(0,-1) + "a" ).value = TRANSLAT.xosen; }
       }
    }).then(function(){ offNAJAX("mudoc"); });
 }
@@ -3332,7 +3268,7 @@ function thereAreChanges(ncold,spold,npold,nnold,ndold,newAR,oldAR,tlold){
    if ( notname ) nncur = notname.value;
    if ( notdesc ) ndcur = notdesc.value;
    try { gaton = katxy( ncold ); } catch(err){};
-   tlnew = document.getElementById( "editLangflag" ).getAttribute("tgetlang");
+   tlnew = document.getElementById( "editLangSel" ).value;
 
 
    // Check all possible ways in which new data is extant
@@ -3367,7 +3303,7 @@ function sendToDB(nncur,nccur,spcur,ndcur,newAR,oldAR,slang,testtype){
    edit_NN  = document.getElementById( "editNnameTxt" );
    edit_ND  = document.getElementById( "editNdescTxt" );
 
-   tlang = document.getElementById( "editLangflag" ).getAttribute("tgetlang");
+   tlang = document.getElementById( "editLangSel" ).value;
 
    // Notion Name
    if ( nncur.match( TRANSLAT.nndef ) ) { nncur = ""; edit_NN.value = ""; }
@@ -3389,25 +3325,25 @@ function sendToDB(nncur,nccur,spcur,ndcur,newAR,oldAR,slang,testtype){
          if ( !newAR[i].q.sizeok( 1, QANDAREG[3] ) ) {
             problemq = document.getElementById( i + "q" );
             clickNotiz(TRANSLAT.badsz); colorById( problemq,"radRojo");
-            problemq.parentNode.nextSibling.onclick(); return;        // in case it is flipped
+            return;
          }
          if ( !newAR[i].a.sizeok( 1, QANDAREG[3] ) ) {
             problema = document.getElementById( i + "a" );
             clickNotiz(TRANSLAT.badsz); colorById( problema,"radRojo");
-            problema.parentNode.previousSibling.onclick(); return;    // in case it is flipped
+            return;
          }
          if ( newAR[i].q ) { // check extant question sanity
             if ( !newAR[i].q.issane( QANDAREG[0] ) ) {
                problemq = document.getElementById( i + "q" );
                clickNotiz(TRANSLAT.notre); colorById( problemq,"radRojo");
-               problemq.parentNode.nextSibling.onclick(); return;     // in case it is flipped
+               return;
             }
          }
          if ( newAR[i].a ) { // check extant answer sanity
             if ( !newAR[i].a.issane( QANDAREG[0] ) ) {
                problema = document.getElementById( i + "a" );
                clickNotiz(TRANSLAT.notre); colorById( problema,"radRojo");
-               problema.parentNode.previousSibling.onclick(); return; // in case it is flipped
+               return;
             }
             // Extra check for answers to enforce a minimum number of Chosen Choices
             if ( newAR[i].a.toString().indexOf( CHOIXSEP ) > 0 ) {
@@ -3417,8 +3353,7 @@ function sendToDB(nncur,nccur,spcur,ndcur,newAR,oldAR,slang,testtype){
                   !allAnswers[3].length || !allAnswers[4].length ){
                      problema = document.getElementById( i + "a" );
                      clickNotiz(TRANSLAT.enuff); colorById( problema,"radRojo");
-                     // Flip reveal the Problem Answer in case it is flipped
-                     problema.parentNode.previousSibling.onclick(); return;
+                     return;
                }
             }
          }
@@ -3429,7 +3364,7 @@ function sendToDB(nncur,nccur,spcur,ndcur,newAR,oldAR,slang,testtype){
                   problema = document.getElementById( i + "q" );
                   clickNotiz(TRANSLAT.wiedr); colorById( problema,"radRojo");
                   //colorById( document.getElementById(j+"a"),"radRojo");
-                  problema.parentNode.previousSibling.onclick(); return;
+                  return;
                }
             }
          }
@@ -3451,8 +3386,8 @@ function sendToDB(nncur,nccur,spcur,ndcur,newAR,oldAR,slang,testtype){
          "newAR":newAR, "oldAR":oldAR,
          "slang":slang, "tlang":tlang, "picto":picto })).then(
       function( response ){ NINFDATA = {};
-         jasonUINFO( function(){ landingPage(); showSupers(); } );
-         jasonSINFO( USERINFO[0].ulang, 0 );
+         jasonUINFO( function(){ landingPage(); showSupers(); }, true );
+         jasonSINFO( USERINFO[0].ulang, 0, true );
       },
       function( error ) { clickNotiz( error ); }
    ).then( function(){ offNAJAX(testtype); } );

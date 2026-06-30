@@ -52,10 +52,10 @@ function seter(tafel,chcol,nuval,wocol,olval,cback){
       function( error ) { clickNotiz( error ); }
    );
 }
-function jasonSINFO(lan2L,cback){
+function jasonSINFO(lan2L,cback,bust){
    DEBUGGER?console.log("[jasonSINFO]"):0;
    var url = "?tun=sinfo&was=" + lan2L;
-   httpget(url).then(
+   httpget( url, bust?"Cache-Control":0, bust?"no-cache":0 ).then(
       function(response) { SERVINFO = JSON.parse( response );
          for ( i = 0; i < SERVINFO[2].param.length; i++ )
             for (x in SERVINFO[2].param[i]) HARDCODE[x] = SERVINFO[2].param[i][x];
@@ -69,10 +69,10 @@ function jasonSINFO(lan2L,cback){
       function( error ) { clickNotiz( error ); }
    ).then( cback );
 }
-function jasonUINFO(cback){
+function jasonUINFO(cback,bust){
    DEBUGGER?console.log("[jasonUINFO]"):0;
    var url = "?tun=uinfo";
-   httpget(url).then(
+   httpget( url, bust?"Cache-Control":0, bust?"no-cache":0 ).then(
       function(response) {
          if ( response.length ) {
             USERINFO = JSON.parse( response );

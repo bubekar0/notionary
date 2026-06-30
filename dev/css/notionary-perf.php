@@ -13,7 +13,7 @@
 
 .notionary-opaque { cursor:none; <?php opaque(".2"); ?>; }
 
-#perfArea { position:relative; width:50%; min-width:700px; margin:0 auto;
+#perfArea { position:relative; width:50%; min-width:700px; margin:40px auto;
     border:1px solid <?php echo $hardGrau; ?>; padding:20px;
     <?php fontana("normal","300","1","1"); ?>; <?php mozart("box-shadow","4px 4px 2px $hardGrau") ?>;  }
 #perfArea h4 { margin-top:-15px; }

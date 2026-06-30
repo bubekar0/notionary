@@ -1,38 +1,15 @@
 <?php
-function fcach( $datum, $tsecs, $tripa ) { // Avoid sending file if client has a non modified version(ETag)
-   // ACHTUNG: max-age=0 ist wichtig für 'outen' ricchtig zu funktionieren
-   // set global sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
-   $ETAGS_CACHE = "private, must-revalidate, max-age=10, pre-check=10";
-   if( file_exists( $datum ) ) { // file exists? use inode+size+mtime for an ETag
-      $fs = stat( $datum );
-      $inszt = sprintf('"%x-%x-%s"',
-                      $fs['ino'],
-                      $fs['size'],
-                      base_convert(str_pad($fs['mtime'],16,"0"),10,16));
-      // immediately stale (10 secs) so it reqs server and gets 304
-      header("ETag: '".md5($inszt)."'");
-      header("Cache-Control: ".$ETAGS_CACHE);
-      header("Content-type: text/html");
-      header("Pragma: private");
-      // If the client has same version, return 304
-      if( isset( $_SERVER['HTTP_IF_NONE_MATCH'] ) ) {
-         if( str_replace("'","",
-               stripslashes($_SERVER['HTTP_IF_NONE_MATCH'])) == md5($inszt)) {
-            header('HTTP/1.1 304 Not Modified');
-            exit();
-         }
-      }
-   } // Here client file missing or outdated, Avoid producing if fresh(tsecs) cache file exists.
-   if( file_exists( $datum ) && time() - $tsecs < filemtime( $datum ) ){ include( $datum ); exit; }
+function fcach( $datum, $tsecs, $tripa ) { // Single-user box: no server-side caching -- always generate live
+   header_remove("Expires"); header_remove("Pragma"); // drop PHP session-limiter anti-cache headers so the browser may cache
+   if ( $tripa == 'ninfo' ) header("Cache-Control: no-store, max-age=0"); // a notion's own content/scores stay live
+   else header("Cache-Control: private, max-age=60");                     // catalog/user/lang cached for fast navigation
+   header("Content-type: text/html");
    switch ( $tripa ) {
-      case 'sinfo': $output = json_encode( sinf0() ); break;
-      case 'linfo': $output = json_encode( linf0() ); break;
-      case 'uinfo': $output = json_encode( uinf0() ); break;
-      case 'ninfo': $output = json_encode( ninf0() ); break;
+      case 'sinfo': echo json_encode( sinf0() ); break;
+      case 'linfo': echo json_encode( linf0() ); break;
+      case 'uinfo': echo json_encode( uinf0() ); break;
+      case 'ninfo': echo json_encode( ninf0() ); break;
    }
-   ob_start(); // otherwise render and capture the MySQL generated Markup
-      echo $output; $fp=fopen( $datum,'w' ); fwrite($fp,ob_get_contents()); fclose($fp);
-   ob_end_flush(); // write stdout to cache + client
 }
 function sinfo($lan2L){ //  system [0]=generic, [1]=pops, [2]=params
    // Do this implicitly by language so as to keep structure encapsulated

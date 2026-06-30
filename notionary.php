@@ -21,74 +21,63 @@ require_once "php/math.php";
 
 function asone($q,$personal){
    $NOIMGID = 101;
-   openlog("asone",LOG_NDELAY,LOG_LOCAL2);
-   if (mysqli_num_rows($q) == 0 ) return(false);
-   else while( $r = mysqli_fetch_assoc($q) ) {
-      $ownav = $NOIMGID; $chmav=$NOIMGID;
+   static $ownerCache = array();      // memoize owner-name lookups (single-user: all the same)
+   static $myuid = null;              // resolve current user's id once per request
+   static $partMap = null;            // notionID -> supernotion membership (one query per request)
+   static $formulaSet = null;         // set of notionIDs that are formula (math) notions
+   if ( $partMap === null ) {
+      $partMap = array();
+      $pq = sql("select notionID, part, cardinality from aapart");
+      if ( $pq ) while ( $pr = mysqli_fetch_assoc($pq) )
+         if ( !isset($partMap[$pr['notionID']]) ) $partMap[$pr['notionID']] = $pr;
+      $formulaSet = array();
+      $fq = sql("select distinct notionID from aaformula");
+      if ( $fq ) while ( $fr = mysqli_fetch_assoc($fq) ) $formulaSet[$fr['notionID']] = true;
+   }
+   if ( mysqli_num_rows($q) == 0 ) return(false);
+   while( $r = mysqli_fetch_assoc($q) ) {
       $nidno = $r['notionID'];
       $n = mysqli_fetch_assoc(
             sql("select notion, description, userID, imageID, category, slang
                  from aanotion where notionID='$nidno'"));
       $nname = $n['notion']; $ndesc=$n['description']; $ownid=$n['userID'];
       $nimag = $n['imageID']; $catno=$n['category']; $slang=$n['slang'];
-      $extant = sql("select question from `$nname`");
-      if ($extant) $nsize=mysqli_num_rows($extant);
-      else {
-         syslog(LOG_ERR,"$_SERVER[REMOTE_ADDR] UINFO Zombie Alert $nname($nidno)");
-         return(false);
-      }
-      $t=mysqli_fetch_array(sql("select avg(rating) as arate from aarating where notionID='$nidno'"));
-      $rated=$t['arate'];
-      $revus="";
-      $wq=sql("select userID, review from aareview where notionID='$nidno'");
-      while($w=mysqli_fetch_assoc($wq)){
-         $rever=anone($w['userID']);
-         $revus.="$rever-->>$w[review]￭";
-      }
-      $p=mysqli_fetch_assoc(sql("select part, cardinality from aapart where notionID='$nidno'"));
-      if ( isset( $p['part'] ) ) { $piece = $p['part']; } else $piece = "";
-      if ( isset( $p['cardinality'] ) ) { $parts = $p['cardinality']; } else $parts = "";
-      konto("notionID","aapiction","notionID","$nidno") ? $picto=true : $picto=false;
-      konto("notionID","aaformula","notionID","$nidno") ? $forja=true : $forja=false;
-      $dokum=holen("pdfID","aapdfid","notionID","$nidno");
-      $video=holen("video","aavideo","notionID","$nidno");
-      $nall =nrall($nidno);
-      $owner=anone($ownid);
-      $ownav=holen("imageID","aaavatar","userID","$ownid");
-      $chav1=holen("imageID","aaavatar","userID","$nall[ch1id]");
-      $chav2=holen("imageID","aaavatar","userID","$nall[ch2id]");
-      $chav3=holen("imageID","aaavatar","userID","$nall[ch3id]");
-      if( $personal && isset($_SESSION['uname']) ){
-         $mall=nmall(holen("userID","aauser","user",$_SESSION['uname']),$nidno);
-         $retAR[]=array(
-            "nidno" => $nidno, "nname" => $nname, "ndesc" => $ndesc, "nimag" => $nimag,
-            "catno" => $catno, "nsize" => $nsize, "rated" => $rated, "revus" => $revus,
-            "piece" => $piece, "parts" => $parts, "picto" => $picto, "forja" => $forja,
-            "dokum" => $dokum, "video" => $video, "chav1" => $chav1, "chav2" => $chav2, "chav3" => $chav3,
-            "mysc1" => $mall['mysc1'], "mybt1" => $mall['mybt1'],
-            "mysc2" => $mall['mysc2'], "mybt2" => $mall['mybt2'],
-            "mysc3" => $mall['mysc3'], "mybt3" => $mall['mybt3'],
-            "scor1" => $nall['scor1'], "time1" => $nall['time1'], "chmp1" => $nall['chmp1'], "epoc1" => $nall['epoc1'],
-            "scor2" => $nall['scor2'], "time2" => $nall['time2'], "chmp2" => $nall['chmp2'], "epoc2" => $nall['epoc2'],
-            "scor3" => $nall['scor3'], "time3" => $nall['time3'], "chmp3" => $nall['chmp3'], "epoc3" => $nall['epoc3'],
-            "owner" => $owner, "ownid" => $ownid, "ownav" => $ownav, "slang" => $slang
-         );
+      $cq = sql("select count(*) as c from `$nname`");
+      if ( !$cq ) { syslog(LOG_ERR,"$_SERVER[REMOTE_ADDR] asone Zombie Alert $nname($nidno)"); continue; }
+      $cc = mysqli_fetch_assoc($cq); $nsize = $cc['c'];
+      if ( !isset($ownerCache[$ownid]) ) $ownerCache[$ownid] = anone($ownid);
+      $owner = $ownerCache[$ownid];
+      // Inert in this text-only single-user build: ratings, reviews, pictions,
+      // pdf, video, avatars and cross-user champion records.
+      $rated=""; $revus=""; $picto=false;
+      $forja = isset($formulaSet[$nidno]);
+      $piece = isset($partMap[$nidno]['part'])        ? $partMap[$nidno]['part']        : "";
+      $parts = isset($partMap[$nidno]['cardinality']) ? $partMap[$nidno]['cardinality'] : "";
+      $dokum=""; $video=""; $ownav=$NOIMGID; $chav1=$NOIMGID; $chav2=$NOIMGID; $chav3=$NOIMGID;
+      $scor1=""; $scor2=""; $scor3=""; $time1=""; $time2=""; $time3="";
+      $chmp1=""; $chmp2=""; $chmp3=""; $epoc1=""; $epoc2=""; $epoc3="";
+      if ( $personal && isset($_SESSION['uname']) ) {
+         if ( $myuid === null ) $myuid = holen("userID","aauser","user",$_SESSION['uname']);
+         $mall = nmall($myuid,$nidno);
+         $mysc1=$mall['mysc1']; $mybt1=$mall['mybt1'];
+         $mysc2=$mall['mysc2']; $mybt2=$mall['mybt2'];
+         $mysc3=$mall['mysc3']; $mybt3=$mall['mybt3'];
       } else {
-         $retAR[]=array(
-            "nidno" => $nidno, "nname" => $nname, "ndesc" => $ndesc, "nimag" => $nimag,
-            "catno" => $catno, "nsize" => $nsize, "rated" => $rated, "revus" => $revus,
-            "piece" => $piece, "parts" => $parts, "picto" => $picto, "forja" => $forja,
-            "dokum" => $dokum, "video" => $video, "chav1" => $chav1, "chav2" => $chav2, "chav3" => $chav3,
-            "mysc1" => NULL, "mybt1" => NULL, "mysc2" => NULL, "mybt2" => NULL, "mysc3" => NULL, "mybt3" => NULL,
-            "scor1" => $nall['scor1'], "time1" => $nall['time1'], "chmp1" => $nall['chmp1'], "epoc1" => $nall['epoc1'],
-            "scor2" => $nall['scor2'], "time2" => $nall['time2'], "chmp2" => $nall['chmp2'], "epoc2" => $nall['epoc2'],
-            "scor3" => $nall['scor3'], "time3" => $nall['time3'], "chmp3" => $nall['chmp3'], "epoc3" => $nall['epoc3'],
-            "owner" => $owner, "ownid" => $ownid, "ownav" => $ownav, "slang" => $slang
-         );
+         $mysc1=NULL; $mybt1=NULL; $mysc2=NULL; $mybt2=NULL; $mysc3=NULL; $mybt3=NULL;
       }
+      $retAR[]=array(
+         "nidno" => $nidno, "nname" => $nname, "ndesc" => $ndesc, "nimag" => $nimag,
+         "catno" => $catno, "nsize" => $nsize, "rated" => $rated, "revus" => $revus,
+         "piece" => $piece, "parts" => $parts, "picto" => $picto, "forja" => $forja,
+         "dokum" => $dokum, "video" => $video, "chav1" => $chav1, "chav2" => $chav2, "chav3" => $chav3,
+         "mysc1" => $mysc1, "mybt1" => $mybt1, "mysc2" => $mysc2, "mybt2" => $mybt2, "mysc3" => $mysc3, "mybt3" => $mybt3,
+         "scor1" => $scor1, "time1" => $time1, "chmp1" => $chmp1, "epoc1" => $epoc1,
+         "scor2" => $scor2, "time2" => $time2, "chmp2" => $chmp2, "epoc2" => $epoc2,
+         "scor3" => $scor3, "time3" => $time3, "chmp3" => $chmp3, "epoc3" => $epoc3,
+         "owner" => $owner, "ownid" => $ownid, "ownav" => $ownav, "slang" => $slang
+      );
    }
-   closelog();
-   return($retAR);
+   return( isset($retAR) ? $retAR : false );
 }
 function dopdf($nidxy){
    openlog("dopdf",LOG_NDELAY,LOG_LOCAL2);
@@ -383,12 +372,12 @@ function busca($urist){
    $s = mysqli_real_escape_string(lsql(),$urist);
    $q = "select notionID from aanotion where notion='$s' ";
    if ( mysqli_num_rows( sql( $q ) ) == 1 ) {
-      ccach("text/html",json_encode(array("notns" => asone(sql($q),true)))); return;}
+      nocach("text/html",json_encode(array("notns" => asone(sql($q),true)))); return;}
    $q = "select notionID from aanotion where notionID=0";
    foreach( explode(" ",$s) as $word)
       if ( strlen( $word ) > $WORD_MIN_LEN ) $q .= " or description like '%$word%' or LOWER(notion) like '%$word%'";
    $notns = asone(sql($q),true);
-   ccach("text/html",json_encode(array("notns" => $notns)));
+   nocach("text/html",json_encode(array("notns" => $notns)));
 }
 function mixqa($getar){
    $jason=json_decode(stripslashes($getar),true);
@@ -425,7 +414,7 @@ $tun = isset($_REQUEST['tun']) ? $_REQUEST['tun'] : '';
 
 if ( $tun === 'mylan' ) { echo $_SESSION['slang']; exit; }
 
-$ssmkp_routes = array('guide','learn','trial','write','adept','micro','lista','probs','suche','amend');
+$ssmkp_routes = array('guide','learn','trial','write','adept','lista','probs','suche','amend');
 if ( in_array($tun, $ssmkp_routes) ) { ssmkp(); exit; }
 
 $was = isset($_REQUEST['was']) ? $_REQUEST['was'] : null;
@@ -439,6 +428,5 @@ elseif ( $tun === 'busca' ) { busca($was); }
 elseif ( $tun === 'sinfo' ) { sinfo($was); }
 elseif ( $tun === 'uinfo' ) { uinfo(); }
 elseif ( $tun === 'linfo' ) { linfo($was); }
-elseif ( $tun === 'pbyid' ) { pbyid($was); }
 else                        { porta(); }
 ?>

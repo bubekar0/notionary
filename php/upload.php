@@ -21,19 +21,6 @@ function fupld(){ // POST: versatile file upload processor
    $targt = "{$TEMPORA}u{$uidno}_{$inits}_".date("DdMY_",time()).basename($safen);
    syslog(LOG_NOTICE,"-- USER($uidno) TARGET($targt) NNAME($nname) -- ");
    switch($inits){
-      case 'cs': $types=array( "text/csv", "text/plain","text/rtf",
-           "application/pdf", "application/msword",
-           "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-         $dorun=function($u,$t,$nn){ $myext=pathinfo($t,PATHINFO_EXTENSION);
-            switch($myext){
-               case 'txt': case 'csv': $_SESSION['csvJSON'] = parsePlain($t); break;
-               case 'rtf':             $_SESSION['csvJSON'] = parseRTF($t);   break;
-               case 'pdf':             $_SESSION['csvJSON'] = parsePDF($t);   break;
-               case 'doc':             $_SESSION['csvJSON'] = parseWord($t);  break;
-               case 'docx':            $_SESSION['csvJSON'] = parseZip($t);   break;
-               default:                $_SESSION['csvJSON'] = parseNone();    break;
-            }
-         }; break;
       case 'av': $types=array("image/jpg","image/jpeg","image/gif","image/png","image/svg+xml");
          $dorun=function($u,$t,$nn){
             if($imgid=holif("imageID","aaavatar","userID","$u"))

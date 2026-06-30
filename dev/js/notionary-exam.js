@@ -176,8 +176,6 @@ function renderExam(testtype){
                     examWidgets( testtype, function(){ bindExamWidgets( testtype ); getNextPair( testtype ); }); break;
       case "amend": if ( NINFDATA[0].ownid == USERINFO[0].uidno || ROOTUSER ) amendNotion( NINFDATA[0].nname );
                     else { landingPage(); showSupers(); } break;
-      case "micro": if ( NINFDATA[0].ownid == USERINFO[0].uidno || ROOTUSER ) showSoundContribution();
-                    else { landingPage(); showSupers(); } break;
       default: if ( testtype == "adept" ) { // fill in WORKDATA accordingly .. Formulations nor Pictions are masterable
                   if ( NINFDATA[0].forja || NINFDATA[0].picto){ clickNotiz( TRANSLAT.ispik ); return; }
                   onetoone = NINFDATA[1].qaimg;                  // Masterable IFF 1-1 Q-A. Repeated Q ==>> Non-masterable!

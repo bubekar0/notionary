@@ -222,7 +222,7 @@ function showProfilePopup(){
                      else {
                         if ( undif || emdif ) clickNotiz(TRANSLAT.emchk);
                         else timedNotiz(TRANSLAT.pfcok);
-                        jasonUINFO();
+                        jasonUINFO( 0, true );
                      }
                   }, function( error ){ clickNotiz( error ); }
                ).then(function(){ offNAJAX("pfupd"); });
