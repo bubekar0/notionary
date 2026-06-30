@@ -553,50 +553,6 @@ function zentraller(ident,markup,bindCBK,exitCBK){
    einblenden( themodal );
    bindCBK();
 }
-function markupComment(ident,lineas,columnas,defText){
-   DEBUGGER?console.log("[markupComment]"):0;
-   return(
-      "<div            id='" + ident + "CommentHolder'   class='notionary-commhold'>" +
-         "<span        id='" + ident + "CommentExiter'   class='notionary-exbutton fa fa-times'></span>"+
-         "<div         id='" + ident + "CommentFeedback' class='notionary-feedback'></div>"+
-         "<textarea    id='" + ident + "CommentTextarea' class='notionary-commtext notionary-dormant'" +
-            " rows='" + lineas + "' cols='" + columnas+"'>" + defText +
-         "</textarea>" +
-         "<div         id='" + ident + "CommentButtons'  class='notionary-commbtns'>" +
-             "<span    id='" + ident + "CommentCounter'  class='notionary-commzahl'></span>" +
-             "<span    id='" + ident + "CommentSubmit'   class='notionary-commsend fa fa-paper-plane'"+
-                  " title='" + TRANSLAT.savit + "'></span>" +
-         "</div>" +
-      "</div>");
-}
-function bindComment(ident,deftxt,carmin,carmax,regex,clikme,offbtn,clkCBK,offCBK,senCBK){
-   DEBUGGER?console.log("[bindComment]"):0;
-   var holder, exiter, texter, counts, sender;
-   holder = document.getElementById( ident + "CommentHolder" );
-   exiter = document.getElementById( ident + "CommentExiter" );
-   texter = document.getElementById( ident + "CommentTextarea" );
-   counts = document.getElementById( ident + "CommentCounter" );
-   sender = document.getElementById( ident + "CommentSubmit" );       ausblenden(sender,1000,true);
-   clikme.onclick = function(e){ einblenden(holder,1000); clkCBK(); }
-   offbtn.onclick = offCBK;
-   if ( texter.value == deftxt ) ausblenden(holder,1000,true); else einblenden(holder,1000);
-   exiter.onclick = function(e){ ausblenden(holder,1000,true); }  // Different from the offbtn
-   sender.onclick = senCBK;
-   texter.onfocus = function(e){ if ( this.value == deftxt ) this.value = ""; activateInput( this ); }
-   texter.onkeydown = function(e){ var cpos, news, k = (e.keyCode ? e.keyCode : e.which);
-      if ( k == 13 ) { cpos = texter.selectionStart;
-         news = texter.value.substr(0,cpos) + texter.value.substr(cpos,texter.value.length);
-         texter.value = news; texter.setSelectionRange( cpos+1, cpos+1 );
-      }
-
-      if ( texter.value != deftxt && texter.value.issane( regex ) &&
-          texter.value.sizeok( carmin, carmax ) ) einblenden(sender,1000);
-      else ausblenden(sender,1000,true);
-
-      if ( texter.value.length < carmin ) counts.innerHTML = carmin - texter.value.length;
-      else counts.innerHTML = "";
-   }
-}
 function getStyleProp(elem, prop){
    DEBUGGER?console.log("[getStyleProp]"):0;
     if (window.getComputedStyle)
@@ -2055,32 +2011,10 @@ function updateProgressbars(rottgrun){
    document.getElementById( "examBadBarIn" ).style.setProperty("width",badPercent + "%");
    if ( badPercent > SHOWPCNT ) document.getElementById( "examBadCount" ).innerHTML = ( 100 * FALSCHER / WORKDATA.length ).toFixed(0) + "%";
 }
-function bindRatingsButtons(){
-   DEBUGGER?console.log("[bindRatingsButtons]"):0;
-   var i, ratings, theRating, ratsHolder;
-   ratsHolder = document.getElementById( "perfNotionRating" );
-   ratings = document.getElementsByClassName( "notionary-ratings" );
-   for ( i = 0; i < ratings.length; i++ )
-      ratings[i].onclick = function( e ){
-         this.setAttribute("disabled","true");
-         this.classList.remove("notionary-opaque");
-         theRating = this.getAttribute("title");
-         onNAJAX("raupd");
-         httpost("usrindex.php","tun=raupd&was=" + JSON.stringify(
-            { "nidno": NINFDATA[0].nidno,
-              "rated": theRating
-            })
-         ).then( function( response ) {
-               if ( response ) clickNotiz( response );
-               else { popupFAI("fa-check","#4D90FE","1em"); ausblenden(ratsHolder,1000,false); }
-            }, function( error ) { clickNotiz( error ); }
-         ).then( function(){ offNAJAX("raupd"); } );
-      }
-}
 function concludeTest(testtype,right,score,dauer,probs){
    DEBUGGER?console.log("[concludeTest]"):0;
    var s, performance, xamrestitle, xamresoffer,
-       reviewerBtn, temporaNode, commentBox, panelaZwote,
+       temporaNode, panelaZwote,
        cette, playables, testsTaken1, holdsTest1,
        testsTaken2, holdsTest2, testsTaken3, holdsTest3;
    httpget("usrindex.php/?tun=ercau");
@@ -2092,31 +2026,13 @@ function concludeTest(testtype,right,score,dauer,probs){
             performance = document.getElementById( "perfArea" );
             xamrestitle = document.getElementById( "prfid" );
             xamresoffer = document.getElementById( "offff" );
-            reviewerBtn = document.getElementById( "reviewStandaloneButton" );
             temporaNode = document.getElementById( "perfTemporaHolder" );
-            commentBox  = document.getElementById( "perfCommentBox" );
             panelaZwote = document.getElementById( "perfPanela2" );
 
             xamrestitle.setAttribute("class","notionary-feedback");
             xamresoffer.classList.add("class","notionary-exbutton");
             xamresoffer.onclick = function(e) { landingPage(); showSupers(); }
 
-            var copyLinkBtn = document.getElementById( "copyLinkBtn" );
-            if ( copyLinkBtn ) {
-               copyLinkBtn.onclick = function(e) {
-                  var url = this.getAttribute("data-url");
-                  if ( navigator.clipboard ) {
-                     navigator.clipboard.writeText(url).then(function(){
-                        popupFAI("fa-check","#4D90FE","1em");
-                     });
-                  } else {
-                     var ta = document.createElement("textarea");
-                     ta.value = url; document.body.appendChild(ta);
-                     ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
-                     popupFAI("fa-check","#4D90FE","1em");
-                  }
-               };
-            }
 
             if ( LOGGEDIN && !SMARTFON ) {
                holdsTest1  = document.getElementById( "ones" );
@@ -2133,42 +2049,6 @@ function concludeTest(testtype,right,score,dauer,probs){
             }
             jasonNINFO( NINFDATA[0].nname, function(){ // Update NINFDATA with this test
                jasonUINFO( function(){ // Update USERINFO with this test
-                  if ( LOGGEDIN ) {
-                     if ( reviewerBtn ) { onNAJAX("getme");
-                        httpget("usrindex.php/?tun=getme&was=" + JSON.stringify(
-                           { "secol": "review",
-                             "vonta": "aareview",
-                             "wocol": "notionID",
-                             "valis":  NINFDATA[0].nidno
-                           })
-                        ).then(
-                           function( response ){ var my_FB, defText, holder, texter;
-                              defText = TRANSLAT.kmdef;
-                              if ( response ) defText = response;
-                              commentBox.innerHTML = markupComment("perfReview",8,40,defText);
-                              holder = document.getElementById( "perfReviewCommentHolder" );
-                              texter = document.getElementById( "perfReviewCommentTextarea" );
-                              my_FB  = document.getElementById( "perfReviewCommentFeedback" );
-                              announce(my_FB,TRANSLAT.kmnts,"radTang");
-                              ausblenden(holder,1000,true);
-                              bindComment("perfReview",TRANSLAT.kmdef,10,100,/[^§(){}%$*+!"`\\\^]/,reviewerBtn,"",
-                                 function(){}, function(){}, function(){ onNAJAX("reupd");
-                                    httpost("usrindex.php","tun=reupd&was=" + JSON.stringify(
-                                       { "nidno": NINFDATA[0].nidno,
-                                         "rview": texter.value
-                                       })
-                                    ).then( function(response) {
-                                          if ( response ) clickNotiz( response );
-                                          else { popupFAI("fa-check","#4D90FE","1em"); ausblenden(holder,1000,true); }
-                                       }, function( error ) { clickNotiz( error ); }
-                                    ).then( function(){ offNAJAX("reupd"); } );
-                                 });
-                           },
-                           function( error ){ clickNotiz( error ); }
-                        ).then(function(){ offNAJAX("getme"); });
-                     }
-                     bindRatingsButtons();
-                  }
                   if ( s = isInSuperNotions( NINFDATA[0].nidno ) ) showSuperNotion(s,panelaZwote);
                   playables = document.getElementsByClassName( "playme" );
                   for ( i = 0; i < playables.length; i++ ) {

@@ -202,29 +202,6 @@ function prefs($getar){ // AJAX: update user preferences -> emails, pics, sounds
    if (  $enabl && !$schon ) sql("insert into $tafel (userID) values('$uidno')");
    if ( !$enabl &&  $schon ) sql("delete from $tafel where userID='$uidno'");
 }
-function raupd($getar){ // AJAX: multicol update notion rating -> Can't use seter
-   $jason=json_decode(stripslashes($getar),true);
-   $nidno=$jason['nidno']; $rated=$jason['rated'];
-   $uidno=uidno();
-   ercan($nidno); // erase the Notion's cache files
-   $q=sql("select rating from aarating
-           where notionID='$nidno' and userID='$uidno'");
-   if(mysqli_num_rows($q)==0)
-      sql("insert into aarating (notionID, userID, rating)
-           values('$nidno','$uidno','$rated')");
-   else sql("update aarating set rating='$rated'
-             where notionID='$nidno' and userID='$uidno'");
-}
-function reupd($getar){ // AJAX: multicol update notion review -> Can't use seter
-   $jason = json_decode( $getar, true );
-   $nidno = $jason['nidno'];
-   $rview = $jason['rview'];
-   $uidno = uidno();            ercan( $nidno ); // erase the Notion's cache files
-   $q = sql( "select review from aareview where notionID='$nidno' and userID='$uidno'" );
-   if ( mysqli_num_rows( $q ) == 0 )
-      sql( "insert into aareview (notionID, userID, review) values('$nidno','$uidno','$rview')" );
-   else sql( "update aareview set review='$rview' where notionID='$nidno' and userID='$uidno'" );
-}
 function nodel( $nidno ) {
    // Ensure the User owns the Notion before deleting!
    $uidno = uidno();           ercau(); ercas(); // erase the user's and system's cache files
@@ -380,7 +357,7 @@ switch ( $tun ) {
    case 'ercau':ercau(); break; // In case nimag changed or such
    case 'ercan':ercan($_REQUEST['was']); break; // In case nimag changed or such
    // REQUIRE LOGIN BUT NOT SITE-DRIVEN
-   case 'schaf':case 'ander':case 'nodel':case 'raupd':case 'reupd':case 'prdel': // NOTIONS
+   case 'schaf':case 'ander':case 'nodel':case 'prdel': // NOTIONS
    case 'slang':case 'prefs': // USERS
    case 'geter':case 'getme':case 'seter':
    case 'fupld':case 'uload':

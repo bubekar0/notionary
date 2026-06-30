@@ -317,50 +317,6 @@ function zentraller(ident,markup,bindCBK,exitCBK){
    einblenden( themodal );
    bindCBK();
 }
-function markupComment(ident,lineas,columnas,defText){
-   DEBUGGER?console.log("[markupComment]"):0;
-   return(
-      "<div            id='" + ident + "CommentHolder'   class='notionary-commhold'>" +
-         "<span        id='" + ident + "CommentExiter'   class='notionary-exbutton fa fa-times'></span>"+
-         "<div         id='" + ident + "CommentFeedback' class='notionary-feedback'></div>"+
-         "<textarea    id='" + ident + "CommentTextarea' class='notionary-commtext notionary-dormant'" +
-            " rows='" + lineas + "' cols='" + columnas+"'>" + defText +
-         "</textarea>" +
-         "<div         id='" + ident + "CommentButtons'  class='notionary-commbtns'>" +
-             "<span    id='" + ident + "CommentCounter'  class='notionary-commzahl'></span>" +
-             "<span    id='" + ident + "CommentSubmit'   class='notionary-commsend fa fa-paper-plane'"+
-                  " title='" + TRANSLAT.savit + "'></span>" +
-         "</div>" +
-      "</div>");
-}
-function bindComment(ident,deftxt,carmin,carmax,regex,clikme,offbtn,clkCBK,offCBK,senCBK){
-   DEBUGGER?console.log("[bindComment]"):0;
-   var holder, exiter, texter, counts, sender;
-   holder = document.getElementById( ident + "CommentHolder" );
-   exiter = document.getElementById( ident + "CommentExiter" );
-   texter = document.getElementById( ident + "CommentTextarea" );
-   counts = document.getElementById( ident + "CommentCounter" );
-   sender = document.getElementById( ident + "CommentSubmit" );       ausblenden(sender,1000,true);
-   clikme.onclick = function(e){ einblenden(holder,1000); clkCBK(); }
-   offbtn.onclick = offCBK;
-   if ( texter.value == deftxt ) ausblenden(holder,1000,true); else einblenden(holder,1000);
-   exiter.onclick = function(e){ ausblenden(holder,1000,true); }  // Different from the offbtn
-   sender.onclick = senCBK;
-   texter.onfocus = function(e){ if ( this.value == deftxt ) this.value = ""; activateInput( this ); }
-   texter.onkeydown = function(e){ var cpos, news, k = (e.keyCode ? e.keyCode : e.which);
-      if ( k == 13 ) { cpos = texter.selectionStart;
-         news = texter.value.substr(0,cpos) + texter.value.substr(cpos,texter.value.length);
-         texter.value = news; texter.setSelectionRange( cpos+1, cpos+1 );
-      }
-
-      if ( texter.value != deftxt && texter.value.issane( regex ) &&
-          texter.value.sizeok( carmin, carmax ) ) einblenden(sender,1000);
-      else ausblenden(sender,1000,true);
-
-      if ( texter.value.length < carmin ) counts.innerHTML = carmin - texter.value.length;
-      else counts.innerHTML = "";
-   }
-}
 function getStyleProp(elem, prop){
    DEBUGGER?console.log("[getStyleProp]"):0;
     if (window.getComputedStyle)
