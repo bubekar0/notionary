@@ -99,35 +99,14 @@ function rentr(){
       });
    });
 }
-function adminMarkup(){
-   DEBUGGER?console.log("[adminMarkup]"):0;
-   if ( !ROOTUSER ) return("");
-   return("<div    id='rootMenuclik' class='fa fa-bars' title='Вы можете получить это далеко, но не дальше'>" +
-             "<div id='userActivity'></div>" +
-          "</div>" +
-          "<div    id='rootMenulist' class='notionary-tooltips'>" +
-             "<div id='rootBetatest' class='notionary-toolitem'><span class='fa fa-flask'></span>        Beta Test     </div>" +
-             "<div id='rootDebugger' class='notionary-toolitem'><span class='fa fa-bug'></span>          Server Info   </div>" +
-             "<div id='rootDecacher' class='notionary-toolitem'><span class='fa fa-trash'></span>        Clean Caches  </div>" +
-             "<div id='rootMedclone' class='notionary-toolitem'><span class='fa fa-clone'></span>        Media Cloner  </div>" +
-             "<div id='rootImagechg' class='notionary-toolitem'><span class='fa fa-file-image-o'></span> Image Editor  </div>" +
-             "<div id='rootImageprg' class='notionary-toolitem'><span class='fa fa-database'></span>     Image Purger  </div>" +
-             "<div id='rootSoundchg' class='notionary-toolitem'><span class='fa fa-headphones'></span>   Sound Editor  </div>" +
-             "<div id='rootSoundprg' class='notionary-toolitem'><span class='fa fa-music'></span>        Sound Purger  </div>" +
-             "<div id='rootUseredit' class='notionary-toolitem'><span class='fa fa-user'></span>         User Editor   </div>" +
-             "<div id='rootRecorder' class='notionary-toolitem'><span class='fa fa-microphone'></span>   Microphone    </div>" +
-          "</div>");
-}
 function markupSkeleton(){
    DEBUGGER?console.log("[markupSkeleton]"):0;
    var deskhtml = mobihtml = "";
    
    if ( SMARTFON )
-                 mobihtml = "<div id='userEscritor' class='fa fa-pencil-square-o' title='" + TRANSLAT.creak + "'></div>" +
-                            adminMarkup();
+                 mobihtml = "<div id='userEscritor' class='fa fa-pencil-square-o' title='" + TRANSLAT.creak + "'></div>";
 
-   else          deskhtml = "<div id='userEscritor' class='fa fa-pencil-square-o' title='" + TRANSLAT.creak + "'></div>" +
-                            adminMarkup();
+   else          deskhtml = "<div id='userEscritor' class='fa fa-pencil-square-o' title='" + TRANSLAT.creak + "'></div>";
 
    return("<div          id='anonHeadroom' onclick='function doNothing(){}'>" +
              "<div       id='anonHeadtops'>" +
@@ -343,31 +322,4 @@ console.log("showSuperNotion: " + snotion );
                   if ( y == "nidno" && SUPERSET[snotion][z] == SERVINFO[0].kitns[i][x][j][y] ) retAR[n++]=SERVINFO[0].kitns[i][x][j];
    node.innerHTML = markupNotionsSummary(retAR,SUPERSET[snotion][0],"");
    bindNotionDisplayWidgets();
-}
-function showSoundContribution(){ // Placed here to give outsiders a chance to ask for this tool
-   DEBUGGER?console.log("[showSoundContribution]"):0;
-   var xm = "", nakeNode, r; // Markup a Sound Contribution Utility for an entire Notion's Questions set
-   nakeNode = document.getElementById( "anonRealarea" );
-   if ( !LOGGEDIN ) clickNotiz(TRANSLAT.logfn);
-   else {
-      inits = "qs";
-      xm += "<div id='editFeedback' class='notionary-feedback'></div>";
-      for ( THEINDEX = 0; THEINDEX < NINFDATA[1].qaimg.length; THEINDEX++){
-         xm+="<div class='notionary-qandarow' id='" + THEINDEX + "'>" +
-                "<span  class='notionary-tracking'>" + THEINDEX + "</span>" +
-                '<input readonly="readonly" class="notionary-readonly" id="' + THEINDEX + 'a" value="' +
-                        NINFDATA[1].qaimg[ THEINDEX ].a.sauber() + '">' +
-                markupRecorder( inits + "_" + THEINDEX ) +
-             "</div>";
-      }
-      nakeNode.innerHTML = xm;
-      announce( document.getElementById( "editFeedback"), "[" + NINFDATA[0].nname + "]", "radTang" );
-      onNAJAX("recorder");
-      loadJS("js/recorder.js").then(function(){
-         loadJS("js/recorderWorker.js").then(function(){
-            for ( r = 0; r < THEINDEX; r++ )
-               bindRecorderGuts( inits + "_" + r, NINFDATA[0].nname, NINFDATA[1].qaimg[r].q, NINFDATA[1].qaimg[r].s );
-         });
-      }).then( function(){ offNAJAX("recorder"); });
-   }
 }

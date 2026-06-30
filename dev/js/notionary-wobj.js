@@ -599,13 +599,6 @@ function showEditForeignButtons(nhold,tlang,cback){
          dummy_key.onclick = cback;
       }
 }
-function languageToImage(lange){
-   DEBUGGER?console.log("[languageToImage]"):0;
-   var FLAGS={"en":"50","es":"51","de":"52","fr":"53","it":"54","pt":"55",
-              "tr":"58","da":"59","nl":"56","pl":"57","nb":"60","is":"64",
-              "sv":"61","fi":"62","hu":"63","et":"65","ca":"66","eu":"67","ru":"68"};
-   return(FLAGS[lange]);
-}
 function markupLanguagesDropdown(snode,lanAR,defla){
    DEBUGGER?console.log("[markupLanguagesDropdown]"):0;
    var TONGS = {"en":"English ",    "de":"Deutsch ",    "es":"Español ",
