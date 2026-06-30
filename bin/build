@@ -17,7 +17,7 @@ JS_MODS="$JS-tops.js   $JS-wobj.js  $JS-asyn.js  $JS-cor0.js
 # CSS modules in load order: CORE + USER
 CS_MODS="$CS-tops.php  $CS-wobj.php $CS-mail.php $CS-cor0.php
          $CS-disp.php $CS-exam.php $CS-perf.php
-         $CS-use0.php  $CS-hoch.php $CS-edit.php $CS-repa.php"
+         $CS-use0.php  $CS-edit.php $CS-repa.php"
 
 echo -n "Building JS... "
 cat $JS_MODS > "$ROOT/js/notionary-deve.js"
