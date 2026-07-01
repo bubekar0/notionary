@@ -210,7 +210,7 @@ function ninf0(){
    $revus = "";
    $wq = sql("select userID, review from aareview where notionID='$nidno'");
    while($w=mysqli_fetch_assoc($wq)){ $rever=anone($w['userID']); $revus.="$rever-->>$w[review]￭"; }
-   konto("notionID","aapiction","notionID","$nidno") ? $picto=true : $picto=false;
+   $picto=false;
    konto("notionID","aaformula","notionID","$nidno") ? $forja=true : $forja=false;
    $ownid=holen("userID","aanotion","notionID","$nidno");
    $owner=anone($ownid);
@@ -303,7 +303,7 @@ function uinf0(){
       } else {
          $nimag = holen("imageID","aanotion","notionID",$r['notionID']);
          $p = sql("select probs from aaprobs where perfID='$r[perfID]'");
-         konto("notionID","aapiction","notionID","$r[notionID]") ? $picto=true : $picto=false;
+         $picto=false;
          while ( $t = mysqli_fetch_assoc($p) ){
             $qi = sql("show columns from `$nname` like 'imageID'"); $visual = mysqli_num_rows($qi)?TRUE:FALSE;
             $qs = sql("show columns from `$nname` like 'soundID'"); $sonora = mysqli_num_rows($qs)?TRUE:FALSE;

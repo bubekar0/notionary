@@ -209,7 +209,7 @@ list($_ETAL, $_LERN, $_SHAM, $_DONE, $_SENT, $_FOWD, $_GOOD, $_FEED, $_RECO) = p
     ["_ETAL","_LERN","_SHAM","_DONE","_SENT","_FOWD","_GOOD","_FEED","_RECO"]);
 if( strlen($nname) > $KURZ_MAXLEN ) $nkurz = substr($nname,0,$KURZ_MAXLEN)." . . .";
 else $nkurz = $nname;
-konto("notionID","aapiction","notionID","$nidno") ? $pikja=true : $pikja=false;
+$pikja=false;
 $mixed = false; $emstr=$brstr=$buble=$mail2=$marks=$myall=$prior=$esent=$fward="";
 switch($ttype){ // Eggon/Nexto + Loben/Tadeln logic
    case 'zerob': $ptype=0; $lobta=false;  break;
