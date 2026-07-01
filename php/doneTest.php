@@ -20,19 +20,9 @@ if( !isset($_SESSION['blang']) || !isset($_SESSION['slang']) ) { // Set 'blang' 
 }
 $slang = $_SESSION["slang"];
 function par2s($probAR,$nname,$pikja,$slang){ // Convert a Problems Array into a String
-   global $PARAM_IMAGE;
    $_ACHT = pglot(["_ACHT"])[0];
-   $PROBLEM_IMG_WIDTH  = 80;
-   $PROBLEM_IMG_HEIGHT = 50;
-   $MYURL = param("myurl");
    $probStr = "\r\n";
-   $qi = sql("show columns from `$nname` like 'imageID'");
-   $visual = mysqli_num_rows($qi)?TRUE:FALSE;
-   $qs = sql("show columns from `$nname` like 'soundID'");
-   $sonora = mysqli_num_rows($qs)?TRUE:FALSE;
    $felde  = " answer ";
-   if( $visual ) $felde.=", imageID ";
-   if( $sonora ) $felde.=", soundID ";
    if( sizeof($probAR) )
       foreach($probAR as $praw){ // We are dealing with internationalized data
          $p=scapo($praw);
@@ -40,19 +30,7 @@ function par2s($probAR,$nname,$pikja,$slang){ // Convert a Problems Array into a
          $r=mysqli_fetch_assoc($q);
          if( !$r ) continue;
          $anser = getGoodChoice($r['answer']);
-         if( $visual ) $imgid = $r['imageID'];
-         if( $sonora ) $sndid = $r['soundID'];
-         if ( $pikja ){
-            if( $visual && $r['imageID'] ){
-               $qoris = "<img class='notionary-problem-image' ".
-                              " src='".$PARAM_IMAGE.$imgid."' ".
-                           " height='".$PROBLEM_IMG_HEIGHT."' ".
-                            " width='".$PROBLEM_IMG_WIDTH."' ".
-                        ">\r\n";
-            } else $qoris = ""; // Strange, a Piction without a picture!!
-         } else $qoris = "<span class='nroso'>" . $praw . "</span>";  // Normal Notion
-         if( $sonora && $r['soundID'] ) // Wrap the question into a clickable hoverable link to sound
-            $qoris = "<a class='playme' sndid='" . $sndid . "' href='$MYURL?tun=sbyid&was=" . $sndid . "'> $qoris </a>";
+         $qoris = "<span class='nroso'>" . $praw . "</span>";  // Normal Notion
          $probStr .= "<div class='notionary-problem-row'>" .  $qoris . " : " .  $anser .  "</div>\r\n";
       }
    if ( !empty($probStr) ) $probStr = $_ACHT . $probStr;
@@ -196,7 +174,7 @@ $score = $jason['score']; $dauer = $jason['dauer']; $probs = $jason['probs'];
 $elaps = sec2t( $dauer );
 $XLATE_ALTXT = xlate("altxt",$slang); $XLATE_LEVEL = xlate("level",$slang);
 $XLATE_PERFO = xlate("perfo",$slang); $_PERF = "[ notionary ] $XLATE_PERFO";
-$PARAM_IMAGE = param("image"); $PARAM_MYURL = param("myurl"); $PARAM_TPAGE = param("tpage");
+$PARAM_MYURL = param("myurl"); $PARAM_TPAGE = param("tpage");
 $TW_TIMELINE_ID = "343329091325415425"; $KURZ_MAXLEN = 25;  // Shorten long Notion names for the Button
 $exart = xlate($ttype,$slang); if( empty($exart) ) $exart = "Mixed";
 $query = mysqli_fetch_assoc(sql("select * from aanotion where notionID=$nidno"));
