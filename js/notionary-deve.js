@@ -618,34 +618,6 @@ function markupOffOnRadio(inits,rlist,torf){
           "</fieldset>");
 }
 function offOnVal(inits){ if ( document.getElementById( inits + "0" ).checked ) return 0; return 1; }
-function snapProzent(theNode,thePercent,theFarbe){
-   DEBUGGER?console.log("[snapProzent]"):0;
-   var canvasSize = 50,
-       centre = radius = canvasSize/2,
-       spn, s, arc, path = "",
-       startY = centre-radius;
-   theNode.innerHTML = "<div id='snapPercentNumber'></div><svg id='snapPercentCircle'></svg>" ;
-   spn = document.getElementById( "snapPercentNumber" );
-   s = Snap('#snapPercentCircle');
-   arc = s.path(path);
-
-   function run(percent) {
-      var endpoint = percent*360;
-      Snap.animate(0, endpoint,   function (val) { arc.remove(); 
-        var d = val,
-            dr = d-90;
-            radians = Math.PI*(dr)/180,
-            endx = centre + radius*Math.cos(radians),
-            endy = centre + radius * Math.sin(radians),
-            largeArc = d>180 ? 1 : 0;
-            path = "M"+centre+","+startY+" A"+radius+","+radius+" 0 "+largeArc+",1 "+endx+","+endy; 
-        arc = s.path(path);
-        arc.attr({ stroke: theFarbe, fill: 'none', strokeWidth: 10 });
-        spn.innerHTML = Math.round(val/360*100) +'%';
-      }, 2000, mina.easeinout);
-   }
-   run( thePercent );
-}
 function showEditForeignButtons(nhold,tlang,cback){
    DEBUGGER?console.log("[showEditForeignButtons]"):0;
    // cback should render the pressed key onto the #input widget pointed to by

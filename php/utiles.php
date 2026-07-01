@@ -276,8 +276,6 @@ END_OF_METAS;
 function stags($inline){ // Critical Path Speed:(1)HTML Splash, (2)CSS: CCOR, (3) JS
    $nname=""; $level=""; $uname="";
    $MYURL= param("myurl");
-   $SOUND= param("sound");
-   $SNAP = "{$MYURL}js/snap.svg-min.js";
    $VERS = date('YmdHis');
    $JCOR = "{$MYURL}js/notionary-deve.js?version=$VERS";
    $CCOR = "{$MYURL}css/notionary-deve.php?version=$VERS";
@@ -300,9 +298,7 @@ o.appendChild(r);
 function w84js( cbk ){ if( window.nentr ) cbk(); else setTimeout(function() { w84js(cbk) }, 10); }
 function getJS() {
    var main = document.createElement("script"); main.src = "$JCOR"; document.body.appendChild(main);
-   w84js(function(){ var snap = document.createElement("script"); snap.src = "$SNAP";
-      rentr();  document.body.appendChild(snap);
-   });
+   w84js(function(){ rentr(); });
 }
 END_OF_RENTR;
 
@@ -320,9 +316,7 @@ o.appendChild(r);
 function w84js( cbk ){ if( window.nentr ) cbk(); else setTimeout(function() { w84js(cbk) }, 10); }
 function getJS() {
    var main = document.createElement("script"); main.src = "$JCOR"; document.body.appendChild(main);
-   w84js(function(){ var snap = document.createElement("script"); snap.src = "$SNAP";
-      nentr(); document.body.appendChild(snap);
-   });
+   w84js(function(){ nentr(); });
 }
 END_OF_OBFU;
 
