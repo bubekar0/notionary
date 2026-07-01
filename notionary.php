@@ -155,13 +155,13 @@ function sinf0(){ $PILE = 40;
    while($r=mysqli_fetch_assoc($q)) $katAR[]=$r['category'];
    $q=sql("select userID, count(userID) as stars from `aaperfid` group by userID order by stars desc limit 0,3");
    while($r=mysqli_fetch_assoc($q)){
-      $ownav=holen("imageID","aaavatar","userID","$r[userID]");
+      $ownav=101;
       $befat=explode('@',holen("user","aauser","userID","$r[userID]"));
       $stuAR[]=array("stdnt"=>$befat[0],"stars"=>$r['stars'],"stdav"=>$ownav);
    }
    $q=sql("select userID, count(userID) as stars from `aanotion` group by userID order by stars desc limit 0,3");
    while($r=mysqli_fetch_assoc($q)){
-      $ownav=holen("imageID","aaavatar","userID","$r[userID]");
+      $ownav=101;
       $befat=explode('@',holen("user","aauser","userID","$r[userID]"));
       $tecAR[]=array("techi"=>$befat[0], "stars"=>$r['stars'], "stdav"=>$ownav);
    }
@@ -184,7 +184,7 @@ function sinf0(){ $PILE = 40;
    $retAR[]=array("param" => $parAR);
    $q = sql("select * from aasuper where slang='$_REQUEST[was]'");
    while( $r = mysqli_fetch_assoc( $q ) ){
-      $owner=anone($r['userID']); $ownav=holen("imageID","aaavatar","userID","$r[userID]");
+      $owner=anone($r['userID']); $ownav=101;
       $supAR[] = array("supid" => $r['superID'], "owner" => $owner, "ownav" => $ownav,
                        "sname" => $r['supernotion'], "sdesc" => $r['description'], "snots" => $r['notions']);
    }
@@ -202,9 +202,9 @@ function ninf0(){
    $multi = mysqli_fetch_assoc(sql("select aanotion.notionID, aasperq.sperq, aapart.part, aapart.cardinality, '' as pdfID, '' as video from aanotion left join aasperq on aasperq.notionID = aanotion.notionID left join aapart on aapart.notionID = aanotion.notionID where aanotion.notionID=$nidno"));
    $nsize = mysqli_num_rows(sql("select question from `$ntabl`"));
    $nall  = nrall($nidno);
-   $chav1 = holen("imageID","aaavatar","userID","$nall[ch1id]");
-   $chav2 = holen("imageID","aaavatar","userID","$nall[ch2id]");
-   $chav3 = holen("imageID","aaavatar","userID","$nall[ch3id]");
+   $chav1 = 101;
+   $chav2 = 101;
+   $chav3 = 101;
    $t = mysqli_fetch_array( sql("select avg(rating) as arate from aarating where notionID='$nidno'"));
    $rated = $t['arate'];
    $revus = "";
@@ -214,7 +214,7 @@ function ninf0(){
    konto("notionID","aaformula","notionID","$nidno") ? $forja=true : $forja=false;
    $ownid=holen("userID","aanotion","notionID","$nidno");
    $owner=anone($ownid);
-   $ownav=holen("imageID","aaavatar","userID","$ownid");
+   $ownav=101;
    if(isset($_SESSION['uname'])){
       $mall=nmall(holen("userID","aauser","user",$_SESSION['uname']),$nidno);
       $retAR[]=array(
@@ -274,7 +274,7 @@ function uinf0(){
    $PILE = 50; $NOIMGID = 101;
    $uname = $_SESSION['uname']; $uimag = $NOIMGID;
    $uidno = uidno(); if ( empty($uidno) ) { echo ""; exit; }
-   $multi = mysqli_fetch_assoc(sql("select aauser.ulang, aaemail.email, aakname.kname, aafname.fname, aaavatar.imageID from aauser left join aaemail on aaemail.userID = aauser.userID left join aakname on aakname.userID = aauser.userID left join aafname on aafname.userID = aauser.userID left join aaavatar on aaavatar.userID = aauser.userID where aauser.userID=$uidno"));
+   $multi = mysqli_fetch_assoc(sql("select aauser.ulang, aaemail.email, aakname.kname, aafname.fname, 101 as imageID from aauser left join aaemail on aaemail.userID = aauser.userID left join aakname on aakname.userID = aauser.userID left join aafname on aafname.userID = aauser.userID where aauser.userID=$uidno"));
    konto("userID","aanosnd","userID","$uidno") ? $nosnd = true : $nosnd = false;
    konto("userID","aajamsg","userID","$uidno") ? $msges = true : $msges = false;
    $kenne = mysqli_num_rows( sql("select distinct notionID from `aaperfid` where userID='$uidno' and ptype='1'") );
