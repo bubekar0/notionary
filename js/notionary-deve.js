@@ -975,10 +975,8 @@ function handleServerDirectives(nnameArg){
 }
 function anonimize(){
    DEBUGGER?console.log("[anonimize]"):0;
-   var mainlogo = document.getElementById( "anonMainlogo" ),
-       escritor = document.getElementById( "userEscritor" ),
+   var escritor = document.getElementById( "userEscritor" ),
        thumbler = document.getElementById( "mobiThumbler" );
-   mainlogo.onclick = function(e) { window.location.href = HARDCODE.myurl; }
    turnOff.apply(this,[ escritor, thumbler ]);
 }
 function insiduous(){

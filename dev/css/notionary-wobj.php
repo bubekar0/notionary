@@ -27,7 +27,7 @@
 .notionary-tracking { display:none; }
 
 .notionary-logo0815 { position:relative; top:0px; left:10px; height:45px;
-                      display:inline-block; cursor:pointer; color:<?php echo $normBlau; ?>;
+                      display:inline-block; color:<?php echo $normBlau; ?>;
                       <?php fontana("normal","900","2","1.3") ?>; <?php txtsh123($softGrau);?>; }
 
                          /* DIALOGS */
