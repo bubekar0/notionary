@@ -2268,7 +2268,7 @@ function showAddOneMoreButton(qaiAR){
    addonebtn.onclick = function() {
       qaiAR[THEINDEX] = new Object(); qaiAR[THEINDEX].q = ""; qaiAR[THEINDEX].a = "";
 
-      qandafeld.innerHTML += flatCardRow( THEINDEX, THEINDEX + 1, "", "" );
+      qandafeld.insertAdjacentHTML( "beforeend", flatCardRow( THEINDEX, THEINDEX + 1, "", "" ) );
 
       bindTextAreas( qaiAR, THEINDEX++ );
       bindChoicesButtons();
