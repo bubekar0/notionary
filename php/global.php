@@ -106,22 +106,6 @@
   "fr" => "<br/><span class='nnero'>Faites attention à ces questions</span><br/>",
   "pt" => "<br/><span class='nnero'>Preste atenção a estas questões</span><br/>",
   "it" => "<br/><span class='nnero'>Prestare attenzione a queste domande</span><br/>"),
-          "_SHAM" => array(
-  "ru" => "Доля по электронной почте",
-  "en" => "Share per email",
-  "de" => "Teilen Sie per E-Mail",
-  "es" => "Compartir por correo electrónico",
-  "fr" => "Partager par email",
-  "pt" => "Compartilhar por e-mail",
-  "it" => "Condividi via email"),
-          "_LERN" => array(
-  "ru" => "★★ сегодня я узнал кое-что ★★",
-  "en" => "★★ I learned something today ★★",
-  "de" => "★★ Heute habe Ich habe etwas gelernt ★★",
-  "es" => "★★ He aprendido algo hoy ★★",
-  "fr" => "★★ J'ai appris quelque chose aujourd'hui ★★",
-  "pt" => "★★ Eu aprendi alguma coisa hoje ★★",
-  "it" => "★★ Oggi ho imparato qualcosa ★★"),
           "_BEFO" => array(
   "ru" => "<div class='ngrun'>Предварительные результаты испытаний : </div>",
   "en" => "<div class='ngrun'>Prior test results : </div>",
@@ -130,46 +114,6 @@
   "fr" => "<div class='ngrun'>Les résultats des tests antérieurs : </div>",
   "pt" => "<div class='ngrun'>Os resultados dos testes anteriores : </div>",
   "it" => "<div class='ngrun'>Risultati dei test precedenti : </div>"),
-          "_SENT" => array(
-  "ru" => "<span class='nnero'>Электронное сообщение с этим докладом был отправлен : </span>",
-  "en" => "<span class='nnero'>An email with this report has been sent to : </span>",
-  "de" => "<span class='nnero'>Eine E-Mail mit diesem Bericht wurde versendet an : </span>",
-  "es" => "<span class='nnero'>Un correo electrónico con este informe ha sido enviado a : </span>",
-  "fr" => "<span class='nnero'>Un email avec ce rapport a été envoyé à : </span>",
-  "pt" => "<span class='nnero'>Um e-mail com este relatório foi enviado para : </span>",
-  "it" => "<span class='nnero'>Una e-mail con la presente relazione è stata inviata a : </span>"),
-          "_FOWD" => array(
-  "ru" => "<span class='nnero'>Здесь вы можете поделиться этими результатами ⇒  </span>",
-  "en" => "<span class='nnero'>Here you can share these results ⇒  </span>",
-  "de" => "<span class='nnero'>Hier können Sie diese Ergebnisse teilen ⇒  </span>",
-  "es" => "<span class='nnero'>Aquí puede compartir estos resultados ⇒  </span>",
-  "fr" => "<span class='nnero'>Ici vous pouvez partager ces résultats ⇒  </span>",
-  "pt" => "<span class='nnero'>Aqui você pode compartilhar esses resultados ⇒  </span>",
-  "it" => "<span class='nnero'>Qui è possibile condividere questi risultati ⇒  </span>"),
-          "_GOOD" => array(
-  "ru" => "<br/><span class='nnero' style='float:left;clear:left;'>Считаете ли вы эту испытание полезно ?</span>&nbsp;&nbsp;",
-  "en" => "<br/><span class='nnero' style='float:left;clear:left;'>Did you find this Test useful ?</span>&nbsp;&nbsp;",
-  "de" => "<br/><span class='nnero' style='float:left;clear:left;'>Hat dieser Test Ihnen geholfen ?</span>&nbsp;&nbsp;",
-  "es" => "<br/><span class='nnero' style='float:left;clear:left;'>¿ Le ha resultado útil esta prueba ?</span>&nbsp;&nbsp;",
-  "fr" => "<br/><span class='nnero' style='float:left;clear:left;'>Avez-vous trouvé ce test utile ?</span>&nbsp;&nbsp;",
-  "pt" => "<br/><span class='nnero' style='float:left;clear:left;'>Considera que este teste é útil ?</span>&nbsp;&nbsp;",
-  "it" => "<br/><span class='nnero' style='float:left;clear:left;'>Hai trovato che questa prova è utile ?</span>&nbsp;&nbsp;"),
-          "_FEED" => array(
-  "ru" => "<br/><span class='nnero'>Тебе есть что добавить ?</span>",
-  "en" => "<br/><span class='nnero'>Do you have any comments ?</span>",
-  "de" => "<br/><span class='nnero'>Möchten Sie einen Kommentar hinzufügen ?</span>",
-  "es" => "<br/><span class='nnero'>¿ Tiene algún comentario ?</span>",
-  "fr" => "<br/><span class='nnero'>Avez-vous des commentaires ?</span>",
-  "pt" => "<br/><span class='nnero'>Você tem algum comentário ?</span>",
-  "it" => "<br/><span class='nnero'>Hai un commento ?</span>"),
-          "_RECO" => array(
-  "ru" => "<br/><span class='nnero'>Вы рекомендовали бы этот тест ?</span>",
-  "en" => "<br/><span class='nnero'>Would you recommend this test ?</span>",
-  "de" => "<br/><span class='nnero'>Möchten Sie diesen Test empfehlen ?</span>",
-  "es" => "<br/><span class='nnero'>¿ Usted Recomendaría esta prueba ?</span>",
-  "fr" => "<br/><span class='nnero'>Recommanderiez-vous ce test ?</span>",
-  "pt" => "<br/><span class='nnero'>Você recomendaria este teste ?</span>",
-  "it" => "<br/><span class='nnero'>Consiglieresti questo test ?</span>")
   );
 function pglot($s2xlate){
    global $gstring;

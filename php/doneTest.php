@@ -183,8 +183,7 @@ $nimag = $query['imageID']; $nslan = $query['slang'];
 $nsafe = rawurlencode($nname);
 $nhtml = $PARAM_MYURL . "?tun=trial&amp;was=" . $nsafe;
 $nnurl = $PARAM_MYURL . "?tun=trial&amp;was=" . $nname;
-list($_ETAL, $_LERN, $_SHAM, $_DONE, $_SENT, $_FOWD, $_GOOD, $_FEED, $_RECO) = pglot(
-    ["_ETAL","_LERN","_SHAM","_DONE","_SENT","_FOWD","_GOOD","_FEED","_RECO"]);
+list($_ETAL, $_DONE) = pglot(["_ETAL","_DONE"]);
 if( strlen($nname) > $KURZ_MAXLEN ) $nkurz = substr($nname,0,$KURZ_MAXLEN)." . . .";
 else $nkurz = $nname;
 $mixed = false; $emstr=$brstr=$buble=$mail2=$marks=$myall=$prior=$esent=$fward="";
