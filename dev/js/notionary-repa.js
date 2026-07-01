@@ -77,8 +77,6 @@ function continueWithNextError(){
    xamimage = document.getElementById( "examImagenes" );
    if ( PROBLEMS[ THEINDEX ].pik ) ausblenden(xamqtext,10,true); else einblenden(xamqtext,10);
 
-   // Play the sound of a soundtion when available
-   if ( PROBLEMS[THEINDEX].pik && PROBLEMS[THEINDEX].snd ) playByID( PROBLEMS[THEINDEX].snd );
    xamxoice.innerHTML = buttonsMarkup;
    xoibtns = document.getElementsByClassName( "notionary-examwahl" );
    for ( i = 0; i < xoibtns.length; i++ ) xoibtns[i].onclick = function(e){
@@ -97,7 +95,6 @@ function continueWithNextError(){
          }
       } else {
          PROBLEMS[ THEINDEX ].weg++; updateRepasobars("Rojo");
-         if ( PROBLEMS[ THEINDEX ].snd )  playByID( PROBLEMS[ THEINDEX ].snd );
       }
       clearInterval( ENERGIZE );
       THEINDEX = ( THEINDEX + 1 ).mod( PROBLEMS.length );

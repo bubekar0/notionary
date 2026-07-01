@@ -37,16 +37,6 @@ function concludeTest(testtype,right,score,dauer,probs){
             jasonNINFO( NINFDATA[0].nname, function(){ // Update NINFDATA with this test
                jasonUINFO( function(){ // Update USERINFO with this test
                   if ( s = isInSuperNotions( NINFDATA[0].nidno ) ) showSuperNotion(s,panelaZwote);
-                  playables = document.getElementsByClassName( "playme" );
-                  for ( i = 0; i < playables.length; i++ ) {
-                     playables[i].onmouseover = function( e ){ cette = this;
-                        if ( !SOUNDHOV ) SOUNDHOV = setTimeout(function(){ SOUNDHOV = null;
-                              playByID( cette.getAttribute("sndid") ); },1000);
-                     }
-                     playables[i].onmouseout = function( e ){ cette = this;
-                        if ( SOUNDHOV ){ clearTimeout( SOUNDHOV ); SOUNDHOV = null; }
-                     }
-                  }
 
                });
             });

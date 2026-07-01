@@ -218,19 +218,3 @@ function convertSecondsToTime(str){
 }
 function cleanBrowserAddress(){ history.pushState('', document.title, HARDCODE.myurl); }
 
-// This needs to be open to public for test to work on wrong answers
-function playByID(id){
-   DEBUGGER?console.log("[playByID]"):0;
-   var speakers = document.createElement("div");
-                  speakers.setAttribute("id","anonSpeakers");
-                  speakers.style.setProperty("visibility","hidden");
-                  document.body.appendChild( speakers );
-
-   if ( !USERINFO[0].auchx && PLAYABLE ) {
-      speakers.innerHTML = "<audio id='sonido' autoplay controls preload id='playMe'>" +
-                              "<source type='audio/mpeg' src='" + HARDCODE.sound + id + "'>" +
-                              "<source type='audio/ogg'  src='" + HARDCODE.sound + id + "'>" +
-                           "</audio>";
-      setTimeout( function(){ document.body.removeChild(speakers) }, 5000);
-   }
-}

@@ -255,7 +255,6 @@ function bindTheCards(){
    caras = document.getElementsByClassName( "notionary-cardface" );
    for ( i = 0; i < caras.length; i++ ) {
       caras[i].onclick = function( e ){
-         if ( this.parentNode.parentNode.getAttribute("sndid") ) playByID( this.parentNode.parentNode.getAttribute("sndid") );
          cssTransform(this,"rotateY(180deg)");
          cssTransform(this.nextSibling, "rotateY(0deg)");
       }
@@ -328,11 +327,6 @@ function computeScoreAndContinue(typed,anser,testtype){
       // Visual Feedback of Error and Correct Answer
       feedbackControl("right","none", marquee, "");
       FBAKTOUT = setTimeout(function(){feedbackControl("left","none","",""); }, FBAKTOUT);
-
-      // Auditory Feedback of Error and Correct Answer
-      if ( !NINFDATA[0].picto && testtype == "trial" && WORKDATA[ THEINDEX ].s )
-         playByID( WORKDATA[ THEINDEX ].s );
-      else playByID(2);
    }
 
    THEINDEX++;   // compute score and time taken
@@ -483,11 +477,9 @@ function getNextPair(testtype){
    switch( testtype ) {
       case "learn": case "trial": case "mix1b":
          if ( NINFDATA[0].catno == "19" ) showStandardizedTests(testtype); else showMultipleChoices(testtype);
-         if ( ( testtype == "learn" || NINFDATA[0].picto ) && WORKDATA[ THEINDEX ].s ) playByID( WORKDATA[ THEINDEX ].s);
          break;
       case "write": case "adept": case "mix2b":
          LVPRCENT = 0, LVTARGET = getRidOfFluff( getGoodChoice( WORKDATA[ THEINDEX ].a ) );
-         if ( NINFDATA[0].picto && WORKDATA[ THEINDEX ].s ) playByID( WORKDATA[ THEINDEX ].s );
          break;
    }
    xamqtext.innerHTML = nextq;

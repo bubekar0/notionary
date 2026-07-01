@@ -218,22 +218,6 @@ function convertSecondsToTime(str){
 }
 function cleanBrowserAddress(){ history.pushState('', document.title, HARDCODE.myurl); }
 
-// This needs to be open to public for test to work on wrong answers
-function playByID(id){
-   DEBUGGER?console.log("[playByID]"):0;
-   var speakers = document.createElement("div");
-                  speakers.setAttribute("id","anonSpeakers");
-                  speakers.style.setProperty("visibility","hidden");
-                  document.body.appendChild( speakers );
-
-   if ( !USERINFO[0].auchx && PLAYABLE ) {
-      speakers.innerHTML = "<audio id='sonido' autoplay controls preload id='playMe'>" +
-                              "<source type='audio/mpeg' src='" + HARDCODE.sound + id + "'>" +
-                              "<source type='audio/ogg'  src='" + HARDCODE.sound + id + "'>" +
-                           "</audio>";
-      setTimeout( function(){ document.body.removeChild(speakers) }, 5000);
-   }
-}
 function fireKey(node_id,tecla_code){ var evento;
     if ( document.createEventObject ) {
         evento = document.createEventObject();
@@ -1730,7 +1714,6 @@ function bindTheCards(){
    caras = document.getElementsByClassName( "notionary-cardface" );
    for ( i = 0; i < caras.length; i++ ) {
       caras[i].onclick = function( e ){
-         if ( this.parentNode.parentNode.getAttribute("sndid") ) playByID( this.parentNode.parentNode.getAttribute("sndid") );
          cssTransform(this,"rotateY(180deg)");
          cssTransform(this.nextSibling, "rotateY(0deg)");
       }
@@ -1803,11 +1786,6 @@ function computeScoreAndContinue(typed,anser,testtype){
       // Visual Feedback of Error and Correct Answer
       feedbackControl("right","none", marquee, "");
       FBAKTOUT = setTimeout(function(){feedbackControl("left","none","",""); }, FBAKTOUT);
-
-      // Auditory Feedback of Error and Correct Answer
-      if ( !NINFDATA[0].picto && testtype == "trial" && WORKDATA[ THEINDEX ].s )
-         playByID( WORKDATA[ THEINDEX ].s );
-      else playByID(2);
    }
 
    THEINDEX++;   // compute score and time taken
@@ -1958,11 +1936,9 @@ function getNextPair(testtype){
    switch( testtype ) {
       case "learn": case "trial": case "mix1b":
          if ( NINFDATA[0].catno == "19" ) showStandardizedTests(testtype); else showMultipleChoices(testtype);
-         if ( ( testtype == "learn" || NINFDATA[0].picto ) && WORKDATA[ THEINDEX ].s ) playByID( WORKDATA[ THEINDEX ].s);
          break;
       case "write": case "adept": case "mix2b":
          LVPRCENT = 0, LVTARGET = getRidOfFluff( getGoodChoice( WORKDATA[ THEINDEX ].a ) );
-         if ( NINFDATA[0].picto && WORKDATA[ THEINDEX ].s ) playByID( WORKDATA[ THEINDEX ].s );
          break;
    }
    xamqtext.innerHTML = nextq;
@@ -2048,16 +2024,6 @@ function concludeTest(testtype,right,score,dauer,probs){
             jasonNINFO( NINFDATA[0].nname, function(){ // Update NINFDATA with this test
                jasonUINFO( function(){ // Update USERINFO with this test
                   if ( s = isInSuperNotions( NINFDATA[0].nidno ) ) showSuperNotion(s,panelaZwote);
-                  playables = document.getElementsByClassName( "playme" );
-                  for ( i = 0; i < playables.length; i++ ) {
-                     playables[i].onmouseover = function( e ){ cette = this;
-                        if ( !SOUNDHOV ) SOUNDHOV = setTimeout(function(){ SOUNDHOV = null;
-                              playByID( cette.getAttribute("sndid") ); },1000);
-                     }
-                     playables[i].onmouseout = function( e ){ cette = this;
-                        if ( SOUNDHOV ){ clearTimeout( SOUNDHOV ); SOUNDHOV = null; }
-                     }
-                  }
 
                });
             });
@@ -2678,8 +2644,6 @@ function continueWithNextError(){
    xamimage = document.getElementById( "examImagenes" );
    if ( PROBLEMS[ THEINDEX ].pik ) ausblenden(xamqtext,10,true); else einblenden(xamqtext,10);
 
-   // Play the sound of a soundtion when available
-   if ( PROBLEMS[THEINDEX].pik && PROBLEMS[THEINDEX].snd ) playByID( PROBLEMS[THEINDEX].snd );
    xamxoice.innerHTML = buttonsMarkup;
    xoibtns = document.getElementsByClassName( "notionary-examwahl" );
    for ( i = 0; i < xoibtns.length; i++ ) xoibtns[i].onclick = function(e){
@@ -2698,7 +2662,6 @@ function continueWithNextError(){
          }
       } else {
          PROBLEMS[ THEINDEX ].weg++; updateRepasobars("Rojo");
-         if ( PROBLEMS[ THEINDEX ].snd )  playByID( PROBLEMS[ THEINDEX ].snd );
       }
       clearInterval( ENERGIZE );
       THEINDEX = ( THEINDEX + 1 ).mod( PROBLEMS.length );
