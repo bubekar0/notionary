@@ -467,7 +467,7 @@ function getNextPair(testtype){
        imsrc        = HARDCODE.image + "101",
        frage, fsize, nextq = "", 
        xamanser, xamqtext, xampicto, xamimage;
-   if ( NINFDATA[0].nimag ) imsrc = HARDCODE.image + NINFDATA[0].nimag,
+   if ( NINFDATA[0].nimag ) imsrc = HARDCODE.image + NINFDATA[0].nimag;
    xamanser  = document.getElementById( "examRisposta" );
    xamqtext  = document.getElementById( "examPregunta" );
    xampicto  = document.getElementById( "examPantalla" );
