@@ -199,7 +199,7 @@ function ninf0(){
    if(!$r) { header('HTTP/1.1 500 Query String Error'); exit(); }
    $nidno = $r['notionID']; $ntabl=$r['notion']; $nname=$r['notion'];
    $query = mysqli_fetch_assoc(sql("select * from aanotion where notionID=$nidno"));
-   $multi = mysqli_fetch_assoc(sql("select aanotion.notionID, aasperq.sperq, aapart.part, aapart.cardinality, aapdfid.pdfID, aavideo.video from aanotion left join aasperq on aasperq.notionID = aanotion.notionID left join aapart on aapart.notionID = aanotion.notionID left join aapdfid on aapdfid.notionID = aanotion.notionID left join aavideo on aavideo.notionID = aanotion.notionID where aanotion.notionID=$nidno"));
+   $multi = mysqli_fetch_assoc(sql("select aanotion.notionID, aasperq.sperq, aapart.part, aapart.cardinality, '' as pdfID, '' as video from aanotion left join aasperq on aasperq.notionID = aanotion.notionID left join aapart on aapart.notionID = aanotion.notionID where aanotion.notionID=$nidno"));
    $nsize = mysqli_num_rows(sql("select question from `$ntabl`"));
    $nall  = nrall($nidno);
    $chav1 = holen("imageID","aaavatar","userID","$nall[ch1id]");
