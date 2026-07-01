@@ -88,14 +88,6 @@ function speak($parol,$style,$trail,$lenth){
                  .$texto ."</span>".$trail);
    else return($texto.$trail);
 }
-function holif($was,$von,$das,$val){
-   $columnQuery  = sql("show columns from `$von` like '$was'");
-   $columnExtant = mysqli_num_rows($columnQuery)?TRUE:FALSE;
-   if($columnExtant){
-      $selection = mysqli_fetch_assoc(sql("select $was from `$von` where $das='$val' COLLATE utf8_bin"));
-      return($selection[$was]);
-   } else return(false);
-}
 function uidno(){
    if ( isset( $_SESSION['uname'] ) ){
       $datum = mysqli_fetch_array( sql("select userID from aauser where user='$_SESSION[uname]'"));
