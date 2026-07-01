@@ -88,40 +88,6 @@ function speak($parol,$style,$trail,$lenth){
                  .$texto ."</span>".$trail);
    else return($texto.$trail);
 }
-function blobbInsert($quelle,$media,$medix,$name){
-   $table = "aa".$media; $index = $media."ID"; $dbnom = $name;
-   $bdata = addslashes( file_get_contents( $quelle ) );
-   if ( $media == "image" ) {
-      $sizes = getimagesize($quelle);
-      $bsize = $sizes[3];
-      $bmime = mime_content_type( $quelle );
-   } else {
-      $bsize = filesize( $quelle );
-      $bmime = finfo_file(finfo_open(FILEINFO_MIME_TYPE),$quelle);
-   }
-   sql("insert into $table ($index,type,$media,size,name) values('$medix','{$bmime}','{$bdata}','{$bsize}','{$dbnom}')");
-   $u = mysqli_fetch_assoc(
-           sql( "select AUTO_INCREMENT from information_schema.tables where table_schema='notionary_db' and table_name='$table'" ) );
-   $dlink = $u['AUTO_INCREMENT'] - 1;
-   if ( !$dlink ) $_SESSION['uload']['status'] = 4;
-   return( $dlink );
-}
-function blobbUpdate($quelle,$media,$medix,$name){
-   $table = "aa".$media; $index = $media."ID"; $dbnom = $name;
-   $bdata=addslashes(file_get_contents($quelle));
-   if ( $media == "image" ) {
-      $sizes = getimagesize( $quelle );
-      $bsize = $sizes[3];
-      $bmime = mime_content_type( $quelle );
-   } else {
-      $bsize = filesize( $quelle );
-      $bmime = finfo_file(finfo_open(FILEINFO_MIME_TYPE),$quelle);
-   }
-   $sqlStatus = sql("update $table set type='{$bmime}', size='{$bsize}',
-                $media='{$bdata}', name='{$dbnom}' where $index='$medix'");
-   if ( $sqlStatus ) $_SESSION['uload']['status'] = 0;
-   else $_SESSION['uload']['status'] = 4;
-}
 function holif($was,$von,$das,$val){
    $columnQuery  = sql("show columns from `$von` like '$was'");
    $columnExtant = mysqli_num_rows($columnQuery)?TRUE:FALSE;
