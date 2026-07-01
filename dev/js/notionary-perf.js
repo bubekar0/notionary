@@ -2,7 +2,7 @@ function concludeTest(testtype,right,score,dauer,probs){
    DEBUGGER?console.log("[concludeTest]"):0;
    var s, performance, xamrestitle, xamresoffer,
        temporaNode, panelaZwote,
-       cette, playables, testsTaken1, holdsTest1,
+       testsTaken1, holdsTest1,
        testsTaken2, holdsTest2, testsTaken3, holdsTest3;
    httpget("usrindex.php/?tun=ercau");
    onNAJAX("doneTest");

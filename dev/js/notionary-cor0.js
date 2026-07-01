@@ -3,7 +3,7 @@ function nentr(){ onNAJAX("enter");
       function( response ){ BROWSLAN = response; }
    ).then(function(){
       jasonSINFO( BROWSLAN, function(){
-         jasonUINFO(function(){ if ( USERINFO[0].nosnd ) PLAYABLE = false;
+         jasonUINFO(function(){
             loadSuperNotions(); loadUserAdminSources( linfoThenParseURL ); offNAJAX("enter");
          });
       });
@@ -64,7 +64,7 @@ function rentr(){
    httpget("?tun=mylan").then(function( response ){ BROWSLAN = response; })
     .then(function(){
       jasonSINFO( BROWSLAN, function(){
-         jasonUINFO(function(){ if( USERINFO[0].nosnd ) PLAYABLE = false;
+         jasonUINFO(function(){
             loadSuperNotions();
             loadUserAdminSources( function(){
                jasonXLATE( BROWSLAN, function(){ NAMESREG[4] = TRANSLAT.notre;

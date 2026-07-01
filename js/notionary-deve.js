@@ -1,9 +1,9 @@
 var USERBILD, THEINDEX, TESTTIME, DECILEFT, TIMEOUTS, QUESTIME, KORREKTE, FALSCHER, AUSTREAM,
-    ENERGIZE, ACTIVITY, BROWSLAN, SMARTFON, CHOIXHOV, IMAGEHOV, SOUNDHOV, FBAKTOUT,
+    ENERGIZE, ACTIVITY, BROWSLAN, SMARTFON, CHOIXHOV, IMAGEHOV, FBAKTOUT,
     LVTARGET, LVPRCENT, LVLENGTH = 12, LVMINPCT = 0.9,
     SELECTED = PROBZAHL = 0, PENANCES = 2, CHOIXMIN = 5, CHOIXSEP = "￭", DEFSPERQ = 30,
     OWNERMAX = CHAMPMAX = REVUEMAX = MAXTOUTS = 10, CARDSMIN = 5, CARDSPREFILL = 10, DESKNMAX = 35, MOBINMAX = 18,
-    DEBUGGER = PLAYABLE = true,
+    DEBUGGER = true,
     LOGGEDIN = ROOTUSER = ISEXTANT = false,
     WORKDATA = WAHLLIST = PROBLEMS = new Array(),
     SERVINFO = USERINFO = TRANSLAT = HARDCODE = NINFDATA = MOREDATA = MISTAKES = VIELDATA = SUPERSET = {},
@@ -842,7 +842,6 @@ function jasonSINFO(lan2L,cback,bust){
          var _base = window.location.origin + "/";
          HARDCODE.myurl = _base;
          HARDCODE.image = _base + "?tun=ibyid&was=";
-         HARDCODE.sound = _base + "?tun=sbyid&was=";
       },
       function( error ) { clickNotiz( error ); }
    ).then( cback );
@@ -895,7 +894,7 @@ function nentr(){ onNAJAX("enter");
       function( response ){ BROWSLAN = response; }
    ).then(function(){
       jasonSINFO( BROWSLAN, function(){
-         jasonUINFO(function(){ if ( USERINFO[0].nosnd ) PLAYABLE = false;
+         jasonUINFO(function(){
             loadSuperNotions(); loadUserAdminSources( linfoThenParseURL ); offNAJAX("enter");
          });
       });
@@ -956,7 +955,7 @@ function rentr(){
    httpget("?tun=mylan").then(function( response ){ BROWSLAN = response; })
     .then(function(){
       jasonSINFO( BROWSLAN, function(){
-         jasonUINFO(function(){ if( USERINFO[0].nosnd ) PLAYABLE = false;
+         jasonUINFO(function(){
             loadSuperNotions();
             loadUserAdminSources( function(){
                jasonXLATE( BROWSLAN, function(){ NAMESREG[4] = TRANSLAT.notre;
@@ -1961,7 +1960,7 @@ function concludeTest(testtype,right,score,dauer,probs){
    DEBUGGER?console.log("[concludeTest]"):0;
    var s, performance, xamrestitle, xamresoffer,
        temporaNode, panelaZwote,
-       cette, playables, testsTaken1, holdsTest1,
+       testsTaken1, holdsTest1,
        testsTaken2, holdsTest2, testsTaken3, holdsTest3;
    httpget("usrindex.php/?tun=ercau");
    onNAJAX("doneTest");

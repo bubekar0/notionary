@@ -64,7 +64,6 @@ function jasonSINFO(lan2L,cback,bust){
          var _base = window.location.origin + "/";
          HARDCODE.myurl = _base;
          HARDCODE.image = _base + "?tun=ibyid&was=";
-         HARDCODE.sound = _base + "?tun=sbyid&was=";
       },
       function( error ) { clickNotiz( error ); }
    ).then( cback );
