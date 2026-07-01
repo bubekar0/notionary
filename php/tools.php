@@ -21,7 +21,6 @@ function markupBlogHeader($nname,$ndesc,$nimag,$nhtml,$mixed,$noten,$marks){
    global $BLG_IMG_H, $BLG_IMG_W;
    $MYURL = param("myurl");
    $eggon = "";
-   $IMAGE = param("image");
    $ndsty = "margin:10px 0px 15px 0px; font: normal normal 400 1em/1 Futura, Calibri, sans-serif,monospace !important;".
             "color:#000; max-width:480px !important;";
    $BLOG_TEXT   = "display:inline-block;margin:40px 0px 30px 10px;".

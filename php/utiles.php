@@ -23,57 +23,6 @@ function debug(){
    $pinfo = preg_replace( '%^.*<body>(.*)</body>.*$%ms','$1',$pinfo);
    echo $pinfo;
 }
-function mfoot(){
-   $q = sql("select * from `aaparam` where kodex='image'
-             or kodex='igram' or kodex='ychan' or kodex='myurl' or kodex='mynom' or kodex='blogr'");
-   $params = []; while( $r = mysqli_fetch_assoc($q)) $params[strtoupper($r['kodex'])] = $r['value'];
-   $NOTIM = $params['IMAGE'];
-   $XLATE_CRITE = xlate("crite",$_SESSION['slang']);
-   $MYURL_ANCHOR = "<a style='text-decoration:none;' href='{$params['MYURL']}'/><img src='{$NOTIM}235'/> </a>\r\n";
-   $YCHAN_ANCHOR = "<a style='text-decoration:none;' href='{$params['YCHAN']}'/><img src='{$NOTIM}123'/> </a>\r\n";
-   $BLOGR_ANCHOR = "<a style='text-decoration:none;' href='{$params['BLOGR']}'/><img src='{$NOTIM}124'/> </a>\r\n";
-   $IGRAM_ANCHOR = "<a style='text-decoration:none;' href='{$params['IGRAM']}'/><img src='{$NOTIM}126'/> </a>\r\n";
-   $CRITE_ANCHOR = "<div class='copyrighter'> $XLATE_CRITE </div>\r\n";
-$retString =<<<END_OF_MAILFOOTER
-   <div id='bottomFooter'>
-      <span style='position:relative;top:5px;font-size:8px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-         $MYURL_ANCHOR $YCHAN_ANCHOR $BLOGR_ANCHOR
-         $IGRAM_ANCHOR &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $CRITE_ANCHOR
-      </span>
-   </div>
-END_OF_MAILFOOTER;
-   return( $retString );
-}
-function mailx($smsub,$smmsg,$whoto){ global $hardRojo, $softBlau, $softGrau;
-   global $MY_HOME;
-   $XLATE_ALTXT = xlate("altxt",$_SESSION['slang']);
-   $XLATE_DISCL = xlate("discl",$_SESSION['slang']);
-   if ( $GLOBALS['MY_SITE'] != "notionary" ) $XLATE_ALTXT = "DEVELOPMENT";
-   $q = sql("select * from `aaparam` where kodex='image' or kodex='myurl' or kodex='mynom'");
-   $params = []; while( $r = mysqli_fetch_assoc($q)) $params[strtoupper($r['kodex'])] = $r['value'];
-   $MYDOM = $params['MYNOM'].".com";
-   $LOGO_DIV = "<div id='topRedLiner'><span id='mailerLogo'>notionary</span></div>";
-   $VERSION = date('YmdHis');
-   $MAILCSS = "{$params['MYURL']}css/{$params['MYNOM']}-mail.php?version=$VERSION";
-   $MYSTYLE = file_get_contents($MAILCSS);
-   ob_start(); echo $MYSTYLE; $MYSTYLE = ob_get_contents(); ob_end_clean();
-   $BUCKET  = "donotreply@$MYDOM";
-$footer = mfoot();
-$messg=<<<END_OF_EMAIL_MARKUP
-<head> <style> $MYSTYLE </style> </head>
-<body>
-   $LOGO_DIV
-   $footer
-END_OF_EMAIL_MARKUP;
-$discl = str_replace("MYSITENAME",ucfirst( $params['MYNOM'] ),$XLATE_DISCL);
-$messg.="\r\n<div id='msgdiv'>" . $smmsg . "</div>" . $discl . "\r\n</body>";
-   $headr ="MIME-Version: 1.0\r\n" .
-           "Content-type: text/html; charset=utf-8\r\n" .
-           "From: $MYDOM <$BUCKET> \r\n" .
-           "Bcc: ".param("admin")." \r\n" .
-           "Reply-to: $BUCKET \r\n";
-   mail($whoto,$smsub,$messg,$headr);
-}
 function isMobile(){
    if(isset($_SERVER["HTTP_X_WAP_PROFILE"]))  return true;
    if(isset($_SERVER["HTTP_USER_AGENT"])){
@@ -255,7 +204,7 @@ function ercau(){
       unlink( "cache/_notionary_UINFO_" . uidno() . "_cache.php" );
 }
 function ssmkp(){
-   $x_url = $x_des = $x_img = ""; $CBUST = date('dHi');
+   $x_url = $x_des = $x_img = "";
    $q = sql("select * from `aaparam`");
    $params = []; while( $r = mysqli_fetch_assoc($q)) $params[strtoupper($r['kodex'])] = $r['value'];
    if ( isset ( $_REQUEST['was'] ) && $_REQUEST['tun'] != "suche" ) {
@@ -268,7 +217,6 @@ function ssmkp(){
       $query = mysqli_fetch_assoc(sql("select * from aanotion where notionID=$nidno"));
       $x_url = "{$params['MYURL']}?tun=trial&was=$nname";
       $x_des = $query['description'];
-      $x_img = "{$params['MYURL']}?tun=ibyid&amp;was={$query['imageID']}&amp;version=$CBUST";
    }
    $html =  mtags($_SESSION['slang'],$x_url,"",$x_des,$x_img)
           . "\r\n</head>\r\n<body></body>\r\n"
@@ -288,17 +236,10 @@ function mtags($langx,$seturl,$setttl,$setdes,$setimg){
    $q = sql("select kodex, $langx from `aaglobe` where kodex='descr' or kodex='kwrds' or kodex='altxt'");
    while( $r = mysqli_fetch_assoc($q)) $params[strtoupper($r['kodex'])] = $r[$langx];
    if ( $GLOBALS['MY_SITE'] != "notionary" ) $params['ALTXT'] = "DEVELOPMENT";
-   $IMAMP = "{$params['MYURL']}?tun=ibyid&amp;was=";
-   $CBUST = date('dHi');
-   $imgAR = array( "fbimg" => "140", "twimg" => "140", "gpimg" => "140", "logoi" => "140",
-                   "mstit" => "224", "ms_70" => "250", "ms150" => "251", "ms310" => "253", "ma310" => "252",
-                   "fluid" => "100", "at_57" => "226", "at_60" => "227", "at_72" => "222", "at_76" => "228",
-                   "at114" => "229", "at120" => "230", "at144" => "224", "at152" => "231", "at180" => "232",
-                   "touch" => "100", "start" => "140", "ic192" => "225", "ic_32" => "236", "ic_96" => "237", "ic_16" => "235");
+
    if( !empty( $seturl ) ) $params['MYURL'] = str_replace(' ', '%20', $seturl);
    if( !empty( $setttl ) ) $params['ALTXT'] = $setttl;
    if( !empty( $setdes ) ) $params['DESCR'] = $setdes;
-   if(  empty( $setimg ) ) $setimg = "{$IMAMP}{$imgAR['fbimg']}&amp;version=$CBUST";
 $METAS=<<<END_OF_METAS
 <!DOCTYPE html>
 <html lang='$langx' dir='ltr' xmlns='http://www.w3.org/1999/xhtml' itemscope itemtype='http://schema.org/Organization'>
@@ -309,25 +250,17 @@ $METAS=<<<END_OF_METAS
    <meta name="keywords"                              content="{$params['KWRDS']}"/>
    <meta property="og:title"                          content="{$params['ALTXT']}"/>
    <meta property="og:type"                           content="article"/>
-   <meta property="og:image"                          content="$setimg"/>
    <meta property="og:url"                            content="{$params['MYURL']}"/>
    <meta property="og:description"                    content="{$params['DESCR']}"/>
    <meta property="og:site_name"                      content="{$params['MYNOM']}"/>
    <meta itemprop="name"                              content="{$params['ALTXT']}"/>
    <meta itemprop="description"                       content="{$params['DESCR']}"/>
-   <meta itemprop="image"                             content="$setimg"/>
    <meta itemprop="sameAs"                            content="{$params['MYURL']}"/>
-   <meta itemprop="logo"                              content="{$params['IMAGE']}{$imgAR['logoi']}"/>
    <meta name="application-name"                      content="{$params['MYNOM']}"/>
    <meta name="msapplication-tooltip"                 content="{$params['ALTXT']}"/>
    <meta name="msapplication-starturl"                content="{$params['MYURL']}"/>
    <meta name="msapplication-TileColor"               content="#4D90FE">
-   <meta name="msapplication-TileImage"               content="{$params['IMAGE']}{$imgAR['mstit']}">
    <meta name="msapplication-task"                    content="name={$params['MYNOM']};action-uri={$params['MYURL']};icon-uri={$params['MYURL']}favicon.ico"/>
-   <meta name="msapplication-square70x70logo"         content="{$params['IMAGE']}{$imgAR['ms_70']}"/>
-   <meta name="msapplication-square150x150logo"       content="{$params['IMAGE']}{$imgAR['ms150']}"/>
-   <meta name="msapplication-square310x310logo"       content="{$params['IMAGE']}{$imgAR['ms310']}"/>
-   <meta name="msapplication-wide310x150logo"         content="{$params['IMAGE']}{$imgAR['ma310']}"/>
    <meta name="apple-mobile-web-app-capable"          content="yes"/>
    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
    <meta name="format-detection"                      content="telephone=no"/>
@@ -336,22 +269,6 @@ $METAS=<<<END_OF_METAS
    <meta name="MobileOptimized"                       content="$NAV_WIDTH"/>
    <meta http-equiv="cleartype"                       content="on" />
    <link rel="canonical"                              href="{$params['MYURL']}"/>
-   <link rel="fluid-icon"                             href="{$params['IMAGE']}{$imgAR['fluid']}"/>
-   <link rel="apple-touch-icon"      sizes="57x57"    href="{$params['IMAGE']}{$imgAR['at_57']}"/>
-   <link rel="apple-touch-icon"      sizes="60x60"    href="{$params['IMAGE']}{$imgAR['at_60']}"/>
-   <link rel="apple-touch-icon"      sizes="72x72"    href="{$params['IMAGE']}{$imgAR['at_72']}"/>
-   <link rel="apple-touch-icon"      sizes="76x76"    href="{$params['IMAGE']}{$imgAR['at_76']}"/>
-   <link rel="apple-touch-icon"      sizes="114x114"  href="{$params['IMAGE']}{$imgAR['at114']}"/>
-   <link rel="apple-touch-icon"      sizes="120x120"  href="{$params['IMAGE']}{$imgAR['at120']}"/>
-   <link rel="apple-touch-icon"      sizes="144x144"  href="{$params['IMAGE']}{$imgAR['at144']}"/>
-   <link rel="apple-touch-icon"      sizes="152x152"  href="{$params['IMAGE']}{$imgAR['at152']}"/>
-   <link rel="apple-touch-icon"      sizes="180x180"  href="{$params['IMAGE']}{$imgAR['at180']}"/>
-   <link rel="apple-touch-icon"                       href="{$params['IMAGE']}{$imgAR['touch']}"/>
-   <link rel="apple-touch-startup-image"              href="{$params['IMAGE']}{$imgAR['start']}"/>
-   <link rel="icon" type="image/png" sizes="192x192"  href="{$params['IMAGE']}{$imgAR['ic192']}"/>
-   <link rel="icon" type="image/png" sizes="32x32"    href="{$params['IMAGE']}{$imgAR['ic_32']}"/>
-   <link rel="icon" type="image/png" sizes="96x96"    href="{$params['IMAGE']}{$imgAR['ic_96']}"/>
-   <link rel="icon" type="image/png" sizes="16x16"    href="{$params['IMAGE']}{$imgAR['ic_16']}"/>
 END_OF_METAS;
    //<meta name="viewport"                              content="width=device-width, user-scalable=no, initial-scale=1.0"/>
    return($METAS);
