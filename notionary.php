@@ -81,24 +81,16 @@ function asone($q,$personal){
 }
 function dopdf($nidxy){
    openlog("dopdf",LOG_NDELAY,LOG_LOCAL2);
-   $PARAM_MYURL = param("myurl");
    $QA_MAX_CHARS = 36;
-   $TXT_PG_TOP = 15; $IMG_PG_TOP = 30; $QA_HEIGHT = 3.5;
-   $IMG_WIDTH  = 50; $IMG_HEIGHT = 30; $IMG_BUMP  = 40;
+   $QA_HEIGHT = 3.5;
    if(!is_numeric($nidno=mysqli_real_escape_string(lsql(),$nidxy))) rjekt();
    $nname = holen("notion","aanotion","notionID",$nidno);
    if ( empty($nname) ) return;
-   konto("notionID","aapiction","notionID","$nidno") ? $picto=true : $picto=false;
    define('TFPDF_INSTALLDIR', 'lib/tfpdf');
    include(TFPDF_INSTALLDIR.'/tfpdf.php');
-   $qi     = sql("show columns from `$nname` like 'imageID'");
-   $visual = mysqli_num_rows($qi)?TRUE:FALSE;
-   $qs     = sql("show columns from `$nname` like 'soundID'");
-   $sonora = mysqli_num_rows($qs)?TRUE:FALSE;
    syslog(LOG_NOTICE,"$_SERVER[REMOTE_ADDR] ($nidxy)");
    class PDF extends tFPDF {
       function Header(){
-         $PARAM_IMAGE = param("image");
          $this->SetY(0);
          $this->SetTextColor(0,0,0);
          $this->AddFont('DejaVu','','DejaVuSansCondensed-Bold.ttf',true);
@@ -129,30 +121,6 @@ function dopdf($nidxy){
    $pdf->SetFillColor(235,235,235);
    $pdf->AddFont('DejaVu','','DejaVuSansCondensed-Bold.ttf',true);
    $pdf->SetFont('DejaVu','',10);
-   if($picto){
-      $felde=" question "; if($visual) $felde.=", imageID "; if($sonora) $felde.=", soundID ";
-      $q=sql("select $felde from `$nname`");
-      $picts=1;
-      $fpdfImageYPos=$IMG_PG_TOP; $pdf->SetY($TXT_PG_TOP);
-      while($r=mysqli_fetch_assoc($q)){
-         $slink="";
-         if($visual && $r['imageID']) $imgid=$r['imageID']; else $imgid=100;
-         if($sonora && $r['soundID']) $sndid=$r['soundID']; else $sndid=false;
-         $ilong=holen("type","aaimage","imageID","$imgid");
-         if(empty($ilong)){ $imgid=100; $ilong="image/gif";}
-         if($imgid==100 && $sndid) $imgid = 130;
-         $itype=substr($ilong,6,strlen($ilong)-6);
-         $istrg=$PARAM_MYURL."?tun=ibyid&was=".$imgid."#.".$itype;
-         if($sndid) $slink=$PARAM_MYURL."?tun=sbyid&was=".$sndid;
-         if($picts%2) $pdf->Image($istrg,0,$fpdfImageYPos+10,$IMG_WIDTH,$IMG_HEIGHT,'',$slink);
-         else { $pdf->Image($istrg,120,$fpdfImageYPos+10,$IMG_WIDTH,$IMG_HEIGHT,'',$slink); $fpdfImageYPos+=$IMG_BUMP; }
-         $pdf->SetTextColor(252,127,3);
-         if($picts%2) $pdf->Cell(120,$IMG_BUMP,getGoodChoice($r['question']),0,0,'L');
-         else $pdf->Cell(120,$IMG_BUMP,getGoodChoice($r['question']),0,1,'L');
-         if( $picts && !($picts % 12 ) ){ $pdf->AddPage(); $fpdfImageYPos=$IMG_PG_TOP; $pdf->SetY($TXT_PG_TOP); }
-         $picts++;
-      }
-   } else {
       $q=sql("select question, answer from `$nname`");
       $fillme = 1;
       while($r=mysqli_fetch_assoc($q)){
@@ -177,7 +145,6 @@ function dopdf($nidxy){
          }
          $fillme++;
       }
-   }
    $pdf->Output();
    closelog();
 }

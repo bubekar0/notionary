@@ -44,7 +44,7 @@ function schaf( $getar ) { // AJAX: create a notion
    $nccur = utf8_decode( $jason['nccur'] );
    $ndcur = mysqli_real_escape_string(lsql(),rawurldecode( utf8_decode($jason['ndcur'])));
    $slang = $jason['slang'];   $tlang = $jason['tlang'];
-   $picto = $jason['picto'];   $spcur = $jason['spcur'];
+   $spcur = $jason['spcur'];
    $newAR = $jason['newAR'];
 
    if ( konto("notionID","aanotion","notion","$nncurColumn") ) { echo speak("inuse","","",""); return( false ); }
@@ -58,15 +58,12 @@ function schaf( $getar ) { // AJAX: create a notion
       sql( "select AUTO_INCREMENT from information_schema.tables where table_schema='notionary_db' and table_name='aanotion'" ) );
    $nidno = $r['AUTO_INCREMENT'] - 1;
 
-   if ( $picto ) sql( "insert into aapiction (notionID) values('$nidno')" ); // Enter into aapiction
-
    if ( $spcur != "30" ) sql( "insert into aasperq (notionID, sperq) values('$nidno','$spcur')" ); // Enter into aasperq
 
-   // Create Notion table. XXXXXXXX Get rid of Image from now on
+   // Create Notion table (text-only Q&A).
    sql( "create table `$nncurTable` (
         question char(100) NOT NULL PRIMARY KEY,
-        answer   char(100) NOT NULL,
-        imageID int(24)
+        answer   char(100) NOT NULL
        ) engine = MyISAM default charset = utf8 collate utf8_bin" );
 
    foreach( $newAR as $b ) { // populate notion with array of concepts.
@@ -80,7 +77,7 @@ function ander( $getar ){ // AJAX: change an extant notion
    $jason = json_decode( stripslashes( $getar ), true );
    $nname = $jason['nncur'];       $ndcur = $jason['ndcur'];
    $nccur = $jason['nccur'];       $spcur = $jason['spcur'];
-   $slang = $jason['slang'];       $tlang = $jason['tlang'];       $picto = $jason['picto'];
+   $slang = $jason['slang'];       $tlang = $jason['tlang'];
    $nidno = $jason['nidno'];       $newAR = $jason['newAR'];       $oldAR = $jason['oldAR'];
 
    $query = mysqli_fetch_assoc( sql( "select * from aanotion where notionID = $nidno" ) );
@@ -111,54 +108,13 @@ function ander( $getar ){ // AJAX: change an extant notion
 
    if ( $spold != $spcur ) sql( "update aasperq set sperq='$spcur' where notionID='$nidno'" );
 
-   konto("notionID","aapiction","notionID","$nidno") ? $ispik = true : $ispik = false;
-   if (  $picto && !$ispik ) sql( "insert into aapiction (notionID) values('$nidno')" );
-   if ( !$picto &&  $ispik ) sql( "delete from aapiction where notionID='$nidno'" );
-
-   $felde = " question, answer ";           // minimum set of fields to select
-   $qi = sql( "show columns from `$nname` like 'imageID'" );
-   $ri = mysqli_num_rows( $qi ) ? TRUE : FALSE;
-   if ( $ri ) $felde .= ", imageID ";
-
-   $qs = sql("show columns from `$nname` like 'soundID'");
-   $rs = mysqli_num_rows( $qs ) ? TRUE : FALSE;
-   if ( $rs ) $felde .= ", soundID ";
-
-   // Walk through the old table saving any Media
-   $q = sql("select $felde from `$nname`");
-   while ( $r = mysqli_fetch_assoc( $q ) ){
-      if ( $ri ) $imgid = $r['imageID']; else $imgid = NULL;
-      if ( $rs ) $sndid = $r['soundID']; else $sndid = NULL;
-      if ( $ri || $rs )
-         $media[] = array(
-                       "q" => $r['question'],
-                       "i" => $imgid,
-                       "s" => $sndid
-                    );
-   }
-
-   // Truncate and repopulate entire table rather than 1-by-1
+   // Truncate and repopulate the table with the new Q&A set
    sql( "truncate table `$nname`" );
-   foreach( $newAR as $b ){ // Start collecting the Questions and Answers from newAR[] received
+   foreach( $newAR as $b ){
       $bq = trim( mysqli_real_escape_string( lsql(),$b['q']) );  // Question allow apostrophes
       $ba = trim( mysqli_real_escape_string( lsql(),$b['a']) );  // Answer   allow apostrophes
-      unset( $bi ); unset( $bs );  // Clear running Image and Sound for this table entry
-      if ( !empty( $media ) )
-         foreach( $media as $m )   // Conserve media if Question is a match (including apostrophes)
-            if ( trim( mysqli_real_escape_string( lsql(),$m['q']) ) == $bq ) {
-               $bi = $m['i'];
-               $bs = $m['s'];
-            }
-
-      // Now repopulate the table with new entries and saved media (if any)
-      if ( empty( $bq ) || empty( $ba ) ) continue; // Either Q or A missing -->> Drop entry even if media lost
-      if ( isset( $bi ) && isset( $bs ))            // Have both Image as well as Sound
-         sql( "insert into `$nname` (question,answer,imageID,soundID) values('$bq','$ba','$bi','$bs')" );
-      else if ( isset( $bi ) && !isset( $bs ) )     // Have Q&A and image but no sound
-         sql( "insert into `$nname` (question,answer,imageID) values('$bq','$ba','$bi')" );
-      else if ( isset( $bs ) && !isset( $bi ) )     // Have Q&A and sound but no image
-         sql( "insert into `$nname` (question,answer,soundID) values('$bq','$ba','$bs')" );
-      else sql( "insert into `$nname` (question,answer) values('$bq','$ba')" ); // Just have Q&A
+      if ( empty( $bq ) || empty( $ba ) ) continue;              // Either Q or A missing -->> drop entry
+      sql( "insert into `$nname` (question,answer) values('$bq','$ba')" );
    }
 }
 function prdel($getar){ // AJAX: delete overcome problems
