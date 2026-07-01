@@ -19,7 +19,7 @@ if( !isset($_SESSION['blang']) || !isset($_SESSION['slang']) ) { // Set 'blang' 
    }
 }
 $slang = $_SESSION["slang"];
-function par2s($probAR,$nname,$pikja,$slang){ // Convert a Problems Array into a String
+function par2s($probAR,$nname,$slang){ // Convert a Problems Array into a String
    $_ACHT = pglot(["_ACHT"])[0];
    $probStr = "\r\n";
    $felde  = " answer ";
@@ -82,7 +82,7 @@ function getPerformance($uidno,$nidno){
       $perfo = "<span class='ngrun'>$XLATE_PERFO</span>\r\n $myone $mytwo $mytre";
    return($perfo);
 }
-function getPriorResults($uidno,$nidno,$nname,$pikja,$slang){
+function getPriorResults($uidno,$nidno,$nname,$slang){
    global $XLATE_LEVEL;
    list($_BEFO, $_MINI, $_MAXI, $_AVER) = pglot(["_BEFO", "_MINI", "_MAXI", "_AVER"]);
    $results123 = "";
@@ -187,7 +187,6 @@ list($_ETAL, $_LERN, $_SHAM, $_DONE, $_SENT, $_FOWD, $_GOOD, $_FEED, $_RECO) = p
     ["_ETAL","_LERN","_SHAM","_DONE","_SENT","_FOWD","_GOOD","_FEED","_RECO"]);
 if( strlen($nname) > $KURZ_MAXLEN ) $nkurz = substr($nname,0,$KURZ_MAXLEN)." . . .";
 else $nkurz = $nname;
-$pikja=false;
 $mixed = false; $emstr=$brstr=$buble=$mail2=$marks=$myall=$prior=$esent=$fward="";
 switch($ttype){ // Eggon/Nexto + Loben/Tadeln logic
    case 'zerob': $ptype=0; $lobta=false;  break;
@@ -199,13 +198,13 @@ switch($ttype){ // Eggon/Nexto + Loben/Tadeln logic
 }
 $nrall = nrall($nidno); // Notion Record Scores
 $noten = getNoten($nname,date('Y/m/d - g:i A'),$exart,$score,$elaps);      // The type, score and elapsed
-$prstr = par2s($probs,$nname,$pikja,$slang);  // Any exam problems nicely marked up as string
+$prstr = par2s($probs,$nname,$slang);  // Any exam problems nicely marked up as string
 if ( isset($_SESSION['uname']) ) $uidno = uidno();
 if ( $lobta && isset($uidno) ){ // Loben / Tadeln für Insiders Tests 1, 2, and 3
    $marks = lobenTadeln($uidno,$nidno,$ptype,$score,$dauer,$nrall);
    $prfid = updateServer($uidno,$nidno,$ptype,$score,$dauer,$probs);
    $myall = getPerformance($uidno,$nidno);    // Dispersion and Central Tendency
-   $prior = getPriorResults($uidno,$nidno,$nname,$pikja,$slang); // The long list
+   $prior = getPriorResults($uidno,$nidno,$nname,$slang); // The long list
 }
 // Email is 100% INSIDER but Browser markups has some INSIDER dependent content guts
 $brstr = $mostr = "<div id='perfArea' class='papier'>\r\n" . $_DONE .
