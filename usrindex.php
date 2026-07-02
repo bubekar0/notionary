@@ -27,8 +27,6 @@ function nodel( $nidno ) {
       sql("delete from aaformula where notionID='$nidno'");
       sql("delete from aapart where notionID='$nidno'");
       sql("delete from aaperfid where notionID='$nidno'");
-      sql("delete from aarating where notionID='$nidno'");
-      sql("delete from aareview where notionID='$nidno'");
       sql("delete from aasperq where notionID='$nidno'");
       sql("drop table `$ntabl`");
    }

@@ -204,11 +204,6 @@ function ninf0(){
    $chav1 = 101;
    $chav2 = 101;
    $chav3 = 101;
-   $t = db_fetch_array( sql("select avg(rating) as arate from aarating where notionID='$nidno'"));
-   $rated = $t['arate'];
-   $revus = "";
-   $wq = sql("select userID, review from aareview where notionID='$nidno'");
-   while($w=db_fetch_assoc($wq)){ $rever=""; $revus.="$rever-->>$w[review]￭"; }
    konto("notionID","aaformula","notionID","$nidno") ? $forja=true : $forja=false;
    $ownid=holen("userID","aanotion","notionID","$nidno");
    $owner="";
@@ -217,7 +212,7 @@ function ninf0(){
       $mall=nmall(holen("userID","aauser","user",$_SESSION['uname']),$nidno);
       $retAR[]=array(
          "nidno" => $nidno, "nname" => $nname, "ndesc" => $query['description'],
-         "catno" => $query['category'], "nsize" => $nsize, "rated" => $rated, "revus" => $revus,
+         "catno" => $query['category'], "nsize" => $nsize,
          "piece" => $multi['cardinality'], "parts" => $multi['part'], "dokum" => $multi['pdfID'], "video" => $multi['video'],
          "sperq" => $multi['sperq'], "slang" => $query['slang'], "tlang" => $query['tlang'], "ownid" => $ownid,
          "forja" => $forja, "owner" => $owner, "ownav" => $ownav,
@@ -230,7 +225,7 @@ function ninf0(){
    } else {
       $retAR[]=array(
          "nidno" => $nidno, "nname" => $nname, "ndesc" => $query['description'],
-         "catno" => $query['category'], "nsize" => $nsize, "rated" => $rated, "revus" => $revus,
+         "catno" => $query['category'], "nsize" => $nsize,
          "piece" => $multi['cardinality'], "parts" => $multi['part'], "dokum" => $multi['pdfID'], "video" => $multi['video'],
          "sperq" => $multi['sperq'], "slang" => $query['slang'], "tlang" => $query['tlang'], "ownid" => $ownid,
          "forja" => $forja, "owner" => $owner, "ownav" => $ownav,

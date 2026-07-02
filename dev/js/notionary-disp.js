@@ -42,22 +42,7 @@ function ninfoSchreiber(nobj){
               "</div>";
    return(nobj.nname +
           pacar + myall +
-          "<span class='notionary-call2act'>" + nobj.ndesc + "</span>" +
-          formatGenericReviews(nobj.revus));
-}
-function formatGenericReviews(reviews){
-   DEBUGGER?console.log("[formatGenericReviews]"):0
-   // Markup the passed Reviews in a standard form
-   var i, rvstr = "<div>", huwat, revAR = new Array();
-   revAR = reviews.split( "￭" );
-   if ( revAR.length > 1 ) rvstr += "<span class='nhony'>" + TRANSLAT.revus + "</span><br/>";
-   for ( i = 0; i < revAR.length-1; i++ ) {
-      huwat = revAR[i].split( "-->>" );
-      rvstr += "<span class='sazur'>" + huwat[0].kurzen( REVUEMAX ) + ": </span><br/>"+
-               "<span class='sgrun'>" + huwat[1] + "</span><br/>";
-   }
-   rvstr += "</div>";
-   return( rvstr );
+          "<span class='notionary-call2act'>" + nobj.ndesc + "</span>");
 }
 function computeLearnedPercent(keyAR,title,trailer){
    DEBUGGER?console.log("[computeLearnedPercent]"):0;
@@ -76,7 +61,7 @@ function computeLearnedPercent(keyAR,title,trailer){
 function markupNotionsSummary(keyAR,titular,trailer){
    DEBUGGER?console.log("[markupNotionsSummary]"):0;
    // Source used to be one of : (found|meine|npops|rcent|nrels)
-   var mu = mobMU = "", x, autor, title, sterne, nenco, nquot; 
+   var mu = mobMU = "", x, autor, title, nenco, nquot; 
    mu += markupIdempotentButtons() + "<h2>" + titular + "</h2>";
    for ( x=0; x < keyAR.length; x++ ) {
       percnt = "<div class='notionary-prozent'></div>";
@@ -91,9 +76,6 @@ function markupNotionsSummary(keyAR,titular,trailer){
             percnt="<div class='notionary-prozent'>100%" + TRANSLAT.compl + "</div>";
       } catch(err){};
 
-      sterne = "";
-      for ( i = 1; i <= parseInt(keyAR[x].rated); i++ ) sterne += "<span class='fa fa-star'></span>";
-      sterne = '<div class="notionary-ratings">' + sterne + '</div>';
       title = "[" + nquot + "] " + keyAR[x].ndesc.sauber();
       if ( ( keyAR[x].ownid == USERINFO[0].uidno ) || ( USERINFO[0].uidno == "1" ) ) autor = true;
       else autor = false;
@@ -106,7 +88,7 @@ function markupNotionsSummary(keyAR,titular,trailer){
                   ' nname="' + nquot + '"/>'+
                "<div class='notionary-notioname'>" + nquot + "</div>" +
                   "<div class='notionary-howmany'>" + TRANSLAT.total + keyAR[x].nsize + "</div>" +
-                  sterne  + percnt ;
+                  percnt ;
 
 
       mu += "</div>";
