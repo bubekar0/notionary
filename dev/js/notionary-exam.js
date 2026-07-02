@@ -200,7 +200,7 @@ function markupTheCards(nobj,cards2show){
    var TRESHOLD =   8,   // Length that spans card
        BABYFONT = 1.8,
        MAMAFONT = 3.0,
-       mu = "", card, total, count, tacky, sound, imgid,
+       mu = "", card, total, count, tacky, imgid,
        frage, anser, theQ, theA, qFont, aFont;
    WORKDATA = shuffleArray( nobj[1].qaimg );
    total = cards2show != "" ? cards2show : WORKDATA.length;
@@ -211,7 +211,6 @@ function markupTheCards(nobj,cards2show){
       qFont = theQ.length < TRESHOLD ? MAMAFONT : BABYFONT;
       aFont = theA.length < TRESHOLD ? MAMAFONT : BABYFONT;
 
-      sound = WORKDATA[card].s ? " sndid='" + WORKDATA[card].s + "' ": "";
       count = "<div class='notionary-cardzahl'>" + parseInt(card+1) + "/" + WORKDATA.length + "</div>";
       frage = "<div class='notionary-cardtext'>" + theQ + "</div>";
       anser = "<div class='notionary-cardtext'>" + theA + "</div>";
@@ -221,7 +220,7 @@ function markupTheCards(nobj,cards2show){
          frage = "<img class='notionary-picimage' src='" + HARDCODE.image + imgid + "'>" ;
       }
 
-      mu += "<section class='notionary-cardhold' " + sound + "title='" + TRANSLAT.fover + "'>" +
+      mu += "<section class='notionary-cardhold' " + "title='" + TRANSLAT.fover + "'>" +
                "<div class='notionary-flipcard' qaIndex='" + card + "'>" +
                   "<figure style='font:normal normal 600 " + qFont + "em/100% Futura,sans-serif,monospace;' " +
                          " class='notionary-cardface'>" + count + tacky + frage +

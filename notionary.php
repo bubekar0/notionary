@@ -273,7 +273,6 @@ function uinf0(){
    $uname = $_SESSION['uname']; $uimag = $NOIMGID;
    $uidno = uidno(); if ( empty($uidno) ) { echo ""; exit; }
    $multi = db_fetch_assoc(sql("select aauser.ulang, aaemail.email, aakname.kname, aafname.fname, 101 as imageID from aauser left join aaemail on aaemail.userID = aauser.userID left join aakname on aakname.userID = aauser.userID left join aafname on aafname.userID = aauser.userID where aauser.userID=$uidno"));
-   konto("userID","aanosnd","userID","$uidno") ? $nosnd = true : $nosnd = false;
    konto("userID","aajamsg","userID","$uidno") ? $msges = true : $msges = false;
    $kenne = db_num_rows( sql("select distinct notionID from `aaperfid` where userID='$uidno' and ptype='1'") );
    $wrote = db_num_rows( sql("select distinct notionID from `aaperfid` where userID='$uidno' and ptype='2'") );
@@ -283,7 +282,7 @@ function uinf0(){
       "kenne" => $kenne, "wrote" => $wrote, "meist" => $meist,
       "fbusr" => NULL, "twusr" => NULL, "gpusr" => NULL,
       "kname" => $multi['kname'], "fname" => $multi['fname'],
-      "nosnd" => $nosnd, "msges" => $msges, "uimag" => $multi['imageID']
+      "msges" => $msges, "uimag" => $multi['imageID']
    );
    $rcnAR = asone(sql("select notionID, max(dtime) as date from aaperfid where userID='$uidno' group by notionID order by date desc limit 0, $PILE"),true);
    if ( $rcnAR ) $retAR[] = array("rcent" => $rcnAR);
