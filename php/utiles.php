@@ -206,15 +206,15 @@ function ercau(){
 function ssmkp(){
    $x_url = $x_des = $x_img = "";
    $q = sql("select * from `aaparam`");
-   $params = []; while( $r = mysqli_fetch_assoc($q)) $params[strtoupper($r['kodex'])] = $r['value'];
+   $params = []; while( $r = db_fetch_assoc($q)) $params[strtoupper($r['kodex'])] = $r['value'];
    if ( isset ( $_REQUEST['was'] ) && $_REQUEST['tun'] != "suche" ) {
       // All ssmkp routines have notion name as "was" except 'suche'
       $nname = $_REQUEST['was'];
-      $nncol = mysqli_real_escape_string(lsql(),$nname);
-      $r = mysqli_fetch_assoc( sql("select notionID, notion from `aanotion` where notion='$nncol'"));
+      $nncol = db_escape($nname);
+      $r = db_fetch_assoc( sql("select notionID, notion from `aanotion` where notion='$nncol'"));
       if ( !$r ) { header('HTTP/1.1 500 Query String Error'); exit(); }
       $nidno = $r['notionID']; $ntabl=$r['notion']; $nname=$r['notion'];
-      $query = mysqli_fetch_assoc(sql("select * from aanotion where notionID=$nidno"));
+      $query = db_fetch_assoc(sql("select * from aanotion where notionID=$nidno"));
       $x_url = "{$params['MYURL']}?tun=trial&was=$nname";
       $x_des = $query['description'];
    }
@@ -232,9 +232,9 @@ function porta(){
 function mtags($langx,$seturl,$setttl,$setdes,$setimg){
    global $NAV_WIDTH;
    $q = sql("select * from `aaparam`");
-   $params = []; while( $r = mysqli_fetch_assoc($q)) $params[strtoupper($r['kodex'])] = $r['value'];
+   $params = []; while( $r = db_fetch_assoc($q)) $params[strtoupper($r['kodex'])] = $r['value'];
    $q = sql("select kodex, $langx from `aaglobe` where kodex='descr' or kodex='kwrds' or kodex='altxt'");
-   while( $r = mysqli_fetch_assoc($q)) $params[strtoupper($r['kodex'])] = $r[$langx];
+   while( $r = db_fetch_assoc($q)) $params[strtoupper($r['kodex'])] = $r[$langx];
    if ( $GLOBALS['MY_SITE'] != "notionary" ) $params['ALTXT'] = "DEVELOPMENT";
 
    if( !empty( $seturl ) ) $params['MYURL'] = str_replace(' ', '%20', $seturl);

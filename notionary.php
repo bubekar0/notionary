@@ -14,7 +14,6 @@ date_default_timezone_set($_CONFIG['TIMEZONE']);
 require_once "php/utiles.php";
 require_once "php/dbutil.php";
 require_once "php/asynch.php";
-require_once "php/oauth2.php";
 require_once "php/global.php";
 require_once "php/tools.php";
 require_once "php/math.php";
@@ -28,25 +27,24 @@ function asone($q,$personal){
    if ( $partMap === null ) {
       $partMap = array();
       $pq = sql("select notionID, part, cardinality from aapart");
-      if ( $pq ) while ( $pr = mysqli_fetch_assoc($pq) )
+      if ( $pq ) while ( $pr = db_fetch_assoc($pq) )
          if ( !isset($partMap[$pr['notionID']]) ) $partMap[$pr['notionID']] = $pr;
       $formulaSet = array();
       $fq = sql("select distinct notionID from aaformula");
-      if ( $fq ) while ( $fr = mysqli_fetch_assoc($fq) ) $formulaSet[$fr['notionID']] = true;
+      if ( $fq ) while ( $fr = db_fetch_assoc($fq) ) $formulaSet[$fr['notionID']] = true;
    }
-   if ( mysqli_num_rows($q) == 0 ) return(false);
-   while( $r = mysqli_fetch_assoc($q) ) {
+   if ( db_num_rows($q) == 0 ) return(false);
+   while( $r = db_fetch_assoc($q) ) {
       $nidno = $r['notionID'];
-      $n = mysqli_fetch_assoc(
+      $n = db_fetch_assoc(
             sql("select notion, description, userID, imageID, category, slang
                  from aanotion where notionID='$nidno'"));
       $nname = $n['notion']; $ndesc=$n['description']; $ownid=$n['userID'];
       $nimag = $n['imageID']; $catno=$n['category']; $slang=$n['slang'];
       $cq = sql("select count(*) as c from `$nname`");
       if ( !$cq ) { syslog(LOG_ERR,"$_SERVER[REMOTE_ADDR] asone Zombie Alert $nname($nidno)"); continue; }
-      $cc = mysqli_fetch_assoc($cq); $nsize = $cc['c'];
-      if ( !isset($ownerCache[$ownid]) ) $ownerCache[$ownid] = anone($ownid);
-      $owner = $ownerCache[$ownid];
+      $cc = db_fetch_assoc($cq); $nsize = $cc['c'];
+      $owner = "";
       // Inert in this text-only single-user build: ratings, reviews, pictions,
       // pdf, video, avatars and cross-user champion records.
       $rated=""; $revus=""; $picto=false;
@@ -83,7 +81,7 @@ function dopdf($nidxy){
    openlog("dopdf",LOG_NDELAY,LOG_LOCAL2);
    $QA_MAX_CHARS = 36;
    $QA_HEIGHT = 3.5;
-   if(!is_numeric($nidno=mysqli_real_escape_string(lsql(),$nidxy))) rjekt();
+   if(!is_numeric($nidno=db_escape($nidxy))) rjekt();
    $nname = holen("notion","aanotion","notionID",$nidno);
    if ( empty($nname) ) return;
    define('TFPDF_INSTALLDIR', 'lib/tfpdf');
@@ -123,7 +121,7 @@ function dopdf($nidxy){
    $pdf->SetFont('DejaVu','',10);
       $q=sql("select question, answer from `$nname`");
       $fillme = 1;
-      while($r=mysqli_fetch_assoc($q)){
+      while($r=db_fetch_assoc($q)){
          $question = $r['question']; $answer = getGoodChoice($r['answer']);
          $qaLength = strlen($question."     ".$answer);
          if($qaLength < 2*$QA_MAX_CHARS){
@@ -149,25 +147,25 @@ function dopdf($nidxy){
    closelog();
 }
 function sinf0(){ $PILE = 40;
-   $q=sql("show columns in aaglobe like '__'");
-   while($r=mysqli_fetch_assoc($q)) $lanAR[]=$r['Field'];
+   $q=sql("pragma table_info(aaglobe)");
+   while($r=db_fetch_assoc($q)) if(strlen($r['name'])==2) $lanAR[]=$r['name'];
    $q=sql("select distinct category from aanotion where slang='$_REQUEST[was]' order by category");
-   while($r=mysqli_fetch_assoc($q)) $katAR[]=$r['category'];
+   while($r=db_fetch_assoc($q)) $katAR[]=$r['category'];
    $q=sql("select userID, count(userID) as stars from `aaperfid` group by userID order by stars desc limit 0,3");
-   while($r=mysqli_fetch_assoc($q)){
+   while($r=db_fetch_assoc($q)){
       $ownav=101;
       $befat=explode('@',holen("user","aauser","userID","$r[userID]"));
       $stuAR[]=array("stdnt"=>$befat[0],"stars"=>$r['stars'],"stdav"=>$ownav);
    }
    $q=sql("select userID, count(userID) as stars from `aanotion` group by userID order by stars desc limit 0,3");
-   while($r=mysqli_fetch_assoc($q)){
+   while($r=db_fetch_assoc($q)){
       $ownav=101;
       $befat=explode('@',holen("user","aauser","userID","$r[userID]"));
       $tecAR[]=array("techi"=>$befat[0], "stars"=>$r['stars'], "stdav"=>$ownav);
    }
    foreach($katAR as $k){ unset($kitAR);
       $q=sql("select notionID from aanotion where category='$k' order by notion");
-      if(mysqli_num_rows($q)!=0){
+      if(db_num_rows($q)!=0){
          $kitARA = asone(sql("select notionID from aanotion where category='$k' and slang='$_REQUEST[was]' order by notion"),false);
          $ktnAR[]=array($k => $kitARA);
       }
@@ -180,11 +178,11 @@ function sinf0(){ $PILE = 40;
                where n.slang='$_SESSION[slang]'"),false);
    $retAR[]=array("npops" => $popAR);
    $q=sql("select * from aaparam");
-   while($r=mysqli_fetch_assoc($q)) $parAR[]=array($r['kodex'] => $r['value']);
+   while($r=db_fetch_assoc($q)) $parAR[]=array($r['kodex'] => $r['value']);
    $retAR[]=array("param" => $parAR);
    $q = sql("select * from aasuper where slang='$_REQUEST[was]'");
-   while( $r = mysqli_fetch_assoc( $q ) ){
-      $owner=anone($r['userID']); $ownav=101;
+   while( $r = db_fetch_assoc( $q ) ){
+      $owner=""; $ownav=101;
       $supAR[] = array("supid" => $r['superID'], "owner" => $owner, "ownav" => $ownav,
                        "sname" => $r['supernotion'], "sdesc" => $r['description'], "snots" => $r['notions']);
    }
@@ -194,26 +192,26 @@ function sinf0(){ $PILE = 40;
 function ninf0(){
    $nname = $_REQUEST['was'];
    $ntabl = $nname;
-   $nncol = mysqli_real_escape_string(lsql(),$nname);
-   $r = mysqli_fetch_assoc( sql("select notionID, notion from `aanotion` where notion='$nncol'"));
+   $nncol = db_escape($nname);
+   $r = db_fetch_assoc( sql("select notionID, notion from `aanotion` where notion='$nncol'"));
    if(!$r) { header('HTTP/1.1 500 Query String Error'); exit(); }
    $nidno = $r['notionID']; $ntabl=$r['notion']; $nname=$r['notion'];
-   $query = mysqli_fetch_assoc(sql("select * from aanotion where notionID=$nidno"));
-   $multi = mysqli_fetch_assoc(sql("select aanotion.notionID, aasperq.sperq, aapart.part, aapart.cardinality, '' as pdfID, '' as video from aanotion left join aasperq on aasperq.notionID = aanotion.notionID left join aapart on aapart.notionID = aanotion.notionID where aanotion.notionID=$nidno"));
-   $nsize = mysqli_num_rows(sql("select question from `$ntabl`"));
+   $query = db_fetch_assoc(sql("select * from aanotion where notionID=$nidno"));
+   $multi = db_fetch_assoc(sql("select aanotion.notionID, aasperq.sperq, aapart.part, aapart.cardinality, '' as pdfID, '' as video from aanotion left join aasperq on aasperq.notionID = aanotion.notionID left join aapart on aapart.notionID = aanotion.notionID where aanotion.notionID=$nidno"));
+   $nsize = db_num_rows(sql("select question from `$ntabl`"));
    $nall  = nrall($nidno);
    $chav1 = 101;
    $chav2 = 101;
    $chav3 = 101;
-   $t = mysqli_fetch_array( sql("select avg(rating) as arate from aarating where notionID='$nidno'"));
+   $t = db_fetch_array( sql("select avg(rating) as arate from aarating where notionID='$nidno'"));
    $rated = $t['arate'];
    $revus = "";
    $wq = sql("select userID, review from aareview where notionID='$nidno'");
-   while($w=mysqli_fetch_assoc($wq)){ $rever=anone($w['userID']); $revus.="$rever-->>$w[review]￭"; }
+   while($w=db_fetch_assoc($wq)){ $rever=""; $revus.="$rever-->>$w[review]￭"; }
    $picto=false;
    konto("notionID","aaformula","notionID","$nidno") ? $forja=true : $forja=false;
    $ownid=holen("userID","aanotion","notionID","$nidno");
-   $owner=anone($ownid);
+   $owner="";
    $ownav=101;
    if(isset($_SESSION['uname'])){
       $mall=nmall(holen("userID","aauser","user",$_SESSION['uname']),$nidno);
@@ -243,11 +241,11 @@ function ninf0(){
       );
    }
    $felde=" question, answer ";
-   $qi=sql("show columns from `$ntabl` like 'imageID'"); $ri=mysqli_num_rows($qi)?TRUE:FALSE;
-   $qs=sql("show columns from `$ntabl` like 'soundID'"); $rs=mysqli_num_rows($qs)?TRUE:FALSE;
+   $ri=FALSE; // imageID column stripped (media removed)
+   $rs=FALSE; // soundID column stripped (media removed)
    if($ri) $felde.=", imageID "; if($rs) $felde.=", soundID ";
    $q=sql("select $felde from `$ntabl`");
-   while($r=mysqli_fetch_assoc($q)){
+   while($r=db_fetch_assoc($q)){
       if($ri) $imgid=$r['imageID']; else $imgid="";
       if($rs) $sndid=$r['soundID']; else $sndid="";
       $qaimg[]=array("q"=>$r['question'],"a"=>$r['answer'],"i"=>$imgid,"s"=>$sndid);
@@ -260,26 +258,26 @@ function ninfo(){
    $urarg = parse_url($_SERVER['REQUEST_URI']);
    if ( strlen( $urarg['query'] ) < 19 || substr( $urarg['query'], 0, 14 ) != "tun=ninfo&was=" ) rjekt();
    $nname = $_REQUEST['was'];
-   $nncol = mysqli_real_escape_string(lsql(),$nname);
+   $nncol = db_escape($nname);
    $nidno = holen("notionID","aanotion","notion",$nncol);
    if ( isset( $_SESSION['uname'] ) ) { $track = uidno(); } else $track = $_SERVER['REMOTE_ADDR'];
    fcach( "cache/_notionary_NINFO_".$nidno."_".$track."_cache.php", "604800", "ninfo" );
 }
 function linf0(){
    $q = sql("select kodex, $_REQUEST[was] from aaglobe order by kodex");
-   while( $r = mysqli_fetch_assoc( $q ) ) $tmpAR[] = array( $r['kodex'] => $r[$_REQUEST['was']] );
+   while( $r = db_fetch_assoc( $q ) ) $tmpAR[] = array( $r['kodex'] => $r[$_REQUEST['was']] );
    return( $tmpAR );
 }
 function uinf0(){
    $PILE = 50; $NOIMGID = 101;
    $uname = $_SESSION['uname']; $uimag = $NOIMGID;
    $uidno = uidno(); if ( empty($uidno) ) { echo ""; exit; }
-   $multi = mysqli_fetch_assoc(sql("select aauser.ulang, aaemail.email, aakname.kname, aafname.fname, 101 as imageID from aauser left join aaemail on aaemail.userID = aauser.userID left join aakname on aakname.userID = aauser.userID left join aafname on aafname.userID = aauser.userID where aauser.userID=$uidno"));
+   $multi = db_fetch_assoc(sql("select aauser.ulang, aaemail.email, aakname.kname, aafname.fname, 101 as imageID from aauser left join aaemail on aaemail.userID = aauser.userID left join aakname on aakname.userID = aauser.userID left join aafname on aafname.userID = aauser.userID where aauser.userID=$uidno"));
    konto("userID","aanosnd","userID","$uidno") ? $nosnd = true : $nosnd = false;
    konto("userID","aajamsg","userID","$uidno") ? $msges = true : $msges = false;
-   $kenne = mysqli_num_rows( sql("select distinct notionID from `aaperfid` where userID='$uidno' and ptype='1'") );
-   $wrote = mysqli_num_rows( sql("select distinct notionID from `aaperfid` where userID='$uidno' and ptype='2'") );
-   $meist = mysqli_num_rows( sql("select distinct notionID from `aaperfid` where userID='$uidno' and ptype='3'") );
+   $kenne = db_num_rows( sql("select distinct notionID from `aaperfid` where userID='$uidno' and ptype='1'") );
+   $wrote = db_num_rows( sql("select distinct notionID from `aaperfid` where userID='$uidno' and ptype='2'") );
+   $meist = db_num_rows( sql("select distinct notionID from `aaperfid` where userID='$uidno' and ptype='3'") );
    $retAR[] = array(
       "uname" => $uname, "uidno" => $uidno, "email" => $multi['email'], "ulang" => $multi['ulang'],
       "kenne" => $kenne, "wrote" => $wrote, "meist" => $meist,
@@ -294,7 +292,7 @@ function uinf0(){
    if ( $meiAR ) $retAR[] = array("meine" => $meiAR);
    else $retAR[]=array(""=>"");
    $q = sql("select perfID, notionID, ptype from aaperfid where userID='$uidno'");
-   while($r=mysqli_fetch_assoc($q)){ unset($probs);
+   while($r=db_fetch_assoc($q)){ unset($probs);
       $nname = holen("notion","aanotion","notionID",$r['notionID']);
       if ( empty( $nname ) ) {
          sql("delete from aaperfid where perfID='$r[perfID]'");
@@ -304,19 +302,19 @@ function uinf0(){
          $nimag = holen("imageID","aanotion","notionID",$r['notionID']);
          $p = sql("select probs from aaprobs where perfID='$r[perfID]'");
          $picto=false;
-         while ( $t = mysqli_fetch_assoc($p) ){
-            $qi = sql("show columns from `$nname` like 'imageID'"); $visual = mysqli_num_rows($qi)?TRUE:FALSE;
-            $qs = sql("show columns from `$nname` like 'soundID'"); $sonora = mysqli_num_rows($qs)?TRUE:FALSE;
+         while ( $t = db_fetch_assoc($p) ){
+            $visual=FALSE; // imageID column stripped (media removed)
+            $sonora=FALSE; // soundID column stripped (media removed)
             $felde = " question, answer "; if($visual) $felde.=", imageID "; if($sonora) $felde.=", soundID ";
             $raw_prob = $t['probs'];
             $net_prob = scapo($t['probs']);
-            $s = mysqli_fetch_array(sql("select $felde from `$nname` where question='$net_prob'"));
+            $s = db_fetch_array(sql("select $felde from `$nname` where question='$net_prob'"));
             if ( empty($s['question']) ){
                sql("delete from aaprobs where perfID='$r[perfID]' and probs='$raw_prob'");
             } else {
                unset($d); unset($k); unset($dec);
-               $d=sql("select answer from `$nname` where question!='$net_prob' order by rand() limit 4");
-               while($k=mysqli_fetch_array($d)) $dec[]=getGoodChoice($k['answer']);
+               $d=sql("select answer from `$nname` where question!='$net_prob' order by random() limit 4");
+               while($k=db_fetch_array($d)) $dec[]=getGoodChoice($k['answer']);
                isset($s['imageID']) ? $theImage=$s['imageID'] : $theImage=NULL;
                isset($s['soundID']) ? $theSound=$s['soundID'] : $theSound=NULL;
                $probs[] = array( "pid" => $r['perfID'], "nim" => $nimag,
@@ -336,9 +334,9 @@ function uinf0(){
 function busca($urist){
    $WORD_MIN_LEN = 3;
    $notns = NULL;
-   $s = mysqli_real_escape_string(lsql(),$urist);
+   $s = db_escape($urist);
    $q = "select notionID from aanotion where notion='$s' ";
-   if ( mysqli_num_rows( sql( $q ) ) == 1 ) {
+   if ( db_num_rows( sql( $q ) ) == 1 ) {
       nocach("text/html",json_encode(array("notns" => asone(sql($q),true)))); return;}
    $q = "select notionID from aanotion where notionID=0";
    foreach( explode(" ",$s) as $word)
@@ -349,12 +347,12 @@ function busca($urist){
 function mixqa($getar){
    $jason=json_decode(stripslashes($getar),true);
    $nlist=$jason['nlist'];
-   $nncol=mysqli_real_escape_string(lsql(),$nlist[0]);
+   $nncol=db_escape($nlist[0]);
    $nidno=holen("notionID","aanotion","notion",$nncol);
    konto("notionID","aaformula","notionID","$nidno") ? $forja=true : $forja=false;
    if($forja) {
       foreach($nlist as $n) {
-         $nncol=mysqli_real_escape_string(lsql(),$n);
+         $nncol=db_escape($n);
          $nidno=holen("notionID","aanotion","notion",$nncol);
          $forma=formx($nidno);
          foreach ($forma as $f) $qaimg[]=array("q"=>$f['q'],"a"=>$f['a'],"i"=>$f['i'],"s"=>$f['s']);
@@ -362,11 +360,11 @@ function mixqa($getar){
    } else {
       foreach($nlist as $n){
          $felde=" question, answer ";
-         $qi=sql("show columns from `$n` like 'imageID'"); $ri=mysqli_num_rows($qi)?TRUE:FALSE;
-         $qs=sql("show columns from `$n` like 'soundID'"); $rs=mysqli_num_rows($qs)?TRUE:FALSE;
+         $ri=FALSE; // imageID column stripped (media removed)
+         $rs=FALSE; // soundID column stripped (media removed)
          if($ri) $felde.=", imageID "; if($rs) $felde.=", soundID ";
          $q=sql("select $felde from `$n`");
-         while($r=mysqli_fetch_assoc($q)){
+         while($r=db_fetch_assoc($q)){
             if($ri) $imgid=$r['imageID']; else $imgid="";
             if($rs) $sndid=$r['soundID']; else $sndid="";
             $qaimg[]=array("q"=>$r['question'],"a"=>$r['answer'],"i"=>$imgid,"s"=>$sndid);

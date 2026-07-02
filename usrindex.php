@@ -5,7 +5,6 @@ if(!ob_start("ob_gzhandler")) ob_start();
 date_default_timezone_set($_CONFIG['TIMEZONE']);
 require_once "php/utiles.php";
 require_once "php/dbutil.php";
-require_once "php/oauth2.php";
 require_once "php/global.php";
 require_once "php/tools.php";
 
@@ -21,7 +20,7 @@ function prefs($getar){ // AJAX: update user preferences -> emails, pics, sounds
 function nodel( $nidno ) {
    // Ensure the User owns the Notion before deleting!
    $uidno = uidno();           ercau(); ercas(); // erase the user's and system's cache files
-   $query = mysqli_fetch_assoc( sql( "select userID, notion from aanotion where notionID='$nidno'" ) );
+   $query = db_fetch_assoc( sql( "select userID, notion from aanotion where notionID='$nidno'" ) );
    if ( $query['userID'] == $uidno ) {
       $ntabl = $query['notion'];
       sql("delete from aanotion where notionID='$nidno'");
@@ -37,9 +36,9 @@ function nodel( $nidno ) {
 function schaf( $getar ) { // AJAX: create a notion
    $jason = json_decode( stripslashes( $getar ), true );
    $nncurTable  = rawurldecode(utf8_decode($jason['nncur'])); // NO  \
-   $nncurColumn = mysqli_real_escape_string(lsql(),$nncurTable);     // YES \
+   $nncurColumn = db_escape($nncurTable);     // YES \
    $nccur = utf8_decode( $jason['nccur'] );
-   $ndcur = mysqli_real_escape_string(lsql(),rawurldecode( utf8_decode($jason['ndcur'])));
+   $ndcur = db_escape(rawurldecode( utf8_decode($jason['ndcur'])));
    $slang = $jason['slang'];   $tlang = $jason['tlang'];
    $spcur = $jason['spcur'];
    $newAR = $jason['newAR'];
@@ -51,21 +50,21 @@ function schaf( $getar ) { // AJAX: create a notion
    // Enter into aanotion
    sql( "insert into aanotion ( userID, notion, slang, tlang, category, description)
          values ('$uidno','$nncurColumn','$slang','$tlang','$nccur',  '$ndcur')" );
-   $r = mysqli_fetch_assoc(
-      sql( "select AUTO_INCREMENT from information_schema.tables where table_schema='notionary_db' and table_name='aanotion'" ) );
-   $nidno = $r['AUTO_INCREMENT'] - 1;
+   $r = db_fetch_assoc(
+      sql( "select max(notionID) as id from aanotion" ) );
+   $nidno = $r['id'];
 
    if ( $spcur != "30" ) sql( "insert into aasperq (notionID, sperq) values('$nidno','$spcur')" ); // Enter into aasperq
 
    // Create Notion table (text-only Q&A).
    sql( "create table `$nncurTable` (
-        question char(100) NOT NULL PRIMARY KEY,
-        answer   char(100) NOT NULL
-       ) engine = MyISAM default charset = utf8 collate utf8_bin" );
+        question TEXT NOT NULL PRIMARY KEY,
+        answer   TEXT NOT NULL
+       )" );
 
    foreach( $newAR as $b ) { // populate notion with array of concepts.
-      $bq = trim( mysqli_real_escape_string(lsql(),$b['q']) );  // allow apostrophes
-      $ba = trim( mysqli_real_escape_string(lsql(),$b['a']) );  // allow apostrophes
+      $bq = trim( db_escape($b['q']) );  // allow apostrophes
+      $ba = trim( db_escape($b['a']) );  // allow apostrophes
       if ( !empty( $bq ) && !empty( $ba ) )
          sql( "insert into `$nncurTable` (question,answer) values('$bq','$ba')" );
    }
@@ -77,7 +76,7 @@ function ander( $getar ){ // AJAX: change an extant notion
    $slang = $jason['slang'];       $tlang = $jason['tlang'];
    $nidno = $jason['nidno'];       $newAR = $jason['newAR'];       $oldAR = $jason['oldAR'];
 
-   $query = mysqli_fetch_assoc( sql( "select * from aanotion where notionID = $nidno" ) );
+   $query = db_fetch_assoc( sql( "select * from aanotion where notionID = $nidno" ) );
    $nnold = $query['notion'];      $ndold = $query['description']; $ncold = $query['category'];
    $oldsl = $query['slang'];       $oldtl = $query['tlang'];
 
@@ -95,7 +94,7 @@ function ander( $getar ){ // AJAX: change an extant notion
          echo speak("inuse","","","");
          return(false);
       }
-      sql("rename table `$nnold` to `$nname` ");
+      sql("alter table `$nnold` rename to `$nname`");
       sql("update aanotion set notion='$nname' where notionID='$nidno'");
    }
    if ( $ndold != $ndcur ) sql( "update aanotion set description='$ndcur' where notionID='$nidno'" );
@@ -106,10 +105,10 @@ function ander( $getar ){ // AJAX: change an extant notion
    if ( $spold != $spcur ) sql( "update aasperq set sperq='$spcur' where notionID='$nidno'" );
 
    // Truncate and repopulate the table with the new Q&A set
-   sql( "truncate table `$nname`" );
+   sql( "delete from `$nname`" );
    foreach( $newAR as $b ){
-      $bq = trim( mysqli_real_escape_string( lsql(),$b['q']) );  // Question allow apostrophes
-      $ba = trim( mysqli_real_escape_string( lsql(),$b['a']) );  // Answer   allow apostrophes
+      $bq = trim( db_escape($b['q']) );  // Question allow apostrophes
+      $ba = trim( db_escape($b['a']) );  // Answer   allow apostrophes
       if ( empty( $bq ) || empty( $ba ) ) continue;              // Either Q or A missing -->> drop entry
       sql( "insert into `$nname` (question,answer) values('$bq','$ba')" );
    }
@@ -129,7 +128,6 @@ switch ( $tun ) {
    case 'schaf':case 'ander':case 'nodel':case 'prdel': // NOTIONS
    case 'slang':case 'prefs': // USERS
    case 'geter':case 'getme':case 'seter':
-         legal();
          if ( !isset( $_REQUEST['was'] ) ) eval($tun."();");
          else eval($tun."(\$_REQUEST['was']);"); break;
 }

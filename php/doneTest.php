@@ -5,7 +5,6 @@ date_default_timezone_set('Europe/Berlin');
 require_once "cssphp.php";
 require_once "utiles.php";
 require_once "dbutil.php";
-require_once "oauth2.php";
 require_once "global.php";
 require_once "tools.php";
 if( !isset($_SESSION['blang']) || !isset($_SESSION['slang']) ) { // Set 'blang' by browser Locale, default 'en'
@@ -27,7 +26,7 @@ function par2s($probAR,$nname,$slang){ // Convert a Problems Array into a String
       foreach($probAR as $praw){ // We are dealing with internationalized data
          $p=scapo($praw);
          $q=sql("select $felde from `$nname` where question='$p'");
-         $r=mysqli_fetch_assoc($q);
+         $r=db_fetch_assoc($q);
          if( !$r ) continue;
          $anser = getGoodChoice($r['answer']);
          $qoris = "<span class='nroso'>" . $praw . "</span>";  // Normal Notion
@@ -36,35 +35,18 @@ function par2s($probAR,$nname,$slang){ // Convert a Problems Array into a String
    if ( !empty($probStr) ) $probStr = $_ACHT . $probStr;
    return($probStr);
 }
-function checkEmail($uidno){ // See if user has a proper Email and wants to receive
-   $send2 = false;
-   if( isset($_SESSION['uname']) ){
-      $email = $_SESSION['uname']; // Assume the user isn't neted but check subsequently
-      switch ( substr($_SESSION['uname'],0,3) ){  // Check if neted
-         case 'FB-': case 'TW-': case 'GP-': $neted = true; break;
-         default: $neted = false; break;
-      }
-      if ( $neted ) { // There is a chance a neted entered an EMail
-         if ( konto("email","aaemail","userID","$uidno") )
-            $send2 = holen("email","aaemail","userID",$uidno);
-         else $send2 = false;
-      } else $send2 = $_SESSION['uname'];
-      if ( !konto("userID","aajamsg","userID","$uidno") ) $send2 = false;
-   }
-   return($send2);
-}
 function updateServer($uidno,$nidno,$ptype,$score,$dauer,$probs){
    // Save the Performance data into the Database for tests 1, 2, 3
    sql("insert into aaperfid (userID,notionID,ptype,dtime,score,elapsed)
-        values('$uidno','$nidno','$ptype',NOW(),'$score','$dauer')");
+        values('$uidno','$nidno','$ptype',CURRENT_TIMESTAMP,'$score','$dauer')");
 
-   $r = mysqli_fetch_assoc(
-           sql( "select AUTO_INCREMENT from information_schema.tables where table_schema='notionary_db' and table_name='aaperfid'" ) );
+   $r = db_fetch_assoc(
+           sql( "select max(perfID) as id from aaperfid" ) );
 
-   $prfid = $r['AUTO_INCREMENT'] - 1;  // We need this for the mail2 Button
+   $prfid = $r['id'];
 
    foreach( $probs as $p ) { // Save each problem into the Database ( internationalized data )
-      $aposOK = mysqli_real_escape_string(lsql(), $p );
+      $aposOK = db_escape($p );
       sql("insert into aaprobs (perfID,probs) values ('$prfid','$aposOK')"); }
    return($prfid);
 }
@@ -88,8 +70,8 @@ function getPriorResults($uidno,$nidno,$nname,$slang){
    $results123 = "";
    // Now here we could potentially show a prior Summary Graph but for now just a list
    $q=sql("select * from aaperfid where userID='$uidno' and notionID='$nidno' order by dtime desc");
-   if(mysqli_num_rows($q)>0) // This user has tested this Notion before
-      while($r=mysqli_fetch_assoc($q)){
+   if(db_num_rows($q)>0) // This user has tested this Notion before
+      while($r=db_fetch_assoc($q)){
          $per[]=array( "pid" => $r['perfID'], "typ" => $r['ptype'],
                        "tim" => str_replace("-","/",substr($r['dtime'],0,10)),
                        "sco" => $r['score'], "ela" => $r['elapsed']); //, "prb" => $prb);
@@ -159,14 +141,6 @@ function getPriorResults($uidno,$nidno,$nname,$slang){
                 "count1" => $count1, "count2" => $count2, "count3" => $count3,
                 "ones" => $ones, "twos" => $twos, "tris" => $tris));
 }
-function getEmailSubject($exart,$nname,$mixed,$score,$elaps){
-   global $_PERF; // NOT A GLOBAL STRING!!!!!!!!!!!
-   // Use MultyByte safe substr to not fuck up the UTF-8 encoding
-   $emsub = " ✩  ".mb_substr($exart,0,strpos($exart,":"),'UTF-8')."[".$nname;
-   if( $mixed ) $emsub .= " + ... ] ✩ "; else $emsub .= "] ✩ ";
-   $emsub=$_PERF.$emsub.$score."%($elaps)";
-   return($emsub);
-}
 ercau(); ercas();  // This seems not to work in production -- redundant for now with notionary-perf.js
 $jason = json_decode($_REQUEST['pdata'],true);
 $nidno = $jason['nidno']; $ttype = $jason['ttype']; $right = $jason['right'];
@@ -174,19 +148,15 @@ $score = $jason['score']; $dauer = $jason['dauer']; $probs = $jason['probs'];
 $elaps = sec2t( $dauer );
 $XLATE_ALTXT = xlate("altxt",$slang); $XLATE_LEVEL = xlate("level",$slang);
 $XLATE_PERFO = xlate("perfo",$slang); $_PERF = "[ notionary ] $XLATE_PERFO";
-$PARAM_MYURL = param("myurl"); $PARAM_TPAGE = param("tpage");
-$TW_TIMELINE_ID = "343329091325415425"; $KURZ_MAXLEN = 25;  // Shorten long Notion names for the Button
+$PARAM_MYURL = param("myurl");
 $exart = xlate($ttype,$slang); if( empty($exart) ) $exart = "Mixed";
-$query = mysqli_fetch_assoc(sql("select * from aanotion where notionID=$nidno"));
+$query = db_fetch_assoc(sql("select * from aanotion where notionID=$nidno"));
 $nname = $query['notion']; $ndesc = $query['description']; $catno = $query['category'];
 $nimag = $query['imageID']; $nslan = $query['slang'];
 $nsafe = rawurlencode($nname);
 $nhtml = $PARAM_MYURL . "?tun=trial&amp;was=" . $nsafe;
-$nnurl = $PARAM_MYURL . "?tun=trial&amp;was=" . $nname;
 list($_ETAL, $_DONE) = pglot(["_ETAL","_DONE"]);
-if( strlen($nname) > $KURZ_MAXLEN ) $nkurz = substr($nname,0,$KURZ_MAXLEN)." . . .";
-else $nkurz = $nname;
-$mixed = false; $emstr=$brstr=$buble=$mail2=$marks=$myall=$prior=$esent=$fward="";
+$mixed = false; $brstr=$marks=$myall=$prior="";
 switch($ttype){ // Eggon/Nexto + Loben/Tadeln logic
    case 'zerob': $ptype=0; $lobta=false;  break;
    case 'trial': $ptype=1; $lobta=true;   break;

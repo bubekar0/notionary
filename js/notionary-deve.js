@@ -460,7 +460,6 @@ function timedNotiz(contents){
    var DURATION = 3000,
        thenotiz = document.createElement("div");
                   thenotiz.setAttribute("id","notionaryNotiz");
-                  thenotiz.setAttribute("class","animated fadeInDown");
                   thenotiz.innerHTML = "<div class='notionary-midtexto'>" + contents + "</div>";
 
    document.body.insertBefore(thenotiz,document.body.firstChild);
@@ -471,7 +470,6 @@ function clickNotiz(contents){
    var offnotiz,
        thenotiz = document.createElement("div");
                   thenotiz.setAttribute("id","notionaryNotiz");
-                  thenotiz.setAttribute("class","animated fadeInDown");
                   thenotiz.innerHTML = 
                      "<div class='notionary-midtexto'>" + contents + "</div>" +
                      "<div class='notionary-exbutton fa fa-times' id='notizExit'></div>";
@@ -484,7 +482,6 @@ function confoNotiz(warne,jaBtn,noBtn,jaCBK,noCBK){
    var jabutton, nobutton,
        thenotiz = document.createElement("div");
        thenotiz.setAttribute("id","notionaryNotiz");
-       thenotiz.setAttribute("class","animated fadeInDown");
        thenotiz.innerHTML = 
           "<div class='notionary-midtexto'>" + warne + "</div>" +
           "<button id='wobjKeepsbtn'><span class='fa fa-hand-paper-o'></span>" + noBtn + "</button>" +
@@ -904,8 +901,7 @@ function linfoThenParseURL(){ // URL tokens (nname,level,uname) from Server dire
    DEBUGGER?console.log("[linfoThenParseURL]"):0;
    jasonXLATE( BROWSLAN, function(){ // TRANSLAT loaded, pssibly default 'en', now this
       NAMESREG[4] = TRANSLAT.notre;
-      if ( nname == "okdok" ) handleServerDirectives(nname);
-      else {
+      {
          if ( typeof nname == "string" && nname.length ) {// got ?n=xyz, if fake treat as search
             onNAJAX("ninfo"); // Here special fail treatment so avoid shelf jasonNINFO()
             httpget("?tun=ninfo&was=" + nname).then( function( response ) { NINFDATA = JSON.parse( response );
@@ -918,15 +914,6 @@ function linfoThenParseURL(){ // URL tokens (nname,level,uname) from Server dire
          } else { landingPage(); showSupers(); }   // No directive nor Notion, so let's paint a page
       }
    });
-}
-function handleServerDirectives(nnameArg){
-   DEBUGGER?console.log("[handleServerDirectives]"):0;
-   if ( nnameArg == "okdok" ) { landingPage(); showSupers();
-                                onNAJAX("dbhome");
-                                setTimeout( function(){ clickNotiz( TRANSLAT.dbhom ); },
-                                            2000 );
-                                offNAJAX("dbhome");
-                              }
 }
 function anonimize(){
    DEBUGGER?console.log("[anonimize]"):0;
@@ -1234,9 +1221,6 @@ function superSchreiber(supid){
    for ( i = 0; i < SERVINFO[3].supers.length; i++ )
       if ( SERVINFO[3].supers[i].supid == supid ) sidx = i;
    return( SERVINFO[3].supers[sidx].sname + 
-      "<div class='notionary-creavatar'>" + TRANSLAT.creby +
-            SERVINFO[3].supers[sidx].owner.kurzen( OWNERMAX ) +
-      "</div>" +
       "<span class='notionary-call2act'>" + SERVINFO[3].supers[sidx].sdesc + "</span>");
 }
 function ninfoSchreiber(nobj){
@@ -1257,10 +1241,7 @@ function ninfoSchreiber(nobj){
                  "<span class='bnero'>" + TRANSLAT.perfo + "</span>" +
                   myone + mytwo + mytre +
               "</div>";
-   return(nobj.nname + "<div class='notionary-creavatar'>" +
-             "<span class='nnero'>" + TRANSLAT.creby + "</span>" +
-             nobj.owner.kurzen( OWNERMAX ) + 
-          "</div>" +
+   return(nobj.nname +
           pacar + myall +
           "<span class='notionary-call2act'>" + nobj.ndesc + "</span>" +
           formatGenericReviews(nobj.revus));
@@ -1712,6 +1693,7 @@ function getScoreToBeat(testtype){
 function feedbackControl(talign,borde,msg,farbe){
    DEBUGGER?console.log("feedbackControl"):0;
    var xamfbk = document.getElementById( "examFeedback" );
+   if ( !xamfbk ) return;  // element gone: deferred fade fired after the test advanced/ended
    xamfbk.style.setProperty("text-align",talign,"important");
    xamfbk.style.setProperty("border",borde,"important");
    xamfbk.style.setProperty("z-index",999,"important");

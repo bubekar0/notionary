@@ -282,6 +282,7 @@ function getScoreToBeat(testtype){
 function feedbackControl(talign,borde,msg,farbe){
    DEBUGGER?console.log("feedbackControl"):0;
    var xamfbk = document.getElementById( "examFeedback" );
+   if ( !xamfbk ) return;  // element gone: deferred fade fired after the test advanced/ended
    xamfbk.style.setProperty("text-align",talign,"important");
    xamfbk.style.setProperty("border",borde,"important");
    xamfbk.style.setProperty("z-index",999,"important");

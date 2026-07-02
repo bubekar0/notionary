@@ -1,5 +1,4 @@
 <?php
-   $animatecss = file_get_contents('../css/animate.min.css'); echo $animatecss;
    $fontawesom = file_get_contents('../css/font-awesome.min.css'); echo $fontawesom;
 ?>
 
@@ -81,9 +80,6 @@ nclues { display:block; margin:20px 0px; <?php echo $radWeis; ?>; }
 }
 
  /* SERVER SIDE (NO MINIFY ) */
-#mail2 { position:relative; top:10px; display:inline-block; font-size:2em;
-    color:<?php echo $normBlau; ?>; <?php opaque(".5"); ?>; }
-#mail2:hover { <?php opaque("1"); ?>; }
 
 .notionary-perftrial  { display:block; margin-left:20%; color:<?php echo $hardBlau; ?>; font-size:1em; }
 .notionary-perfwrite  { display:block; margin-left:20%; color:<?php echo $hardGrun; ?>; font-size:1em; }

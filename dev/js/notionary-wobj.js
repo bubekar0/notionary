@@ -240,7 +240,6 @@ function timedNotiz(contents){
    var DURATION = 3000,
        thenotiz = document.createElement("div");
                   thenotiz.setAttribute("id","notionaryNotiz");
-                  thenotiz.setAttribute("class","animated fadeInDown");
                   thenotiz.innerHTML = "<div class='notionary-midtexto'>" + contents + "</div>";
 
    document.body.insertBefore(thenotiz,document.body.firstChild);
@@ -251,7 +250,6 @@ function clickNotiz(contents){
    var offnotiz,
        thenotiz = document.createElement("div");
                   thenotiz.setAttribute("id","notionaryNotiz");
-                  thenotiz.setAttribute("class","animated fadeInDown");
                   thenotiz.innerHTML = 
                      "<div class='notionary-midtexto'>" + contents + "</div>" +
                      "<div class='notionary-exbutton fa fa-times' id='notizExit'></div>";
@@ -264,7 +262,6 @@ function confoNotiz(warne,jaBtn,noBtn,jaCBK,noCBK){
    var jabutton, nobutton,
        thenotiz = document.createElement("div");
        thenotiz.setAttribute("id","notionaryNotiz");
-       thenotiz.setAttribute("class","animated fadeInDown");
        thenotiz.innerHTML = 
           "<div class='notionary-midtexto'>" + warne + "</div>" +
           "<button id='wobjKeepsbtn'><span class='fa fa-hand-paper-o'></span>" + noBtn + "</button>" +

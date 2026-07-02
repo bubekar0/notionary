@@ -42,7 +42,7 @@ END_OF_BLOG;
 }
 function iazik(){
    if ( isset( $_SESSION['uname'] ) ) {
-      $sprache = mysqli_fetch_array( sql("select ulang from aauser where user='$_SESSION[uname]'"));
+      $sprache = db_fetch_array( sql("select ulang from aauser where user='$_SESSION[uname]'"));
       $_SESSION["slang"] =  $sprache['ulang']; $_SESSION["blang"] =  $sprache['ulang'];
       return;
    }
@@ -79,8 +79,8 @@ function nrall($nidno){ // asone() notion records 1-3 test types
             ) as y
             group by y.ptype"
       );
-   while($r=mysqli_fetch_assoc($q)){ // you will get all type three results
-      $champ=anone("$r[userID]");
+   while($r=db_fetch_assoc($q)){ // you will get all type three results
+      $champ="";
       switch($r['ptype']){
          case '1': $scor1=$r['score']; $time1=$r['mine']; $epoc1=$r['dtime'];
                    $ch1id=$r['userID'];$chmp1=$champ; break;
@@ -114,7 +114,7 @@ function nmall($uidno,$nidno){ // asone() personal records 1-3 test types
             group by x.ptype, x.maxs
             order by p.ptype, p.score desc, mine"
       );
-   while($r=mysqli_fetch_assoc($q))
+   while($r=db_fetch_assoc($q))
       switch($r['ptype']){
          case '1': $mysc1=$r['score']; $mybt1=$r['mine']; break;
          case '2': $mysc2=$r['score']; $mybt2=$r['mine']; break;

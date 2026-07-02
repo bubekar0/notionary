@@ -13,8 +13,7 @@ function linfoThenParseURL(){ // URL tokens (nname,level,uname) from Server dire
    DEBUGGER?console.log("[linfoThenParseURL]"):0;
    jasonXLATE( BROWSLAN, function(){ // TRANSLAT loaded, pssibly default 'en', now this
       NAMESREG[4] = TRANSLAT.notre;
-      if ( nname == "okdok" ) handleServerDirectives(nname);
-      else {
+      {
          if ( typeof nname == "string" && nname.length ) {// got ?n=xyz, if fake treat as search
             onNAJAX("ninfo"); // Here special fail treatment so avoid shelf jasonNINFO()
             httpget("?tun=ninfo&was=" + nname).then( function( response ) { NINFDATA = JSON.parse( response );
@@ -27,15 +26,6 @@ function linfoThenParseURL(){ // URL tokens (nname,level,uname) from Server dire
          } else { landingPage(); showSupers(); }   // No directive nor Notion, so let's paint a page
       }
    });
-}
-function handleServerDirectives(nnameArg){
-   DEBUGGER?console.log("[handleServerDirectives]"):0;
-   if ( nnameArg == "okdok" ) { landingPage(); showSupers();
-                                onNAJAX("dbhome");
-                                setTimeout( function(){ clickNotiz( TRANSLAT.dbhom ); },
-                                            2000 );
-                                offNAJAX("dbhome");
-                              }
 }
 function anonimize(){
    DEBUGGER?console.log("[anonimize]"):0;

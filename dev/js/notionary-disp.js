@@ -20,9 +20,6 @@ function superSchreiber(supid){
    for ( i = 0; i < SERVINFO[3].supers.length; i++ )
       if ( SERVINFO[3].supers[i].supid == supid ) sidx = i;
    return( SERVINFO[3].supers[sidx].sname + 
-      "<div class='notionary-creavatar'>" + TRANSLAT.creby +
-            SERVINFO[3].supers[sidx].owner.kurzen( OWNERMAX ) +
-      "</div>" +
       "<span class='notionary-call2act'>" + SERVINFO[3].supers[sidx].sdesc + "</span>");
 }
 function ninfoSchreiber(nobj){
@@ -43,10 +40,7 @@ function ninfoSchreiber(nobj){
                  "<span class='bnero'>" + TRANSLAT.perfo + "</span>" +
                   myone + mytwo + mytre +
               "</div>";
-   return(nobj.nname + "<div class='notionary-creavatar'>" +
-             "<span class='nnero'>" + TRANSLAT.creby + "</span>" +
-             nobj.owner.kurzen( OWNERMAX ) + 
-          "</div>" +
+   return(nobj.nname +
           pacar + myall +
           "<span class='notionary-call2act'>" + nobj.ndesc + "</span>" +
           formatGenericReviews(nobj.revus));
