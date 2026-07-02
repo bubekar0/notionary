@@ -1,3 +1,13 @@
+/* base typography + color/button utilities + result-grade badges (relocated from retired notionary-mail.php) */
+body{ margin:0px; padding:0px; overflow-x:hidden; color:black; font-family:Futura, Calibri, sans-serif,monospace; font-size:22px;}
+a { text-decoration:none; cursor:pointer; }
+a:focus { outline:none; }
+<?php echo farben(); ?>
+<?php echo knopfe(); ?>
+.notionary-goodgrade,.notionary-badgrade { position:absolute; left:300px; z-index:222; <?php fontana("italic","900","1","1"); ?>;
+    <?php mozart("transform","rotate(350deg)translate(10px,70px)"); ?>; }
+.notionary-goodgrade{ color:<?php echo $normGrun; ?> !important;}
+.notionary-badgrade{ color:<?php echo $hardRojo; ?> !important;}
 <?php
    $fontawesom = file_get_contents('../css/font-awesome.min.css'); echo $fontawesom;
 ?>
