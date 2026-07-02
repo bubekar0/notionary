@@ -47,7 +47,6 @@ function asone($q,$personal){
       $owner = "";
       // Inert in this text-only single-user build: ratings, reviews, pictions,
       // pdf, video, avatars and cross-user champion records.
-      $rated=""; $revus="";
       $forja = isset($formulaSet[$nidno]);
       $piece = isset($partMap[$nidno]['part'])        ? $partMap[$nidno]['part']        : "";
       $parts = isset($partMap[$nidno]['cardinality']) ? $partMap[$nidno]['cardinality'] : "";
@@ -65,7 +64,7 @@ function asone($q,$personal){
       }
       $retAR[]=array(
          "nidno" => $nidno, "nname" => $nname, "ndesc" => $ndesc,
-         "catno" => $catno, "nsize" => $nsize, "rated" => $rated, "revus" => $revus,
+         "catno" => $catno, "nsize" => $nsize,
          "piece" => $piece, "parts" => $parts, "forja" => $forja,
          "dokum" => $dokum, "video" => $video, "chav1" => $chav1, "chav2" => $chav2, "chav3" => $chav3,
          "mysc1" => $mysc1, "mybt1" => $mybt1, "mysc2" => $mysc2, "mybt2" => $mybt2, "mysc3" => $mysc3, "mybt3" => $mybt3,
