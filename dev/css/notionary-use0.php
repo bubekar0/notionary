@@ -37,10 +37,6 @@
 #saverKnopf { display:block; margin:10px auto; color:<?php echo $normBlau; ?>; }
 
 
-.notionary-englisch { <?php makeimg("50",45,34,"none"); ?>; } .notionary-tedeschi { <?php makeimg("52",45,34,"none"); ?>; }
-.notionary-spanisch { <?php makeimg("51",45,34,"none"); ?>; } .notionary-francais { <?php makeimg("53",45,34,"none"); ?>; }
-.notionary-italiano { <?php makeimg("54",45,34,"none"); ?>; } .notionary-portuges { <?php makeimg("55",45,34,"none"); ?>; }
-.notionary-russians { <?php makeimg("56",45,34,"none"); ?>; } .notionary-magyarul { <?php makeimg("63",45,34,"none"); ?>; }
 
 #profLangflag { position:absolute; top:50px; right:120px; width:50px; height:35px; cursor:pointer; border:1px solid black; }
 #profLangflag:hover { <?php mozart("box-shadow","0px 3px 3px 0px #000"); ?>; }
@@ -80,9 +76,6 @@
 
 
 
-#avatarHolder { position:relative; width:45px; height:45px; margin:0 auto; cursor:pointer;
-                <?php myrad("50%"); ?>; background-size:45px 45px; background-repeat:no-repeat; }
-#avatarHolder:hover { <?php mozart("box-shadow","0px 3px 3px 0px #000"); ?>; }
 
 
 

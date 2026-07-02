@@ -32,7 +32,6 @@
 
                          /* DIALOGS */
 .notionary-barsmgif { position:fixed; top:-1px; width:100%; height:5px;
-                      background-image:url(<?php echo "{$MY_HTTP}?tun=ibyid&was=108"; ?>) ;
                       background-size:100% 5px; background-repeat:no-repeat; z-index:9999; }
 
 .notionary-modaller { height:100%; <?php echo $radWeis; ?>; }

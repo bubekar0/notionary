@@ -169,20 +169,6 @@ function lingrad($textColor,$shadeColor,$fromColor,$toColor){
     //. "filter:'progid:DXImageTransform.Microsoft.gradient(gradientType=0,startColorStr=".$fromColor.",EndColorStr=".$toColor.")';"
    ); /*!hack*/
 }
-function makeimg($imgID,$wide,$high,$float){
-   $urltxt = param("image");
-   echo "cursor:pointer;"
-       //."-webkit-border-radius:0px;"
-       //."-ms-border-radius:0px;"
-       //."-o-border-radius:0px;"
-       //."border-radius:0px;"
-       ."width:{$wide}px;height:{$high}px; float:$float;"
-       ."background:transparent !important;"
-       ."background-image: url({$urltxt}{$imgID}) !important;"
-       ."background-repeat: no-repeat !important;"
-       ."background-size:{$wide}px {$high}px !important"
-   ; /*!hack*/
-}
 function opaque($oto1){ $aspct=100*$oto1;
    echo "-ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity={$aspct})';"
       //. "-moz-opacity:$oto1;"

@@ -67,7 +67,6 @@ h7 a { float:left; }
 
                          /* DIALOGS */
 .notionary-barsmgif { position:fixed; top:-1px; width:100%; height:5px;
-                      background-image:url(<?php echo "{$MY_HTTP}?tun=ibyid&was=108"; ?>) ;
                       background-size:100% 5px; background-repeat:no-repeat; z-index:9999; }
 
 .notionary-modaller { height:100%; <?php echo $radWeis; ?>; }
@@ -270,8 +269,6 @@ nclues { display:block; margin:20px 0px; <?php echo $radWeis; ?>; }
                       text-align:center; text-overflow:ellipsis; background:transparent;
                       <?php fontana("normal","500","1.3","1") ?>; font-size:20px; }
       #anonSucheajx { top:15px; right:50px; }
-      #anonSuchbttn,
-      #anonSuchbttn:hover { position:absolute; top:3px; right:-3px; border:none; <?php makeimg("105",30,30,"none"); ?>; }
 
 /* SHARED INPUT CONTROLS (restored from the removed auth module; used by the search box + editor) */
 .notionary-thelabel { width:30%; display:inline-block; text-align:right; }
@@ -548,10 +545,6 @@ nclues { display:block; margin:20px 0px; <?php echo $radWeis; ?>; }
 #saverKnopf { display:block; margin:10px auto; color:<?php echo $normBlau; ?>; }
 
 
-.notionary-englisch { <?php makeimg("50",45,34,"none"); ?>; } .notionary-tedeschi { <?php makeimg("52",45,34,"none"); ?>; }
-.notionary-spanisch { <?php makeimg("51",45,34,"none"); ?>; } .notionary-francais { <?php makeimg("53",45,34,"none"); ?>; }
-.notionary-italiano { <?php makeimg("54",45,34,"none"); ?>; } .notionary-portuges { <?php makeimg("55",45,34,"none"); ?>; }
-.notionary-russians { <?php makeimg("56",45,34,"none"); ?>; } .notionary-magyarul { <?php makeimg("63",45,34,"none"); ?>; }
 
 #profLangflag { position:absolute; top:50px; right:120px; width:50px; height:35px; cursor:pointer; border:1px solid black; }
 #profLangflag:hover { <?php mozart("box-shadow","0px 3px 3px 0px #000"); ?>; }
@@ -591,9 +584,6 @@ nclues { display:block; margin:20px 0px; <?php echo $radWeis; ?>; }
 
 
 
-#avatarHolder { position:relative; width:45px; height:45px; margin:0 auto; cursor:pointer;
-                <?php myrad("50%"); ?>; background-size:45px 45px; background-repeat:no-repeat; }
-#avatarHolder:hover { <?php mozart("box-shadow","0px 3px 3px 0px #000"); ?>; }
 
 
 

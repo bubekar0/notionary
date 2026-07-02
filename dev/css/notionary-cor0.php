@@ -113,8 +113,6 @@ nclues { display:block; margin:20px 0px; <?php echo $radWeis; ?>; }
                       text-align:center; text-overflow:ellipsis; background:transparent;
                       <?php fontana("normal","500","1.3","1") ?>; font-size:20px; }
       #anonSucheajx { top:15px; right:50px; }
-      #anonSuchbttn,
-      #anonSuchbttn:hover { position:absolute; top:3px; right:-3px; border:none; <?php makeimg("105",30,30,"none"); ?>; }
 
 /* SHARED INPUT CONTROLS (restored from the removed auth module; used by the search box + editor) */
 .notionary-thelabel { width:30%; display:inline-block; text-align:right; }

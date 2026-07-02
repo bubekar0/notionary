@@ -106,7 +106,6 @@ function markupSkeleton(){
                 "<span   id='anonSucheajx' class='notionary-loadings'></span>" +
                 "<input  id='anonSucheinp' class='notionary-contents notionary-exfocado'/>" +
                 "<span   id='anonSuchestg' class='notionary-chekmark'></span>" +
-                "<button id='anonSuchbttn'></button>" +
              "</fieldset>" +
              "<div       id='userTrophies'></div>" +
           "</div>" +
@@ -218,15 +217,13 @@ function loadNotionsArray(){
 }
 function showSearchEngine(){
    DEBUGGER?console.log("[showSearchEngine]"):0;
-   var suchfeld = document.getElementById( "anonSucheinp" ),
-       suchbttn = document.getElementById( "anonSuchbttn" );
+   var suchfeld = document.getElementById( "anonSucheinp" );
 
    suchfeld.value     = TRANSLAT.sucht;
    suchfeld.onfocus   = function(e) { refocusSmartInput(this,TRANSLAT.sucht); }
    suchfeld.onblur    = function(e) { unfocusSmartInput(this,TRANSLAT.sucht); }
    suchfeld.onkeyup   = killMetas;
    suchfeld.onkeydown = function(e){ var k = ( e.keyCode ? e.keyCode : e.which ); if ( k == "13" ) searchResults( this.value ); }
-   suchbttn.onclick   = function(){ fireKey( suchfeld, 13 ); }
    ausblenden(anonSucheleg);
 }
 function searchResults(sustr){ // Browsers don't HTTP_IF_NONE_MATCH vs ETag => Search must be done
