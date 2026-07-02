@@ -297,13 +297,12 @@ function uinf0(){
          while ( $t = db_fetch_assoc($p) ){
             $felde = " question, answer ";
             $raw_prob = $t['probs'];
-            $net_prob = scapo($t['probs']);
-            $s = db_fetch_array(sql("select $felde from `$nname` where question='$net_prob'"));
+            $s = db_fetch_array(dbq("select $felde from `$nname` where question=?", array($raw_prob)));
             if ( empty($s['question']) ){
-               sql("delete from aaprobs where perfID='$r[perfID]' and probs='$raw_prob'");
+               dbq("delete from aaprobs where perfID=? and probs=?", array($r['perfID'], $raw_prob));
             } else {
                unset($d); unset($k); unset($dec);
-               $d=sql("select answer from `$nname` where question!='$net_prob' order by random() limit 4");
+               $d=dbq("select answer from `$nname` where question!=? order by random() limit 4", array($raw_prob));
                while($k=db_fetch_array($d)) $dec[]=getGoodChoice($k['answer']);
                $probs[] = array( "pid" => $r['perfID'],
                                "prb" => $raw_prob, "sol" => $s['answer'],

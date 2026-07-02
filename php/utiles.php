@@ -47,22 +47,6 @@ function apoqu($badst){ // UTF8 Preprocessor to prevent utf8-decode() hiccups ?
    $good_stuff=array("27","26233333373B","26233333363B","26233336393B","26233336383B");
    return(hex2bin(str_replace($bad_stuff,$good_stuff,bin2hex($badst))));
 }
-function scapo($badst){ // escape &apos + &quot but not doubling \\ so MySQL can query
-   $badst=bin2hex($badst); $gutst="";  // bad and good strings
-   $itwas=""; $nowis="";               // trackers: last + current hex pairs
-   for($i=0;$i<strlen($badst)-1;$i=$i+2){ // avoid x2 7x catches by seeing pairs of digits
-      $nowis=substr($badst,$i,2);
-      // replace hex pattern 27(single quote) or 1f(apostrophe) with 5c27(\')
-      if( $nowis=="27" || $nowis=="1f" ) {
-
-         // avoid \\ if preprocessed by mysql_real_escape..
-         if( $itwas=="5c" ) $gutst.=hex2bin("27"); else $gutst.=hex2bin("5c27");
-
-      } else $gutst.=hex2bin($nowis);
-      $itwas=$nowis; // keep track of the last processed hex pair
-   }
-   return($gutst);
-}
 function stpad($strng,$lenth){ // padd a string (right blanks) to a specific length
    $lenth=intval($lenth);
    if(strlen($strng)>=$lenth) return substr($strng,0,$lenth);

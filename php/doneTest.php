@@ -24,8 +24,7 @@ function par2s($probAR,$nname,$slang){ // Convert a Problems Array into a String
    $felde  = " answer ";
    if( sizeof($probAR) )
       foreach($probAR as $praw){ // We are dealing with internationalized data
-         $p=scapo($praw);
-         $q=sql("select $felde from `$nname` where question='$p'");
+         $q=dbq("select $felde from `$nname` where question=?", array($praw));
          $r=db_fetch_assoc($q);
          if( !$r ) continue;
          $anser = getGoodChoice($r['answer']);

@@ -115,8 +115,8 @@ function ander( $getar ){ // AJAX: change an extant notion
 }
 function prdel($getar){ // AJAX: delete overcome problems
    $jason = json_decode($getar,true);
-   $prfid = $jason['prfid']; $pblem = scapo($jason['pblem']);
-   sql("delete from aaprobs where perfID='$prfid' and probs='$pblem'");
+   $prfid = $jason['prfid']; $pblem = $jason['pblem'];
+   dbq("delete from aaprobs where perfID=? and probs=?", array($prfid, $pblem));
    ercau();
 }
 
