@@ -569,6 +569,7 @@ nclues { display:block; margin:20px 0px; <?php echo $radWeis; ?>; }
                              border-color:transparent white transparent  transparent;  }
 .notionary-trophies { display:inline-block; height:30px; margin:5px; }
 .notionary-trophies span { float:left; font-size:40px; <?php txtsh123($softGrau);?>; }
+#userProblems .notionary-problabel { float:left; margin:10px 6px 0px 2px; color:<?php echo $normRojo; ?>; <?php fontana("normal","700","1","1"); ?>; }
 
 
 #userSettings { position:absolute; left:30%; min-width:50px; font-size:65px; text-align:center; cursor:pointer; }

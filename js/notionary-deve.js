@@ -1,7 +1,7 @@
 var USERBILD, THEINDEX, TESTTIME, DECILEFT, TIMEOUTS, QUESTIME, KORREKTE, FALSCHER, AUSTREAM,
     ENERGIZE, ACTIVITY, BROWSLAN, SMARTFON, CHOIXHOV, IMAGEHOV, FBAKTOUT,
     LVTARGET, LVPRCENT, LVLENGTH = 12, LVMINPCT = 0.9,
-    SELECTED = PROBZAHL = 0, PENANCES = 2, CHOIXMIN = 5, CHOIXSEP = "￭", DEFSPERQ = 30,
+    SELECTED = PROBZAHL = 0, PENANCES = 1, CHOIXMIN = 5, CHOIXSEP = "￭", DEFSPERQ = 30,
     OWNERMAX = CHAMPMAX = REVUEMAX = MAXTOUTS = 10, CARDSMIN = 5, CARDSPREFILL = 10, DESKNMAX = 35, MOBINMAX = 18,
     DEBUGGER = true,
     LOGGEDIN = ROOTUSER = ISEXTANT = false,
@@ -1993,8 +1993,9 @@ function showUserProgress(){
 
 
    if ( countProblemsInUINFO() ) {
-      trophies.innerHTML += "<div id='userProblems' class='notionary-trophies' title='" + TRANSLAT.repas + "'>" +
+      trophies.innerHTML += "<div id='userProblems' class='notionary-trophies'>" +
                                "<span class='fa fa-thumbs-o-down'></span>" +
+                               "<div class='notionary-problabel'>" + TRANSLAT.repas + "</div>" +
                                "<div class='notionary-counters'>" + countProblemsInUINFO() + "</div>" +
                             "</div>";
       document.getElementById( "userProblems" ).onclick = function(e) { window.location.href = HARDCODE.myurl + "?tun=probs"; }
@@ -2614,7 +2615,7 @@ function continueWithNextError(){
             PROBLEMS.splice( THEINDEX, 1 ); // excise from PROBLEMS
          }
       } else {
-         PROBLEMS[ THEINDEX ].weg++; updateRepasobars("Rojo");
+         updateRepasobars("Rojo");
       }
       clearInterval( ENERGIZE );
       THEINDEX = ( THEINDEX + 1 ).mod( PROBLEMS.length );

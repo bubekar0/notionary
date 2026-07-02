@@ -94,7 +94,7 @@ function continueWithNextError(){
             PROBLEMS.splice( THEINDEX, 1 ); // excise from PROBLEMS
          }
       } else {
-         PROBLEMS[ THEINDEX ].weg++; updateRepasobars("Rojo");
+         updateRepasobars("Rojo");
       }
       clearInterval( ENERGIZE );
       THEINDEX = ( THEINDEX + 1 ).mod( PROBLEMS.length );
