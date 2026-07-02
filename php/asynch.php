@@ -26,31 +26,11 @@ function linfo($lan2L){ //  load a language into system -- doubly cached
    if(!in_array($lan2L,$lanAR)) exit; // ask for non-extant lang exits
    fcach( "cache/_notionary_LINFO_{$lan2L}_cache.php", "31536000", "linfo"  );
 }
-function qkupd(){
-   openlog("qkupd",LOG_NDELAY,LOG_LOCAL2);
-   $QK255_LANGE = 40;
-   if ( !empty($_COOKIE['rememberme']) && $_COOKIE['rememberme'] == "true" ) {
-      syslog(LOG_ERR,"QKUPD: FOUND rememberme COOKIE SET TO true");
-      if ( !empty($_COOKIE['two55']) ) {
-         $qk255 = explode(':',$_COOKIE['two55']); $qkusr = $qk255[0]; $qkval = $qk255[1];
-         syslog(LOG_ERR,"QKUPD: FOUND two55 COOKIE: " . $qkval );
-         if ( ( $qkusr == $_SESSION['uname']) && strlen($qkval) == $QK255_LANGE ) {
-            syslog(LOG_ERR,"QKUPD: UPDATING two55 COOKIE");
-            if (konto("two55","aatwo55","user","$qkusr"))
-              sql("update aatwo55 set two55='$qkval' where user='$qkusr'");
-            else sql("insert into aatwo55 (user, two55) values('$qkusr','$qkval')");
-         } // User name missmatch or bad length value
-      } // Empty Cookie
-   } // Doesn't want to be remembered
-   closelog();
-}
 function uinfo(){ // [0]=generic, [1]=recent, [2]=meine, [3]=repaso
    openlog("uinfo",LOG_NDELAY,LOG_LOCAL2);
-   $QK255_LANGE = 40;
    $urarg = parse_url($_SERVER['REQUEST_URI']);  // Reject other than ?tun=uinfo
    if ( strlen($urarg['query']) != 9 || substr($urarg['query'],0,9) != "tun=uinfo") rjekt();
  
-   qkupd(); // rememberme apparatus retired; call left inert (no-op without a login flow)
    fcach( "cache/_notionary_UINFO_".uidno()."_cache.php", "86400", "uinfo"  );
    closelog();
 }

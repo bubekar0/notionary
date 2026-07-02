@@ -159,22 +159,6 @@ function cookieWriter(cname,cwert,xdays){
    qkval += ( !xdays ? "" : "; expires=" + qkexp.toUTCString());
    document.cookie = cname + "=" + qkval; // write qk
 }
-function update255Cookie(uname){
-   DEBUGGER?console.log("[update255Cookie]"):0;
-   // Called by renderMain for LOGGEDIN only, We just update the browser
-   var i, old255, two55 = "", possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-   for ( i = 0; i < 40; i++ ) two55 += possible.charAt(Math.floor(Math.random() * possible.length));
-   if ( cookieReader("rememberme") == "true" ) { old255 = cookieReader("two55");
-      // Update two55 IFF undefined or length < 40. Any 40+ should be ok
-      try { // Undefined is the result of cookies being erased !! Unavoidable
-         if ( old255.length < 40 ) { // Here the size check is on
-            cookieWriter("two55",uname + ":" + two55,365);
-         }
-      } catch(err) {  // Here size check failed .. we must be undefined
-         cookieWriter("two55",uname + ":" + two55,365);
-      }
-   } else cookieWriter("two55","",-1);
-}
 function getLocale(){
    DEBUGGER?console.log("[getLocale]"):0;
    var speak = "en"; // default to english
