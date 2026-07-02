@@ -63,7 +63,6 @@ function jasonSINFO(lan2L,cback,bust){
          // works on any host without touching the database.
          var _base = window.location.origin + "/";
          HARDCODE.myurl = _base;
-         HARDCODE.image = _base + "?tun=ibyid&was=";
       },
       function( error ) { clickNotiz( error ); }
    ).then( cback );

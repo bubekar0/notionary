@@ -152,7 +152,7 @@ $PARAM_MYURL = param("myurl");
 $exart = xlate($ttype,$slang); if( empty($exart) ) $exart = "Mixed";
 $query = db_fetch_assoc(sql("select * from aanotion where notionID=$nidno"));
 $nname = $query['notion']; $ndesc = $query['description']; $catno = $query['category'];
-$nimag = $query['imageID']; $nslan = $query['slang'];
+$nslan = $query['slang'];
 $nsafe = rawurlencode($nname);
 $nhtml = $PARAM_MYURL . "?tun=trial&amp;was=" . $nsafe;
 list($_ETAL, $_DONE) = pglot(["_ETAL","_DONE"]);
@@ -177,7 +177,7 @@ if ( $lobta && isset($uidno) ){ // Loben / Tadeln für Insiders Tests 1, 2, and 
 }
 // Email is 100% INSIDER but Browser markups has some INSIDER dependent content guts
 $brstr = $mostr = "<div id='perfArea' class='papier'>\r\n" . $_DONE .
-                     markupBlogHeader($nname,$ndesc,$nimag,$nhtml,$mixed,$noten,$marks) .
+                     markupBlogHeader($nname,$ndesc,$nhtml,$mixed,$noten,$marks) .
                      $prstr;
 if( isset($uidno) ){
    if( is_array($prior) )

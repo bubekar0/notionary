@@ -390,7 +390,6 @@ nclues { display:block; margin:20px 0px; <?php echo $radWeis; ?>; }
                       font-size:12px; line-height:100%; background:white; text-shadow:none; }
 .notionary-thumbtak { position:absolute; top: 0px; right:5px; font-size:45px; z-index:333; cursor:pointer; }
 .notionary-cardtext { display:table-cell; vertical-align:middle; white-space:normal; }
-.notionary-picimage { position:absolute; top:-1px; left:-1px; width:317px; height:210px; /* Kludge w x h from figure border 2px extra */ }
 .notionary-examwahl { min-width:80px; min-height:50px; margin:3px !important; }
 
 #examControls { position:fixed; top:0px; width:100vw; height:165px; border-bottom:1px solid #ddd;
@@ -412,7 +411,6 @@ nclues { display:block; margin:20px 0px; <?php echo $radWeis; ?>; }
 #examLrnCount { position:relative; left:10px;  <?php fontana("normal","600","1","1.5"); ?>; font-size:25px; text-align:left; }
 #examContents { text-align:center; max-width:100%; margin-top:185px; overflow:hidden; }
 #examPantalla { width:70%; margin:0 auto; z-index:50; }
-#examImagenes { width:100%; height:50vh; border:1px solid <?php echo $normGrau; ?>; }
 #examPregunta { position:relative; /*left:5vw; width:90vw; height:20vh; display:table-cell;*/ vertical-align:middle;
                 color:<?php echo $hardRojo; ?>; margin:5px 0px 5px 0px; <?php txtsh123($softGrau);?>; }
 #examWritings { position:relative; width:70%; margin:0 auto; }
@@ -435,7 +433,6 @@ nclues { display:block; margin:20px 0px; <?php echo $radWeis; ?>; }
                 #examBarOuter, #examFeedback, #examLifehold { width:80%; left:10%; }
                 #examLifehold { top:155px; }
                 #examPantalla, #examWritings, #examMultiple { width:80%; }
-                #examImagenes { width:100%; }
 }
 /* SMARTFON  */ @media( max-width:<?php echo $MOB_WIDTH;?>px ) {
                 #examControls { height:140px; }
@@ -444,7 +441,6 @@ nclues { display:block; margin:20px 0px; <?php echo $radWeis; ?>; }
                 #examBarOuter, #examFeedback, #examLifehold { width:98%; left:1%; }
                 #examLifehold { top:135px; }
                 #examPantalla, #examWritings, #examMultiple { width:98%; }
-                #examImagenes { width:100%; height:30vh; }
 }
 /* PERFORMANCE marked up by server doneTest.php */
 .frecom { width:230px !important; height:21px; }

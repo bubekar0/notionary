@@ -101,7 +101,6 @@ function app_base_url(){
 function param($foo){
    switch ($foo) {
       case 'myurl': return app_base_url();
-      case 'image': return app_base_url() . '?tun=ibyid&was=';
       case 'myenv': return isset($GLOBALS['MY_CFG']['APP_ENV']) ? $GLOBALS['MY_CFG']['APP_ENV'] : 'prod';
    }
    return holen("value","aaparam","kodex","$foo");

@@ -17,7 +17,7 @@ function lobenTadeln($uidno,$nidno,$ptype,$score,$dauer,$nrall){ // Entweder Lob
       $marks .= "<span class='notionary-goodgrade'>" . $_ALFA . "</span><br/>"; ercan($nidno); } // Handle ALPHA, cleaning cache as well
    return($marks);
 }
-function markupBlogHeader($nname,$ndesc,$nimag,$nhtml,$mixed,$noten,$marks){
+function markupBlogHeader($nname,$ndesc,$nhtml,$mixed,$noten,$marks){
    global $BLG_IMG_H, $BLG_IMG_W;
    $MYURL = param("myurl");
    $eggon = "";

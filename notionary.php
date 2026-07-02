@@ -147,6 +147,7 @@ function dopdf($nidxy){
    closelog();
 }
 function sinf0(){ $PILE = 40;
+   $lanAR=$katAR=$stuAR=$tecAR=$ktnAR=array();
    $q=sql("pragma table_info(aaglobe)");
    while($r=db_fetch_assoc($q)) if(strlen($r['name'])==2) $lanAR[]=$r['name'];
    $q=sql("select distinct category from aanotion where slang='$_REQUEST[was]' order by category");
