@@ -283,18 +283,8 @@ nclues { display:block; margin:20px 0px; <?php echo $radWeis; ?>; }
 .notionary-exfocado { color:<?php echo $normGrau; ?>; <?php opaque("0.5"); ?>; }
 .notionary-chekmark { position:absolute; display:none; top:20px; right:5px; width:25px; height:25px; }
 #anonRealarea { position:relative; width:99%; margin:0 auto; text-align:center; }
-  #privacyContents, #termsContents { text-align:left; }
   #anonFootings { bottom:0px; left:0px; width:100%; margin-top:500px; padding:20px 0px; }
   #anonFootings img { width:30px; height:22px; }
-      #skfolg a { color:#00aeef !important; }
-      #footerColumns { display:flex; width:80%; margin:0 auto; border-top:1px solid #ccc; }
-      .footercolumn { width:33%; }
-      .footerRegion { display:inline-block; width:<?php echo $BLG_HOEHE; ?>px; }
-      .netbtn { float:left; height:21px; margin:3px 10px; }
-      #blfolg, #igfolg { float:left; margin:10px; }
-      #__okShare0 { width:120px; height:22px; }
-  #anonFollower { position:static; width:100%; bottom:0px; font-size:3em; text-align:center; }
-  #anonFollower span { color:black; width:23%; cursor:pointer; }
 
 #mobiThumbler { position:fixed; bottom:0px; left:0px; width:100%; height:0px; <?php echo $radWeis; ?>; }
 #priorEinsen,#priorZweien,#priorDreien { display:inline; width:30%; color:<?php echo $hardGrau; ?>; }
@@ -313,7 +303,6 @@ nclues { display:block; margin:20px 0px; <?php echo $radWeis; ?>; }
                 #anonHeadroom { height:140px; }
                 #anonSuchenom { width:96%; }
                 #anonFootings { margin-bottom:50px; font-size:x-small; }
-                #anonFollower span { width:20%; }
                 #mobiThumbler { height:50px; }
                 #acceptAdvice { padding:10px 80px 10px 10px; font-size:20px; }
 }

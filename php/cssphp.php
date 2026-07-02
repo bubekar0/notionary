@@ -50,12 +50,7 @@ function knopfe(){ // A collection of round buttons of assorted sizes
           $normGelb, $radWeis, $radTang, $radBlau,
           $MID_ICONS, $MOB_ICONS, $BIG_ICONS;
    return(
-       ".netbtn { width:100%; height:22px;" . ludwig("transform","scale(2)")
-      . ludwig("transform-origin","top left") ."}"
-      .".flike { position:relative; top:1px; left:2px; }"
-      .".tlike { position:relative; top:1px; width:90px !important; }"
-      .".glike { display:inline-block; width:60px; }"
-      ."button { outline:none; cursor:pointer; margin:0px 3px 5px 0px; border:1px solid $normGrau; "
+       "button { outline:none; cursor:pointer; margin:0px 3px 5px 0px; border:1px solid $normGrau; "
       ."  background:white; padding:5px; font-family:Futura, sans-serif, monospace; font-size:28px; font-weight:bolder; "
       .   $radWeis
       .   ludwig("text-shadow","1px 2px 3px $softGrau")
@@ -70,11 +65,11 @@ function knopfe(){ // A collection of round buttons of assorted sizes
    ); /*!hack*/
 }
 function tshade($farbe){
-   echo "-webkit-text-shadow:2px 2px 1px $farbe;"
+   return( "-webkit-text-shadow:2px 2px 1px $farbe;"
        ."-ms-text-shadow:    2px 2px 1px $farbe;"
        ."-o-text-shadow:     2px 2px 1px $farbe;"
        ."text-shadow:        2px 2px 1px $farbe;"
-   ; /*!hack*/
+   ); /*!hack*/
 }
 function txtsh123($farbe){
    echo "-webkit-text-shadow:1px 2px 3px $farbe,0px 1px 2px $farbe;"
