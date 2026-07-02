@@ -71,7 +71,7 @@ function bindExamWidgets( testtype ){
 
    document.getElementById( "examExitante" ).onclick = function(e){ landingPage(); showSupers(); }
 
-   if ( NINFDATA[0].catno == "19" || NINFDATA[0].picto )  ausblenden( xamqtext );       // Standard + Pictions -->> No Question Text
+   if ( NINFDATA[0].catno == "19" )  ausblenden( xamqtext );       // Standard -->> No Question Text
    if ( NINFDATA[0].catno ==  "2" || NINFDATA[0].catno == "3" )  lenguaje = "scimath";  // FKeys use tlang or "scimath" (Math|Science)
    if ( testtype == "lista" ) ausblenden( barrotes );
    if ( testtype == "lista" || testtype == "learn" ) ausblenden( timeleft );
@@ -111,7 +111,6 @@ function examWidgets( testtype, bindCBK ){
 
       // Disable testtypes that make no sense for certain Notions or Devices
       if ( NINFDATA[0].forja || ( NINFDATA[0].catno == 19 ) ) learnbtn = writebtn = adeptbtn = listabtn = amendbtn = "";
-      if ( NINFDATA[0].picto ) adeptbtn = "";
       if ( SMARTFON ) writebtn = adeptbtn = amendbtn = "";
    }
 
@@ -177,7 +176,7 @@ function renderExam(testtype){
       case "amend": if ( NINFDATA[0].ownid == USERINFO[0].uidno || ROOTUSER ) amendNotion( NINFDATA[0].nname );
                     else { landingPage(); showSupers(); } break;
       default: if ( testtype == "adept" ) { // fill in WORKDATA accordingly .. Formulations nor Pictions are masterable
-                  if ( NINFDATA[0].forja || NINFDATA[0].picto){ clickNotiz( TRANSLAT.ispik ); return; }
+                  if ( NINFDATA[0].forja ){ clickNotiz( TRANSLAT.ispik ); return; }
                   onetoone = NINFDATA[1].qaimg;                  // Masterable IFF 1-1 Q-A. Repeated Q ==>> Non-masterable!
                   for ( i = 0; i < onetoone.length - 1; i++ )
                      for ( j = i + 1; j < onetoone.length; j++ )
@@ -187,7 +186,6 @@ function renderExam(testtype){
                      WORKDATA[i] = {}; // Clean the possible enforced choices for backward tests
                      WORKDATA[i].q = getGoodChoice(tempo[i].a);  // forward tests need the data dirty
                      WORKDATA[i].a = tempo[i].q;
-                     WORKDATA[i].i = tempo[i].i;
                   }
                } else if ( testtype == "learn" || NINFDATA[0].catno == "19" ) WORKDATA = NINFDATA[1].qaimg; // no shuffle
                else WORKDATA = shuffleArray( NINFDATA[1].qaimg );
@@ -200,7 +198,7 @@ function markupTheCards(nobj,cards2show){
    var TRESHOLD =   8,   // Length that spans card
        BABYFONT = 1.8,
        MAMAFONT = 3.0,
-       mu = "", card, total, count, tacky, imgid,
+       mu = "", card, total, count, tacky,
        frage, anser, theQ, theA, qFont, aFont;
    WORKDATA = shuffleArray( nobj[1].qaimg );
    total = cards2show != "" ? cards2show : WORKDATA.length;
@@ -214,11 +212,6 @@ function markupTheCards(nobj,cards2show){
       count = "<div class='notionary-cardzahl'>" + parseInt(card+1) + "/" + WORKDATA.length + "</div>";
       frage = "<div class='notionary-cardtext'>" + theQ + "</div>";
       anser = "<div class='notionary-cardtext'>" + theA + "</div>";
-
-      if ( nobj[0].picto ) { // Pictions MUST have an Image, and MAY have a Sound
-         imgid = WORKDATA[card].i ? WORKDATA[card].i : ( nobj[0].nimag ? nobj[0].nimag : "101" );
-         frage = "<img class='notionary-picimage' src='" + HARDCODE.image + imgid + "'>" ;
-      }
 
       mu += "<section class='notionary-cardhold' " + "title='" + TRANSLAT.fover + "'>" +
                "<div class='notionary-flipcard' qaIndex='" + card + "'>" +
@@ -320,9 +313,6 @@ function computeScoreAndContinue(typed,anser,testtype){
                                              getGoodChoice( WORKDATA[ THEINDEX ].a ) +
                                           "</span>" +
                                        "</markee>";
-
-                                       // Special case of Marquee for Pictions.
-      if ( NINFDATA[0].picto ) marquee  = "<markee>" + WORKDATA[ THEINDEX ].q +  "</markee>";
 
       // Visual Feedback of Error and Correct Answer
       feedbackControl("right","none", marquee, "");
@@ -458,21 +448,17 @@ function getNextPair(testtype){
    var DESKQLEN =  20,    MOBIQLEN =  12,   // Length that exhausts width
        BABYFONT = 3.0,    MAMAFONT = 4.5,   // Desktop + iPads
        TINYMOBI = 1.5,    HUGEMOBI = 2.5,   // Mobiles
-       imsrc        = HARDCODE.image + "101",
        frage, fsize, nextq = "", 
-       xamanser, xamqtext, xampicto, xamimage;
-   if ( NINFDATA[0].nimag ) imsrc = HARDCODE.image + NINFDATA[0].nimag;
+       xamanser, xamqtext, xampicto;
    xamanser  = document.getElementById( "examRisposta" );
    xamqtext  = document.getElementById( "examPregunta" );
    xampicto  = document.getElementById( "examPantalla" );
-   xamimage  = document.getElementById( "examImagenes" );
 
    nextq = WORKDATA[ THEINDEX ].q;
    fsize = nextq.length > DESKQLEN ? BABYFONT : MAMAFONT;
    if ( SMARTFON ) fsize = nextq.length > MOBIQLEN ? TINYMOBI : HUGEMOBI;
 
-   if ( !NINFDATA[0].picto ) 
-      xamqtext.style.cssText = "font:normal normal 500 " + fsize + "em/110% Futura, sans-serif,monospace;";
+   xamqtext.style.cssText = "font:normal normal 500 " + fsize + "em/110% Futura, sans-serif,monospace;";
 
    switch( testtype ) {
       case "learn": case "trial": case "mix1b":
@@ -485,10 +471,7 @@ function getNextPair(testtype){
    xamqtext.innerHTML = nextq;
    if ( xamanser )  xamanser.value = "";
    if ( testtype == "adept" ) frage = WORKDATA[ THEINDEX ].a; else frage = WORKDATA[ THEINDEX ].q;
-   if ( NINFDATA[0].picto && WORKDATA[ THEINDEX ].i ) {
-      imsrc = HARDCODE.image + WORKDATA[ THEINDEX ].i;
-      xampicto.innerHTML = "<img id='examImagenes' src='" + imsrc + "'>";
-   } else ausblenden(xampicto,10,true);
+   ausblenden(xampicto,10,true);
 
    clearInterval( ENERGIZE );
    if ( TIMEOUTS < MAXTOUTS ) {

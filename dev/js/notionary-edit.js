@@ -335,7 +335,6 @@ function bindTextAreas( qainhalt, highlite ){
       rispnode = document.getElementById( meinzahl + "a" );
       currentq = quesnode.value; currenta = rispnode.value;
 
-      try { if ( NINFDATA[0].picto ) currentq = currenta; } catch(err){}          // pictions Qs slaves to As. try fails if new notion
       if ( qainhalt[meinzahl].q != currentq ) { qainhalt[meinzahl].q = currentq; }
       if ( qainhalt[meinzahl].a != currenta ) { qainhalt[meinzahl].a = currenta; }
       colorById( this, "radTang" );
@@ -377,7 +376,7 @@ function bindChoicesButtons(){
       }
    }).then(function(){ offNAJAX("mudoc"); });
 }
-function thereAreChanges(ncold,spold,npold,nnold,ndold,newAR,oldAR,tlold){
+function thereAreChanges(ncold,spold,nnold,ndold,newAR,oldAR,tlold){
    DEBUGGER?console.log("[thereAreChanges]"):0;
    var nccur = "", nncur = "", ndcur = "", gaton = "", tlnew, gibts = "",
        catsele, spqsele, notname, notdesc;
@@ -421,7 +420,7 @@ function sendToDB(nncur,nccur,spcur,ndcur,newAR,oldAR,slang,testtype){
    var CHOIXMIN =  5,
        i, j, tlang,
        edit_NN, edit_ND, problema, problemq, 
-       picto = false, sizeOfNewAR = 0;
+       sizeOfNewAR = 0;
 
    edit_NN  = document.getElementById( "editNnameTxt" );
    edit_ND  = document.getElementById( "editNdescTxt" );
@@ -497,7 +496,7 @@ function sendToDB(nncur,nccur,spcur,ndcur,newAR,oldAR,slang,testtype){
    if ( sizeOfNewAR < CARDSMIN ) { clickNotiz( TRANSLAT.small ); return; }
    if ( testtype == "schaf" ) nidno="";  // legacy code pre-superArrays
    if ( testtype == "ander" ) { // amending requires actual notion changes before amending
-      if ( !thereAreChanges( NINFDATA[0].catno, NINFDATA[0].sperq, NINFDATA[0].picto,
+      if ( !thereAreChanges( NINFDATA[0].catno, NINFDATA[0].sperq,
                              NINFDATA[0].nname, NINFDATA[0].ndesc,
                              newAR, oldAR, NINFDATA[0].tlang ) ) { landingPage(); showSupers(); return; }
       else nidno = NINFDATA[0].nidno;
@@ -507,7 +506,7 @@ function sendToDB(nncur,nccur,spcur,ndcur,newAR,oldAR,slang,testtype){
          "nidno":nidno, "nncur":nncur.escapo(), "spcur":spcur,
          "nccur":nccur, "ndcur":ndcur.escapo(),
          "newAR":newAR, "oldAR":oldAR,
-         "slang":slang, "tlang":tlang, "picto":picto })).then(
+         "slang":slang, "tlang":tlang })).then(
       function( response ){ NINFDATA = {};
          jasonUINFO( function(){ landingPage(); showSupers(); }, true );
          jasonSINFO( USERINFO[0].ulang, 0, true );

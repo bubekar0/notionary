@@ -100,7 +100,6 @@ function markupNotionsSummary(keyAR,titular,trailer){
       nenco = encodeURIComponent( HARDCODE.myurl + "?tun=trial&was=" + keyAR[x].nname );
 
       mu += '<div class="notionary-plainnotion" title="' + title +'" rname="' + nquot + '"'+
-                  " picto='" + keyAR[x].picto + "' " +
                   " forja='" + keyAR[x].forja + "'>" +
                "<input type='checkbox' " +
                   " class='notionary-checkbox' title='" + TRANSLAT.multi + "' "+
@@ -120,7 +119,7 @@ function bindNotionDisplayWidgets(){
    var MULTIMAX = 5,
        i, kernNode, mixnum,
        lapices, likables, notpads,/* zeroes, singles, couples, troikas,*/ chekers,
-       nopictos, noformos, japictos, jaformos;
+       noformos, jaformos;
 
    document.body.scrollTop = document.documentElement.scrollTop = 0;
 
@@ -148,8 +147,8 @@ function bindNotionDisplayWidgets(){
 
 
    for ( i = 0; i < chekers.length; i++ ) {
-      nopictos = document.querySelectorAll('[picto="false"]'); noformos = document.querySelectorAll('[forja="false"]');
-      japictos = document.querySelectorAll('[picto="true"]');  jaformos = document.querySelectorAll('[forja="true"]');
+      noformos = document.querySelectorAll('[forja="false"]');
+      jaformos = document.querySelectorAll('[forja="true"]');
       chekers[i].onclick = function(e) { e.stopPropagation();
          var nindx;
          if ( this.checked ) { // checking adds to list
@@ -166,16 +165,11 @@ function bindNotionDisplayWidgets(){
             mix1id.style.visibility = "visible"; blinkNode(mix1id,"radBlau", true);
             mix2id.style.visibility = "visible"; blinkNode(mix2id,"radBlau", true);
          } else { mix1id.style.visibility = "hidden";  mix2id.style.visibility = "hidden"; }
-         if ( SELECTED == 1 ) { // Ensure no Notion/Piction/Formulation mixing
-            // If a Piction is picked first, eliminate all non - piction choices
-            if ( this.parentNode.parentNode.getAttribute("picto") == "true" ) // just pictions
-               for ( i = 0; i < nopictos.length; i++ )   nopictos[i].style.display = "none";
-            else if ( this.parentNode.parentNode.getAttribute("forja") == "true" ) // just formulations
+         if ( SELECTED == 1 ) { // Ensure no Notion/Formulation mixing
+            if ( this.parentNode.parentNode.getAttribute("forja") == "true" ) // just formulations
                for ( i = 0; i < noformos.length; i++ )   noformos[i].style.display = "none";
-            else { // just notions
-               for ( i = 0; i < japictos.length; i++ )   japictos[i].style.display = "none";
+            else // just notions
                for ( i = 0; i < jaformos.length; i++ )   jaformos[i].style.display = "none";
-            }
          }
       }
    }

@@ -37,17 +37,17 @@ function asone($q,$personal){
    while( $r = db_fetch_assoc($q) ) {
       $nidno = $r['notionID'];
       $n = db_fetch_assoc(
-            sql("select notion, description, userID, imageID, category, slang
+            sql("select notion, description, userID, category, slang
                  from aanotion where notionID='$nidno'"));
       $nname = $n['notion']; $ndesc=$n['description']; $ownid=$n['userID'];
-      $nimag = $n['imageID']; $catno=$n['category']; $slang=$n['slang'];
+      $catno=$n['category']; $slang=$n['slang'];
       $cq = sql("select count(*) as c from `$nname`");
       if ( !$cq ) { syslog(LOG_ERR,"$_SERVER[REMOTE_ADDR] asone Zombie Alert $nname($nidno)"); continue; }
       $cc = db_fetch_assoc($cq); $nsize = $cc['c'];
       $owner = "";
       // Inert in this text-only single-user build: ratings, reviews, pictions,
       // pdf, video, avatars and cross-user champion records.
-      $rated=""; $revus=""; $picto=false;
+      $rated=""; $revus="";
       $forja = isset($formulaSet[$nidno]);
       $piece = isset($partMap[$nidno]['part'])        ? $partMap[$nidno]['part']        : "";
       $parts = isset($partMap[$nidno]['cardinality']) ? $partMap[$nidno]['cardinality'] : "";
@@ -64,9 +64,9 @@ function asone($q,$personal){
          $mysc1=NULL; $mybt1=NULL; $mysc2=NULL; $mybt2=NULL; $mysc3=NULL; $mybt3=NULL;
       }
       $retAR[]=array(
-         "nidno" => $nidno, "nname" => $nname, "ndesc" => $ndesc, "nimag" => $nimag,
+         "nidno" => $nidno, "nname" => $nname, "ndesc" => $ndesc,
          "catno" => $catno, "nsize" => $nsize, "rated" => $rated, "revus" => $revus,
-         "piece" => $piece, "parts" => $parts, "picto" => $picto, "forja" => $forja,
+         "piece" => $piece, "parts" => $parts, "forja" => $forja,
          "dokum" => $dokum, "video" => $video, "chav1" => $chav1, "chav2" => $chav2, "chav3" => $chav3,
          "mysc1" => $mysc1, "mybt1" => $mybt1, "mysc2" => $mysc2, "mybt2" => $mybt2, "mysc3" => $mysc3, "mybt3" => $mybt3,
          "scor1" => $scor1, "time1" => $time1, "chmp1" => $chmp1, "epoc1" => $epoc1,
@@ -208,7 +208,6 @@ function ninf0(){
    $revus = "";
    $wq = sql("select userID, review from aareview where notionID='$nidno'");
    while($w=db_fetch_assoc($wq)){ $rever=""; $revus.="$rever-->>$w[review]￭"; }
-   $picto=false;
    konto("notionID","aaformula","notionID","$nidno") ? $forja=true : $forja=false;
    $ownid=holen("userID","aanotion","notionID","$nidno");
    $owner="";
@@ -216,11 +215,11 @@ function ninf0(){
    if(isset($_SESSION['uname'])){
       $mall=nmall(holen("userID","aauser","user",$_SESSION['uname']),$nidno);
       $retAR[]=array(
-         "nidno" => $nidno, "nname" => $nname, "ndesc" => $query['description'], "nimag" => $query['imageID'],
+         "nidno" => $nidno, "nname" => $nname, "ndesc" => $query['description'],
          "catno" => $query['category'], "nsize" => $nsize, "rated" => $rated, "revus" => $revus,
          "piece" => $multi['cardinality'], "parts" => $multi['part'], "dokum" => $multi['pdfID'], "video" => $multi['video'],
          "sperq" => $multi['sperq'], "slang" => $query['slang'], "tlang" => $query['tlang'], "ownid" => $ownid,
-         "picto" => $picto, "forja" => $forja, "owner" => $owner, "ownav" => $ownav,
+         "forja" => $forja, "owner" => $owner, "ownav" => $ownav,
          "mysc1" => $mall['mysc1'], "mybt1" => $mall['mybt1'], "mysc2" => $mall['mysc2'], "mybt2" => $mall['mybt2'],
          "mysc3" => $mall['mysc3'], "mybt3" => $mall['mybt3'],
          "scor1" => $nall['scor1'], "time1" => $nall['time1'], "chmp1" => $nall['chmp1'], "epoc1" => $nall['epoc1'], "chav1" => $chav1,
@@ -229,11 +228,11 @@ function ninf0(){
       );
    } else {
       $retAR[]=array(
-         "nidno" => $nidno, "nname" => $nname, "ndesc" => $query['description'], "nimag" => $query['imageID'],
+         "nidno" => $nidno, "nname" => $nname, "ndesc" => $query['description'],
          "catno" => $query['category'], "nsize" => $nsize, "rated" => $rated, "revus" => $revus,
          "piece" => $multi['cardinality'], "parts" => $multi['part'], "dokum" => $multi['pdfID'], "video" => $multi['video'],
          "sperq" => $multi['sperq'], "slang" => $query['slang'], "tlang" => $query['tlang'], "ownid" => $ownid,
-         "picto" => $picto, "forja" => $forja, "owner" => $owner, "ownav" => $ownav,
+         "forja" => $forja, "owner" => $owner, "ownav" => $ownav,
          "mysc1" => NULL, "mybt1" => NULL, "mysc2" => NULL, "mybt2" => NULL, "mysc3" => NULL, "mybt3" => NULL,
          "scor1" => $nall['scor1'], "time1" => $nall['time1'], "chmp1" => $nall['chmp1'], "epoc1" => $nall['epoc1'], "chav1" => $chav1,
          "scor2" => $nall['scor2'], "time2" => $nall['time2'], "chmp2" => $nall['chmp2'], "epoc2" => $nall['epoc2'], "chav2" => $chav2,
@@ -241,14 +240,9 @@ function ninf0(){
       );
    }
    $felde=" question, answer ";
-   $ri=FALSE; // imageID column stripped (media removed)
-   $rs=FALSE; // soundID column stripped (media removed)
-   if($ri) $felde.=", imageID "; if($rs) $felde.=", soundID ";
    $q=sql("select $felde from `$ntabl`");
    while($r=db_fetch_assoc($q)){
-      if($ri) $imgid=$r['imageID']; else $imgid="";
-      if($rs) $sndid=$r['soundID']; else $sndid="";
-      $qaimg[]=array("q"=>$r['question'],"a"=>$r['answer'],"i"=>$imgid,"s"=>$sndid);
+      $qaimg[]=array("q"=>$r['question'],"a"=>$r['answer']);
    }
    if($forja) $qaimg=formx($nidno);
    $retAR[]=array("qaimg" => $qaimg);
@@ -298,13 +292,9 @@ function uinf0(){
          sql("delete from aaprobs where perfID='$r[perfID]'");
          continue;
       } else {
-         $nimag = holen("imageID","aanotion","notionID",$r['notionID']);
          $p = sql("select probs from aaprobs where perfID='$r[perfID]'");
-         $picto=false;
          while ( $t = db_fetch_assoc($p) ){
-            $visual=FALSE; // imageID column stripped (media removed)
-            $sonora=FALSE; // soundID column stripped (media removed)
-            $felde = " question, answer "; if($visual) $felde.=", imageID "; if($sonora) $felde.=", soundID ";
+            $felde = " question, answer ";
             $raw_prob = $t['probs'];
             $net_prob = scapo($t['probs']);
             $s = db_fetch_array(sql("select $felde from `$nname` where question='$net_prob'"));
@@ -314,12 +304,9 @@ function uinf0(){
                unset($d); unset($k); unset($dec);
                $d=sql("select answer from `$nname` where question!='$net_prob' order by random() limit 4");
                while($k=db_fetch_array($d)) $dec[]=getGoodChoice($k['answer']);
-               isset($s['imageID']) ? $theImage=$s['imageID'] : $theImage=NULL;
-               isset($s['soundID']) ? $theSound=$s['soundID'] : $theSound=NULL;
-               $probs[] = array( "pid" => $r['perfID'], "nim" => $nimag,
+               $probs[] = array( "pid" => $r['perfID'],
                                "prb" => $raw_prob, "sol" => $s['answer'],
-                               "img" => $theImage, "snd" => $theSound,
-                               "pik" => $picto, "dec" => $dec);
+                               "dec" => $dec);
             }
          }
          unset($s);
@@ -359,14 +346,9 @@ function mixqa($getar){
    } else {
       foreach($nlist as $n){
          $felde=" question, answer ";
-         $ri=FALSE; // imageID column stripped (media removed)
-         $rs=FALSE; // soundID column stripped (media removed)
-         if($ri) $felde.=", imageID "; if($rs) $felde.=", soundID ";
          $q=sql("select $felde from `$n`");
          while($r=db_fetch_assoc($q)){
-            if($ri) $imgid=$r['imageID']; else $imgid="";
-            if($rs) $sndid=$r['soundID']; else $sndid="";
-            $qaimg[]=array("q"=>$r['question'],"a"=>$r['answer'],"i"=>$imgid,"s"=>$sndid);
+            $qaimg[]=array("q"=>$r['question'],"a"=>$r['answer']);
          }
       }
    }

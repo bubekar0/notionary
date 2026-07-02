@@ -1298,7 +1298,6 @@ function markupNotionsSummary(keyAR,titular,trailer){
       nenco = encodeURIComponent( HARDCODE.myurl + "?tun=trial&was=" + keyAR[x].nname );
 
       mu += '<div class="notionary-plainnotion" title="' + title +'" rname="' + nquot + '"'+
-                  " picto='" + keyAR[x].picto + "' " +
                   " forja='" + keyAR[x].forja + "'>" +
                "<input type='checkbox' " +
                   " class='notionary-checkbox' title='" + TRANSLAT.multi + "' "+
@@ -1318,7 +1317,7 @@ function bindNotionDisplayWidgets(){
    var MULTIMAX = 5,
        i, kernNode, mixnum,
        lapices, likables, notpads,/* zeroes, singles, couples, troikas,*/ chekers,
-       nopictos, noformos, japictos, jaformos;
+       noformos, jaformos;
 
    document.body.scrollTop = document.documentElement.scrollTop = 0;
 
@@ -1346,8 +1345,8 @@ function bindNotionDisplayWidgets(){
 
 
    for ( i = 0; i < chekers.length; i++ ) {
-      nopictos = document.querySelectorAll('[picto="false"]'); noformos = document.querySelectorAll('[forja="false"]');
-      japictos = document.querySelectorAll('[picto="true"]');  jaformos = document.querySelectorAll('[forja="true"]');
+      noformos = document.querySelectorAll('[forja="false"]');
+      jaformos = document.querySelectorAll('[forja="true"]');
       chekers[i].onclick = function(e) { e.stopPropagation();
          var nindx;
          if ( this.checked ) { // checking adds to list
@@ -1364,16 +1363,11 @@ function bindNotionDisplayWidgets(){
             mix1id.style.visibility = "visible"; blinkNode(mix1id,"radBlau", true);
             mix2id.style.visibility = "visible"; blinkNode(mix2id,"radBlau", true);
          } else { mix1id.style.visibility = "hidden";  mix2id.style.visibility = "hidden"; }
-         if ( SELECTED == 1 ) { // Ensure no Notion/Piction/Formulation mixing
-            // If a Piction is picked first, eliminate all non - piction choices
-            if ( this.parentNode.parentNode.getAttribute("picto") == "true" ) // just pictions
-               for ( i = 0; i < nopictos.length; i++ )   nopictos[i].style.display = "none";
-            else if ( this.parentNode.parentNode.getAttribute("forja") == "true" ) // just formulations
+         if ( SELECTED == 1 ) { // Ensure no Notion/Formulation mixing
+            if ( this.parentNode.parentNode.getAttribute("forja") == "true" ) // just formulations
                for ( i = 0; i < noformos.length; i++ )   noformos[i].style.display = "none";
-            else { // just notions
-               for ( i = 0; i < japictos.length; i++ )   japictos[i].style.display = "none";
+            else // just notions
                for ( i = 0; i < jaformos.length; i++ )   jaformos[i].style.display = "none";
-            }
          }
       }
    }
@@ -1479,7 +1473,7 @@ function bindExamWidgets( testtype ){
 
    document.getElementById( "examExitante" ).onclick = function(e){ landingPage(); showSupers(); }
 
-   if ( NINFDATA[0].catno == "19" || NINFDATA[0].picto )  ausblenden( xamqtext );       // Standard + Pictions -->> No Question Text
+   if ( NINFDATA[0].catno == "19" )  ausblenden( xamqtext );       // Standard -->> No Question Text
    if ( NINFDATA[0].catno ==  "2" || NINFDATA[0].catno == "3" )  lenguaje = "scimath";  // FKeys use tlang or "scimath" (Math|Science)
    if ( testtype == "lista" ) ausblenden( barrotes );
    if ( testtype == "lista" || testtype == "learn" ) ausblenden( timeleft );
@@ -1519,7 +1513,6 @@ function examWidgets( testtype, bindCBK ){
 
       // Disable testtypes that make no sense for certain Notions or Devices
       if ( NINFDATA[0].forja || ( NINFDATA[0].catno == 19 ) ) learnbtn = writebtn = adeptbtn = listabtn = amendbtn = "";
-      if ( NINFDATA[0].picto ) adeptbtn = "";
       if ( SMARTFON ) writebtn = adeptbtn = amendbtn = "";
    }
 
@@ -1585,7 +1578,7 @@ function renderExam(testtype){
       case "amend": if ( NINFDATA[0].ownid == USERINFO[0].uidno || ROOTUSER ) amendNotion( NINFDATA[0].nname );
                     else { landingPage(); showSupers(); } break;
       default: if ( testtype == "adept" ) { // fill in WORKDATA accordingly .. Formulations nor Pictions are masterable
-                  if ( NINFDATA[0].forja || NINFDATA[0].picto){ clickNotiz( TRANSLAT.ispik ); return; }
+                  if ( NINFDATA[0].forja ){ clickNotiz( TRANSLAT.ispik ); return; }
                   onetoone = NINFDATA[1].qaimg;                  // Masterable IFF 1-1 Q-A. Repeated Q ==>> Non-masterable!
                   for ( i = 0; i < onetoone.length - 1; i++ )
                      for ( j = i + 1; j < onetoone.length; j++ )
@@ -1595,7 +1588,6 @@ function renderExam(testtype){
                      WORKDATA[i] = {}; // Clean the possible enforced choices for backward tests
                      WORKDATA[i].q = getGoodChoice(tempo[i].a);  // forward tests need the data dirty
                      WORKDATA[i].a = tempo[i].q;
-                     WORKDATA[i].i = tempo[i].i;
                   }
                } else if ( testtype == "learn" || NINFDATA[0].catno == "19" ) WORKDATA = NINFDATA[1].qaimg; // no shuffle
                else WORKDATA = shuffleArray( NINFDATA[1].qaimg );
@@ -1608,7 +1600,7 @@ function markupTheCards(nobj,cards2show){
    var TRESHOLD =   8,   // Length that spans card
        BABYFONT = 1.8,
        MAMAFONT = 3.0,
-       mu = "", card, total, count, tacky, imgid,
+       mu = "", card, total, count, tacky,
        frage, anser, theQ, theA, qFont, aFont;
    WORKDATA = shuffleArray( nobj[1].qaimg );
    total = cards2show != "" ? cards2show : WORKDATA.length;
@@ -1622,11 +1614,6 @@ function markupTheCards(nobj,cards2show){
       count = "<div class='notionary-cardzahl'>" + parseInt(card+1) + "/" + WORKDATA.length + "</div>";
       frage = "<div class='notionary-cardtext'>" + theQ + "</div>";
       anser = "<div class='notionary-cardtext'>" + theA + "</div>";
-
-      if ( nobj[0].picto ) { // Pictions MUST have an Image, and MAY have a Sound
-         imgid = WORKDATA[card].i ? WORKDATA[card].i : ( nobj[0].nimag ? nobj[0].nimag : "101" );
-         frage = "<img class='notionary-picimage' src='" + HARDCODE.image + imgid + "'>" ;
-      }
 
       mu += "<section class='notionary-cardhold' " + "title='" + TRANSLAT.fover + "'>" +
                "<div class='notionary-flipcard' qaIndex='" + card + "'>" +
@@ -1728,9 +1715,6 @@ function computeScoreAndContinue(typed,anser,testtype){
                                              getGoodChoice( WORKDATA[ THEINDEX ].a ) +
                                           "</span>" +
                                        "</markee>";
-
-                                       // Special case of Marquee for Pictions.
-      if ( NINFDATA[0].picto ) marquee  = "<markee>" + WORKDATA[ THEINDEX ].q +  "</markee>";
 
       // Visual Feedback of Error and Correct Answer
       feedbackControl("right","none", marquee, "");
@@ -1866,21 +1850,17 @@ function getNextPair(testtype){
    var DESKQLEN =  20,    MOBIQLEN =  12,   // Length that exhausts width
        BABYFONT = 3.0,    MAMAFONT = 4.5,   // Desktop + iPads
        TINYMOBI = 1.5,    HUGEMOBI = 2.5,   // Mobiles
-       imsrc        = HARDCODE.image + "101",
        frage, fsize, nextq = "", 
-       xamanser, xamqtext, xampicto, xamimage;
-   if ( NINFDATA[0].nimag ) imsrc = HARDCODE.image + NINFDATA[0].nimag;
+       xamanser, xamqtext, xampicto;
    xamanser  = document.getElementById( "examRisposta" );
    xamqtext  = document.getElementById( "examPregunta" );
    xampicto  = document.getElementById( "examPantalla" );
-   xamimage  = document.getElementById( "examImagenes" );
 
    nextq = WORKDATA[ THEINDEX ].q;
    fsize = nextq.length > DESKQLEN ? BABYFONT : MAMAFONT;
    if ( SMARTFON ) fsize = nextq.length > MOBIQLEN ? TINYMOBI : HUGEMOBI;
 
-   if ( !NINFDATA[0].picto ) 
-      xamqtext.style.cssText = "font:normal normal 500 " + fsize + "em/110% Futura, sans-serif,monospace;";
+   xamqtext.style.cssText = "font:normal normal 500 " + fsize + "em/110% Futura, sans-serif,monospace;";
 
    switch( testtype ) {
       case "learn": case "trial": case "mix1b":
@@ -1893,10 +1873,7 @@ function getNextPair(testtype){
    xamqtext.innerHTML = nextq;
    if ( xamanser )  xamanser.value = "";
    if ( testtype == "adept" ) frage = WORKDATA[ THEINDEX ].a; else frage = WORKDATA[ THEINDEX ].q;
-   if ( NINFDATA[0].picto && WORKDATA[ THEINDEX ].i ) {
-      imsrc = HARDCODE.image + WORKDATA[ THEINDEX ].i;
-      xampicto.innerHTML = "<img id='examImagenes' src='" + imsrc + "'>";
-   } else ausblenden(xampicto,10,true);
+   ausblenden(xampicto,10,true);
 
    clearInterval( ENERGIZE );
    if ( TIMEOUTS < MAXTOUTS ) {
@@ -2335,7 +2312,6 @@ function bindTextAreas( qainhalt, highlite ){
       rispnode = document.getElementById( meinzahl + "a" );
       currentq = quesnode.value; currenta = rispnode.value;
 
-      try { if ( NINFDATA[0].picto ) currentq = currenta; } catch(err){}          // pictions Qs slaves to As. try fails if new notion
       if ( qainhalt[meinzahl].q != currentq ) { qainhalt[meinzahl].q = currentq; }
       if ( qainhalt[meinzahl].a != currenta ) { qainhalt[meinzahl].a = currenta; }
       colorById( this, "radTang" );
@@ -2377,7 +2353,7 @@ function bindChoicesButtons(){
       }
    }).then(function(){ offNAJAX("mudoc"); });
 }
-function thereAreChanges(ncold,spold,npold,nnold,ndold,newAR,oldAR,tlold){
+function thereAreChanges(ncold,spold,nnold,ndold,newAR,oldAR,tlold){
    DEBUGGER?console.log("[thereAreChanges]"):0;
    var nccur = "", nncur = "", ndcur = "", gaton = "", tlnew, gibts = "",
        catsele, spqsele, notname, notdesc;
@@ -2421,7 +2397,7 @@ function sendToDB(nncur,nccur,spcur,ndcur,newAR,oldAR,slang,testtype){
    var CHOIXMIN =  5,
        i, j, tlang,
        edit_NN, edit_ND, problema, problemq, 
-       picto = false, sizeOfNewAR = 0;
+       sizeOfNewAR = 0;
 
    edit_NN  = document.getElementById( "editNnameTxt" );
    edit_ND  = document.getElementById( "editNdescTxt" );
@@ -2497,7 +2473,7 @@ function sendToDB(nncur,nccur,spcur,ndcur,newAR,oldAR,slang,testtype){
    if ( sizeOfNewAR < CARDSMIN ) { clickNotiz( TRANSLAT.small ); return; }
    if ( testtype == "schaf" ) nidno="";  // legacy code pre-superArrays
    if ( testtype == "ander" ) { // amending requires actual notion changes before amending
-      if ( !thereAreChanges( NINFDATA[0].catno, NINFDATA[0].sperq, NINFDATA[0].picto,
+      if ( !thereAreChanges( NINFDATA[0].catno, NINFDATA[0].sperq,
                              NINFDATA[0].nname, NINFDATA[0].ndesc,
                              newAR, oldAR, NINFDATA[0].tlang ) ) { landingPage(); showSupers(); return; }
       else nidno = NINFDATA[0].nidno;
@@ -2507,7 +2483,7 @@ function sendToDB(nncur,nccur,spcur,ndcur,newAR,oldAR,slang,testtype){
          "nidno":nidno, "nncur":nncur.escapo(), "spcur":spcur,
          "nccur":nccur, "ndcur":ndcur.escapo(),
          "newAR":newAR, "oldAR":oldAR,
-         "slang":slang, "tlang":tlang, "picto":picto })).then(
+         "slang":slang, "tlang":tlang })).then(
       function( response ){ NINFDATA = {};
          jasonUINFO( function(){ landingPage(); showSupers(); }, true );
          jasonSINFO( USERINFO[0].ulang, 0, true );
@@ -2568,8 +2544,8 @@ function continueWithNextError(){
        TINYMOBI = 2.3,    HUGEMOBI = 3.2,   // Mobiles
        btn, buttonsMarkup = "",
        fsize,
-       reptile, xampicto, xamimage, xamxoice, xamqtext, xoibtns,
-       xoices = new Array(), imsrc;
+       reptile, xampicto, xamxoice, xamqtext, xoibtns,
+       xoices = new Array();
    reptile  = document.getElementById( "examTitulare" );
    xampicto = document.getElementById( "examPantalla" );
    xamqtext = document.getElementById( "examPregunta" );
@@ -2584,15 +2560,13 @@ function continueWithNextError(){
 
    fsize = PROBLEMS[THEINDEX].prb.length > DESKQLEN ? BABYFONT : MAMAFONT;
    if ( SMARTFON ) fsize = PROBLEMS[THEINDEX].prb.length > MOBIQLEN ? TINYMOBI : HUGEMOBI;
-   if ( !PROBLEMS[THEINDEX].pik )
-      xamqtext.style.cssText = "font:normal normal 900 " + fsize + "em/100% Futura, sans-serif,monospace;";
+   xamqtext.style.cssText = "font:normal normal 900 " + fsize + "em/100% Futura, sans-serif,monospace;";
 
    for ( btn = 0; btn < 5; btn++ ) 
       buttonsMarkup += "<button id='reco" + btn + "' class='notionary-examwahl'>" + xoices[ btn ] + "</button>";
 
    reptile.innerHTML = PROBLEMS[ THEINDEX ].nam.kurzen( DESKNMAX );
-   xamimage = document.getElementById( "examImagenes" );
-   if ( PROBLEMS[ THEINDEX ].pik ) ausblenden(xamqtext,10,true); else einblenden(xamqtext,10);
+   einblenden(xamqtext,10);
 
    xamxoice.innerHTML = buttonsMarkup;
    xoibtns = document.getElementsByClassName( "notionary-examwahl" );
@@ -2619,11 +2593,7 @@ function continueWithNextError(){
    }
 
    xamqtext.innerHTML = PROBLEMS[ THEINDEX ].prb;
-   if ( PROBLEMS[ THEINDEX ].pik && PROBLEMS[ THEINDEX ].img ) {
-      imsrc = HARDCODE.image + PROBLEMS[ THEINDEX ].img;
-      xampicto.innerHTML = "<img id='examImagenes' src='" + imsrc + "'>";
-      einblenden(xampicto);
-   } else ausblenden(xampicto,10,true);
+   ausblenden(xampicto,10,true);
    clearInterval( ENERGIZE );
    if ( TIMEOUTS < MAXTOUTS ){
       DECILEFT = 1000 * QUESTIME;

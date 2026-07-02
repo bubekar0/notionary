@@ -51,8 +51,8 @@ function continueWithNextError(){
        TINYMOBI = 2.3,    HUGEMOBI = 3.2,   // Mobiles
        btn, buttonsMarkup = "",
        fsize,
-       reptile, xampicto, xamimage, xamxoice, xamqtext, xoibtns,
-       xoices = new Array(), imsrc;
+       reptile, xampicto, xamxoice, xamqtext, xoibtns,
+       xoices = new Array();
    reptile  = document.getElementById( "examTitulare" );
    xampicto = document.getElementById( "examPantalla" );
    xamqtext = document.getElementById( "examPregunta" );
@@ -67,15 +67,13 @@ function continueWithNextError(){
 
    fsize = PROBLEMS[THEINDEX].prb.length > DESKQLEN ? BABYFONT : MAMAFONT;
    if ( SMARTFON ) fsize = PROBLEMS[THEINDEX].prb.length > MOBIQLEN ? TINYMOBI : HUGEMOBI;
-   if ( !PROBLEMS[THEINDEX].pik )
-      xamqtext.style.cssText = "font:normal normal 900 " + fsize + "em/100% Futura, sans-serif,monospace;";
+   xamqtext.style.cssText = "font:normal normal 900 " + fsize + "em/100% Futura, sans-serif,monospace;";
 
    for ( btn = 0; btn < 5; btn++ ) 
       buttonsMarkup += "<button id='reco" + btn + "' class='notionary-examwahl'>" + xoices[ btn ] + "</button>";
 
    reptile.innerHTML = PROBLEMS[ THEINDEX ].nam.kurzen( DESKNMAX );
-   xamimage = document.getElementById( "examImagenes" );
-   if ( PROBLEMS[ THEINDEX ].pik ) ausblenden(xamqtext,10,true); else einblenden(xamqtext,10);
+   einblenden(xamqtext,10);
 
    xamxoice.innerHTML = buttonsMarkup;
    xoibtns = document.getElementsByClassName( "notionary-examwahl" );
@@ -102,11 +100,7 @@ function continueWithNextError(){
    }
 
    xamqtext.innerHTML = PROBLEMS[ THEINDEX ].prb;
-   if ( PROBLEMS[ THEINDEX ].pik && PROBLEMS[ THEINDEX ].img ) {
-      imsrc = HARDCODE.image + PROBLEMS[ THEINDEX ].img;
-      xampicto.innerHTML = "<img id='examImagenes' src='" + imsrc + "'>";
-      einblenden(xampicto);
-   } else ausblenden(xampicto,10,true);
+   ausblenden(xampicto,10,true);
    clearInterval( ENERGIZE );
    if ( TIMEOUTS < MAXTOUTS ){
       DECILEFT = 1000 * QUESTIME;
