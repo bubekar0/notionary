@@ -59,7 +59,7 @@ Then open **http://localhost:8080/notionary.php**
 
 ### Choose the interface language
 
-The app serves **one interface language per install** (English by default). The seed ships notions in eight languages — including sets aimed at speakers of each language who are learning English — and the browse catalog you see is the one matching the active language. To switch, set the owner account's language to one of `en`, `de`, `es`, `fr`, `it`, `pt`, `hu`, `ru`:
+The app serves **one interface language per install** (English by default). The seed ships notions in eight languages — including sets aimed at speakers of each language who are learning English — and the browse catalog you see is the one matching the active language. To switch, set the owner account's language to one of `en`, `de`, `es`, `fr`, `it`, `pt`, `hu`, `ru`. Run this from the project directory (the same folder as `notionary.php`), since the database path is relative:
 
 ```bash
 sqlite3 db/notionary.db "UPDATE aauser SET ulang='es' WHERE user='owner@notionary';"
@@ -70,7 +70,7 @@ This selects both the interface strings and which language's notion catalog you 
 ## Features
 
 - Create and edit notion sets (type directly or paste in bulk).
-- Spaced-repetition engine that tracks performance and recommends review timing.
+- Performance tracking per notion across tests, shown on the results screen.
 - Multilingual interface: English, German, Spanish, French, Italian, Portuguese, Hungarian, Russian.
 - Math-problem generators (arithmetic, fractions, GCD/LCM, percentages).
 - PDF export of a notion as a printable question-and-answer study list.
