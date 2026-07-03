@@ -23,7 +23,7 @@ function linfoThenParseURL(){ // URL tokens (nname,level,uname) from Server dire
                   landingPage(); go4it(nname,level);
                }, function( error ) { searchResults( nname ); } // This failure is treated as a search!!
             ).then(function(){ offNAJAX("ninfo"); });
-         } else { landingPage(); showSupers(); showCategories(); }   // No directive nor Notion, so let's paint a page
+         } else { landingPage(); showSupers(); }   // No directive nor Notion, so let's paint a page
       }
    });
 }
@@ -69,7 +69,7 @@ function rentr(){
                                  ergebnis = JSON.parse( response );
                                  notns = ergebnis["notns"];
                                  if ( notns ) node.innerHTML = markupNotionsSummary(notns,TRANSLAT.found,"");
-                                 else { clickNotiz( TRANSLAT.keine ); showSupers(); showCategories(); }
+                                 else { clickNotiz( TRANSLAT.keine ); showSupers(); }
                               }, function ( error ) { clickNotiz( error ); }
                            ).then(function(){ offNAJAX("suche"); bindNotionDisplayWidgets(); });
                            break;
@@ -152,6 +152,7 @@ function showSupers(){
    supes = document.getElementsByClassName( "notionary-supernotion" );
    for ( i = 0; i < supes.length; i++ )
       supes[i].onclick = function(e) { showSuperNotion( this.getAttribute("super"), document.getElementById( "anonRealarea" ) ); }
+   showCategories();
 }
 function showCategories(){
    DEBUGGER?console.log("[showCategories]"):0;
