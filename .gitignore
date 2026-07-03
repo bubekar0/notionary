@@ -8,3 +8,10 @@ cache/*
 .claude/
 PENDING.md
 .venv/
+
+# dev/prod-only artifacts (kept locally + in Box, not shipped in the donation)
+db/schema.sql
+db/data.sql
+mysql2sqlite.py
+drop_zombies.sql
+deploy.sh
