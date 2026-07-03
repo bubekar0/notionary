@@ -1,7 +1,8 @@
 <?php
+$_CONFIG = require __DIR__ . '/../config.php';
 session_start();
 if(!ob_start("ob_gzhandler")) ob_start();
-date_default_timezone_set('Europe/Berlin');
+date_default_timezone_set($_CONFIG['TIMEZONE']);
 require_once "cssphp.php";
 require_once "utiles.php";
 require_once "dbutil.php";
