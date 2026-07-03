@@ -73,7 +73,7 @@ This selects both the interface strings and which language's notion catalog you 
 - Spaced-repetition engine that tracks performance and recommends review timing.
 - Multilingual interface: English, German, Spanish, French, Italian, Portuguese, Hungarian, Russian.
 - Math-problem generators (arithmetic, fractions, GCD/LCM, percentages).
-- PDF generation for printable flashcards.
+- PDF export of a notion as a printable question-and-answer study list.
 
 ## Project Structure
 
