@@ -23,7 +23,7 @@ function linfoThenParseURL(){ // URL tokens (nname,level,uname) from Server dire
                   landingPage(); go4it(nname,level);
                }, function( error ) { searchResults( nname ); } // This failure is treated as a search!!
             ).then(function(){ offNAJAX("ninfo"); });
-         } else { landingPage(); showSupers(); }   // No directive nor Notion, so let's paint a page
+         } else { landingPage(); showSupers(); showCategories(); }   // No directive nor Notion, so let's paint a page
       }
    });
 }
@@ -69,7 +69,7 @@ function rentr(){
                                  ergebnis = JSON.parse( response );
                                  notns = ergebnis["notns"];
                                  if ( notns ) node.innerHTML = markupNotionsSummary(notns,TRANSLAT.found,"");
-                                 else { clickNotiz( TRANSLAT.keine ); showSupers(); }
+                                 else { clickNotiz( TRANSLAT.keine ); showSupers(); showCategories(); }
                               }, function ( error ) { clickNotiz( error ); }
                            ).then(function(){ offNAJAX("suche"); bindNotionDisplayWidgets(); });
                            break;
@@ -110,6 +110,7 @@ function markupSkeleton(){
              "<div       id='userTrophies'></div>" +
           "</div>" +
           "<div id='anonRealarea'></div>" +
+          "<div id='anonCatalog'></div>" +
           "<div id='mobiThumbler'>" + mobihtml + "</div>" +
           "<div id='anonFootings'></div>");
 }
@@ -151,6 +152,32 @@ function showSupers(){
    supes = document.getElementsByClassName( "notionary-supernotion" );
    for ( i = 0; i < supes.length; i++ )
       supes[i].onclick = function(e) { showSuperNotion( this.getAttribute("super"), document.getElementById( "anonRealarea" ) ); }
+}
+function showCategories(){
+   DEBUGGER?console.log("[showCategories]"):0;
+   var i, cat, notions, j, nquot, markup = "",
+       worker = document.getElementById( "anonCatalog" );
+   if ( !worker ) return;
+   for ( i in SERVINFO[0].kitns )
+      for ( cat in SERVINFO[0].kitns[i] ) {
+         notions = SERVINFO[0].kitns[i][cat];
+         markup += "<div class='notionary-catgroup'>" +
+                      "<div class='notionary-cathead' tabindex='0'>" + katxy( cat ) +
+                         " <span class='notionary-catcount'>(" + notions.length + ")</span></div>" +
+                      "<div class='notionary-catlist'>";
+         for ( j = 0; j < notions.length; j++ ) {
+            nquot = notions[j].nname.sauber();
+            markup += "<div class='notionary-catitem' rname=\"" + nquot + "\">" + nquot + "</div>";
+         }
+         markup += "</div></div>";
+      }
+   worker.innerHTML = markup;
+   var heads = worker.getElementsByClassName( "notionary-cathead" );
+   for ( i = 0; i < heads.length; i++ )
+      heads[i].onclick = function(){ this.parentNode.classList.toggle( "notionary-catopen" ); };
+   var items = worker.getElementsByClassName( "notionary-catitem" );
+   for ( i = 0; i < items.length; i++ )
+      items[i].onclick = function(){ window.location.href = HARDCODE.myurl + "?tun=trial&was=" + this.getAttribute( "rname" ); };
 }
 function jasonNINFO(notion,cback){
    DEBUGGER?console.log("[jasonNINFO]"):0;

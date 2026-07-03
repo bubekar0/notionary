@@ -124,6 +124,15 @@ nclues { display:block; margin:20px 0px; <?php echo $radWeis; ?>; }
 .notionary-exfocado { color:<?php echo $normGrau; ?>; <?php opaque("0.5"); ?>; }
 .notionary-chekmark { position:absolute; display:none; top:20px; right:5px; width:25px; height:25px; }
 #anonRealarea { position:relative; width:99%; margin:0 auto; text-align:center; }
+#anonCatalog { width:90%; max-width:900px; margin:20px auto 40px auto; text-align:left; max-height:55vh; overflow-y:auto; background:#fff; border:1px solid #ddd; border-radius:8px; }
+   .notionary-catgroup { border-bottom:1px solid #eee; }
+   .notionary-cathead  { cursor:pointer; padding:10px 16px; color:<?php echo $normBlau; ?>; <?php fontana("normal","700","1.2","1"); ?>; }
+   .notionary-cathead:hover { text-decoration:underline; }
+   .notionary-catcount { color:<?php echo $normGrau; ?>; font-size:0.75em; }
+   .notionary-catlist  { display:none; padding-bottom:6px; }
+   .notionary-catopen .notionary-catlist { display:block; }
+   .notionary-catitem  { cursor:pointer; padding:5px 30px; color:<?php echo $normGrau; ?>; <?php fontana("normal","500","1.15","1"); ?>; }
+   .notionary-catitem:hover { color:<?php echo $normBlau; ?>; }
   #anonFootings { bottom:0px; left:0px; width:100%; margin-top:500px; padding:20px 0px; }
   #anonFootings img { width:30px; height:22px; }
 
