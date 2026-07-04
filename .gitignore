@@ -1,7 +1,5 @@
-config.php
 CLAUDE.md
-cache/*
-!cache/.gitkeep
+.serve.pid
 *.log
 *.sql.gz
 .DS_Store

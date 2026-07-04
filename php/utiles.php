@@ -40,7 +40,7 @@ function isMobile(){
    }
    return false;
 }
-function mudoc(){ ccach("text/html", file_get_contents($_SESSION['slang']."/".$_REQUEST['was'].".txt") ); }
+function mudoc(){ nocach("text/html", file_get_contents($_SESSION['slang']."/".$_REQUEST['was'].".txt") ); }
 function apoqu($badst){ // UTF8 Preprocessor to prevent utf8-decode() hiccups ?
    // 0xe28099 Right Single Quotation mark
    $bad_stuff=array("e28099","c591","c590","c5b1","c5b0");

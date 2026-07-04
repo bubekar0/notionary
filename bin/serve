@@ -1,0 +1,40 @@
+#!/bin/bash
+# Optional convenience: run the notionary dev server in the BACKGROUND and hand
+# your terminal back. The documented default is still the foreground command
+#   php -S localhost:8080 router.php      (Ctrl-C to stop)
+# Use this only if you'd rather not tie up a terminal window.
+#
+#   bin/serve            start on :8080 (the port the seed pins the base URL to)
+#   bin/serve 9000       start on a different port (browsing still works)
+#   bin/stop             stop it
+set -e
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT"
+PORT="${1:-8080}"
+PIDFILE="$ROOT/.serve.pid"
+LOGFILE="$ROOT/.serve.log"
+
+if [ -f "$PIDFILE" ] && kill -0 "$(cat "$PIDFILE")" 2>/dev/null; then
+   echo "Already running (PID $(cat "$PIDFILE")) -> http://localhost:${PORT}/notionary.php"
+   exit 0
+fi
+
+php -S "localhost:${PORT}" router.php >"$LOGFILE" 2>&1 &
+echo $! > "$PIDFILE"
+sleep 1
+
+if kill -0 "$(cat "$PIDFILE")" 2>/dev/null; then
+   URL="http://localhost:${PORT}/notionary.php"
+   echo "notionary serving -> ${URL}  (PID $(cat "$PIDFILE"))"
+   echo "stop with: bin/stop"
+   # open the default browser (best-effort, cross-platform)
+   if   command -v open     >/dev/null 2>&1; then open "$URL" >/dev/null 2>&1 || true    # macOS
+   elif command -v xdg-open >/dev/null 2>&1; then xdg-open "$URL" >/dev/null 2>&1 &       # Linux
+   elif command -v wslview  >/dev/null 2>&1; then wslview "$URL" >/dev/null 2>&1 || true  # WSL
+   fi
+else
+   echo "Failed to start on port ${PORT} -- see $LOGFILE" >&2
+   rm -f "$PIDFILE"
+   exit 1
+fi
