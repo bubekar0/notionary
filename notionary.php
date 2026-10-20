@@ -1,10 +1,9 @@
 <?php
+require_once __DIR__ . '/php/bootstrap.php';
 $_CONFIG = require __DIR__ . '/config.php';
 $_DEV = ( (isset($_CONFIG['APP_ENV']) ? $_CONFIG['APP_ENV'] : 'prod') === 'local' );
-ini_set('display_errors', $_DEV ? '1' : '0');
+ini_set('display_errors', $_DEV ? '1' : '0');            // bootstrap turned display off; local dev turns it back on
 ini_set('display_startup_errors', $_DEV ? '1' : '0');
-ini_set('log_errors', '1');
-error_reporting(E_ALL & ~E_DEPRECATED);
 
 session_start();
 if (!isset($_SESSION['uname'])) { $_SESSION['uname'] = 'owner@notionary'; }
@@ -41,7 +40,7 @@ function asone($q,$personal){
                  from aanotion where notionID='$nidno'"));
       $nname = $n['notion']; $ndesc=$n['description']; $ownid=$n['userID'];
       $catno=$n['category']; $slang=$n['slang'];
-      $cq = sql("select count(*) as c from `$nname`");
+      $cq = sql("select count(*) as c from " . ntick($nname));
       if ( !$cq ) { syslog(LOG_ERR,"$_SERVER[REMOTE_ADDR] asone Zombie Alert $nname($nidno)"); continue; }
       $cc = db_fetch_assoc($cq); $nsize = $cc['c'];
       $owner = "";
@@ -118,7 +117,7 @@ function dopdf($nidxy){
    $pdf->SetFillColor(235,235,235);
    $pdf->AddFont('DejaVu','','DejaVuSansCondensed-Bold.ttf',true);
    $pdf->SetFont('DejaVu','',10);
-      $q=sql("select question, answer from `$nname`");
+      $q=sql("select question, answer from " . ntick($nname));
       $fillme = 1;
       while($r=db_fetch_assoc($q)){
          $question = $r['question']; $answer = getGoodChoice($r['answer']);
@@ -146,10 +145,11 @@ function dopdf($nidxy){
    closelog();
 }
 function sinf0(){ $PILE = 40;
+   $lan2L = lingo($_REQUEST['was']); if ( !$lan2L ) rjekt();
    $lanAR=$katAR=$stuAR=$tecAR=$ktnAR=array();
    $q=sql("pragma table_info(aaglobe)");
    while($r=db_fetch_assoc($q)) if(strlen($r['name'])==2) $lanAR[]=$r['name'];
-   $q=sql("select distinct category from aanotion where slang='$_REQUEST[was]' order by category");
+   $q=dbq("select distinct category from aanotion where slang=? order by category", array($lan2L));
    while($r=db_fetch_assoc($q)) $katAR[]=$r['category'];
    $q=sql("select userID, count(userID) as stars from `aaperfid` group by userID order by stars desc limit 0,3");
    while($r=db_fetch_assoc($q)){
@@ -164,23 +164,23 @@ function sinf0(){ $PILE = 40;
       $tecAR[]=array("techi"=>$befat[0], "stars"=>$r['stars'], "stdav"=>$ownav);
    }
    foreach($katAR as $k){ unset($kitAR);
-      $q=sql("select notionID from aanotion where category='$k' order by notion");
+      $q=dbq("select notionID from aanotion where category=? order by notion", array($k));
       if(db_num_rows($q)!=0){
-         $kitARA = asone(sql("select notionID from aanotion where category='$k' and slang='$_REQUEST[was]' order by notion"),false);
+         $kitARA = asone(dbq("select notionID from aanotion where category=? and slang=? order by notion", array($k, $lan2L)),false);
          $ktnAR[]=array($k => $kitARA);
       }
    }
    $retAR[]=array("langs"=>$lanAR, "studs"=>$stuAR, "techs"=>$tecAR, "katse"=>$katAR, "kitns"=>$ktnAR);
-   $popAR = asone( sql(
+   $popAR = asone( dbq(
                "select * from
                    (select notionID, count(notionID) as c from aaperfid group by notionID order by c desc limit 0, $PILE) as x
                 inner join aanotion as n on n.notionID=x.notionID
-               where n.slang='$_SESSION[slang]'"),false);
+               where n.slang=?", array($_SESSION['slang'])),false);
    $retAR[]=array("npops" => $popAR);
    $q=sql("select * from aaparam");
    while($r=db_fetch_assoc($q)) $parAR[]=array($r['kodex'] => $r['value']);
    $retAR[]=array("param" => $parAR);
-   $q = sql("select * from aasuper where slang='$_REQUEST[was]'");
+   $q = dbq("select * from aasuper where slang=?", array($lan2L));
    while( $r = db_fetch_assoc( $q ) ){
       $owner=""; $ownav=101;
       $supAR[] = array("supid" => $r['superID'], "owner" => $owner, "ownav" => $ownav,
@@ -191,14 +191,12 @@ function sinf0(){ $PILE = 40;
 }
 function ninf0(){
    $nname = $_REQUEST['was'];
-   $ntabl = $nname;
-   $nncol = db_escape($nname);
-   $r = db_fetch_assoc( sql("select notionID, notion from `aanotion` where notion='$nncol'"));
+   $r = db_fetch_assoc( dbq("select notionID, notion from `aanotion` where notion=?", array($nname)));
    if(!$r) { header('HTTP/1.1 500 Query String Error'); exit(); }
-   $nidno = $r['notionID']; $ntabl=$r['notion']; $nname=$r['notion'];
+   $nidno = (int)$r['notionID']; $ntabl=ntick($r['notion']); $nname=$r['notion'];
    $query = db_fetch_assoc(sql("select * from aanotion where notionID=$nidno"));
    $multi = db_fetch_assoc(sql("select aanotion.notionID, aasperq.sperq, aapart.part, aapart.cardinality, '' as pdfID, '' as video from aanotion left join aasperq on aasperq.notionID = aanotion.notionID left join aapart on aapart.notionID = aanotion.notionID where aanotion.notionID=$nidno"));
-   $nsize = db_num_rows(sql("select question from `$ntabl`"));
+   $nsize = db_num_rows(sql("select question from $ntabl"));
    $nall  = nrall($nidno);
    $chav1 = 101;
    $chav2 = 101;
@@ -235,7 +233,7 @@ function ninf0(){
       );
    }
    $felde=" question, answer ";
-   $q=sql("select $felde from `$ntabl`");
+   $q=sql("select $felde from $ntabl");
    while($r=db_fetch_assoc($q)){
       $qaimg[]=array("q"=>$r['question'],"a"=>$r['answer']);
    }
@@ -253,8 +251,9 @@ function ninfo(){
    fcach( "cache/_notionary_NINFO_".$nidno."_".$track."_cache.php", "604800", "ninfo" );
 }
 function linf0(){
-   $q = sql("select kodex, $_REQUEST[was] from aaglobe order by kodex");
-   while( $r = db_fetch_assoc( $q ) ) $tmpAR[] = array( $r['kodex'] => $r[$_REQUEST['was']] );
+   $lan2L = lingo($_REQUEST['was']); if ( !$lan2L ) rjekt();
+   $q = sql("select kodex, $lan2L from aaglobe order by kodex");
+   while( $r = db_fetch_assoc( $q ) ) $tmpAR[] = array( $r['kodex'] => $r[$lan2L] );
    return( $tmpAR );
 }
 function uinf0(){
@@ -290,12 +289,12 @@ function uinf0(){
          while ( $t = db_fetch_assoc($p) ){
             $felde = " question, answer ";
             $raw_prob = $t['probs'];
-            $s = db_fetch_array(dbq("select $felde from `$nname` where question=?", array($raw_prob)));
+            $s = db_fetch_array(dbq("select $felde from " . ntick($nname) . " where question=?", array($raw_prob)));
             if ( empty($s['question']) ){
                dbq("delete from aaprobs where perfID=? and probs=?", array($r['perfID'], $raw_prob));
             } else {
                unset($d); unset($k); unset($dec);
-               $d=dbq("select answer from `$nname` where question!=? order by random() limit 4", array($raw_prob));
+               $d=dbq("select answer from " . ntick($nname) . " where question!=? order by random() limit 4", array($raw_prob));
                while($k=db_fetch_array($d)) $dec[]=getGoodChoice($k['answer']);
                $probs[] = array( "pid" => $r['perfID'],
                                "prb" => $raw_prob, "sol" => $s['answer'],
@@ -313,33 +312,35 @@ function uinf0(){
 function busca($urist){
    $WORD_MIN_LEN = 3;
    $notns = NULL;
-   $s = db_escape($urist);
-   $q = "select notionID from aanotion where notion='$s' ";
-   if ( db_num_rows( sql( $q ) ) == 1 ) {
-      nocach("text/html",json_encode(array("notns" => asone(sql($q),true)))); return;}
-   $q = "select notionID from aanotion where notionID=0";
+   $s = (string)$urist;
+   $q = "select notionID from aanotion where notion=?";
+   if ( db_num_rows( dbq( $q, array($s) ) ) == 1 ) {
+      nocach("text/html",json_encode(array("notns" => asone(dbq($q, array($s)),true)))); return;}
+   $q = "select notionID from aanotion where notionID=0"; $p = array();
    foreach( explode(" ",$s) as $word)
-      if ( strlen( $word ) > $WORD_MIN_LEN ) $q .= " or description like '%$word%' or LOWER(notion) like '%$word%'";
-   $notns = asone(sql($q),true);
+      if ( strlen( $word ) > $WORD_MIN_LEN ) {
+         $q .= " or description like ? or LOWER(notion) like ?"; $p[] = "%$word%"; $p[] = "%$word%"; }
+   $notns = asone(dbq($q, $p),true);
    nocach("text/html",json_encode(array("notns" => $notns)));
 }
 function mixqa($getar){
    $jason=json_decode(stripslashes($getar),true);
    $nlist=$jason['nlist'];
-   $nncol=db_escape($nlist[0]);
-   $nidno=holen("notionID","aanotion","notion",$nncol);
+   if ( !is_array($nlist) || !$nlist ) nogut();
+   $nidno=holen("notionID","aanotion","notion",$nlist[0]);
    konto("notionID","aaformula","notionID","$nidno") ? $forja=true : $forja=false;
    if($forja) {
       foreach($nlist as $n) {
-         $nncol=db_escape($n);
-         $nidno=holen("notionID","aanotion","notion",$nncol);
+         $nidno=holen("notionID","aanotion","notion",$n);
          $forma=formx($nidno);
          foreach ($forma as $f) $qaimg[]=array("q"=>$f['q'],"a"=>$f['a'],"i"=>$f['i'],"s"=>$f['s']);
       }
    } else {
       foreach($nlist as $n){
+         $ntabl=holen("notion","aanotion","notion",$n); // only tables that are notions
+         if ( $ntabl === null ) continue;
          $felde=" question, answer ";
-         $q=sql("select $felde from `$n`");
+         $q=sql("select $felde from " . ntick($ntabl));
          while($r=db_fetch_assoc($q)){
             $qaimg[]=array("q"=>$r['question'],"a"=>$r['answer']);
          }

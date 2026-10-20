@@ -1,0 +1,9 @@
+# Library includes are not web entry points.
+# Only the two endpoints the browser requests directly stay reachable.
+Require all denied
+<Files "error_404.php">
+   Require all granted
+</Files>
+<Files "doneTest.php">
+   Require all granted
+</Files>

@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/bootstrap.php';
 session_start();
 require_once "utiles.php";
 require_once "cssphp.php";
@@ -7,7 +8,7 @@ require_once "tools.php";
 
 iazik();
 $XLATE_ER404 = xlate("er404",$_SESSION['slang']);
-$MYURL = param("myurl");
+$MYURL = hsc(param("myurl"));
 $ER404_DOC=<<<END_OF_ER404
       <!DOCTYPE html>
          <html>

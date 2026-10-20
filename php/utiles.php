@@ -11,17 +11,12 @@ require_once "dbutil.php";
 
 function rjekt(){ header("Location: php/error_404.php"); exit; }
 function obfus(){ return(md5(uniqid(rand())).md5(uniqid(rand()))."-notionary.com-checksum=" .md5(uniqid(rand())) .md5(uniqid(rand()))); }
-function slang($uidno){ $_SESSION['slang']=holen("ulang","aauser","userID","$uidno"); }
-function debug(){
-   $MY_ARRAYS  = array('_SERVER','_SESSION','_REQUEST','_POST','_GET','GLOBALS');
-   foreach($MY_ARRAYS as $g){
-      echo '<br/><br/>$'.$g."<br/>";
-      eval("foreach($".$g.' as $x=>$y)
-      echo $x.":[".$y."]<br/> ";');
-   }
-   ob_start(); phpinfo(); $pinfo = ob_get_contents(); ob_end_clean();
-   $pinfo = preg_replace( '%^.*<body>(.*)</body>.*$%ms','$1',$pinfo);
-   echo $pinfo;
+function slang($uidno){ $l = holen("ulang","aauser","userID","$uidno"); if ( lingo($l) ) $_SESSION['slang'] = $l; }
+function hsc($s){ return htmlspecialchars( (string)$s, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8', false ); } // HTML text/attribute
+function jsv($v){ // a value as a JavaScript literal that is also safe inside <script>
+   $j = json_encode( $v, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT
+                       | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE );
+   return ( $j === false ) ? '""' : $j;
 }
 function isMobile(){
    if(isset($_SERVER["HTTP_X_WAP_PROFILE"]))  return true;
@@ -40,7 +35,13 @@ function isMobile(){
    }
    return false;
 }
-function mudoc(){ nocach("text/html", file_get_contents($_SESSION['slang']."/".$_REQUEST['was'].".txt") ); }
+function mudoc(){ // static help texts: <lang>/<doc>.txt
+   $DOKUS = array('fuss','faq','choiceAnswers');
+   $lan2L = lingo( $_SESSION['slang'] );
+   $dokum = isset( $_REQUEST['was'] ) ? $_REQUEST['was'] : '';
+   if ( !$lan2L || !in_array( $dokum, $DOKUS, true ) ) nogut();
+   nocach("text/html", file_get_contents($lan2L."/".$dokum.".txt") );
+}
 function apoqu($badst){ // UTF8 Preprocessor to prevent utf8-decode() hiccups ?
    // 0xe28099 Right Single Quotation mark
    $bad_stuff=array("e28099","c591","c590","c5b1","c5b0");
@@ -194,10 +195,9 @@ function ssmkp(){
    if ( isset ( $_REQUEST['was'] ) && $_REQUEST['tun'] != "suche" ) {
       // All ssmkp routines have notion name as "was" except 'suche'
       $nname = $_REQUEST['was'];
-      $nncol = db_escape($nname);
-      $r = db_fetch_assoc( sql("select notionID, notion from `aanotion` where notion='$nncol'"));
+      $r = db_fetch_assoc( dbq("select notionID, notion from `aanotion` where notion=?", array($nname)));
       if ( !$r ) { header('HTTP/1.1 500 Query String Error'); exit(); }
-      $nidno = $r['notionID']; $ntabl=$r['notion']; $nname=$r['notion'];
+      $nidno = (int)$r['notionID']; $ntabl=$r['notion']; $nname=$r['notion'];
       $query = db_fetch_assoc(sql("select * from aanotion where notionID=$nidno"));
       $x_url = "{$params['MYURL']}?tun=trial&was=$nname";
       $x_des = $query['description'];
@@ -215,6 +215,7 @@ function porta(){
 }
 function mtags($langx,$seturl,$setttl,$setdes,$setimg){
    global $NAV_WIDTH;
+   if ( !lingo($langx) ) $langx = "en";
    $q = sql("select * from `aaparam`");
    $params = []; while( $r = db_fetch_assoc($q)) $params[strtoupper($r['kodex'])] = $r['value'];
    $q = sql("select kodex, $langx from `aaglobe` where kodex='descr' or kodex='kwrds' or kodex='altxt'");
@@ -224,6 +225,7 @@ function mtags($langx,$seturl,$setttl,$setdes,$setimg){
    if( !empty( $seturl ) ) $params['MYURL'] = str_replace(' ', '%20', $seturl);
    if( !empty( $setttl ) ) $params['ALTXT'] = $setttl;
    if( !empty( $setdes ) ) $params['DESCR'] = $setdes;
+   foreach( array('ALTXT','DESCR','KWRDS','MYURL','MYNOM') as $k ) $params[$k] = hsc( isset($params[$k]) ? $params[$k] : "" );
 $METAS=<<<END_OF_METAS
 <!DOCTYPE html>
 <html lang='$langx' dir='ltr' xmlns='http://www.w3.org/1999/xhtml' itemscope itemtype='http://schema.org/Organization'>
@@ -264,13 +266,15 @@ function stags($inline){ // Critical Path Speed:(1)HTML Splash, (2)CSS: CCOR, (3
    $JCOR = "{$MYURL}js/notionary-deve.js?version=$VERS";
    $CCOR = "{$MYURL}css/notionary-deve.php?version=$VERS";
    $FAVI = "data:image/vnd.microsoft.icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABkZ2X/UKO7/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKLa7v+Dxt3/AAAAOQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABpssn/odru/wlxtP8+fqb/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACXG0/wlxtP8Do/7/CXG0/z5+pv8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJcbT/CXG0/wOj/v8JcbT/Pn6m/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlxtP8JcbT/A6P+/wlxtP8+fqb/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACXG0/wlxtP8Do/7/CXG0/z5+pv8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJcbT/CXG0/wOj/v8idqv/Pn6m/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlxtP8JcbT/A6P+/xHs7v+OdMr/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACXG0/xLv6/+pivH/qYrx/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACpivH/qYrx/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//8AAP//AAD//wAA5/8AAPP/AADw/wAA8H8AAPg/AAD8HwAA/g8AAP8HAAD/gwAA/8MAAP/nAAD//wAA//8AAA==";
-   if(isset($_REQUEST['n'])) $nname=$_REQUEST['n'];
-   if(isset($_REQUEST['l'])) $level=$_REQUEST['l'];
+   if(isset($_REQUEST['n']) && is_string($_REQUEST['n'])) $nname=$_REQUEST['n'];
+   if(isset($_REQUEST['l']) && is_string($_REQUEST['l'])) $level=$_REQUEST['l'];
+   // Request values and URLs enter the inline script only as JSON literals
+   $nname = jsv($nname); $level = jsv($level); $JCOR = jsv($JCOR); $CCOR = jsv($CCOR);
 
 if ( $inline == "rentr" )
 $OBFU =<<<END_OF_RENTR
-var r,y,t,o = document.getElementsByTagName("head")[0]; nname = "$nname"; level = "$level"; uname = "";
-r = document.createElement('style'); r.textContent = '@import "' + '$CCOR' +'"';
+var r,y,t,o = document.getElementsByTagName("head")[0]; nname = $nname; level = $level; uname = "";
+r = document.createElement('style'); r.textContent = '@import "' + $CCOR +'"';
 y = document.createElement("link");  y.rel="shortcut icon"; y.href="$FAVI";
 t = setInterval(function() { try { r.sheet.cssRules; clearInterval(t);
        if ( window.addEventListener ) window.addEventListener("load", getJS(), false);
@@ -281,14 +285,14 @@ t = setInterval(function() { try { r.sheet.cssRules; clearInterval(t);
 o.appendChild(r);
 function w84js( cbk ){ if( window.nentr ) cbk(); else setTimeout(function() { w84js(cbk) }, 10); }
 function getJS() {
-   var main = document.createElement("script"); main.src = "$JCOR"; document.body.appendChild(main);
+   var main = document.createElement("script"); main.src = $JCOR; document.body.appendChild(main);
    w84js(function(){ rentr(); });
 }
 END_OF_RENTR;
 
 else $OBFU =<<<END_OF_OBFU
-var r,y,t,o = document.getElementsByTagName("head")[0]; nname = "$nname"; level = "$level"; uname = "";
-r = document.createElement('style'); r.textContent = '@import "' + '$CCOR' +'"';
+var r,y,t,o = document.getElementsByTagName("head")[0]; nname = $nname; level = $level; uname = "";
+r = document.createElement('style'); r.textContent = '@import "' + $CCOR +'"';
 y = document.createElement("link");  y.rel="shortcut icon"; y.href="$FAVI";
 t = setInterval(function() { try { r.sheet.cssRules; clearInterval(t);
        if ( window.addEventListener ) window.addEventListener("load", getJS(), false);
@@ -299,7 +303,7 @@ t = setInterval(function() { try { r.sheet.cssRules; clearInterval(t);
 o.appendChild(r);
 function w84js( cbk ){ if( window.nentr ) cbk(); else setTimeout(function() { w84js(cbk) }, 10); }
 function getJS() {
-   var main = document.createElement("script"); main.src = "$JCOR"; document.body.appendChild(main);
+   var main = document.createElement("script"); main.src = $JCOR; document.body.appendChild(main);
    w84js(function(){ nentr(); });
 }
 END_OF_OBFU;
