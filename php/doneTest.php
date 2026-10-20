@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/bootstrap.php';
 $_CONFIG = require __DIR__ . '/../config.php';
 session_start();
 if(!ob_start("ob_gzhandler")) ob_start();
@@ -18,14 +19,14 @@ if( !isset($_SESSION['blang']) || !isset($_SESSION['slang']) ) { // Set 'blang' 
       default: if(!isset($_SESSION["slang"])) $_SESSION["slang"]="en"; break;
    }
 }
-$slang = $_SESSION["slang"];
+$slang = lingo($_SESSION["slang"]) ? $_SESSION["slang"] : "en"; // used as a column name by xlate()
 function par2s($probAR,$nname,$slang){ // Convert a Problems Array into a String
    $_ACHT = pglot(["_ACHT"])[0];
    $probStr = "\r\n";
    $felde  = " answer ";
    if( sizeof($probAR) )
       foreach($probAR as $praw){ // We are dealing with internationalized data
-         $q=dbq("select $felde from `$nname` where question=?", array($praw));
+         $q=dbq("select $felde from " . ntick($nname) . " where question=?", array($praw));
          $r=db_fetch_assoc($q);
          if( !$r ) continue;
          $anser = getGoodChoice($r['answer']);
@@ -37,17 +38,16 @@ function par2s($probAR,$nname,$slang){ // Convert a Problems Array into a String
 }
 function updateServer($uidno,$nidno,$ptype,$score,$dauer,$probs){
    // Save the Performance data into the Database for tests 1, 2, 3
-   sql("insert into aaperfid (userID,notionID,ptype,dtime,score,elapsed)
-        values('$uidno','$nidno','$ptype',CURRENT_TIMESTAMP,'$score','$dauer')");
+   dbq("insert into aaperfid (userID,notionID,ptype,dtime,score,elapsed)
+        values(?,?,?,CURRENT_TIMESTAMP,?,?)", array((int)$uidno, (int)$nidno, (int)$ptype, $score, (int)$dauer));
 
    $r = db_fetch_assoc(
            sql( "select max(perfID) as id from aaperfid" ) );
 
-   $prfid = $r['id'];
+   $prfid = (int)$r['id'];
 
    foreach( $probs as $p ) { // Save each problem into the Database ( internationalized data )
-      $aposOK = db_escape($p );
-      sql("insert into aaprobs (perfID,probs) values ('$prfid','$aposOK')"); }
+      dbq("insert into aaprobs (perfID,probs) values (?,?)", array($prfid, (string)$p)); }
    return($prfid);
 }
 function getPerformance($uidno,$nidno){
@@ -69,7 +69,7 @@ function getPriorResults($uidno,$nidno,$nname,$slang){
    list($_BEFO, $_MINI, $_MAXI, $_AVER) = pglot(["_BEFO", "_MINI", "_MAXI", "_AVER"]);
    $results123 = "";
    // Now here we could potentially show a prior Summary Graph but for now just a list
-   $q=sql("select * from aaperfid where userID='$uidno' and notionID='$nidno' order by dtime desc");
+   $q=dbq("select * from aaperfid where userID=? and notionID=? order by dtime desc", array((int)$uidno, (int)$nidno));
    if(db_num_rows($q)>0) // This user has tested this Notion before
       while($r=db_fetch_assoc($q)){
          $per[]=array( "pid" => $r['perfID'], "typ" => $r['ptype'],
@@ -143,8 +143,9 @@ function getPriorResults($uidno,$nidno,$nname,$slang){
 }
 ercau(); ercas();  // This seems not to work in production -- redundant for now with notionary-perf.js
 $jason = json_decode($_REQUEST['pdata'],true);
-$nidno = $jason['nidno']; $ttype = $jason['ttype']; $right = $jason['right'];
-$score = $jason['score']; $dauer = $jason['dauer']; $probs = $jason['probs'];
+$nidno = (int)$jason['nidno']; $ttype = $jason['ttype']; $right = $jason['right'];
+$score = is_numeric($jason['score']) ? $jason['score'] + 0 : 0; $dauer = (int)$jason['dauer'];
+$probs = is_array($jason['probs']) ? $jason['probs'] : array();
 $elaps = sec2t( $dauer );
 $XLATE_ALTXT = xlate("altxt",$slang); $XLATE_LEVEL = xlate("level",$slang);
 $XLATE_PERFO = xlate("perfo",$slang); $_PERF = "[ notionary ] $XLATE_PERFO";

@@ -34,6 +34,25 @@ function db_fetch_array($r){                     // mysqli_fetch_array default =
    return $both;
 }
 function db_escape($s){ return SQLite3::escapeString( (string)$s ); }
+function ntick($t){ return "`" . str_replace( "`", "``", (string)$t ) . "`"; }  // quote a notion table name
+function nname_ok($t){                            // safe name for a new/renamed notion table
+   // Letters/digits/_/space/- (the editor also allows . and /); bytes >= 0x80 keep non-ASCII names working
+   return is_string($t) && preg_match( '/^[A-Za-z0-9_ .\/\x80-\xFF-]+$/', $t ) === 1;
+}
+function tabelle($t){                            // does a table of this name exist? (SQLite names ignore ASCII case)
+   return db_num_rows( dbq( "select name from sqlite_master where type='table' and lower(name)=lower(?)", array($t) ) );
+}
+function nogut(){ header('HTTP/1.1 400 Bad Request'); exit; }   // reject a malformed AJAX request
+
+/* ---- identifier allow-list: tables and columns the client may name in geter/getme/seter ---- */
+function erlaubt( $tafel, $spalten ) {
+   static $ERLAUBT = array(
+      'aapart' => array('notionID', 'part', 'cardinality'),   // editor: "part N of M" (seter)
+   );
+   if ( !is_string($tafel) || !isset( $ERLAUBT[$tafel] ) ) return false;
+   foreach ( $spalten as $s ) if ( !in_array( $s, $ERLAUBT[$tafel], true ) ) return false;
+   return true;
+}
 
 function sql( $query ) {                          // raw query (reads + identifier-only writes)
    $res = lsql()->query( $query );
@@ -61,6 +80,7 @@ function geter( $getar ) {
    $jason = json_decode( stripslashes( $getar ), true );
    $secol = $jason['secol']; $wocol = $jason['wocol'];
    $vonta = $jason['vonta']; $valis = $jason['valis'];
+   if ( !erlaubt( $vonta, array($secol, $wocol) ) ) nogut();
    if ( $valis == "UIDNO" ) $valis = holen("userID","aauser","user",$_SESSION['uname']);
    echo holen( $secol, $vonta, $wocol, $valis );
 }
@@ -68,6 +88,7 @@ function getme( $getar ){
    $jason = json_decode( stripslashes( $getar ), true );
    $secol = $jason['secol']; $wocol = $jason['wocol']; $vonta = $jason['vonta'];
    $valis = $jason['valis'];
+   if ( !erlaubt( $vonta, array($secol, $wocol, "userID") ) ) nogut();
    $r = db_fetch_assoc(
         dbq( "select $secol from \"$vonta\" where $wocol=? and userID=?", array($valis, uidno()) ) );
    echo $r[$secol];
@@ -76,6 +97,9 @@ function seter( $getar ){
    $jason = json_decode( stripslashes( $getar ), true );
    $tafel = $jason['tafel']; $chcol = $jason['chcol'];
    $nuval = $jason['nuval']; $wocol = $jason['wocol']; $olval = $jason['olval'];
+   $spalten = array( empty($wocol) ? "userID" : $wocol );
+   if ( $nuval != "DELETE" ) $spalten[] = $chcol;  // DELETE names no column to change
+   if ( !erlaubt( $tafel, $spalten ) ) nogut();
    if ( $tafel == "aaglobe") ercal($chcol);
    if ( empty($wocol) ){
       $wocol = "userID"; $olval = holen("userID","aauser","user",$_SESSION['uname']);

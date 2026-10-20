@@ -1,4 +1,4 @@
-<?php ob_start ("ob_gzhandler");
+<?php require_once __DIR__ . "/../php/bootstrap.php"; ob_start ("ob_gzhandler");
    $lastModified=filemtime(__FILE__);
    $etagFile = md5_file(__FILE__);
    $ifModifiedSince=(

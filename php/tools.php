@@ -26,6 +26,7 @@ function markupBlogHeader($nname,$ndesc,$nhtml,$mixed,$noten,$marks){
    $BLOG_TEXT   = "display:inline-block;margin:40px 0px 30px 10px;".
                   "font: normal normal 400 1em/1 Futura, Calibri, sans-serif,monospace;".
                   "vertical-align:top;max-width:400px!important;";
+   $nname = hsc($nname); $ndesc = hsc($ndesc); $nhtml = hsc($nhtml); // stored values; $mixed/$noten/$marks are markup
 $BLOG=<<<END_OF_BLOG
 <div style='display:inline-block'>
   <div style="$BLOG_TEXT">
@@ -40,11 +41,18 @@ $eggon
 END_OF_BLOG;
    return($BLOG);
 }
+function lingo($lan2L){ // a supported interface language code (the aaglobe columns), else false
+   static $SPRACHEN = array('en','de','es','fr','it','pt','ru','hu');
+   if ( is_string($lan2L) && preg_match('/^[a-z]{2}$/', $lan2L) && in_array($lan2L, $SPRACHEN, true) ) return $lan2L;
+   return false;
+}
 function iazik(){
    if ( isset( $_SESSION['uname'] ) ) {
-      $sprache = db_fetch_array( sql("select ulang from aauser where user='$_SESSION[uname]'"));
-      $_SESSION["slang"] =  $sprache['ulang']; $_SESSION["blang"] =  $sprache['ulang'];
-      return;
+      $sprache = db_fetch_array( dbq("select ulang from aauser where user=?", array($_SESSION['uname'])));
+      if ( lingo( $sprache['ulang'] ) ) {
+         $_SESSION["slang"] =  $sprache['ulang']; $_SESSION["blang"] =  $sprache['ulang'];
+         return;
+      }
    }
    $_SESSION["blang"]="en";
    if ( array_key_exists('HTTP_ACCEPT_LANGUAGE', $_SERVER) ) $alhed=explode(',',$_SERVER['HTTP_ACCEPT_LANGUAGE']);
@@ -54,7 +62,7 @@ function iazik(){
       default: $_SESSION["blang"]="en"; $_SESSION["slang"]="en"; break;
    }
 }
-function ercan($nidno){ foreach(glob("cache/_notionary_NINFO_" . $nidno . "_*_cache.php") as $fname) unlink($fname); }
+function ercan($nidno){ foreach(glob("cache/_notionary_NINFO_" . (int)$nidno . "_*_cache.php") as $fname) unlink($fname); }
 function getGoodChoice($choicesString){ // Internal tool to pass back the useful choice
    $XOICES_SEPARATOR ="￭";
    if(strpos($choicesString,$XOICES_SEPARATOR)===false)
@@ -64,6 +72,7 @@ function getGoodChoice($choicesString){ // Internal tool to pass back the useful
    return($theGoodChoice[0]);
 }
 function nrall($nidno){ // asone() notion records 1-3 test types
+   $nidno = (int)$nidno;
    $q=sql("select * from
             (select p.ptype, p.userID, p.score, min(p.elapsed) as mine, p.dtime from
                (select ptype, userID, max( score ) as maxs from aaperfid
@@ -102,6 +111,7 @@ function nrall($nidno){ // asone() notion records 1-3 test types
    ));
 }
 function nmall($uidno,$nidno){ // asone() personal records 1-3 test types
+   $uidno = (int)$uidno; $nidno = (int)$nidno;
    $q=sql("select p.ptype, p.score, min(p.elapsed) as mine from
             (select ptype, max( score ) as maxs from aaperfid
                     where notionID='$nidno' and userID='$uidno'
